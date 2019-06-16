@@ -10,23 +10,34 @@ class List
   struct Node;
 
  public:
-  class const_iterator
-  {
-   public:
-    const_iterator() : current(nullptr)
-    {}
-   protected:
-    Node *current;
-  };
-  class iterator : public const_iterator{};
+  class const_iterator;
+  class iterator;
+
+ public:
+  List();
 
 };
 
-struct Node{
+template<class T>
+struct List<T>::Node{
+  T data;
 
 };
 
+template<class T>
+class List<T>::const_iterator
+{
+ public:
+  const_iterator() : current(nullptr)
+  {}
+ protected:
+  Node *current;
+};
 
+template<class T>
+class List<T>::iterator : public List<T>::const_iterator
+{
+};
 
 }
 
