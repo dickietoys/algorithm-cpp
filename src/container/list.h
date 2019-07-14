@@ -1,6 +1,8 @@
 #ifndef LIST_H_
 #define LIST_H_
 
+#include <iostream>
+
 namespace wdq
 {
 template<class T>
@@ -22,6 +24,7 @@ class List
   class const_iterator
   {
    public:
+    friend class List<T>;
     const_iterator() : current(nullptr)
     {}
 
@@ -69,22 +72,21 @@ class List
   class iterator : public const_iterator
   {
    public:
+    friend class List<T>;
     iterator()
     {}
-
-    T & operator*()
-    {}
-
-    const T & operator*() const
+    iterator & operator++()
     {
-
+      this->current = this->current->next;
+      return *this;
     }
 
-    iterator & operator++()
-    {}
-
     iterator operator++(int)
-    {}
+    {
+      iterator old = *this;
+      ++(*this);
+      return old;
+    }
 
    protected:
     iterator(Node *p) :
@@ -95,13 +97,32 @@ class List
 
  public:
   List()
-  {}
+  {
+    init();
+  }
+
   List(const List&rhs)
-  {}
+  {
+    init();
+    for(auto &x : rhs)
+    {
+      push_back(x);
+    }
+  }
+
   ~List()
-  {}
+  {
+    clear();
+    delete head;
+    delete tail;
+  }
+
   const List &operator=(const List &rhs)
-  {}
+  {
+    List copy = rhs;
+    std::swap(*this, copy);
+    return *this;
+  }
 
   iterator begin()
   {
@@ -174,15 +195,28 @@ class List
 
   iterator insert(iterator itr, const T &t)
   {
+    Node *p = itr.current;
+    theSize++;
+    return { p->prev = p->prev->next = new Node{ t, p->prev, p } };
   }
 
   iterator erase(iterator itr)
-  {}
+  {
+    Node *p = itr.current;
+    iterator retVal{ p->next };
+    p->prev->next = p->next;
+    p->next->prev = p->prev;
+    delete p;
+    theSize--;
+    return retVal;
+  }
 
-  iterator erase(iterator start, iterator end)
-  {}
-
-
+  iterator erase(iterator from, iterator to)
+  {
+    for( iterator itr = from; itr != to; )
+      itr = erase( itr );
+    return to;
+  }
 
   void clear()
   {
@@ -198,7 +232,13 @@ class List
   Node *tail;
 
   void init()
-  {}
+  {
+    theSize = 0;
+    head = new Node;
+    tail = new Node;
+    head->next = tail;
+    tail->prev = head;
+  }
 };
 
 
