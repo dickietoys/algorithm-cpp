@@ -9,11 +9,18 @@ template<class T>
 class BinarySearchTree
 {
  public:
-  BinarySearchTree(){}
+  BinarySearchTree(){
+    root = nullptr;
+  }
 
   BinarySearchTree(const BinarySearchTree &rhs)
   {
     root = clone(rhs.root);
+  }
+
+  int height() const
+  {
+    return height(root);
   }
 
   ~BinarySearchTree()
@@ -41,8 +48,17 @@ class BinarySearchTree
     return root == nullptr;
   }
 
-  void printTree(ostream & out = cout) const
-  {}
+  void printTree(ostream & out = cout, int mode = 0) const
+  {
+    if (isEmpty())
+    {
+      out << "Empty tree" << endl;
+    }
+    else
+    {
+      printTree(root, out, mode);
+    }
+  }
 
   void makeEmpty()
   {
@@ -60,7 +76,9 @@ class BinarySearchTree
   }
 
   BinarySearchTree & operator=(const BinarySearchTree &rhs)
-  {}
+  {
+    root = clone(rhs.root);
+  }
 
  private:
   struct BinaryNode
@@ -79,11 +97,27 @@ class BinarySearchTree
 
   BinaryNode *root;
 
+  int height(BinaryNode *t) const
+  {
+    if (t == nullptr)
+    {
+      return -1;
+    }
+    else
+    {
+      int leftMax = 1 + height(t->left);
+      int rightMax = 1 + height(t->right);
+
+      return leftMax > rightMax ? leftMax : rightMax;
+    }
+  }
+
   void insert(const T &x, BinaryNode * & t)
   {
     if (t == nullptr)
     {
       t = new BinaryNode(x, nullptr, nullptr);
+      return;
     }
 
     if (x < t->element)
@@ -136,12 +170,12 @@ class BinarySearchTree
       return nullptr;
     }
 
-    while (t->left)
+    if (t->left == nullptr)
     {
-      t = t->left;
+      return t;
     }
 
-    return t;
+    return findMin(t->left);
   }
 
   BinaryNode * findMax(BinaryNode *t) const
@@ -192,8 +226,34 @@ class BinarySearchTree
     t = nullptr;
   }
 
-  void printTree(BinaryNode *t, ostream & out) const
-  {}
+  void printTree(BinaryNode *t, ostream & out, int mode) const
+  {
+    if (t == nullptr)
+    {
+      return;
+    }
+
+    if (mode == 0)
+    {
+      // preorder
+      printTree(t->left, out, mode);
+      out << t->element << endl;
+      printTree(t->right, out, mode);
+    }
+    else if (mode == 1)
+    {
+      // inorder
+      out << t->element << endl;
+      printTree(t->left, out, mode);
+      printTree(t->right, out, mode);
+    }
+    else
+    {
+      printTree(t->left, out, mode);
+      printTree(t->right, out, mode);
+      out << t->element << endl;
+    }
+  }
 
   BinaryNode * clone(BinaryNode *t) const
   {

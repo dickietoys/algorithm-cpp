@@ -1,5 +1,6 @@
 #include <container/vector.h>
 #include <container/list.h>
+#include <container/binary_search_tree.h>
 #include <algo/maximum_conti_subsequence.h>
 #include <algo/expression_convert.h>
 
@@ -59,8 +60,27 @@ void infixConvert2Postfix()
   cout << postfixData << endl;
 }
 
+void binarySearchTree()
+{
+  BinarySearchTree<int> bst;
+  bst.insert(10);
+  bst.insert(5);
+  bst.insert(2);
+  bst.insert(7);
+  bst.insert(15);
+  bst.insert(12);
+  bst.insert(18);
+  bst.printTree(cout, 0);
+  cout << "===========================" << endl;
+  bst.printTree(cout, 1);
+  cout << "===========================" << endl;
+  bst.printTree(cout, 2);
+  cout << "===========================" << endl;
+  cout << "height: " << bst.height() << endl;
+}
+
 int main()
 {
-  infixConvert2Postfix();
+  binarySearchTree();
   return 0;
 }
