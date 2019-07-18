@@ -4,6 +4,7 @@
 #include <algo/maximum_conti_subsequence.h>
 #include <algo/expression_convert.h>
 #include <container/binary_heap.h>
+#include <sort/sort.h>
 
 #include <vector>
 #include <iostream>
@@ -11,7 +12,7 @@
 
 void useMyVector()
 {
-  wdq::Vector<int> v;
+  Vector<int> v;
   v.push_back(1);
   v.push_back(2);
   v.push_back(3);
@@ -23,14 +24,14 @@ void useMyVector()
 
 void useList()
 {
-  wdq::List<int> l;
+  List<int> l;
   l.push_back(1);
   l.push_back(2);
   l.push_back(3);
   l.push_back(4);
   l.push_back(5);
   l.push_back(6);
-  wdq::List<int>::const_iterator it;
+  List<int>::const_iterator it;
   for (it = l.begin(); it != l.end(); ++it)
   {
     std::cout << *it << std::endl;
@@ -80,9 +81,15 @@ void binarySearchTree()
   cout << "height: " << bst.height() << endl;
 }
 
+void sortBox()
+{
+  SortBox<int> sb;
+  vector<int> data = {9, 11, 8, 6, 7, 12};
+  sb.doAllSort(data);
+}
+
 int main()
 {
-  vector<int> v;
-  BinaryHeap<int> b(v);
+  sortBox();
   return 0;
 }

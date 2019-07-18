@@ -87,7 +87,10 @@ class BinaryHeap
 
   void buildHeap()
   {
-
+    for (int pos = currentSize/2; pos > 0; --pos)
+    {
+      percolateDown(pos);
+    }
   }
 
   void percolateDown(int hole)

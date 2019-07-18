@@ -3,8 +3,6 @@
 
 #include <iostream>
 
-namespace wdq
-{
 template <typename T>
 class Vector
 {
@@ -142,8 +140,6 @@ std::ostream &operator<<(std::ostream &os, const Vector<T> &vecData)
   }
 
   return os;
-}
-
 }
 
 #endif

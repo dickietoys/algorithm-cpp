@@ -3,8 +3,6 @@
 
 #include <iostream>
 
-namespace wdq
-{
 template<class T>
 class List
 {
@@ -240,9 +238,6 @@ class List
     tail->prev = head;
   }
 };
-
-
-}
 
 
 #endif
