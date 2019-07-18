@@ -3,6 +3,7 @@
 #include <container/binary_search_tree.h>
 #include <algo/maximum_conti_subsequence.h>
 #include <algo/expression_convert.h>
+#include <container/binary_heap.h>
 
 #include <vector>
 #include <iostream>
@@ -81,6 +82,7 @@ void binarySearchTree()
 
 int main()
 {
-  binarySearchTree();
+  vector<int> v;
+  BinaryHeap<int> b(v);
   return 0;
 }
