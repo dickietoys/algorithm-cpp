@@ -2,6 +2,7 @@
 #define BINARY_HEAP_H
 
 #include <vector>
+#include <iostream>
 #include <exception>
 
 using namespace std;
@@ -17,13 +18,23 @@ class BinaryHeap
   }
 
   explicit BinaryHeap(const vector<T> & items) :
-      array(items.size() + 10), currentSize(items.size())
+      currentSize(items.size()), array(items.size() + 10)
   {
-    for(int i = 0; i < items.size(); ++i)
+    for(size_t i = 0; i < items.size(); ++i)
     {
       array[i+1] = items[i];
     }
     buildHeap();
+  }
+
+  void printHeap()
+  {
+    for (size_t i = 1; i <= currentSize; ++i)
+    {
+      cout << array[i] << "; ";
+    }
+
+    cout << endl;
   }
 
   bool isEmpty() const
@@ -82,21 +93,21 @@ class BinaryHeap
   }
 
  private:
-  int currentSize;
+  size_t currentSize;
   vector<T> array;
 
   void buildHeap()
   {
-    for (int pos = currentSize/2; pos > 0; --pos)
+    for (size_t pos = currentSize/2; pos > 0; --pos)
     {
       percolateDown(pos);
     }
   }
 
-  void percolateDown(int hole)
+  void percolateDown(size_t hole)
   {
-    int child;
-    int value = array[hole];
+    size_t child;
+    T value = array[hole];
     for (; hole * 2 <= currentSize; hole = child)
     {
       child = hole * 2;
@@ -114,12 +125,12 @@ class BinaryHeap
       }
     }
 
-    array[child] = value;
+    array[hole] = value;
   }
 
   void percolateUp(int hole)
   {
-    int value = array[hole];
+    T value = array[hole];
     for (; value < array[hole / 2]; hole = hole / 2)
     {
       array[hole] = array[hole / 2];

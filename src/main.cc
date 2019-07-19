@@ -1,6 +1,7 @@
 #include <container/vector.h>
 #include <container/list.h>
 #include <container/binary_search_tree.h>
+#include <container/binary_heap.h>
 #include <algo/maximum_conti_subsequence.h>
 #include <algo/expression_convert.h>
 #include <container/binary_heap.h>
@@ -9,8 +10,7 @@
 #include <vector>
 #include <iostream>
 
-
-void useMyVector()
+void vectorTest()
 {
   Vector<int> v;
   v.push_back(1);
@@ -22,7 +22,7 @@ void useMyVector()
   std::cout << v << std::endl;
 }
 
-void useList()
+void listTest()
 {
   List<int> l;
   l.push_back(1);
@@ -38,7 +38,7 @@ void useList()
   }
 }
 
-void findMaxSubSequence()
+void findMaxSubSequenceTest()
 {
   FindMaxSubSequence findMaxSubSequence;
   std::vector<int> data;
@@ -53,7 +53,7 @@ void findMaxSubSequence()
   cout << findMaxSubSequence.findMax(data) << endl;
 }
 
-void infixConvert2Postfix()
+void infixConvert2PostfixTest()
 {
   expression_convert expressionConvert;
   string infixStr = "a+b*c+(d*e+f)*g";
@@ -62,7 +62,7 @@ void infixConvert2Postfix()
   cout << postfixData << endl;
 }
 
-void binarySearchTree()
+void binarySearchTreeTest()
 {
   BinarySearchTree<int> bst;
   bst.insert(10);
@@ -81,15 +81,28 @@ void binarySearchTree()
   cout << "height: " << bst.height() << endl;
 }
 
-void sortBox()
+void binaryHeapTest()
+{
+  vector<int> data = {9, 11, 8, 6, 7, 12};
+  BinaryHeap<int> bh(data);
+  bh.printHeap();
+}
+
+void sortBoxTest()
 {
   SortBox<int> sb;
   vector<int> data = {9, 11, 8, 6, 7, 12};
+  sb.doAllSort(data);
+  data = {11,12,13,14,15,16,17,18};
+  sb.doAllSort(data);
+  data = {18,17,16,15,14,13,12,11};
+  sb.doAllSort(data);
+  data = {17,11,18,13,15,14,12,16};
   sb.doAllSort(data);
 }
 
 int main()
 {
-  sortBox();
+  sortBoxTest();
   return 0;
 }
