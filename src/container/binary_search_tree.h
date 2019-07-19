@@ -2,6 +2,7 @@
 #define BINARY_SEARCH_TREE_H_
 
 #include <iostream>
+#include <stack>
 
 using namespace std;
 
@@ -57,6 +58,18 @@ class BinarySearchTree
     else
     {
       printTree(root, out, mode);
+    }
+  }
+
+  void printTree(stack<T> &s, int kth, int mode = 0) const
+  {
+    if (isEmpty())
+    {
+      return;
+    }
+    else
+    {
+      printTree(root, s, kth, mode);
     }
   }
 
@@ -226,6 +239,38 @@ class BinarySearchTree
     t = nullptr;
   }
 
+  void printTree(BinaryNode *t, stack<T> &s, int &kth, int mode) const
+  {
+    if (t == nullptr)
+    {
+      return;
+    }
+
+    if (mode == 0)
+    {
+      // preorder
+      s.push(t->element);
+      ++kth;
+      printTree(t->left, s, kth, mode);
+      printTree(t->right, s, kth, mode);
+    }
+    else if (mode == 1)
+    {
+      // inorder
+      printTree(t->left, s, kth, mode);
+      s.push(t->element);
+      ++kth;
+      printTree(t->right, s, kth, mode);
+    }
+    else
+    {
+      printTree(t->left, s, kth, mode);
+      printTree(t->right, s, kth, mode);
+      s.push(t->element);
+      ++kth;
+    }
+  }
+
   void printTree(BinaryNode *t, ostream & out, int mode) const
   {
     if (t == nullptr)
@@ -236,15 +281,15 @@ class BinarySearchTree
     if (mode == 0)
     {
       // preorder
-      printTree(t->left, out, mode);
       out << t->element << endl;
+      printTree(t->left, out, mode);
       printTree(t->right, out, mode);
     }
     else if (mode == 1)
     {
       // inorder
-      out << t->element << endl;
       printTree(t->left, out, mode);
+      out << t->element << endl;
       printTree(t->right, out, mode);
     }
     else

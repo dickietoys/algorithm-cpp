@@ -6,6 +6,7 @@
 #include <algo/expression_convert.h>
 #include <container/binary_heap.h>
 #include <sort/sort.h>
+#include <algo/find_kth_element.h>
 
 #include <vector>
 #include <iostream>
@@ -88,6 +89,31 @@ void binaryHeapTest()
   bh.printHeap();
 }
 
+template<class T>
+void printVector(vector<T> &data)
+{
+  for(size_t i = 0; i < data.size(); ++i)
+  {
+    cout << data[i] << ",  ";
+  }
+
+  cout << endl;
+}
+
+void findKthElementTest()
+{
+  FindKthElement<int> fke;
+  vector<int> data = {9, 11, 8, 6, 7, 12};
+  int kth = 2;
+  printVector(data);
+
+  int foundElement = fke.findKthByBinaryHeap(data, kth);
+  cout << "use binary heap found " << kth << "th:" << foundElement << endl;
+
+  foundElement = fke.findKthByBinarySearchTree(data, kth);
+  cout << "use binary search tree found " << kth << "th:" << foundElement << endl;
+}
+
 void sortBoxTest()
 {
   SortBox<int> sb;
@@ -103,6 +129,7 @@ void sortBoxTest()
 
 int main()
 {
-  sortBoxTest();
+  findKthElementTest();
+  // sortBoxTest();
   return 0;
 }
