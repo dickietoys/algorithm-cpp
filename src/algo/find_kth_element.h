@@ -43,8 +43,7 @@ class FindKthElement
       bst.insert(data[i]);
     }
 
-    stack<T> s;
-    bst.printTree(s, 1, kth);
+    T & kthElement = bst.findKthElement(kth);
 
     return s.top();
   }

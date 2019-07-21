@@ -61,15 +61,17 @@ class BinarySearchTree
     }
   }
 
-  void printTree(stack<T> &s, int kth, int mode = 0) const
+  void findKthElement(int kth) const
   {
     if (isEmpty())
     {
-      return;
+      throw exception();
     }
     else
     {
-      printTree(root, s, kth, mode);
+      stack<T> s;
+      BinaryNode *p;
+      while (p)
     }
   }
 
@@ -237,38 +239,6 @@ class BinarySearchTree
     }
 
     t = nullptr;
-  }
-
-  void printTree(BinaryNode *t, stack<T> &s, int &kth, int mode) const
-  {
-    if (t == nullptr)
-    {
-      return;
-    }
-
-    if (mode == 0)
-    {
-      // preorder
-      s.push(t->element);
-      ++kth;
-      printTree(t->left, s, kth, mode);
-      printTree(t->right, s, kth, mode);
-    }
-    else if (mode == 1)
-    {
-      // inorder
-      printTree(t->left, s, kth, mode);
-      s.push(t->element);
-      ++kth;
-      printTree(t->right, s, kth, mode);
-    }
-    else
-    {
-      printTree(t->left, s, kth, mode);
-      printTree(t->right, s, kth, mode);
-      s.push(t->element);
-      ++kth;
-    }
   }
 
   void printTree(BinaryNode *t, ostream & out, int mode) const
