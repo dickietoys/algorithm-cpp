@@ -122,17 +122,16 @@ void sortBoxTest()
   SortBox<int> sb;
   vector<int> data = {9, 11, 8, 6, 7, 12};
   sb.doAllSort(data);
-  data = {11,12,13,14,15,16,17,18};
-  sb.doAllSort(data);
-  data = {18,17,16,15,14,13,12,11};
-  sb.doAllSort(data);
-  data = {17,11,18,13,15,14,12,16};
-  sb.doAllSort(data);
+  // data = {11,12,13,14,15,16,17,18};
+  // sb.doAllSort(data);
+  // data = {18,17,16,15,14,13,12,11};
+  // sb.doAllSort(data);
+  // data = {17,11,18,13,15,14,12,16};
+  // sb.doAllSort(data);
 }
 
 int main()
 {
-  findKthElementTest();
-  // sortBoxTest();
+  sortBoxTest();
   return 0;
 }

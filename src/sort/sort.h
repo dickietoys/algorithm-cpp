@@ -91,6 +91,45 @@ class SortBox{
     return data;
   }
 
+  vector<T> bucketSort(vector<T> data)
+  {
+    vector<T> count_bucket(1000);
+    for (size_t i = 0; i < data.size(); ++i)
+    {
+      count_bucket[data[i]] += 1;
+    }
+
+    vector<T> sorted_data(data.size());
+    int index = 0;
+    for (size_t i = 0; i < count_bucket.size(); ++i)
+    {
+      while (count_bucket[i] != 0)
+      {
+        sorted_data[index++] = i;
+        --count_bucket[i];
+      }
+    }
+
+    return sorted_data;
+  }
+
+  vector<string> radixSort(vector<string> data, size_t strLength)
+  {
+    vector<vector<string> > buckets(10);
+    for (size_t i = strLength - 1; i >= 0; --i)
+    {
+      for (string & s : data)
+      {
+        buckets[s[i]].push_back(s);
+      }
+
+      for (vector<string> bucket : buckets)
+      {
+        for (string & s : data)
+      }
+    }
+  }
+
   void printVector(vector<T> &data)
   {
     for(size_t i = 0; i < data.size(); ++i)
@@ -123,6 +162,9 @@ class SortBox{
     printVector(sorted_data);
     cout << "===========after quicksort===============" << endl;
     sorted_data = quickSort(unsorted_data);
+    printVector(sorted_data);
+    cout << "===========after bucketsort===============" << endl;
+    sorted_data = bucketSort(unsorted_data);
     printVector(sorted_data);
   }
 
