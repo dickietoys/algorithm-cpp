@@ -12,14 +12,13 @@ template<class T>
 class FindKthElement
 {
  public:
-  const T findKthByBinaryHeap(vector<T> &data, int kth)
+  T findKthByBinaryHeap(vector<T> &data, int kth)
   {
     BinaryHeap<T> bh(kth);
     for (int i = 0; i < kth; ++i)
     {
       bh.insert(data[i]);
     }
-    bh.printHeap();
 
     for (size_t i = kth; i < data.size(); ++i)
     {
@@ -30,12 +29,10 @@ class FindKthElement
       }
     }
 
-    bh.printHeap();
-
     return bh.findMin();
   }
 
-  const T findKthByBinarySearchTree(vector<T> &data, int kth)
+  T findKthByBinarySearchTree(vector<T> &data, int kth)
   {
     BinarySearchTree<T> bst;
     for (size_t i = 0; i != data.size(); ++i)
@@ -43,9 +40,52 @@ class FindKthElement
       bst.insert(data[i]);
     }
 
-    T & kthElement = bst.findKthElement(kth);
+    T kthElement = bst.findKthElement(data.size() - kth + 1);
 
-    return s.top();
+    return kthElement;
+  }
+
+  T findKthByQuickSelect(vector<T> &data, int kth)
+  {
+    return findKthByQuickSelect(data, 0, data.size() - 1, kth);
+  }
+
+ private:
+  T findKthByQuickSelect(vector<T> &data, int leftPos, int rightPos, int kth)
+  {
+    int i = 0;
+    int j = rightPos - 1;
+    int pivot = data[rightPos];
+    while (i <= j)
+    {
+      if (data[i] < pivot)
+      {
+        ++i;
+        continue;
+      }
+
+      if (data[j] > pivot)
+      {
+        ++j;
+        continue;
+      }
+
+      swap(data[i], data[j]);
+    }
+
+    swap(data[i], data[rightPos]);
+    if (kth < (i - leftPos))
+    {
+      return findKthByQuickSelect(data, leftPos, i, kth);
+    }
+    else if (kth > (rightPos - i))
+    {
+      return findKthByQuickSelect(data, i + 1, rightPos, kth - i);
+    }
+    else
+    {
+      return data[i];
+    }
   }
 };
 

@@ -104,7 +104,7 @@ void findKthElementTest()
 {
   FindKthElement<int> fke;
   vector<int> data = {9, 11, 8, 6, 7, 12};
-  int kth = 2;
+  int kth = 1;
   printVector(data);
 
   int foundElement = fke.findKthByBinaryHeap(data, kth);
@@ -112,6 +112,9 @@ void findKthElementTest()
 
   foundElement = fke.findKthByBinarySearchTree(data, kth);
   cout << "use binary search tree found " << kth << "th:" << foundElement << endl;
+
+  foundElement = fke.findKthByQuickSelect(data, kth);
+  cout << "use quickselect found " << kth << "th:" << foundElement << endl;
 }
 
 void sortBoxTest()

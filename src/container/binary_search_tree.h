@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <stack>
+#include <exception>
 
 using namespace std;
 
@@ -61,7 +62,7 @@ class BinarySearchTree
     }
   }
 
-  void findKthElement(int kth) const
+  T findKthElement(int kth) const
   {
     if (isEmpty())
     {
@@ -69,9 +70,37 @@ class BinarySearchTree
     }
     else
     {
-      stack<T> s;
+      stack<struct BinaryNode *> s;
       BinaryNode *p;
+      p = root;
       while (p)
+      {
+        s.push(p);
+        p = p->left;
+      }
+
+      while (!s.empty())
+      {
+        p = s.top();
+        s.pop();
+        --kth;
+        if (kth == 0)
+        {
+          return p->element;
+        }
+
+        if (p->right)
+        {
+          p = p->right;
+          while (p)
+          {
+            s.push(p);
+            p = p->left;
+          }
+        }
+      }
+
+      throw exception();
     }
   }
 
