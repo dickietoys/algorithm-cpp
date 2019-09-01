@@ -113,24 +113,111 @@ class SortBox{
     return sorted_data;
   }
 
-  vector<string> radixSort(vector<string> data, size_t strLength)
+  vector<string> bucketRadixSort(vector<string> arr, size_t stringLen)
   {
-    vector<vector<string> > buckets(10);
-    for (size_t i = strLength - 1; i >= 0; --i)
+    int letterSize = 10;
+    vector<vector<string>> buckets(letterSize);
+    for (int i = stringLen - 1; i >= 0; --i)
     {
-      for (string & s : data)
+      for (string &item : arr)
       {
-        buckets[s[i]].push_back(s);
+        buckets[item[i] - '0'].push_back(item);
       }
 
-      for (vector<string> bucket : buckets)
+      int idx = 0;
+      for (vector<string> &thisBucket : buckets)
       {
-        for (string & s : data)
+        for (string &item : thisBucket)
+        {
+          arr[idx++] = item;
+        }
+        thisBucket.clear();
       }
     }
+
+    return arr;
+  }
+
+  vector<string> countingRadixSort(vector<string> arr, int stringLen)
+  {
+    int letterSize = 10;
+    vector<string> buffer(arr.size());
+    for (int i = stringLen - 1; i >= 0; --i)
+    {
+      vector<int> counter(letterSize + 1);
+      for (string &str : arr)
+      {
+        ++counter[str[i] - '0' + 1];
+      }
+
+      for (int i = 1; i <= letterSize; ++i)
+      {
+        counter[i] += counter[i-1];
+      }
+
+      for (string &str : arr)
+      {
+        buffer[counter[str[i] - '0']++] = str;
+      }
+
+      std::swap(arr, buffer);
+    }
+
+    return arr;
+  }
+
+  vector<string> radixSort(vector<string> arr, int maxLen)
+  {
+    vector<vector<string>> wordsByLength(maxLen + 1);
+    vector<vector<string>> buckets(10);
+    for (string &str : arr)
+    {
+      wordsByLength[str.size()].push_back(str);
+    }
+
+    int idx = 0;
+    for (vector<string> &wordList : wordsByLength)
+    {
+      for (string &str : wordList)
+      {
+        arr[idx++] = str;
+      }
+    }
+
+    int startingIndex = arr.size();
+    for (int pos = maxLen - 1; pos >= 0; --pos)
+    {
+      startingIndex -= wordsByLength[pos+1].size();
+      for (int i = startingIndex; i < arr.size(); ++i)
+      {
+        buckets[arr[i][pos] - '0'].push_back(arr[i]);
+      }
+
+      int idx = startingIndex;
+      for (vector<string> &thisBucket : buckets)
+      {
+        for (string &s : thisBucket)
+        {
+          arr[idx++] = s;
+        }
+        thisBucket.clear();
+      }
+    }
+
+    return arr;
   }
 
   void printVector(vector<T> &data)
+  {
+    for(size_t i = 0; i < data.size(); ++i)
+    {
+      cout << data[i] << ",  ";
+    }
+
+    cout << endl;
+  }
+
+  void printVector(vector<string> &data)
   {
     for(size_t i = 0; i < data.size(); ++i)
     {
@@ -166,6 +253,19 @@ class SortBox{
     cout << "===========after bucketsort===============" << endl;
     sorted_data = bucketSort(unsorted_data);
     printVector(sorted_data);
+    cout << "===========unsorted order===============" << endl;
+    vector<string> unsorted_str = {"141", "215", "1141", "1090", "218", "172"};
+    printVector(unsorted_str);
+    vector<string> sorted_str;
+    // cout << "===========after bucketRadixsort===============" << endl;
+    // sorted_str = bucketRadixSort(unsorted_str, 3);
+    // printVector(sorted_str);
+    // cout << "===========after countingRadixsort===============" << endl;
+    // sorted_str = countingRadixSort(unsorted_str, 3);
+    // printVector(sorted_str);
+    cout << "===========after radixsort===============" << endl;
+    sorted_str = radixSort(unsorted_str, 4);
+    printVector(sorted_str);
   }
 
  private:

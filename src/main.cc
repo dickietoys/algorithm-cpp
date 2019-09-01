@@ -2,6 +2,7 @@
 #include <container/list.h>
 #include <container/binary_search_tree.h>
 #include <container/binary_heap.h>
+#include <container/graph_container.h>
 #include <algo/maximum_conti_subsequence.h>
 #include <algo/expression_convert.h>
 #include <container/binary_heap.h>
@@ -10,6 +11,8 @@
 
 #include <vector>
 #include <iostream>
+
+using namespace std;
 
 void vectorTest()
 {
@@ -130,8 +133,27 @@ void sortBoxTest()
   // sb.doAllSort(data);
 }
 
+void graphTest()
+{
+  GraphAdjacentArray graphAdjacentArray(7);
+  graphAdjacentArray.setVertexRelation(1, 2);
+  graphAdjacentArray.setVertexRelation(1, 4);
+  graphAdjacentArray.setVertexRelation(2, 4);
+  graphAdjacentArray.setVertexRelation(2, 5);
+  graphAdjacentArray.setVertexRelation(3, 1);
+  graphAdjacentArray.setVertexRelation(3, 6);
+  graphAdjacentArray.setVertexRelation(4, 6);
+  graphAdjacentArray.setVertexRelation(4, 7);
+  graphAdjacentArray.setVertexRelation(4, 3);
+  graphAdjacentArray.setVertexRelation(4, 5);
+  graphAdjacentArray.setVertexRelation(5, 7);
+  graphAdjacentArray.setVertexRelation(6, 7);
+  graphAdjacentArray.showGraph();
+  graphAdjacentArray.BFS(3, 6);
+}
+
 int main()
 {
-  sortBoxTest();
+  graphTest();
   return 0;
 }
