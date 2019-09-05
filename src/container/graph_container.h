@@ -37,7 +37,7 @@ class GraphAdjacentArray{
     delete[] arr_;
   }
 
-  void BFS(int src, int dst)
+  void BFS(int from, int to)
   {
     int dist[arrSize_];
     int path[arrSize_];
@@ -46,10 +46,11 @@ class GraphAdjacentArray{
     {
       dist[i] = -1;
       path[i] = -1;
+      color[i] = 0;
     }
 
-    src = src - 1;
-    dst = dst - 1;
+    int src = from - 1;
+    int dst = to - 1;
     queue<int> q;
     q.push(src);
     dist[src] = 0;
@@ -59,30 +60,38 @@ class GraphAdjacentArray{
       q.pop();
       for (int i = 0; i < arrSize_; ++i)
       {
-        dst = arr_[src][i];
-        if (dst != 0 && color[dst] == 0)
+        if (arr_[src][i] != 0 && color[i] == 0)
         {
-          color[dst] = 1;
-          dist[dst] = dist[src] + 1;
-          path[dst] = src;
-          q.push(dst);
+          color[i] = 1;
+          dist[i] = dist[src] + 1;
+          path[i] = src;
+          q.push(i);
         }
       }
-      color[ids] = 2;
+      color[src] = 2;
     }
+    cout << "from " << from << " to " << to << " distance is " << dist[to-1] << endl;
+  }
 
+  void DFS(int from)
+  {
+    int color[arrSize_];
+    int path[arrSize_];
+    int dist[arrSize_];
     for (int i = 0; i < arrSize_; ++i)
     {
-      cout << "dist[" << i << "] : " << dist[i] << ", " << endl;
+      color[i] = 0;
+      path[i] = -1;
     }
 
-    for (int i = 0; i < arrSize_; ++i)
-    {
-      cout << "color[" << i << "] : " << color[i] << ", " << en]dl;
-    }
+    int src = from - 1;
 
+  }
 
-    cout << "from " << src << " to " << dst << " distance is " << dist[dst] << endl;
+  void doDFS(int node, int *color, int *path)
+  {
+    color[node] = 1;
+    path[node]
   }
 
   void showGraph()
