@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <queue>
+#include <stack>
 #include <ostream>
 #include <iostream>
 #include <cstring>
@@ -17,9 +18,13 @@ class GraphAdjacentArray{
   GraphAdjacentArray(int vertexNum):
       graph_(vector<vector<int>>(vertexNum, vector<int>(vertexNum, 0))),
       color_(vector<int>(vertexNum, 0)),
-      dist_(vector<int>(vertexNum, -1)),
-      path_(vector<int>(vertexNum, -1))
-  {}
+      path_(vector<int>(vertexNum, -1)),
+      dist_(vector<int>(vertexNum, -1))
+  {
+    cout << "color_.size(): " << color_.size() << endl;
+    cout << "dist_.size(): " << dist_.size() << endl;
+    cout << "path_.size(): " << path_.size() << endl;
+  }
 
   void setVertexRelation(int src, int dst)
   {
@@ -36,10 +41,9 @@ class GraphAdjacentArray{
     path_.assign(path_.size(), -1);
   }
 
-  void BFS(int src, int dst)
+  void BFS(int from, int to)
   {
-    src = src - 1;
-    dst = dst - 1;
+    int src = from - 1;
     queue<int> q;
     q.push(src);
     dist_[src] = 0;
@@ -47,56 +51,89 @@ class GraphAdjacentArray{
     {
       src = q.front();
       q.pop();
-      for (int i = 0; i < graph_.size(); ++i)
+      for (size_t i = 0; i < graph_.size(); ++i)
       {
-        dst = arr_[src][i];
-        if (dst != 0 && color[dst] == 0)
+        if (graph_[src][i] != 0 && color_[i] == 0)
         {
-          color[dst] = 1;
-          dist[dst] = dist[src] + 1;
-          path[dst] = src;
-          q.push(dst);
+          color_[i] = 1;
+          dist_[i] = dist_[src] + 1;
+          path_[i + 1] = src + 1;
+          q.push(i);
         }
       }
-      color[src] = 2;
+      color_[src] = 2;
     }
-
-    for (int i = 0; i < arrSize_; ++i)
+    cout << "from " << from << " to " << to << " distance is " << dist_[to-1] << endl;
+    cout << "path is :";
+    int node = to;
+    stack<int> pathStack;
+    pathStack.push(node);
+    while(path_[node] != -1)
     {
-      cout << "dist[" << i << "] : " << dist[i] << ", " << endl;
+      node = path_[node];
+      pathStack.push(node);
     }
 
-    for (int i = 0; i < arrSize_; ++i)
+    while (!pathStack.empty())
     {
-      cout << "color[" << i << "] : " << color[i] << ", " << endl;
+      cout << pathStack.top() << ", ";
+      pathStack.pop();
     }
-
-
-    cout << "from " << src << " to " << dst << " distance is " << dist[dst] << endl;
-  }
-
-  void doDFS()
-  {
-
+    cout << endl;
   }
 
   void DFS()
   {
-
-    for (int i = 0; i < arrSize_; ++i)
+    for (size_t i = 0; i < graph_.size(); ++i)
     {
-      color[arrSize_] = 0;
-      path[arrSize_] = -1;
+      if (color_[i] == 0)
+      {
+        doDFS(i);
+        stack<int> pathStack;
+        for (size_t i = 0; i < graph_.size(); ++i)
+        {
+          int node = i + 1;
+          pathStack.push(node);
+          while(path_[node] != -1)
+          {
+            node = path_[node];
+            pathStack.push(node);
+          }
+
+          // print the path
+          cout << "one path :";
+          while (!pathStack.empty())
+          {
+            cout << pathStack.top() << ", ";
+            pathStack.pop();
+          }
+          cout << endl;
+        }
+      }
     }
+  }
+
+  void doDFS(int node)
+  {
+    color_[node] = 1;
+    for (size_t i = 0; i < graph_.size(); ++i)
+    {
+      if (graph_[node][i] == 1 && color_[i] == 0)
+      {
+        path_[i + 1] = node + 1;
+        doDFS(i);
+      }
+    }
+    color_[node] = 2;
   }
 
   void showGraph()
   {
-    for (int i = 0; i < arrSize_; ++i)
+    for (size_t i = 0; i < graph_.size(); ++i)
     {
-      for (int j = 0; j < arrSize_; ++j)
+      for (size_t j = 0; j < graph_[i].size(); ++j)
       {
-        cout << arr_[i][j] << ", ";
+        cout << graph_[i][j] << ", ";
       }
       cout << endl;
     }

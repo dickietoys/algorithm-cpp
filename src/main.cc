@@ -147,9 +147,12 @@ void graphTest()
   graphAdjacentArray.setVertexRelation(4, 3);
   graphAdjacentArray.setVertexRelation(4, 5);
   graphAdjacentArray.setVertexRelation(5, 7);
-  graphAdjacentArray.setVertexRelation(6, 7);
-  graphAdjacentArray.showGraph();
+  graphAdjacentArray.setVertexRelation(7, 6);
   graphAdjacentArray.BFS(3, 6);
+  graphAdjacentArray.BFS(3, 7);
+  graphAdjacentArray.BFS(3, 4);
+  graphAdjacentArray.resetAuxData();
+  graphAdjacentArray.DFS();
 }
 
 int main()

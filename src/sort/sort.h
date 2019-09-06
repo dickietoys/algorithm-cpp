@@ -188,7 +188,7 @@ class SortBox{
     for (int pos = maxLen - 1; pos >= 0; --pos)
     {
       startingIndex -= wordsByLength[pos+1].size();
-      for (int i = startingIndex; i < arr.size(); ++i)
+      for (size_t i = startingIndex; i < arr.size(); ++i)
       {
         buckets[arr[i][pos] - '0'].push_back(arr[i]);
       }
