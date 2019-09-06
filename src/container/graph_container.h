@@ -5,6 +5,7 @@
 #include <queue>
 #include <ostream>
 #include <iostream>
+#include <cstring>
 
 using namespace std;
 
@@ -13,51 +14,40 @@ class GraphAdjacentArray{
   GraphAdjacentArray()
   {}
 
-  GraphAdjacentArray(int vertexNum):arrSize_(vertexNum)
-  {
-    arr_ = new int*[vertexNum];
-    for (int i = 0; i < vertexNum; ++i)
-    {
-      arr_[i] = new int[vertexNum];
-    }
-  }
+  GraphAdjacentArray(int vertexNum):
+      graph_(vector<vector<int>>(vertexNum, vector<int>(vertexNum, 0))),
+      color_(vector<int>(vertexNum, 0)),
+      dist_(vector<int>(vertexNum, -1)),
+      path_(vector<int>(vertexNum, -1))
+  {}
 
   void setVertexRelation(int src, int dst)
   {
-    arr_[src-1][dst-1] = 1;
+    graph_[src-1][dst-1] = 1;
   }
 
   ~GraphAdjacentArray()
-  {
-    for (int i = 0; i < arrSize_; ++i)
-    {
-      delete[] arr_[i];
-    }
+  {}
 
-    delete[] arr_;
+  void resetAuxData()
+  {
+    color_.assign(color_.size(), 0);
+    dist_.assign(dist_.size(), -1);
+    path_.assign(path_.size(), -1);
   }
 
   void BFS(int src, int dst)
   {
-    int dist[arrSize_];
-    int path[arrSize_];
-    int color[arrSize_];
-    for (int i = 0; i < arrSize_; ++i)
-    {
-      dist[i] = -1;
-      path[i] = -1;
-    }
-
     src = src - 1;
     dst = dst - 1;
     queue<int> q;
     q.push(src);
-    dist[src] = 0;
+    dist_[src] = 0;
     while (!q.empty())
     {
       src = q.front();
       q.pop();
-      for (int i = 0; i < arrSize_; ++i)
+      for (int i = 0; i < graph_.size(); ++i)
       {
         dst = arr_[src][i];
         if (dst != 0 && color[dst] == 0)
@@ -68,7 +58,7 @@ class GraphAdjacentArray{
           q.push(dst);
         }
       }
-      color[ids] = 2;
+      color[src] = 2;
     }
 
     for (int i = 0; i < arrSize_; ++i)
@@ -78,11 +68,26 @@ class GraphAdjacentArray{
 
     for (int i = 0; i < arrSize_; ++i)
     {
-      cout << "color[" << i << "] : " << color[i] << ", " << en]dl;
+      cout << "color[" << i << "] : " << color[i] << ", " << endl;
     }
 
 
     cout << "from " << src << " to " << dst << " distance is " << dist[dst] << endl;
+  }
+
+  void doDFS()
+  {
+
+  }
+
+  void DFS()
+  {
+
+    for (int i = 0; i < arrSize_; ++i)
+    {
+      color[arrSize_] = 0;
+      path[arrSize_] = -1;
+    }
   }
 
   void showGraph()
@@ -97,8 +102,10 @@ class GraphAdjacentArray{
     }
   }
 
-  int **arr_;
-  int arrSize_;
+  vector<vector<int>> graph_;
+  vector<int> color_;
+  vector<int> path_;
+  vector<int> dist_;
 };
 
 
