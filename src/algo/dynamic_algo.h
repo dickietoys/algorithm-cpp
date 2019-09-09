@@ -81,8 +81,20 @@ class CutSteelBar
   {
     for (int i = 1; i <= length; ++i)
     {
-      for (int j = 1; )
+      int currentMaxPrice = 0;
+      for (int j = 1; j <= i; ++j)
+      {
+        int currentPrice = barLenPrice_[j] + priceBookMark_[j-i];
+        if (currentMaxPrice < currentPrice)
+        {
+          currentMaxPrice = currentMaxPrice;
+          cutStrategy_[i] = j;
+        }
+        priceBookMark_[i] = currentMaxPrice;
+      }
     }
+
+    return priceBookMark_[length];
   }
 
  private:

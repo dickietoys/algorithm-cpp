@@ -173,7 +173,7 @@ void dynamicAlgoTest()
   CutSteelBar cutSteelBar(initPrice);
   int length = 0;
   cout << "===========================using top down strategy===========================" << endl;
-  length = 10;
+  length = 12;
   printf("length: %d, max price: %d\n", length, cutSteelBar.calcByTopDown(length));
   cutSteelBar.showCutStrategy();
   length = 4;
@@ -184,7 +184,7 @@ void dynamicAlgoTest()
   cutSteelBar.showCutStrategy();
 
   cout << "===========================using bottom up strategy===========================" << endl;
-  length = 10;
+  length = 12;
   printf("length: %d, max price: %d\n", length, cutSteelBar.calcByTopDown(length));
   cutSteelBar.showCutStrategy();
   length = 4;
