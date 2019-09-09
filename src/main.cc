@@ -8,9 +8,11 @@
 #include <container/binary_heap.h>
 #include <sort/sort.h>
 #include <algo/find_kth_element.h>
+#include <algo/dynamic_algo.h>
 
 #include <vector>
 #include <iostream>
+#include <cstdio>
 
 using namespace std;
 
@@ -155,8 +157,46 @@ void graphTest()
   graphAdjacentArray.DFS();
 }
 
+void dynamicAlgoTest()
+{
+  vector<int> initPrice = {0,
+                           1,
+                           5,
+                           8,
+                           9,
+                           10,
+                           17,
+                           17,
+                           20,
+                           24,
+                           30};
+  CutSteelBar cutSteelBar(initPrice);
+  int length = 0;
+  cout << "===========================using top down strategy===========================" << endl;
+  length = 10;
+  printf("length: %d, max price: %d\n", length, cutSteelBar.calcByTopDown(length));
+  cutSteelBar.showCutStrategy();
+  length = 4;
+  printf("length: %d, max price: %d\n", length, cutSteelBar.calcByTopDown(length));
+  cutSteelBar.showCutStrategy();
+  length = 7;
+  printf("length: %d, max price: %d\n", length, cutSteelBar.calcByTopDown(length));
+  cutSteelBar.showCutStrategy();
+
+  cout << "===========================using bottom up strategy===========================" << endl;
+  length = 10;
+  printf("length: %d, max price: %d\n", length, cutSteelBar.calcByTopDown(length));
+  cutSteelBar.showCutStrategy();
+  length = 4;
+  printf("length: %d, max price: %d\n", length, cutSteelBar.calcByTopDown(length));
+  cutSteelBar.showCutStrategy();
+  length = 7;
+  printf("length: %d, max price: %d\n", length, cutSteelBar.calcByTopDown(length));
+  cutSteelBar.showCutStrategy();
+}
+
 int main()
 {
-  graphTest();
+  dynamicAlgoTest();
   return 0;
 }
