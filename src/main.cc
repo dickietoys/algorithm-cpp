@@ -157,7 +157,7 @@ void graphTest()
   graphAdjacentArray.DFS();
 }
 
-void dynamicAlgoTest()
+void dynamicAlgoCutSteelBarTest()
 {
   vector<int> initPrice = {0,
                            1,
@@ -195,8 +195,23 @@ void dynamicAlgoTest()
   cutSteelBar.showCutStrategy();
 }
 
+void dynamicAlgoLCSTest()
+{
+  LCS lcs;
+  string s1 = "abcdefg";
+  string s2 = "acfdd";
+  printf("%s, %s LCS: %s\n", s1.c_str(), s2.c_str(), lcs.bruteFind(s1, s2).c_str());
+}
+
+void dynamicAlgoTest()
+{
+  // dynamicAlgoCutSteelBarTest();
+  dynamicAlgoLCSTest();
+}
+
 int main()
 {
   dynamicAlgoTest();
+
   return 0;
 }

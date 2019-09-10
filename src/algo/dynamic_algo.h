@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <cstdio>
+#include <string>
 
 using namespace std;
 
@@ -103,6 +104,72 @@ class CutSteelBar
   int maxPrice_;
   vector<int> priceBookMark_;
   int steelBarLength_;
+};
+
+class LCS
+{
+ public:
+  string FindLCS(const string &s1, const string &s2)
+  {
+    
+  }
+  
+  string bruteFind(const string &s1, const string &s2)
+  {
+    vector<string> buffer;
+    for (int i = s1.size() - 1; i >= 0; --i)
+    {
+      findAllSubSequence(s1, i, buffer);
+    }
+
+    string *pLCS = nullptr;
+    size_t currentMaxLCSsize = 0;
+    for (string &s : buffer)
+    {
+      size_t i = 0;
+      size_t j = 0;
+      while (i < s.size() && j < s2.size())
+      {
+        if (s[i] == s2[j])
+        {
+          ++i;
+          ++j;
+        }
+        else
+        {
+          ++j;
+        }
+      }
+
+      if (i == s.size() && currentMaxLCSsize < s.size())
+      {
+        currentMaxLCSsize = s.size();
+        pLCS = &s;
+      }
+    }
+
+    return *pLCS;
+  }
+
+ private:
+  void findLCSAux(string &s1, int s1Pos, string &s2, int s2Pos)
+  {
+    if (s1[s1Pos] == s2[s2Pos])
+    {
+      findLCSAux(s1, , string &s2, int s2Pos)
+    }
+  }
+  
+  void findAllSubSequence(const string &s, int startPos, vector<string> &buffer)
+  {
+    int ori_size = buffer.size();
+    for (int i = 0; i < ori_size; ++i)
+    {
+      string currentStr = string(1, s[startPos]).append(buffer[i]);
+      buffer.push_back(currentStr);
+    }
+    buffer.push_back(string(1, s[startPos]));
+  }
 };
 
 
