@@ -111,9 +111,39 @@ class LCS
  public:
   string FindLCS(const string &s1, const string &s2)
   {
-    
+    vector<vector<int>> bookmark(s1.size() + 1, vector<int>(s2.size() + 1, 0));
+    vector<vector<string>> path(s1.size() + 1, vector<string>(s2.size() + 1, ""));
+    for (int i = 1; i <= s1.size(); ++i)
+    {
+      for (int j = 1; j <= s2.size(); ++j)
+      {
+        if (s1[i - 1] == s2[j - 1])
+        {
+          bookmark[i][j] = bookmark[i - 1][j - 1] + 1;
+          path[i][j] = "found";
+        }
+        else
+        {
+          if (bookmark[i - 1][j] > bookmark[i][j - 1])
+          {
+            bookmark[i][j] = bookmark[i - 1][j];
+            path[i][j] = "up";
+          }
+          else
+          {
+            bookmark[i][j] = bookmark[i][j - 1];
+            path[i][j] = "left";
+          }
+        }
+      }
+    }
+
+    string lcs;
+    printPath(path, s1, s1.size(), s2.size(), lcs);
+
+    return lcs;
   }
-  
+
   string bruteFind(const string &s1, const string &s2)
   {
     vector<string> buffer;
@@ -152,14 +182,27 @@ class LCS
   }
 
  private:
-  void findLCSAux(string &s1, int s1Pos, string &s2, int s2Pos)
+  void printPath(vector<vector<string>> &path, const string &s, int i, int j, string &lcs)
   {
-    if (s1[s1Pos] == s2[s2Pos])
+    if (i == 0 or j == 0)
     {
-      findLCSAux(s1, , string &s2, int s2Pos)
+      return;
+    }
+    if (path[i][j] == "found")
+    {
+      printPath(path, s, i - 1, j - 1, lcs);
+      lcs.push_back(s[i - 1]);
+    }
+    else if (path[i][j] == "left")
+    {
+      printPath(path, s, i, j - 1, lcs);
+    }
+    else
+    {
+      printPath(path, s, i - 1, j, lcs);
     }
   }
-  
+
   void findAllSubSequence(const string &s, int startPos, vector<string> &buffer)
   {
     int ori_size = buffer.size();
