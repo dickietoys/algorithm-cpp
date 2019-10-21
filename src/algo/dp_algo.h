@@ -5,6 +5,7 @@
 #include <iostream>
 #include <cstdio>
 #include <string>
+#include <stack>
 
 using namespace std;
 
@@ -113,9 +114,9 @@ class LCS
   {
     vector<vector<int>> bookmark(s1.size() + 1, vector<int>(s2.size() + 1, 0));
     vector<vector<string>> path(s1.size() + 1, vector<string>(s2.size() + 1, ""));
-    for (int i = 1; i <= s1.size(); ++i)
+    for (size_t i = 1; i <= s1.size(); ++i)
     {
-      for (int j = 1; j <= s2.size(); ++j)
+      for (size_t j = 1; j <= s2.size(); ++j)
       {
         if (s1[i - 1] == s2[j - 1])
         {
@@ -215,5 +216,59 @@ class LCS
   }
 };
 
+typedef struct GoodsInfo_s {
+  int weight;
+  int price;
+} GoodsInfo;
+
+class GoodsPackage
+{
+ public:
+  GoodsPackage(vector<GoodsInfo> &goodsInfos) :
+      goodsInfos_(goodsInfos),
+      foundMaxWeight_(0),
+      path_("")
+  {}
+
+  int StoreMaxGoods(int packageStorage)
+  {
+    stack<int> path;
+    bruteFind(packageStorage, 0, 0, path);
+
+    return foundMaxWeight_;
+  }
+
+  void PrintStrategy()
+  {
+    cout << path_ << endl;
+  }
+
+ private:
+  void bruteFind(int packageStorage, size_t goodsIndex, int currentWeight, stack<int> path)
+  {
+    if (goodsIndex == goodsInfos_.size() || foundMaxWeight_ == packageStorage)
+    {
+      if (currentWeight >= foundMaxWeight_)
+      {
+        foundMaxWeight_ = currentWeight;
+        path_ = path;
+      }
+
+      return;
+    }
+
+    bruteFind(packageStorage, goodsIndex + 1, currentWeight, path);
+    if (currentWeight + goodsInfos_[goodsIndex].weight <= packageStorage)
+    {
+      path
+      bruteFind(packageStorage, goodsIndex + 1, currentWeight + goodsInfos_[goodsIndex].weight, path);
+    }
+  }
+
+ private:
+  vector<GoodsInfo> goodsInfos_;
+  int foundMaxWeight_;
+  stack<int> path_;
+};
 
 #endif

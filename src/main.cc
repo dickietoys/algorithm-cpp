@@ -8,7 +8,7 @@
 #include <container/binary_heap.h>
 #include <sort/sort.h>
 #include <algo/find_kth_element.h>
-#include <algo/dynamic_algo.h>
+#include <algo/dp_algo.h>
 
 #include <vector>
 #include <iostream>
@@ -157,7 +157,7 @@ void graphTest()
   graphAdjacentArray.DFS();
 }
 
-void dynamicAlgoCutSteelBarTest()
+void dpCutSteelBarTest()
 {
   vector<int> initPrice = {0,
                            1,
@@ -195,7 +195,7 @@ void dynamicAlgoCutSteelBarTest()
   cutSteelBar.showCutStrategy();
 }
 
-void dynamicAlgoLCSTest()
+void dpLCSTest()
 {
   LCS lcs;
   string s1 = "abcdefg";
@@ -204,10 +204,22 @@ void dynamicAlgoLCSTest()
   printf("findLCS:    %s, %s LCS: %s\n", s1.c_str(), s2.c_str(), lcs.FindLCS(s1, s2).c_str());
 }
 
+void dpPackageWeight()
+{
+  vector<GoodsInfo> goodsInfos = {{2, 1}, {2, 1}, {4, 2}, {6, 4}, {3, 4}};
+  GoodsPackage goodsPackage(goodsInfos);
+  int packageStorage = 9;
+  int findMaxWeight = goodsPackage.StoreMaxGoods(packageStorage);
+
+  cout << "can store " << findMaxWeight << " weight goods" << endl;
+  goodsPackage.PrintStrategy();
+}
+
 void dynamicAlgoTest()
 {
-  // dynamicAlgoCutSteelBarTest();
-  dynamicAlgoLCSTest();
+  // dpCutSteelBarTest();
+  // dpLCSTest();
+  dpPackageWeight();
 }
 
 int main()
