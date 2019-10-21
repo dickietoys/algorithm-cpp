@@ -9,7 +9,7 @@
 #include <sort/sort.h>
 #include <algo/find_kth_element.h>
 #include <algo/dp_algo.h>
-
+#include <algo/greedy_algo.h>
 #include <vector>
 #include <iostream>
 #include <cstdio>
@@ -220,6 +220,23 @@ void dynamicAlgoTest()
   // dpCutSteelBarTest();
   // dpLCSTest();
   dpPackageWeight();
+}
+
+void greedyAlgoTest()
+{
+  vector<greedy_algo::Activity> activities = {{1, 4},
+                                              {3, 5},
+                                              {0, 6},
+                                              {5, 7},
+                                              {3, 9},
+                                              {5, 9},
+                                              {6, 10},
+                                              {8, 11},
+                                              {8, 12},
+                                              {2, 14},
+                                              {12, 16}};
+  greedy_algo::GreedyActivitySelector greedyActivitySelector(activities);
+  vector<greedy_algo::Activity> foundMaxActivitiesSet = greedyActivitySelector.FindMaxActivitiesSet(1, 16);
 }
 
 int main()
