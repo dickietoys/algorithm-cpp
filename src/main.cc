@@ -9,7 +9,10 @@
 #include <sort/sort.h>
 #include <algo/find_kth_element.h>
 #include <algo/dp_algo.h>
-#include <algo/greedy_algo.h>
+#include <dp/LongestIncreasingSubSequence.h>
+#include <testsuit/TestBase.h>
+
+
 #include <vector>
 #include <iostream>
 #include <cstdio>
@@ -204,44 +207,12 @@ void dpLCSTest()
   printf("findLCS:    %s, %s LCS: %s\n", s1.c_str(), s2.c_str(), lcs.FindLCS(s1, s2).c_str());
 }
 
-void dpPackageWeight()
-{
-  vector<GoodsInfo> goodsInfos = {{2, 1}, {2, 1}, {4, 2}, {6, 4}, {3, 4}};
-  GoodsPackage goodsPackage(goodsInfos);
-  int packageStorage = 9;
-  int findMaxWeight = goodsPackage.StoreMaxGoods(packageStorage);
-
-  cout << "can store " << findMaxWeight << " weight goods" << endl;
-  goodsPackage.PrintStrategy();
-}
-
-void dynamicAlgoTest()
-{
-  // dpCutSteelBarTest();
-  // dpLCSTest();
-  dpPackageWeight();
-}
-
-void greedyAlgoTest()
-{
-  vector<greedy_algo::Activity> activities = {{1, 4},
-                                              {3, 5},
-                                              {0, 6},
-                                              {5, 7},
-                                              {3, 9},
-                                              {5, 9},
-                                              {6, 10},
-                                              {8, 11},
-                                              {8, 12},
-                                              {2, 14},
-                                              {12, 16}};
-  greedy_algo::GreedyActivitySelector greedyActivitySelector(activities);
-  vector<greedy_algo::Activity> foundMaxActivitiesSet = greedyActivitySelector.FindMaxActivitiesSet(1, 16);
-}
-
 int main()
 {
-  dynamicAlgoTest();
+  TestBase *testCase = new LongestIncreasingSubSequence();
+  testCase->DoTest();
+
+  delete testCase;
 
   return 0;
 }
