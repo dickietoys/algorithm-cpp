@@ -28,8 +28,7 @@ class LongestIncreasingSubSequence : public TestBase
 
   int DpFind(const vector<int> &data)
   {
-    vector<int> bookmark(data.size(), 0);
-
+    return DpFindAux(data);
   }
 
  private:
@@ -66,13 +65,24 @@ class LongestIncreasingSubSequence : public TestBase
       return 0;
     }
 
+    vector<int> bookmark(data.size(), 0);
+    bookmark[0] = 1;
+    int max = 1;
     for (int i = 1; i < data.size(); ++i)
     {
+      int currentMax = 0;
       for (int j = 0; j < i; ++j)
       {
-
+        if (data[j] < data[i])
+        {
+          currentMax = std::max(bookmark[j], currentMax);
+        }
       }
+      bookmark[i] = currentMax + 1;
+      max = std::max(max, bookmark[i]);
     }
+
+    return max;
   }
 };
 
