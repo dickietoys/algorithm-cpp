@@ -32,7 +32,7 @@ class LongestIncreasingSubSequence : public TestBase
   }
 
  private:
-  int BruteFindAux(const vector<int> &data, int prevPos, int currentPos, vector<vector<int>> &bookmark)
+  int BruteFindAux(const vector<int> &data, int prevPos, size_t currentPos, vector<vector<int>> &bookmark)
   {
     if (currentPos == data.size())
     {
@@ -68,10 +68,10 @@ class LongestIncreasingSubSequence : public TestBase
     vector<int> bookmark(data.size(), 0);
     bookmark[0] = 1;
     int max = 1;
-    for (int i = 1; i < data.size(); ++i)
+    for (size_t i = 1; i < data.size(); ++i)
     {
       int currentMax = 0;
-      for (int j = 0; j < i; ++j)
+      for (size_t j = 0; j < i; ++j)
       {
         if (data[j] < data[i])
         {
