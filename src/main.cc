@@ -9,8 +9,9 @@
 #include <sort/sort.h>
 #include <algo/find_kth_element.h>
 #include <algo/dp_algo.h>
-#include <dp/LongestIncreasingSubSequence.h>
 #include <testsuit/TestBase.h>
+#include <dp/LongestIncreasingSubSequence.h>
+#include <dp/LongestCommonSubSequence.h>
 
 
 #include <vector>
@@ -209,7 +210,8 @@ void dpLCSTest()
 
 int main()
 {
-  TestBase *testCase = new LongestIncreasingSubSequence();
+  // TestBase *testCase = new LongestIncreasingSubSequence();
+  TestBase *testCase = new LongestCommonSubSequence();
   testCase->DoTest();
 
   delete testCase;

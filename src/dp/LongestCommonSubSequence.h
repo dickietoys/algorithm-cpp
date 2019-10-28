@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
+#include <algorithm>
 
 #include <testsuit/TestBase.h>
 
@@ -34,15 +36,48 @@ class LongestCommonSubSequence : public TestBase
     printf("BruteFind(%s, %s), max: %d\n", s1.c_str(), s2.c_str(), max);
     max = DpFind(s1, s2);
     printf("DpFind(%s, %s), max: %d\n", s1.c_str(), s2.c_str(), max);
+    s1 = "AGGTAB";
+    s2 = "GXTXAYB";
+    max = BruteFind(s1, s2);
+    printf("BruteFind(%s, %s), max: %d\n", s1.c_str(), s2.c_str(), max);
+    max = DpFind(s1, s2);
+    printf("DpFind(%s, %s), max: %d\n", s1.c_str(), s2.c_str(), max);
   }
 
   int BruteFind(const string &s1, const string &s2)
-  {}
+  {
+    return BruteFindAux(s1, s1.size(), s2, s2.size());
+  }
 
   int DpFind(const string &s1, const string &s2)
-  {}
+  {
+    return DpFindAux(s1, s2);
+  }
 
  private:
+  int BruteFindAux(const string &s1, int s1Pos, const string &s2, int s2Pos)
+  {
+    if (s1Pos == 0 || s2Pos == 0)
+    {
+      return 0;
+    }
+
+    if (s1[s1Pos - 1] == s2[s2Pos - 1])
+    {
+      return BruteFindAux(s1, s1Pos - 1, s2, s2Pos - 1) + 1;
+    }
+    else
+    {
+      return std::max(BruteFindAux(s1, s1Pos - 1, s2, s2Pos), BruteFindAux(s1, s1Pos, s2, s2Pos - 1));
+    }
+  }
+
+  int DpFindAux(const string &s1, const string &s2)
+  {
+    vector<vector<int>> bookmark()
+
+    return 0;
+  }
 };
 
 
