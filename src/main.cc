@@ -12,6 +12,7 @@
 #include <testsuit/TestBase.h>
 #include <dp/LongestIncreasingSubSequence.h>
 #include <dp/LongestCommonSubSequence.h>
+#include <dp/EditDistance.h>
 
 
 #include <vector>
@@ -211,7 +212,8 @@ void dpLCSTest()
 int main()
 {
   // TestBase *testCase = new LongestIncreasingSubSequence();
-  TestBase *testCase = new LongestCommonSubSequence();
+  // TestBase *testCase = new LongestCommonSubSequence();
+  TestBase *testCase = new EditDistance();
   testCase->DoTest();
 
   delete testCase;
