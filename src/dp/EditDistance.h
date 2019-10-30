@@ -79,26 +79,49 @@ class EditDistance : public TestBase
       bookmark[0][0] = 1;
     }
 
-    for (int i = 1; i < s2.size(); ++i)
+    for (size_t i = 1; i < s2.size(); ++i)
     {
       if (s1[0] == s2[i])
       {
-        if (bookmark[0][i - 1] != 0)
-        {
-          bookmark[0][i] = bookmark[0][i - 1] + 1;
-        }
-        else
-        {
-          bookmark[0][i] = 0;
-        }
+        bookmark[0][i] = i;
       }
       else
       {
-        bookmark[0][i] = 1;
+        bookmark[0][i] = bookmark[0][i - 1] + 1;
       }
     }
 
-    return 0;
+    for (size_t i = 1; i < s1.size(); ++i)
+    {
+      if (s1[i] == s2[0])
+      {
+        bookmark[i][0] = i;
+      }
+      else
+      {
+        bookmark[i][0] = bookmark[i - 1][0] + 1;
+      }
+    }
+
+    for (size_t i = 1; i < s1.size(); ++i)
+    {
+      for (size_t j = 1; j < s2.size(); ++j)
+      {
+        if (s1[i] == s2[j])
+        {
+          bookmark[i][j] = bookmark[i - 1][j - 1];
+        }
+        else
+        {
+          int min1 = bookmark[i - 1][j] + 1;
+          int min2 = bookmark[i - 1][j - 1] + 1;
+          int min3 = bookmark[i][j - 1] + 1;
+          bookmark[i][j] = std::min({min1, min2, min3});
+        }
+      }
+    }
+
+    return bookmark[s1.size() - 1][s2.size() - 1];
   }
 };
 
