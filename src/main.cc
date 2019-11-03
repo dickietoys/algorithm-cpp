@@ -14,6 +14,7 @@
 #include <dp/LongestCommonSubSequence.h>
 #include <dp/EditDistance.h>
 #include <dp/MinimumPartition.h>
+#include <dp/PartitionProblem.h>
 
 
 #include <vector>
@@ -215,7 +216,8 @@ int main()
   // TestBase *testCase = new LongestIncreasingSubSequence();
   // TestBase *testCase = new LongestCommonSubSequence();
   // TestBase *testCase = new EditDistance();
-  TestBase *testCase = new MinimumPartition();
+  // TestBase *testCase = new MinimumPartition();
+  TestBase *testCase = new PartitionProblem();
   testCase->DoTest();
 
   delete testCase;

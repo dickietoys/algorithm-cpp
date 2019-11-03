@@ -1,5 +1,5 @@
-#ifndef MINIMUM_PARTITION_H_
-#define MINIMUM_PARTITION_H_
+#ifndef PARTITION_PROBLEM_H_
+#define PARTITION_PROBLEM_H_
 
 #include <iostream>
 #include <string>
@@ -11,12 +11,12 @@
 
 using namespace std;
 
-class MinimumPartition : public TestBase
+class PartitionProblem : public TestBase
 {
  public:
   void DoTest()
   {
-    vector<int> arr = {1, 6, 11, 5};
+    vector<int> arr = {1, 5, 11, 5};
 
     cout << "BrutePartition(";
     std::copy(arr.begin(), arr.end(), std::ostream_iterator<int>(cout, ", "));
@@ -25,7 +25,7 @@ class MinimumPartition : public TestBase
     std::copy(arr.begin(), arr.end(), std::ostream_iterator<int>(cout, ", "));
     cout << ") : " << DpPartition(arr) << endl;
 
-    arr = {3, 1, 4, 2, 2, 1};
+    arr = {1, 5, 3};
     cout << "BrutePartition(";
     std::copy(arr.begin(), arr.end(), std::ostream_iterator<int>(cout, ", "));
     cout << ") : " << BrutePartition(arr) << endl;
@@ -42,7 +42,12 @@ class MinimumPartition : public TestBase
       sum += arr[i];
     }
 
-    return BrutePartitionAux(arr, arr.size(), 0, sum);
+    if (sum % 2 == 1)
+    {
+      return 0;
+    }
+
+    return BrutePartitionAux(arr, arr.size(), sum / 2);
   }
 
   int DpPartition(const vector<int> &arr)
@@ -51,14 +56,19 @@ class MinimumPartition : public TestBase
   }
 
  private:
-  int BrutePartitionAux(const vector<int> &arr, int pos, int leftSum, int sum)
+  int BrutePartitionAux(const vector<int> &arr, int pos, int sum)
   {
-    if (pos == 0)
+    if (pos == 0 && sum != 0)
     {
-      return std::abs(sum - leftSum -leftSum);
+      return 0;
     }
-    return std::min(BrutePartitionAux(arr, pos - 1, leftSum, sum),
-                    BrutePartitionAux(arr, pos - 1, leftSum + arr[pos - 1], sum));
+
+    if (sum == 0)
+    {
+      return 1;
+    }
+
+    return BrutePartitionAux(arr, pos - 1, sum) || BrutePartitionAux(arr, pos - 1, sum - arr[pos - 1]);
   }
 
   void showBookmark(vector<vector<int>> &bookmark)
@@ -82,7 +92,12 @@ class MinimumPartition : public TestBase
       sum += arr[i];
     }
 
-    vector<vector<int>> bookmark(arr.size() + 1, vector<int>(sum + 1, 0));
+    if (sum % 2 == 1)
+    {
+      return 0;
+    }
+
+    vector<vector<int>> bookmark(arr.size() + 1, vector<int>(sum +1, 0));
     for (size_t i = 0; i <= arr.size(); ++i)
     {
       bookmark[i][0] = 1;
@@ -97,25 +112,15 @@ class MinimumPartition : public TestBase
     {
       for (int j = 1; j <= sum; ++j)
       {
-        bookmark[i][j] = bookmark[i - 1][j];
-        if (arr[i - 1] <= j)
+        bookmark[i][j] = bookmark[i-1][j];
+        if (arr[i-1] <= j)
         {
-          bookmark[i][j] |= bookmark[i][j - arr[i-1]];
+          bookmark[i][j] = bookmark[i][j] | bookmark[i-1][j-arr[i-1]];
         }
       }
     }
 
-    int diff = std::numeric_limits<int>::max();
-    for (int i = sum / 2; i >=0; --i)
-    {
-      if (bookmark[arr.size()][i] == 1)
-      {
-        diff = sum - 2 * i;
-        break;
-      }
-    }
-
-    return diff;
+    return bookmark[arr.size()][sum / 2];
   }
 };
 
