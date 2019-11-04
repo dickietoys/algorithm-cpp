@@ -16,6 +16,7 @@ class MinimumPartition : public TestBase
  public:
   void DoTest()
   {
+    cout << "=================MinimumPartition====================" << endl;
     vector<int> arr = {1, 6, 11, 5};
 
     cout << "BrutePartition(";
@@ -32,6 +33,7 @@ class MinimumPartition : public TestBase
     cout << "DpPartition(";
     std::copy(arr.begin(), arr.end(), std::ostream_iterator<int>(cout, ", "));
     cout << ") : " << DpPartition(arr) << endl;
+    cout << "=================MinimumPartition====================" << endl;
   }
 
   int BrutePartition(const vector<int> &arr)

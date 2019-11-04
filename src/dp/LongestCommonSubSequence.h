@@ -15,6 +15,7 @@ class LongestCommonSubSequence : public TestBase
  public:
   void DoTest()
   {
+    cout << "=================LongestCommonSubSequence====================" << endl;
     int max = 0;
     string s1 = "abcde";
     string s2 = "ace";
@@ -42,6 +43,7 @@ class LongestCommonSubSequence : public TestBase
     printf("BruteFind(%s, %s), max: %d\n", s1.c_str(), s2.c_str(), max);
     max = DpFind(s1, s2);
     printf("DpFind(%s, %s), max: %d\n", s1.c_str(), s2.c_str(), max);
+    cout << "=================LongestCommonSubSequence====================" << endl;
   }
 
   int BruteFind(const string &s1, const string &s2)

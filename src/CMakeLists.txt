@@ -24,11 +24,8 @@ endif()
 
 include_directories(${PROJECT_SOURCE_DIR})
 
-add_subdirectory (container)
-add_subdirectory (algo)
 add_subdirectory (dp)
 add_subdirectory (testsuit)
-# add_subdirectory (algorithm)
 
 add_executable (main main.cc)
-target_link_libraries(main container algo dp)
+target_link_libraries(main dp)

@@ -16,8 +16,8 @@ class PartitionProblem : public TestBase
  public:
   void DoTest()
   {
+    cout << "=================PartitionProblem====================" << endl;
     vector<int> arr = {1, 5, 11, 5};
-
     cout << "BrutePartition(";
     std::copy(arr.begin(), arr.end(), std::ostream_iterator<int>(cout, ", "));
     cout << ") : " << BrutePartition(arr) << endl;
@@ -32,6 +32,7 @@ class PartitionProblem : public TestBase
     cout << "DpPartition(";
     std::copy(arr.begin(), arr.end(), std::ostream_iterator<int>(cout, ", "));
     cout << ") : " << DpPartition(arr) << endl;
+    cout << "=================PartitionProblem====================" << endl;
   }
 
   int BrutePartition(const vector<int> &arr)

@@ -15,6 +15,7 @@ class EditDistance : public TestBase
  public:
   void DoTest()
   {
+    cout << "=================EditDistance====================" << endl;
     string s1 = "horse";
     string s2 = "ros";
     printf("BruteEdit(%s, %s): %d\n", s1.c_str(), s2.c_str(), BruteEdit(s1, s2));
@@ -29,6 +30,7 @@ class EditDistance : public TestBase
     s2 = "B";
     printf("BruteEdit(%s, %s): %d\n", s1.c_str(), s2.c_str(), BruteEdit(s1, s2));
     printf("DpEdit(%s, %s): %d\n", s1.c_str(), s2.c_str(), DpEdit(s1, s2));
+    cout << "=================EditDistance====================" << endl;
   }
 
   int BruteEdit(const string &s1, const string &s2)

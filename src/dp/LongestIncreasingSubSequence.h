@@ -13,11 +13,13 @@ class LongestIncreasingSubSequence : public TestBase
  public:
   void DoTest()
   {
+    cout << "=================LongestIncreasingSubSequence====================" << endl;
     vector<int> data = {10,9,2,5,3,7,101,18};
     int longest = BruteFind(data);
     cout << "BruteFind longest: " << longest << endl;
     longest = DpFind(data);
     cout << "DpFind longest: " << longest << endl;
+    cout << "=================LongestIncreasingSubSequence====================" << endl;
   }
 
   int BruteFind(const vector<int> &data)
