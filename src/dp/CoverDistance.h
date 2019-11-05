@@ -11,7 +11,9 @@
 
 using namespace std;
 
-// 1,2,3 steps
+/*
+  给定距离n，每次可以走1\2\3距离,共有多少走法
+*/
 class CoverDistance : public TestBase
 {
  public:

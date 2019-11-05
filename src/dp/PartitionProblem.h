@@ -11,6 +11,9 @@
 
 using namespace std;
 
+/*
+  将数组分成两个序列，序列和能否相等
+*/
 class PartitionProblem : public TestBase
 {
  public:

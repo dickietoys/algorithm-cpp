@@ -11,6 +11,9 @@
 
 using namespace std;
 
+/*
+  将数组分成两个序列，两个序列和的差值最小
+*/
 class MinimumPartition : public TestBase
 {
  public:

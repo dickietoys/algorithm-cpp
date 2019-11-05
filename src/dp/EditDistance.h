@@ -10,6 +10,9 @@
 
 using namespace std;
 
+/*
+  两个字符串，最少编辑几次才能相同
+*/
 class EditDistance : public TestBase
 {
  public:

@@ -10,6 +10,9 @@
 
 using namespace std;
 
+/*
+  最长公共序列
+*/
 class LongestCommonSubSequence : public TestBase
 {
  public:

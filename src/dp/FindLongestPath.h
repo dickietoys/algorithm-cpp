@@ -11,7 +11,10 @@
 
 using namespace std;
 
-// 1,2,3 steps
+/*
+  递增序列，(i, j)下一步为(i-1, j) or (i+1,j) or (i, j-1) or (i, j+1);
+  求最长序列长度
+*/
 class FindLongestPath : public TestBase
 {
  public:

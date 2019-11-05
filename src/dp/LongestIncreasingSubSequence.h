@@ -8,6 +8,9 @@
 
 using namespace std;
 
+/*
+  最长递增序列长度
+*/
 class LongestIncreasingSubSequence : public TestBase
 {
  public:
