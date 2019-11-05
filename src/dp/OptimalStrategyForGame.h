@@ -61,18 +61,31 @@ class OptimalStrategyForGame : public TestBase
       return sum;
     }
 
-    if arr[leftPos+1] >= arr[rightPos-1]
+    int sum1 = 0;
+    int sum2 = 0;
+    int sum3 = 0;
+    int sum4 = 0;
+    // 选择第一个
+    if (arr[rightPos - 1] > arr[leftPos + 1])
+    {
+      sum1 = BruteSelectAux(arr, leftPos + 1, rightPos - 1, sum + arr[leftPos]);
+    }
+    else
+    {
+      sum2 = BruteSelectAux(arr, leftPos + 2, rightPos, sum + arr[leftPos]);
+    }
 
-    // 选择第一个,并且对手选择了最后一个
-    int sum1 = BruteSelectAux(arr, leftPos + 1, rightPos - 1, sum + arr[leftPos]);
-    // 选择第一个，并且对手也选择了第一个
-    int sum2 = BruteSelectAux(arr, leftPos + 2, rightPos, sum + arr[leftPos]);
-    // 选择最后一个,并且对手选择了最后一个
-    int sum3 = BruteSelectAux(arr, leftPos, rightPos - 2, sum + arr[rightPos]);
-    // 选择最后一个，并且对手也选择了第一个
-    int sum4 = BruteSelectAux(arr, leftPos + 1, rightPos - 1, sum + arr[rightPos]);
+    //选择最后一个
+    if (arr[rightPos - 2] > arr[leftPos])
+    {
+      sum3 = BruteSelectAux(arr, leftPos, rightPos - 2, sum + arr[rightPos]);
+    }
+    else
+    {
+      sum4 = BruteSelectAux(arr, leftPos + 1, rightPos - 1, sum + arr[rightPos]);
+    }
 
-    return std::min({sum1, sum2, sum3, sum4});
+    return std::max({sum1, sum2, sum3, sum4});
   }
 
   int DpHasSubsetAux(const vector<int> &arr, int sum)
