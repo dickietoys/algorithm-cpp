@@ -25,72 +25,67 @@ class OptimalStrategyForGame : public TestBase
     cout << "BruteSelect(";
     std::copy(arr.begin(), arr.end(), std::ostream_iterator<int>(cout, ", "));
     cout << ") : " << BruteSelect(arr) << endl;
+    cout << "DpSelect(";
+    std::copy(arr.begin(), arr.end(), std::ostream_iterator<int>(cout, ", "));
+    cout << ") : " << DpSelect(arr) << endl;
 
     arr = {8, 15, 3, 7};
     cout << "BruteSelect(";
     std::copy(arr.begin(), arr.end(), std::ostream_iterator<int>(cout, ", "));
     cout << ") : " << BruteSelect(arr) << endl;
+    cout << "DpSelect(";
+    std::copy(arr.begin(), arr.end(), std::ostream_iterator<int>(cout, ", "));
+    cout << ") : " << DpSelect(arr) << endl;
 
     arr = {2, 2, 2, 2};
     cout << "BruteSelect(";
     std::copy(arr.begin(), arr.end(), std::ostream_iterator<int>(cout, ", "));
     cout << ") : " << BruteSelect(arr) << endl;
+    cout << "DpSelect(";
+    std::copy(arr.begin(), arr.end(), std::ostream_iterator<int>(cout, ", "));
+    cout << ") : " << DpSelect(arr) << endl;
 
     arr = {20, 30, 2, 2, 2, 10};
     cout << "BruteSelect(";
     std::copy(arr.begin(), arr.end(), std::ostream_iterator<int>(cout, ", "));
     cout << ") : " << BruteSelect(arr) << endl;
+    cout << "DpSelect(";
+    std::copy(arr.begin(), arr.end(), std::ostream_iterator<int>(cout, ", "));
+    cout << ") : " << DpSelect(arr) << endl;
     cout << "=================OptimalStrategyForGame====================" << endl;
   }
 
   int BruteSelect(const vector<int> &arr)
   {
-    return BruteSelectAux(arr, 0, arr.size() - 1, 0);
+    return BruteSelectAux(arr, 0, arr.size() - 1);
   }
 
-  int DpHasSubset(const vector<int> &arr, int targetSum)
+  int DpSelect(const vector<int> &arr)
   {
-    return 0;
+    return DpSelectAux(arr);
   }
 
  private:
-  int BruteSelectAux(const vector<int> &arr, int leftPos, int rightPos, int sum)
+  int BruteSelectAux(const vector<int> &arr, int leftPos, int rightPos)
   {
     if (leftPos >= rightPos)
     {
-      return sum;
+      return 0;
     }
 
-    int sum1 = 0;
-    int sum2 = 0;
-    int sum3 = 0;
-    int sum4 = 0;
-    // 选择第一个
-    if (arr[rightPos - 1] > arr[leftPos + 1])
-    {
-      sum1 = BruteSelectAux(arr, leftPos + 1, rightPos - 1, sum + arr[leftPos]);
-    }
-    else
-    {
-      sum2 = BruteSelectAux(arr, leftPos + 2, rightPos, sum + arr[leftPos]);
-    }
+    int sum1 = arr[leftPos] + std::min(BruteSelectAux(arr, leftPos + 2, rightPos), BruteSelectAux(arr, leftPos + 1, rightPos - 1));
+    int sum2 = arr[rightPos] + std::min(BruteSelectAux(arr, leftPos + 1, rightPos - 1), BruteSelectAux(arr, leftPos, rightPos - 2));
 
-    //选择最后一个
-    if (arr[rightPos - 2] > arr[leftPos])
-    {
-      sum3 = BruteSelectAux(arr, leftPos, rightPos - 2, sum + arr[rightPos]);
-    }
-    else
-    {
-      sum4 = BruteSelectAux(arr, leftPos + 1, rightPos - 1, sum + arr[rightPos]);
-    }
-
-    return std::max({sum1, sum2, sum3, sum4});
+    return std::max(sum1, sum2);
   }
 
-  int DpHasSubsetAux(const vector<int> &arr, int sum)
+  int DpSelectAux(const vector<int> &arr)
   {
-    return 0;
+    vector<vector<int>> bookmark(arr.size(), vector<int>(arr.size(), 0));
+    int arrLength = arr.size();
+    for (int i = 0; i < arrLength; ++i)
+    {
+    }
   }
 
   void showBookmark(vector<vector<int>> &bookmark)
