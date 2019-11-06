@@ -68,8 +68,26 @@ class KnapsackProblem : public TestBase
 
   int DpSelectAux(const vector<GoodsT> &arr, int knapsackSize)
   {
+    int xLen = knapsackSize + 1;
+    int yLen = arr.size() + 1;
+    vector<vector<int>> bookmark(yLen, vector<int>(xLen, 0));
+    for (int i = 1; i < yLen; ++i)
+    {
+      for (int j = 1; j < xLen; ++j)
+      {
+        if (arr[i-1].weight <= j)
+        {
+          bookmark[i][j] = std::max(arr[i-1].value + bookmark[i-1][j-arr[i-1].weight],
+                                    bookmark[i-1][j]);
+        }
+        else
+        {
+          bookmark[i][j] = bookmark[i-1][j];
+        }
+      }
+    }
 
-    return 0;
+    return bookmark[arr.size()][knapsackSize];
   }
 
   void showBookmark(const vector<vector<int>> &bookmark)
@@ -145,15 +163,27 @@ class KnapsackIgnoreGoodsValueProblem : public TestBase
       bookmark[i][0] = 1;
     }
 
-    for (size_t i = 1; i < arr.size(); ++i)
+    for (size_t i = 1; i <= arr.size(); ++i)
     {
-      for (int j = 1; j < knapsackSize; ++j)
+      for (int j = 1; j <= knapsackSize; ++j)
       {
         bookmark[i][j] = bookmark[i-1][j];
         if (j - arr[i-1].weight >= 0)
-        {}
+        {
+          bookmark[i][j] |= bookmark[i-1][j - arr[i-1].weight];
+        }
       }
     }
+
+    for (int i = knapsackSize; i >= 0; --i)
+    {
+      if (bookmark[arr.size()][i] == 1)
+      {
+        return i;
+      }
+    }
+
+    return 0;
   }
 
   void showBookmark(const vector<vector<int>> &bookmark)
