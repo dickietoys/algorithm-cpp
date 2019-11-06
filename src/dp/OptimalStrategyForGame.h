@@ -25,21 +25,33 @@ class OptimalStrategyForGame : public TestBase
     cout << "BruteSelect(";
     std::copy(arr.begin(), arr.end(), std::ostream_iterator<int>(cout, ", "));
     cout << ") : " << BruteSelect(arr) << endl;
+    cout << "DpSelect(";
+    std::copy(arr.begin(), arr.end(), std::ostream_iterator<int>(cout, ", "));
+    cout << ") : " << DpSelect(arr) << endl;
 
     arr = {8, 15, 3, 7};
     cout << "BruteSelect(";
     std::copy(arr.begin(), arr.end(), std::ostream_iterator<int>(cout, ", "));
     cout << ") : " << BruteSelect(arr) << endl;
+    cout << "DpSelect(";
+    std::copy(arr.begin(), arr.end(), std::ostream_iterator<int>(cout, ", "));
+    cout << ") : " << DpSelect(arr) << endl;
 
     arr = {2, 2, 2, 2};
     cout << "BruteSelect(";
     std::copy(arr.begin(), arr.end(), std::ostream_iterator<int>(cout, ", "));
     cout << ") : " << BruteSelect(arr) << endl;
+    cout << "DpSelect(";
+    std::copy(arr.begin(), arr.end(), std::ostream_iterator<int>(cout, ", "));
+    cout << ") : " << DpSelect(arr) << endl;
 
     arr = {20, 30, 2, 2, 2, 10};
     cout << "BruteSelect(";
     std::copy(arr.begin(), arr.end(), std::ostream_iterator<int>(cout, ", "));
     cout << ") : " << BruteSelect(arr) << endl;
+    cout << "DpSelect(";
+    std::copy(arr.begin(), arr.end(), std::ostream_iterator<int>(cout, ", "));
+    cout << ") : " << DpSelect(arr) << endl;
     cout << "=================OptimalStrategyForGame====================" << endl;
   }
 
@@ -48,9 +60,9 @@ class OptimalStrategyForGame : public TestBase
     return BruteSelectAux(arr, 0, arr.size() - 1, 0);
   }
 
-  int DpHasSubset(const vector<int> &arr, int targetSum)
+  int DpSelect(const vector<int> &arr)
   {
-    return 0;
+    return DpSelectAux(arr);
   }
 
  private:
@@ -88,9 +100,23 @@ class OptimalStrategyForGame : public TestBase
     return std::max({sum1, sum2, sum3, sum4});
   }
 
-  int DpHasSubsetAux(const vector<int> &arr, int sum)
+  int DpSelectAux(const vector<int> &arr)
   {
-    return 0;
+    vector<vector<int>> bookmark(arr.size(), vector<int>(arr.size(), 0));
+    int arrLength = arr.size();
+    for (int k = 0; k < arrLength; ++k)
+    {
+      for (int i = 0, j = k; j < arrLength; ++i, ++j)
+      {
+        int value1 = (i+2 <= j) ? bookmark[i+2][j] : 0;
+        int value2 = (i+1 <= j-1) ? bookmark[i+1][j-1] : 0;
+        int value3 = (i <= j-2) ? bookmark[i][j-2] : 0;
+        bookmark[i][j] = std::max(arr[i] + std::min(value1, value2),
+                                  arr[j] + std::min(value2, value3));
+      }
+    }
+
+    return bookmark[0][arr.size()-1];
   }
 
   void showBookmark(vector<vector<int>> &bookmark)
