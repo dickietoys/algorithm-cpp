@@ -83,9 +83,18 @@ class OptimalStrategyForGame : public TestBase
   {
     vector<vector<int>> bookmark(arr.size(), vector<int>(arr.size(), 0));
     int arrLength = arr.size();
-    for (int i = 0; i < arrLength; ++i)
+    for (int k = 0; k < arrLength; ++k)
     {
+      for (int i = 0, j = k; j < arrLength; ++i, ++j)
+      {
+        int value1 = (i+2 <= j) ? bookmark[i+2][j] : 0;
+        int value2 = (i+1 <= j-1) ? bookmark[i+1][j-1] : 0;
+        int value3 = (i <= j-2) ? bookmark[i][j-2] : 0;
+        bookmark[i][j] = std::max(arr[i] + std::min(value1, value2),
+                                  arr[j] + std::min(value2, value3));
+      }
     }
+    return bookmark[0][arr.size()-1];
   }
 
   void showBookmark(vector<vector<int>> &bookmark)

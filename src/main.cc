@@ -8,7 +8,7 @@
 #include <dp/FindLongestPath.h>
 #include <dp/SubsetSumProblem.h>
 #include <dp/OptimalStrategyForGame.h>
-
+#include <dp/KnapsackProblem.h>
 
 int main()
 {
@@ -20,7 +20,9 @@ int main()
   // TestBase *testCase = new CoverDistance();
   // TestBase *testCase = new FindLongestPath();
   // TestBase *testCase = new SubsetSumProblem();
-  TestBase *testCase = new OptimalStrategyForGame();
+  // TestBase *testCase = new OptimalStrategyForGame();
+  // TestBase *testCase = new KnapsackProblem();
+  TestBase *testCase = new KnapsackIgnoreGoodsValueProblem();
   testCase->DoTest();
 
   // delete testCase;
