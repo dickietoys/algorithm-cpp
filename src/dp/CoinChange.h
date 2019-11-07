@@ -12,7 +12,7 @@
 using namespace std;
 
 /*
-  切钢条
+  给定总额n，和不等面值的硬币，数量不限，一共有多少组合方式
 */
 class CoinChange : public TestBase
 {
