@@ -106,29 +106,13 @@ class WordBreak : public TestBase
 
   bool DpResultAux(const map<string, bool> &dict, const string &input)
   {
-    vector<vector<int>> bookmark(input.size(), vector<int>(input.size(), false));
-
-    for (size_t i = 0; i < input.size(); i++)
+    vector<vector<int>> bookmark(input.size() + 1, vector<int>(input.size() + 1, false));
+    for (size_t i = input.size() - 1; i >= 0; --i)
     {
-      for (size_t j = 1; j <= i; ++j)
+      for (size_t j = 1; j <= input.size() - i; ++j)
       {
-        string leftString = input.substr(i, j);
-        string rightString = input.substr(i+j, input.size());
-        if (dict.find(leftString) != dict.cend())
-        {
-          if (rightString.size() == 0)
-          {
-            bookmark[i][j] = true;
-          }
-          else
-          {
-            bookmark[i][j] = bookmark[input.size()-j][input.size()];
-          }
-        }
-        else
-        {
-          bookmark[i][j] = false;
-        }
+        string leftPart = input.substr(i-1, j);
+        string rightPart = input.substr();
       }
     }
 
