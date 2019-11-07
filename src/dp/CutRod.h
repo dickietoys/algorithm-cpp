@@ -76,8 +76,17 @@ class CutRod : public TestBase
     return bookmark[rodSize];
   }
 
-  void showBookmark(vector<vector<int>> &bookmark)
+  void showBookmark(const vector<vector<int>> &bookmark)
   {
+    cout << endl;
+    for (size_t i = 0; i < bookmark.size(); ++i)
+    {
+      for (size_t j = 0; j < bookmark[i].size(); ++j)
+      {
+        cout << bookmark[i][j] << ", ";
+      }
+      cout << endl;
+    }
   }
 };
 

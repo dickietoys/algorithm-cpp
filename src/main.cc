@@ -11,27 +11,29 @@
 #include <dp/KnapsackProblem.h>
 #include <dp/BooleanParenthesizationProblem.h>
 #include <dp/CutRod.h>
+#include <dp/CoinChange.h>
+#include <dp/WordBreak.h>
 
 int main()
 {
-  // TestBase *testCase = new LongestIncreasingSubSequence();
-  // TestBase *testCase = new LongestCommonSubSequence();
-  // TestBase *testCase = new EditDistance();
-  // TestBase *testCase = new MinimumPartition();
-  // TestBase *testCase = new PartitionProblem();
-  // TestBase *testCase = new CoverDistance();
-  // TestBase *testCase = new FindLongestPath();
-  // TestBase *testCase = new SubsetSumProblem();
-  // TestBase *testCase = new OptimalStrategyForGame();
-  // TestBase *testCase = new KnapsackIgnoreGoodsValueProblem();
-  // TestBase *testCase = new KnapsackProblem();
-  // TestBase *testCase = new BooleanParenthesizationProblem();
-  TestBase *testCase = new CutRod();
-
-
+  TestBase *testCase = nullptr;
+  // testCase = new LongestIncreasingSubSequence();
+  // testCase = new LongestCommonSubSequence();
+  // testCase = new EditDistance();
+  // testCase = new MinimumPartition();
+  // testCase = new PartitionProblem();
+  // testCase = new CoverDistance();
+  // testCase = new FindLongestPath();
+  // testCase = new SubsetSumProblem();
+  // testCase = new OptimalStrategyForGame();
+  // testCase = new BooleanParenthesizationProblem();
+  // testCase = new KnapsackIgnoreGoodsValueProblem();
+  // testCase = new KnapsackProblem();
+  // testCase = new CutRod();
+  // testCase = new CoinChange();
+  testCase = new WordBreak();
   testCase->DoTest();
 
-  // delete testCase;
-
+  delete testCase;
   return 0;
 }
