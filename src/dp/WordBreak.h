@@ -81,7 +81,8 @@ class WordBreak : public TestBase
 
   bool DpResult(const map<string, bool> &dict, const string &input)
   {
-    return DpResultAux(dict, input);
+    vector<vector<int>> bookmark(input.size()+1, vector<int>(input.size()+1, -1));
+    return DpResultAux(dict, input, bookmark);
   }
 
  private:
@@ -97,26 +98,38 @@ class WordBreak : public TestBase
     {
       if (dict.find(input.substr(0, i)) != dict.cend())
       {
-        has = BruteResultAux(dict, input.substr(i, input.size()));
+        has = BruteResultAux(dict, input.substr(i, input.size() - i));
       }
     }
 
     return has;
   }
 
-  bool DpResultAux(const map<string, bool> &dict, const string &input)
+  bool DpResultAux(const map<string, bool> &dict, const string &input, vector<vector<int>> &bookmark)
   {
-    vector<vector<int>> bookmark(input.size() + 1, vector<int>(input.size() + 1, false));
-    for (size_t i = input.size() - 1; i >= 0; --i)
+    if (input.size() == 0)
     {
-      for (size_t j = 1; j <= input.size() - i; ++j)
+      return true;
+    }
+
+    bool has = false;
+    for (size_t i = 1; i <= input.size(); ++i)
+    {
+      if (bookmark[i][input.size() - i] == -1)
       {
-        string leftPart = input.substr(i-1, j);
-        string rightPart = input.substr();
+        if (dict.find(input.substr(0, i)) != dict.cend())
+        {
+          has = DpResultAux(dict, input.substr(i, input.size() - i), bookmark);
+          bookmark[i][input.size() - i] = has;
+        }
+      }
+      else
+      {
+        has = bookmark[i][input.size() - i];
       }
     }
 
-    return bookmark[0][input.size()];
+    return has;
   }
 
   void showBookmark(const vector<vector<int>> &bookmark)
