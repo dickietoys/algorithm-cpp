@@ -24,6 +24,7 @@ endif()
 
 include_directories(${PROJECT_SOURCE_DIR})
 
+add_subdirectory (array_stack_queue)
 add_subdirectory (bit_manipulation)
 add_subdirectory (dp)
 add_subdirectory (graph)
@@ -32,8 +33,8 @@ add_subdirectory (linkedlist)
 add_subdirectory (number_theory)
 add_subdirectory (sort_search)
 add_subdirectory (string_array)
-add_subdirectory (tree)
+add_subdirectory (tree_heap)
 add_subdirectory (testsuit)
 
 add_executable (main main.cc)
-target_link_libraries(main bit_manipulation dp graph greedy linkedlist number_theory sort_search string_array tree testsuit)
+target_link_libraries(main array_stack_queue bit_manipulation dp graph greedy linkedlist number_theory sort_search string_array tree_heap testsuit)

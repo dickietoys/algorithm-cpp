@@ -13,6 +13,7 @@
 #include <dp/CutRod.h>
 #include <dp/CoinChange.h>
 #include <dp/WordBreak.h>
+#include <array_stack_queue/ArrayStackQueue.h>
 
 int main()
 {
@@ -31,7 +32,8 @@ int main()
   // testCase = new KnapsackProblem();
   // testCase = new CutRod();
   // testCase = new CoinChange();
-  testCase = new WordBreak();
+  // testCase = new WordBreak();
+  testCase = new ArrayStackQueueTest();
   testCase->DoTest();
 
   delete testCase;
