@@ -14,6 +14,9 @@
 #include <dp/CoinChange.h>
 #include <dp/WordBreak.h>
 #include <array_stack_queue/ArrayStackQueue.h>
+#include <tree_heap/Heap.h>
+#include <tree_heap/Tree.h>
+#include <graph/Graph.h>
 
 int main()
 {
@@ -33,7 +36,10 @@ int main()
   // testCase = new CutRod();
   // testCase = new CoinChange();
   // testCase = new WordBreak();
-  testCase = new ArrayStackQueueTest();
+  // testCase = new ArrayStackQueueTest();
+  // testCase = new HeapTest();
+  // testCase = new TreeTest();
+  testCase = new GraphTest();
   testCase->DoTest();
 
   delete testCase;
