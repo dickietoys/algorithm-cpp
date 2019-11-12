@@ -17,6 +17,8 @@
 #include <tree_heap/Heap.h>
 #include <tree_heap/Tree.h>
 #include <graph/Graph.h>
+#include <sort_search/BinarySearch.h>
+#include <sort_search/NormalSortAlgo.h>
 
 int main()
 {
@@ -39,7 +41,9 @@ int main()
   // testCase = new ArrayStackQueueTest();
   // testCase = new HeapTest();
   // testCase = new TreeTest();
-  testCase = new GraphTest();
+  // testCase = new GraphTest();
+  // testCase = new BinarySearch();
+  testCase = new NormalSortAlgo();
   testCase->DoTest();
 
   delete testCase;
