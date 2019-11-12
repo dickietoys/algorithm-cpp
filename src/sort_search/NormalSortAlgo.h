@@ -20,13 +20,28 @@ class NormalSortAlgo: public TestBase
     cout << "=================NormalSortAlgo====================" << endl;
     vector<int> unsortArr = {5,2,1,9,8,7,3,4,6};
     cout << "---BubbleSort---" << endl;
+    ShowVector(unsortArr);
     vector<int> sortArr = BubbleSort(unsortArr);
     ShowVector(sortArr);
     cout << "---SelectSort---" << endl;
+    ShowVector(unsortArr);
     sortArr = SelectSort(unsortArr);
     ShowVector(sortArr);
     cout << "---InsertionSort---" << endl;
+    ShowVector(unsortArr);
     sortArr = InsertionSort(unsortArr);
+    ShowVector(sortArr);
+    cout << "---MergeSort---" << endl;
+    ShowVector(unsortArr);
+    sortArr = MergeSort(unsortArr);
+    ShowVector(sortArr);
+    cout << "---HeapSort---" << endl;
+    ShowVector(unsortArr);
+    sortArr = HeapSort(unsortArr);
+    ShowVector(sortArr);
+    cout << "---QuickSort---" << endl;
+    ShowVector(unsortArr);
+    sortArr = QuickSort(unsortArr);
     ShowVector(sortArr);
 
     cout << "=================NormalSortAlgo====================" << endl;
@@ -88,6 +103,10 @@ class NormalSortAlgo: public TestBase
 
   vector<int> MergeSort(vector<int> arr)
   {
+    int leftPos = 0;
+    int rightPos = arr.size();
+    int middlePos = (leftPos + rightPos) / 2;
+
     return arr;
   }
 
