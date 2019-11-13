@@ -104,18 +104,62 @@ class NormalSortAlgo: public TestBase
   vector<int> MergeSort(vector<int> arr)
   {
     int leftPos = 0;
-    int rightPos = arr.size();
-    int middlePos = (leftPos + rightPos) / 2;
+    int rightPos = arr.size() - 1;
 
+    vector<int> buffer(arr.size(), 0);
+    MergeSortAux(arr, buffer, leftPos, rightPos);
+
+    return arr;
+  }
+
+  vector<int> QuickSort(vector<int> arr)
+  {
+    QuickSortAux(arr, 0, arr.size() - 1);
     return arr;
   }
 
   vector<int> HeapSort(vector<int> arr)
   {
+    int length = arr.size();
+    for (int i = length / 2; i >= 0; --i)
+    {
+      int curPos = i;
+      int leftPos = curPos * 2 + 1;
+      while (leftPos <= length - 1)
+      {
+        if (leftPos < length - 1 && arr[leftPos+1] < arr[leftPos])
+        {
+          ++leftPos;
+        }
+
+        if (arr[curPos] > arr[leftPos])
+        {
+          std::swap(arr[curPos], arr[leftPos]);
+          curPos = leftPos;
+          leftPos = curPos * 2 + 1;
+        }
+        else
+        {
+          break;
+        }
+      }
+    }
+
     return arr;
   }
 
-  vector<int> QuickSort(vector<int> arr)
+
+  vector<int> BucketSort(vector<int> arr)
+  {
+    return arr;
+  }
+
+  vector<int> RadixSort(vector<int> arr)
+  {
+    return arr;
+  }
+
+  vector<int> CountSort(vector<int> arr)
   {
     return arr;
   }
@@ -127,6 +171,79 @@ class NormalSortAlgo: public TestBase
       cout << *it << ", ";
     }
     cout << endl;
+  }
+
+ private:
+  void MergeSortAux(vector<int> &arr, vector<int> &buffer, int leftPos, int rightPos)
+  {
+    if (leftPos < rightPos)
+    {
+      int midPos = (leftPos + rightPos) / 2;
+      MergeSortAux(arr, buffer, leftPos, midPos);
+      MergeSortAux(arr, buffer, midPos + 1, rightPos);
+
+      int leftStartPos = leftPos;
+      int rightStartPos = midPos + 1;
+      int index = leftPos;
+      while (leftStartPos <= midPos && rightStartPos <= rightPos)
+      {
+        if (arr[leftStartPos] > arr[rightStartPos] )
+        {
+          buffer[index++] = arr[rightStartPos++];
+        }
+        else
+        {
+          buffer[index++] = arr[leftStartPos++];
+        }
+      }
+
+      while (leftStartPos <= midPos)
+      {
+        buffer[index++] = arr[leftStartPos++];
+      }
+
+      while (rightStartPos <= rightPos)
+      {
+        buffer[index++] = arr[rightStartPos++];
+      }
+
+      for (int i = leftPos; i <= rightPos; ++i)
+      {
+        arr[i] = buffer[i];
+      }
+    }
+  }
+
+  void QuickSortAux(vector<int> &arr, int leftPos, int rightPos)
+  {
+    if (leftPos >= rightPos)
+    {
+      return;
+    }
+
+    int i = leftPos;
+    int j = rightPos - 1;
+    int pivot = rightPos;
+    while (i <= j)
+    {
+      if (arr[i] < arr[pivot])
+      {
+        ++i;
+        continue;
+      }
+
+      if (arr[j] > arr[pivot])
+      {
+        --j;
+        continue;
+      }
+
+      std::swap(arr[i], arr[j]);
+    }
+
+    std::swap(arr[i], arr[pivot]);
+    QuickSortAux(arr, leftPos, i - 1);
+    QuickSortAux(arr, i + 1, rightPos);
   }
 };
 
