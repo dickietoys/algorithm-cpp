@@ -19,6 +19,7 @@
 #include <graph/Graph.h>
 #include <sort_search/BinarySearch.h>
 #include <sort_search/NormalSortAlgo.h>
+#include <sort_search/FindKthElement.h>
 
 int main()
 {
@@ -43,7 +44,8 @@ int main()
   // testCase = new TreeTest();
   // testCase = new GraphTest();
   // testCase = new BinarySearch();
-  testCase = new NormalSortAlgo();
+  // testCase = new NormalSortAlgo();
+  testCase = new FindKthElement();
   testCase->DoTest();
 
   delete testCase;
