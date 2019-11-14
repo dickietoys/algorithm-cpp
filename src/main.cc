@@ -20,6 +20,8 @@
 #include <sort_search/BinarySearch.h>
 #include <sort_search/NormalSortAlgo.h>
 #include <sort_search/FindKthElement.h>
+#include <sort_search/FindPairSumClosest.h>
+
 
 int main()
 {
@@ -45,7 +47,8 @@ int main()
   // testCase = new GraphTest();
   // testCase = new BinarySearch();
   // testCase = new NormalSortAlgo();
-  testCase = new FindKthElement();
+  // testCase = new FindKthElement();
+  testCase = new FindPairSumClosest();
   testCase->DoTest();
 
   delete testCase;
