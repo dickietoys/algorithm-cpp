@@ -17,10 +17,11 @@
 #include <tree_heap/Heap.h>
 #include <tree_heap/Tree.h>
 #include <graph/Graph.h>
-#include <sort_search/BinarySearch.h>
+#include <sort_search/NormalSearchAlgo.h>
 #include <sort_search/NormalSortAlgo.h>
 #include <sort_search/FindKthElement.h>
 #include <sort_search/FindPairSumClosest.h>
+#include <sort_search/FindPairEqSum.h>
 
 
 int main()
@@ -45,10 +46,11 @@ int main()
   // testCase = new HeapTest();
   // testCase = new TreeTest();
   // testCase = new GraphTest();
-  // testCase = new BinarySearch();
   // testCase = new NormalSortAlgo();
   // testCase = new FindKthElement();
-  testCase = new FindPairSumClosest();
+  // testCase = new FindPairEqSum();
+  // testCase = new FindPairSumClosest();
+  testCase = new NormalSearchAlgo();
   testCase->DoTest();
 
   delete testCase;

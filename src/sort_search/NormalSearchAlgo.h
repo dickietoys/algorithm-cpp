@@ -1,5 +1,5 @@
-#ifndef BINARY_SEARCH_H_
-#define BINARY_SEARCH_H_
+#ifndef NORMAL_SEARCH_ALGO_H_
+#define NORMAL_SEARCH_ALGO_H_
 
 #include <iostream>
 #include <vector>
@@ -12,29 +12,29 @@
 
 using namespace std;
 
-class BinarySearch: public TestBase
+class NormalSearchAlgo: public TestBase
 {
  public:
   void DoTest()
   {
-    cout << "=================BinarySearch====================" << endl;
+    cout << "=================NormalSearchAlgo====================" << endl;
     vector<int> sortedArr = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-    cout << FindSorted(sortedArr, 10) << endl;
-    cout << FindSorted(sortedArr, 5) << endl;
-    cout << FindSorted(sortedArr, 2) << endl;
-    cout << FindSorted(sortedArr, 7) << endl;
+    cout << BinarySearch(sortedArr, 10) << endl;
+    cout << BinarySearch(sortedArr, 5) << endl;
+    cout << BinarySearch(sortedArr, 2) << endl;
+    cout << BinarySearch(sortedArr, 7) << endl;
 
 
     cout << "rotated" << endl;
     sortedArr = {7, 8, 9, 1, 2, 3, 4, 5, 6};
-    cout << FindSortedAndRotated(sortedArr, 10) << endl;
-    cout << FindSortedAndRotated(sortedArr, 5) << endl;
-    cout << FindSortedAndRotated(sortedArr, 2) << endl;
-    cout << FindSortedAndRotated(sortedArr, 7) << endl;
-    cout << "=================BinarySearch====================" << endl;
+    cout << BinarySearchAndRotated(sortedArr, 10) << endl;
+    cout << BinarySearchAndRotated(sortedArr, 5) << endl;
+    cout << BinarySearchAndRotated(sortedArr, 2) << endl;
+    cout << BinarySearchAndRotated(sortedArr, 7) << endl;
+    cout << "=================NormalSearchAlgo====================" << endl;
   }
 
-  bool FindSorted(const vector<int> &sortedArr, int value)
+  bool BinarySearch(const vector<int> &sortedArr, int value)
   {
     int startPos = 0;
     int endPos = sortedArr.size() - 1;
@@ -59,12 +59,12 @@ class BinarySearch: public TestBase
     return false;
   }
 
-  bool FindSortedAndRotated(const vector<int> &sortedArr, int value)
+  bool BinarySearchAndRotated(const vector<int> &sortedArr, int value)
   {
     int pivot = FindPivot(sortedArr);
     if (pivot == -1)
     {
-      FindSorted(sortedArr, value);
+      BinarySearch(sortedArr, value);
     }
     else
     {
