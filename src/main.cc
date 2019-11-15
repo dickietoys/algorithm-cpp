@@ -14,9 +14,10 @@
 #include <dp/CoinChange.h>
 #include <dp/WordBreak.h>
 #include <array_stack_queue/ArrayStackQueue.h>
-#include <tree_heap/Heap.h>
-#include <tree_heap/Tree.h>
 #include <graph/Graph.h>
+#include <tree_heap/Heap.h>
+#include <tree_heap/BinarySearchTree.h>
+#include <tree_heap/FindMinimumDepthOfBinaryTree.h>
 #include <sort_search/NormalSearchAlgo.h>
 #include <sort_search/NormalSortAlgo.h>
 #include <sort_search/FindKthElement.h>
@@ -44,13 +45,14 @@ int main()
   // testCase = new WordBreak();
   // testCase = new ArrayStackQueueTest();
   // testCase = new HeapTest();
-  // testCase = new TreeTest();
+  // testCase = new BinarySearchTreeTest();
   // testCase = new GraphTest();
   // testCase = new NormalSortAlgo();
   // testCase = new FindKthElement();
   // testCase = new FindPairEqSum();
   // testCase = new FindPairSumClosest();
-  testCase = new NormalSearchAlgo();
+  // testCase = new NormalSearchAlgo();
+  testCase = new FindMinimumDepthOfBinaryTree();
   testCase->DoTest();
 
   delete testCase;
