@@ -26,7 +26,8 @@
 #include <sort_search/FindPairSumClosest.h>
 #include <sort_search/FindPairEqSum.h>
 #include <linkedlist/ReverseLinkedList.h>
-#include <linkedlist/MergeSortLinkedList.h>
+#include <linkedlist/LinkedListSortByMergeSort.h>
+#include <linkedlist/MergeTwoSortedLinkedList.h>
 
 int main()
 {
@@ -58,7 +59,8 @@ int main()
   // testCase = new FindMinimumDepthOfBinaryTree();
   // testCase = new BinaryTreeTest();
   // testCase = new ReverseLinkedList();
-  testCase = new MergeSortLinkedList();
+  testCase = new MergeTwoSortedLinkedList();
+  // testCase = new LinkedListSortByMergeSort();
   testCase->DoTest();
 
   delete testCase;

@@ -37,6 +37,48 @@ class LinkedList
     return newNode;
   }
 
+  void MergeSortedLinkedList(ListNodeT *sortedListHead)
+  {
+    ListNodeT *listNode1 = head_->next;
+    ListNodeT *listNode2 = sortedListHead->next;
+    ListNodeT dummy;
+    ListNodeT *tail = &dummy;
+    dummy.next = nullptr;
+    while (true)
+    {
+      if (!listNode1)
+      {
+        tail->next = listNode2;
+        break;
+      }
+
+      if (!listNode2)
+      {
+        tail->next = listNode1;
+        break;
+      }
+
+      if (listNode1->value <= listNode2->value)
+      {
+        tail->next = listNode1;
+        tail = tail->next;
+        listNode1 = listNode1->next;
+      }
+      else
+      {
+        tail->next = listNode2;
+        tail = tail->next;
+        listNode2 = listNode2->next;
+      }
+    }
+    head_->next = dummy.next;
+  }
+
+  ListNodeT *GetHeader()
+  {
+    return head_;
+  }
+
   void Reverse()
   {
     if (!head_->next)
