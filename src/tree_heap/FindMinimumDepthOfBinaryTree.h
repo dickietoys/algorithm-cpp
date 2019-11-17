@@ -27,6 +27,7 @@ class FindMinimumDepthOfBinaryTree: public TestBase
     myTree.Insert(3);
     myTree.ShowLevelOrder(true);
     cout << "MinimumDepth: " << myTree.MinimumDepth() << endl;
+    cout << "MinimumDepthRecursive: " << myTree.MinimumDepthRecursive() << endl;
     cout << "=================FindMinimumDepthOfBinaryTree====================" << endl;
   }
 };

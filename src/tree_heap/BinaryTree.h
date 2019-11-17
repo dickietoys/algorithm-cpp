@@ -1,62 +1,43 @@
-#ifndef BINARY_SEARCH_TREE_H_
-#define BINARY_SEARCH_TREE_H_
+#ifndef BINARY_TREE_H_
+#define BINARY_TREE_H_
 
 #include <iostream>
 #include <queue>
 
 #include <testsuit/TestBase.h>
-#include <tree_heap/BinaryTree.h>
 
 using namespace std;
 
-class BinarySearchTree
+typedef struct TreeNodeS{
+  int value;
+  TreeNodeS *left;
+  TreeNodeS *right;
+} TreeNodeT;
+
+class BinaryTree
 {
  public:
-  BinarySearchTree() :
+  BinaryTree() :
       root_(nullptr),
       size_(0)
   {}
 
-  void Insert(int value)
+  TreeNodeT * InitRoot(int value)
   {
-    TreeNodeT *newNode = new TreeNodeT({value, nullptr, nullptr});
-    if (root_)
-    {
-      TreeNodeT *curNode = root_;
-      while (true)
-      {
-        if (value > curNode->value)
-        {
-          if (curNode->right == nullptr)
-          {
-            curNode->right = newNode;
-            break;
-          }
-          else
-          {
-            curNode = curNode->right;
-          }
-        }
-        else
-        {
-          if (curNode->left == nullptr)
-          {
-            curNode->left = newNode;
-            break;
-          }
-          else
-          {
-            curNode = curNode->left;
-          }
-        }
-      }
-    }
-    else
-    {
-      root_ = newNode;
-    }
+    root_ = new TreeNodeT({value, nullptr, nullptr});
+    return root_;
+  }
 
-    ++size_;
+  TreeNodeT * InsertLeft(TreeNodeT *fatherNode, int value)
+  {
+    fatherNode->left = new TreeNodeT({value, nullptr, nullptr});
+    return fatherNode->left;
+  }
+
+  TreeNodeT * InsertRight(TreeNodeT *fatherNode, int value)
+  {
+    fatherNode->right = new TreeNodeT({value, nullptr, nullptr});
+    return fatherNode->right;
   }
 
   void ShowPreOrder()
@@ -118,7 +99,27 @@ class BinarySearchTree
     return MinimumDepthRecursive(root_);
   }
 
+  int MaxPathSum()
+  {
+    return MaxPathSumAux(root_);
+  }
+
  private:
+  int MaxPathSumAux(TreeNodeT *node)
+  {
+    if (node == nullptr)
+    {
+      return 0;
+    }
+
+    int leftSum = MaxPathSumAux(node->left) + node->value;
+    int rightSum = MaxPathSumAux(node->right) + node->value;
+    int curValue = node->value;
+    int allSum = leftSum + rightSum - curValue;
+
+    return std::max({leftSum, rightSum, curValue, allSum});
+  }
+
   int MinimumDepth(TreeNodeT *node)
   {
     queue<TreeNodeT *> buffer;
@@ -271,21 +272,23 @@ class BinarySearchTree
 };
 
 
-class BinarySearchTreeTest: public TestBase
+class BinaryTreeTest: public TestBase
 {
  public:
   void DoTest()
   {
-    cout << "=================BinarySearchTreeTest====================" << endl;
-    BinarySearchTree myTree;
-    myTree.Insert(5);
-    myTree.Insert(2);
-    myTree.Insert(8);
-    myTree.Insert(1);
-    myTree.Insert(3);
-    myTree.Insert(6);
-    myTree.Insert(7);
-    myTree.Insert(4);
+    cout << "=================BinaryTreeTest====================" << endl;
+    BinaryTree myTree;
+    TreeNodeT *root = myTree.InitRoot(10);
+    TreeNodeT *node = myTree.InsertLeft(root, 2);
+    myTree.InsertLeft(node, 20);
+    myTree.InsertRight(node, 1);
+    node = myTree.InsertRight(root, 10);
+    node = myTree.InsertRight(node, -25);
+    myTree.InsertLeft(node, 3);
+    myTree.InsertRight(node, 4);
+
+
     cout << "tree height:" << myTree.Height() << endl;
 
     myTree.ShowPreOrder();
@@ -296,7 +299,7 @@ class BinarySearchTreeTest: public TestBase
 
     myTree.ShowLevelOrder(true);
     myTree.ShowLevelOrderRecursive(true);
-    cout << "=================BinarySearchTreeTest====================" << endl;
+    cout << "=================BinaryTreeTest====================" << endl;
   }
 };
 

@@ -16,14 +16,17 @@
 #include <array_stack_queue/ArrayStackQueue.h>
 #include <graph/Graph.h>
 #include <tree_heap/Heap.h>
+#include <tree_heap/BinaryTree.h>
 #include <tree_heap/BinarySearchTree.h>
 #include <tree_heap/FindMinimumDepthOfBinaryTree.h>
+#include <tree_heap/FindMaxPathSumInBinaryTree.h>
 #include <sort_search/NormalSearchAlgo.h>
 #include <sort_search/NormalSortAlgo.h>
 #include <sort_search/FindKthElement.h>
 #include <sort_search/FindPairSumClosest.h>
 #include <sort_search/FindPairEqSum.h>
-
+#include <linkedlist/ReverseLinkedList.h>
+#include <linkedlist/MergeSortLinkedList.h>
 
 int main()
 {
@@ -52,7 +55,10 @@ int main()
   // testCase = new FindPairEqSum();
   // testCase = new FindPairSumClosest();
   // testCase = new NormalSearchAlgo();
-  testCase = new FindMinimumDepthOfBinaryTree();
+  // testCase = new FindMinimumDepthOfBinaryTree();
+  // testCase = new BinaryTreeTest();
+  // testCase = new ReverseLinkedList();
+  testCase = new MergeSortLinkedList();
   testCase->DoTest();
 
   delete testCase;
