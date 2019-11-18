@@ -101,7 +101,7 @@ class LinkedList
 
   void MergeSort()
   {
-
+    MergeSortAux(&(head_->next));
   }
 
   void FindMiddle(ListNodeT **middleNode)
@@ -124,6 +124,30 @@ class LinkedList
   void Show()
   {
     ListNodeT *curNode = head_->next;
+    Show(curNode);
+  }
+
+  void SplitList(ListNodeT *startNode, ListNodeT **rightStartNode)
+  {
+    ListNodeT *fast = startNode;
+    ListNodeT *slow = startNode;
+    while (fast)
+    {
+      fast = fast->next;
+      if (fast && fast->next)
+      {
+        fast = fast->next;
+        slow = slow->next;
+      }
+    }
+
+    *rightStartNode = slow->next;
+    slow->next = nullptr;
+  }
+
+ private:
+  void Show(ListNodeT *curNode)
+  {
     while (curNode)
     {
       cout << curNode->value << ", ";
@@ -133,10 +157,59 @@ class LinkedList
     cout << endl;
   }
 
- private:
-  void MergeSortAux(ListNodeT *leftNode, ListNodeT *rightNode)
+  void MergeSortAux(ListNodeT **node)
   {
+    ListNodeT *curNode = *node;
+    if (!curNode || !curNode->next)
+    {
+      return;
+    }
 
+    ListNodeT *rightStartNode = nullptr;
+    SplitList(curNode, &rightStartNode);
+    MergeSortAux(&curNode);
+    MergeSortAux(&rightStartNode);
+    Merge(&curNode, rightStartNode);
+    *node = curNode;
+  }
+
+  void Merge(ListNodeT **node1, ListNodeT *node2)
+  {
+    ListNodeT *startNode = *node1;
+    ListNodeT dummy;
+    ListNodeT *curNode = &dummy;
+    while (startNode && node2)
+    {
+      if (startNode->value > node2->value)
+      {
+        curNode->next = node2;
+        node2 = node2->next;
+        curNode = curNode->next;
+      }
+      else
+      {
+        curNode->next = startNode;
+        startNode = (startNode)->next;
+        curNode = curNode->next;
+      }
+    }
+
+    while (startNode)
+    {
+      curNode->next = startNode;
+      startNode = (startNode)->next;
+      curNode = curNode->next;
+    }
+
+    while (node2)
+    {
+      curNode->next = node2;
+      node2 = node2->next;
+      curNode = curNode->next;
+    }
+
+    *node1 = dummy.next;
+    Show(dummy.next);
   }
 
  private:

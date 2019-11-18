@@ -28,6 +28,9 @@
 #include <linkedlist/ReverseLinkedList.h>
 #include <linkedlist/LinkedListSortByMergeSort.h>
 #include <linkedlist/MergeTwoSortedLinkedList.h>
+#include <bit_manipulation/FindMaxSubArrayXor.h>
+#include <bit_manipulation/FindNthMagicNumber.h>
+#include <string_array/ReverseString.h>
 
 int main()
 {
@@ -59,8 +62,10 @@ int main()
   // testCase = new FindMinimumDepthOfBinaryTree();
   // testCase = new BinaryTreeTest();
   // testCase = new ReverseLinkedList();
-  testCase = new MergeTwoSortedLinkedList();
+  // testCase = new MergeTwoSortedLinkedList();
   // testCase = new LinkedListSortByMergeSort();
+  // testCase = new FindNthMagicNumber();
+  testCase = new ReverseString();
   testCase->DoTest();
 
   delete testCase;

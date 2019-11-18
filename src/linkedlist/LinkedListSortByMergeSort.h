@@ -21,11 +21,13 @@ class LinkedListSortByMergeSort : public TestBase
     linkedList.PushBack(3);
     linkedList.PushBack(2);
     linkedList.PushBack(1);
+    cout << "before sort: ";
     linkedList.Show();
-    // linkedList.MergeSort();
     ListNodeT *middleNode = nullptr;
     linkedList.FindMiddle(&middleNode);
-    cout << middleNode->value << endl;
+    cout << "middleNode: " << middleNode->value << endl;
+    linkedList.MergeSort();
+    cout << "after sort: ";
     linkedList.Show();
 
     cout << "=================LinkedListSortByMergeSort====================" << endl;
