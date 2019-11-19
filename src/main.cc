@@ -31,6 +31,7 @@
 #include <bit_manipulation/FindMaxSubArrayXor.h>
 #include <bit_manipulation/FindNthMagicNumber.h>
 #include <string_array/ReverseString.h>
+#include <string_array/FindLongestSubString.h>
 
 int main()
 {
@@ -65,7 +66,8 @@ int main()
   // testCase = new MergeTwoSortedLinkedList();
   // testCase = new LinkedListSortByMergeSort();
   // testCase = new FindNthMagicNumber();
-  testCase = new ReverseString();
+  // testCase = new ReverseString();
+  testCase = new FindLongestSubString();
   testCase->DoTest();
 
   delete testCase;
