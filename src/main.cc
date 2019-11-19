@@ -32,6 +32,14 @@
 #include <bit_manipulation/FindNthMagicNumber.h>
 #include <string_array/ReverseString.h>
 #include <string_array/FindLongestSubString.h>
+#include <string_array/CountTripletsSumSmaller.h>
+#include <string_array/ConvertArrayInfoZigZag.h>
+#include <string_array/GenAllSortedArrayFromTwoArray.h>
+#include <string_array/PythagoreanTriplet.h>
+#include <string_array/LargestContiguousSubArray.h>
+#include <string_array/SmallestSubArrayWithSum.h>
+#include <string_array/StockBuySell.h>
+#include <greedy/ActivitySelection.h>
 
 int main()
 {
@@ -67,7 +75,15 @@ int main()
   // testCase = new LinkedListSortByMergeSort();
   // testCase = new FindNthMagicNumber();
   // testCase = new ReverseString();
-  testCase = new FindLongestSubString();
+  // testCase = new FindLongestSubString();
+  // testCase = new CountTripletsSumSmaller();
+  // testCase = new ConvertArrayInfoZigZag();
+  // testCase = new GenAllSortedArrayFromTwoArray();
+  // testCase = new PythagoreanTriplet();
+  // testCase = new LargestContiguousSubArray();
+  // testCase = new SmallestSubArrayWithSum();
+  // testCase = new StockBuySell();
+  testCase = new ActivitySelection();
   testCase->DoTest();
 
   delete testCase;
