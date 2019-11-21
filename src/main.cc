@@ -13,6 +13,7 @@
 #include <dp/CutRod.h>
 #include <dp/CoinChange.h>
 #include <dp/WordBreak.h>
+#include <greedy/ActivitySelection.h>
 #include <array_stack_queue/ArrayStackQueue.h>
 #include <graph/Graph.h>
 #include <tree_heap/Heap.h>
@@ -39,7 +40,8 @@
 #include <string_array/LargestContiguousSubArray.h>
 #include <string_array/SmallestSubArrayWithSum.h>
 #include <string_array/StockBuySell.h>
-#include <greedy/ActivitySelection.h>
+#include <string_array/LongestPalindromicSubString.h>
+#include <string_array/StringWordDict.h>
 
 int main()
 {
@@ -83,7 +85,9 @@ int main()
   // testCase = new LargestContiguousSubArray();
   // testCase = new SmallestSubArrayWithSum();
   // testCase = new StockBuySell();
-  testCase = new ActivitySelection();
+  // testCase = new ActivitySelection();
+  testCase = new LongestPalindromicSubString();
+  // testCase = new StringWordDict();
   testCase->DoTest();
 
   delete testCase;
