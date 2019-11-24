@@ -47,7 +47,7 @@
 int main()
 {
   TestBase *testCase = nullptr;
-  // testCase = new LongestIncreasingSubSequence();
+  testCase = new LongestIncreasingSubSequence();
   // testCase = new LongestCommonSubSequence();
   // testCase = new EditDistance();
   // testCase = new MinimumPartition();
@@ -89,7 +89,7 @@ int main()
   // testCase = new ActivitySelection();
   // testCase = new LongestPalindromicSubString();
   // testCase = new StringWordDict();
-  testCase = new FrogJump();
+  // testCase = new FrogJump();
   testCase->DoTest();
 
   delete testCase;
