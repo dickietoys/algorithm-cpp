@@ -47,7 +47,7 @@
 int main()
 {
   TestBase *testCase = nullptr;
-  testCase = new LongestIncreasingSubSequence();
+  // testCase = new LongestIncreasingSubSequence();
   // testCase = new LongestCommonSubSequence();
   // testCase = new EditDistance();
   // testCase = new MinimumPartition();
@@ -60,7 +60,7 @@ int main()
   // testCase = new KnapsackIgnoreGoodsValueProblem();
   // testCase = new KnapsackProblem();
   // testCase = new CutRod();
-  // testCase = new CoinChange();
+  testCase = new CoinChange();
   // testCase = new WordBreak();
   // testCase = new ArrayStackQueueTest();
   // testCase = new HeapTest();
