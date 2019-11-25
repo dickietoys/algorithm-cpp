@@ -31,11 +31,10 @@ public:
     for (size_t i = 0; i < s.size(); ++i)
     {
       string tmpS = s;
-      tmpS.erase(i, 1);
-      // cout << "s: " << s << "; tmpS: " << tmpS << endl;
+      tmpS.erase(i);
       string tmpBuffer = buffer;
       tmpBuffer.push_back(s[i]);
-      BruteResultAux(tmpS, tmpBuffer);
+      BruteResultAux(tmpS.erase(i), buffer);
     }
   }
 };
