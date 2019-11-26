@@ -54,7 +54,7 @@ public:
 
   bool Recursive(string s, int sPos, string p, int pPos)
   {
-    if (sPos < s.size() && pPos == p.size())
+    if (sPos == s.size() && pPos == p.size())
     {
       return true;
     }

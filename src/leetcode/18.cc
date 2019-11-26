@@ -17,20 +17,8 @@ public:
     vector<vector<int>> result;
     int target;
 
-    arr = {1, 0, -1, 0, -2, 2};
+    arr = {-1, 0, 1, 2, -1, -4};
     target = 0;
-    result = fourSum(arr, target);
-    Show(result);
-
-    cout << "---------------------" << endl;
-    arr = {-3,-1,0,2,4,5};
-    target = 2;
-    result = fourSum(arr, target);
-    Show(result);
-
-    cout << "---------------------" << endl;
-    arr = {-1,0,1,2,-1,-4};
-    target = -1;
     result = fourSum(arr, target);
     Show(result);
   }
@@ -48,21 +36,16 @@ public:
       }
       for (int n = i+1; n < length; ++n)
       {
-        if (n != i+1 && nums[n] == nums[n-1])
+        if (i != i+1 && nums[i] == nums[i-1])
         {
           continue;
         }
 
         int j = n + 1;
         int k = length - 1;
-        if (i == 1)
-        {
-
-        }
         while (j < k)
         {
-          int curSum = nums[i] + nums[n] + nums[j] + nums[k];
-          if (curSum == target)
+          if (nums[i] + nums[n] + nums[j] + nums[k] == target)
           {
             result.push_back({nums[i], nums[n], nums[j], nums[k]});
             while (j < k && nums[j+1] == nums[j])
@@ -78,7 +61,7 @@ public:
             ++j;
             --k;
           }
-          else if (curSum > target)
+          else if (nums[i] + nums[j] + nums[k] > 0)
           {
             --k;
           }

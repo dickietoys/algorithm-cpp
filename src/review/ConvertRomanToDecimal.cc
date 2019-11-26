@@ -13,9 +13,7 @@ public:
     string s;
     int result;
 
-    // s = "MCMIV";
-    s = "MDCDXCIV";
-
+    s = "MCMIV";
     result = CalcResult(s);
     cout << "result: " << result << endl;
   }
