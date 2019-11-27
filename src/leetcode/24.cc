@@ -19,43 +19,41 @@ class Solution {
 public:
   void RunTest()
   {
-    int n = 2;
     ListNode *head1 = new ListNode(1);
     head1->next = new ListNode(2);
     head1->next->next = new ListNode(3);
     head1->next->next->next = new ListNode(4);
-    head1->next->next->next->next = new ListNode(5);
     Show(head1);
-    head1 = reverseKGroup(head1, n);
+    head1 = swapPairs(head1);
     Show(head1);
   }
 
-  ListNode* reverseKGroup(ListNode* head, int k) {
+  ListNode* swapPairs(ListNode* head) {
     if (!head)
     {
       return head;
     }
-
     ListNode dummy(0);
     dummy.next = head;
+    ListNode *prev = &dummy;
+    ListNode *cur = head;
+    ListNode *next = cur->next;
 
-    ListNode *prev = head;
-    ListNode *cur = prev->next;
-    ListNode *next = nullptr;
-    int count = 1;
-
-    while (cur && count == k)
+    while (next)
     {
+      prev->next = next;
+      cur->next = next->next;
+      next->next = cur;
+      prev = cur;
+      cur = cur->next;
+      if (!cur)
+      {
+        break;
+      }
       next = cur->next;
-      cur->next = prev;
-      prev = prev;
-      cur = next;
-      ++count;
     }
 
-    head->next = cur;
-    Show(prev);
-    return prev;
+    return dummy.next;
   }
 
   void Show(ListNode *node)
