@@ -31,19 +31,16 @@ public:
   int divide(int dividend, int divisor) {
     int sign = (dividend < 0) ^ (divisor < 0) ? -1 : 1;
 
-    long lDividend = std::abs((long)dividend);
-    long lDivisor = std::abs((long)divisor);
+    dividend = std::abs(dividend);
+    divisor = std::abs(divisor);
 
-    long count = 0;
-    while (lDividend >= lDivisor)
+    while (dividend >= divisor)
     {
-      lDividend -= lDivisor;
-      ++count;
+      dividend -= divisor;
     }
 
-    return count * sign;
+    return dividend * sign;
   }
-
 };
 
 int main()

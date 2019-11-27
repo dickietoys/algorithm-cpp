@@ -8,5 +8,10 @@
 
 22. Generate Parentheses
 
+28. 待优化
+
+29. 溢出处理
+
+30. Substring with Concatenation of All Words
 
 
