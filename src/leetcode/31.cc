@@ -14,40 +14,41 @@ class Solution {
 public:
   void RunTest()
   {
-    vector<int> input = {1,2,3};
+    vector<int> input = {1, 3, 2};
+    Show(input);
     nextPermutation(input);
     Show(input);
   }
 
   void nextPermutation(vector<int>& nums) {
-    Aux(nums, nums.size()-1);
-  }
+    int length = nums.size();
+    int i = length - 2;
 
-  void Aux(vector<int>& nums, int pos)
-  {
-    if (pos == 0)
+    while (i >= 0 && nums[i] >= nums[i+1])
     {
-      int i = 0;
-      int j = nums.size() - 1;
-      while (i < j)
+      --i;
+    }
+
+    int j = length - 1;
+    if (i >= 0)
+    {
+      while (j >= 0 && nums[j] <= nums[i])
       {
-        std::swap(nums[i], nums[j]);
-        ++i;
         --j;
       }
-
-      return;
+      std::swap(nums[i], nums[j]);
     }
 
-    if (nums[pos-1] < nums[pos])
+    int k = length - 1;
+    j = i + 1;
+    while (j < k)
     {
-      std::swap(nums[pos-1], nums[pos]);
-    }
-    else
-    {
-      Aux(nums, pos - 1);
+      std::swap(nums[k], nums[j]);
+      ++j;
+      --k;
     }
   }
+
 
   void Show(vector<int> result)
   {

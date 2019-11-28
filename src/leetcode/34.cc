@@ -14,31 +14,15 @@ class Solution {
 public:
   void RunTest()
   {
-    vector<int> nums = {};
-    int target = 0;
-    int result = 0;
+    vector<int> nums = {5,7,7,8,8,10};
+    int target = 8;
+    vector<int> result = searchRange(nums, target);
+    show(result);
 
-    nums = {1, 3, 5, 6};
-    target = 5;
-    result = searchInsert(nums, target);
-    assert(result == 2);
-
-    target = 2;
-    result = searchInsert(nums, target);
-    assert(result == 1);
-
-    target = 7;
-    result = searchInsert(nums, target);
-    assert(result == 4);
-
-    target = 0;
-    result = searchInsert(nums, target);
-    assert(result == 0);
-
-    nums = {1, 3};
-    target = 2;
-    result = searchInsert(nums, target);
-    assert(result == 1);
+    nums = {5,7,7,8,8,10};
+    target = 6;
+    result = searchRange(nums, target);
+    show(result);
   }
 
   void show(vector<int>& nums)
@@ -55,10 +39,9 @@ public:
   {
     int leftPos = left;
     int rightPos = right;
-    int middlePos = left;
     while (leftPos <= rightPos)
     {
-      middlePos = (leftPos + rightPos) / 2;
+      int middlePos = (leftPos + rightPos) / 2;
       if (nums[middlePos] == target)
       {
         return middlePos;
@@ -73,25 +56,29 @@ public:
       }
     }
 
-    return middlePos;
+    return -1;
   }
 
-  int searchInsert(vector<int>& nums, int target) {
+  vector<int> searchRange(vector<int>& nums, int target) {
     int pos = binarySearch(nums, 0, nums.size() - 1, target);
-    cout << "pos: " << pos << endl;
-    if (target == nums[pos])
+    int first = pos;
+    int end = pos;
+
+    while (first > 0 && nums[first - 1] == target)
     {
-      return pos;
+      --first;
     }
 
-    if (nums[pos] > target)
+    while (end < nums.size() - 1 && nums[end + 1] == target)
     {
-      return pos;
+      ++end;
     }
-    else
-    {
-      return ++pos;
-    }
+
+    vector<int> result;
+    result.push_back(first);
+    result.push_back(end);
+
+    return result;
   }
 };
 

@@ -4,7 +4,7 @@
 
 10. Regular Expression Matching
 
-12. 罗马数字转换
+12. 罗马数字转换(互相转化)；待巩固
 
 22. Generate Parentheses
 
@@ -14,4 +14,6 @@
 
 30. Substring with Concatenation of All Words
 
+31. Next Permutation
 
+32. Longest Valid Parentheses
