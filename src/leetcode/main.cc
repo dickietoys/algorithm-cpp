@@ -7,90 +7,86 @@
 #include <stack>
 #include <limits>
 #include <deque>
+#include <unordered_set>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution {
-public:
+ public:
   void RunTest()
   {
-    vector<int> nums = {};
-    int target = 0;
-    int result = 0;
+    vector<int> input;
+    int result;
 
-    nums = {1, 3, 5, 6};
-    target = 5;
-    result = searchInsert(nums, target);
-    assert(result == 2);
+    // input = {-2,1,-3,4,-1,2,1,-5,4};
+    // result = maxSubArray(input);
+    // cout << "result: " << result << endl;
 
-    target = 2;
-    result = searchInsert(nums, target);
-    assert(result == 1);
-
-    target = 7;
-    result = searchInsert(nums, target);
-    assert(result == 4);
-
-    target = 0;
-    result = searchInsert(nums, target);
-    assert(result == 0);
-
-    nums = {1, 3};
-    target = 2;
-    result = searchInsert(nums, target);
-    assert(result == 1);
+    input = {-1, -2};
+    result = maxSubArray(input);
+    cout << "result: " << result << endl;
   }
 
-  void show(vector<int>& nums)
+  // int maxSubArray(vector<int>& nums) {
+  //   int size = nums.size();
+  //   int max = nums[0];
+  //   int curSum = nums[0];
+  //   for (int i = 1; i < size; ++i)
+  //   {
+  //     curSum = std::max(curSum + nums[i], nums[i]);
+  //     max = std::max(max, curSum);
+  //   }
+
+  //   return max;
+  // }
+
+  int maxSubArray(vector<int>& nums) {
+    int size = nums.size();
+    int max = nums[0];
+    int curSum = nums[0];
+    for (int i = 1; i < size; ++i)
+    {
+      curSum = std::max(curSum + nums[i], nums[i]);
+      max = std::max(max, curSum);
+    }
+
+    return max;
+  }
+
+  int Aux(vector<int>& nums, int leftPos, int rightPos)
   {
-    for (auto it = nums.begin(); it != nums.end(); ++it)
+    if (leftPos == rightPos)
     {
-      cout << *it << ", ";
+      return nums[leftPos];
     }
 
-    cout << endl;
+    int middlePos = (leftPos + rightPos) / 2;
+    int leftSum = Aux(nums, leftPos, middlePos);
+    int rightSum = Aux(nums, middlePos + 1, rightPos);
+    int crossLeftSum = 0;
+    int crossLeftMax = 0;
+    int crossStartPos = 0;
+    for (int i = middlePos; i>= leftPos; --i)
+    {
+      crossLeftSum += nums[i];
+      if (crossLeftSum >= crossLeftMax)
+      {
+        crossLeftMax = crossLeftSum;
+        crossStartPos = middlePos;
+      }
+    }
   }
 
-  int binarySearch(vector<int>& nums, int left, int right, int target)
+  void Show(vector<vector<string>> &result)
   {
-    int leftPos = left;
-    int rightPos = right;
-    int middlePos = left;
-    while (leftPos <= rightPos)
+    for (size_t i = 0; i < result.size(); ++i)
     {
-      middlePos = (leftPos + rightPos) / 2;
-      if (nums[middlePos] == target)
+      for (size_t j = 0; j < result[i].size(); ++j)
       {
-        return middlePos;
+        cout << result[i][j] << ",";
       }
-      else if (nums[middlePos] > target)
-      {
-        rightPos = middlePos - 1;
-      }
-      else
-      {
-        leftPos = middlePos + 1;
-      }
-    }
-
-    return middlePos;
-  }
-
-  int searchInsert(vector<int>& nums, int target) {
-    int pos = binarySearch(nums, 0, nums.size() - 1, target);
-    cout << "pos: " << pos << endl;
-    if (target == nums[pos])
-    {
-      return pos;
-    }
-
-    if (nums[pos] > target)
-    {
-      return pos;
-    }
-    else
-    {
-      return ++pos;
+      cout << endl;
     }
   }
 };

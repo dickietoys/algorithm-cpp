@@ -73,15 +73,33 @@ public:
       }
     }
 
-    for (int i = 0; i < length - 3; i = i + 3)
+    for (int i = 0; i < length; i += 3)
     {
-      for (int j = 0; j < length - 3; ++j)
+      for (int j = 0; j < length; j += 3)
       {
-
+        uoset.clear();
+        for (int k = 0; k < 3; ++k)
+        {
+          for (int l =0; l < 3; ++l)
+          {
+            if (board[i+k][j+l] >= '1' && board[i+k][j+l] <= '9')
+            {
+              if (uoset.count(board[i+k][j+l]) == 0)
+              {
+                uoset.insert(board[i+k][j+l]);
+              }
+              else
+              {
+                return false;
+              }
+            }
+          }
+        }
       }
     }
-  }
 
+    return true;
+  }
 };
 
 int main()
