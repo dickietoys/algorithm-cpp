@@ -29,44 +29,24 @@ class Solution {
   }
 
   bool canJump(vector<int>& nums) {
-    vector<int> dp(nums.size(), -1);
-
-    return Aux(nums, 0, dp);
+    return Aux(nums, 0);
   }
 
-  bool Aux(vector<int>& nums, int pos, vector<int> &dp)
+  bool Aux(vector<int>& nums, int pos)
   {
-    int size = nums.size();
-    if (pos >= size)
+    if (pos >= nums.size())
     {
       return false;
-    }
-
-    if (pos == size - 1)
-    {
-      return true;
     }
 
     bool result = false;
     for (int i = 1; i <= nums[pos]; ++i)
     {
-      if (pos + i >= nums.size())
-      {
-        return false;
-      }
+      result |= Aux(nums, pos + i);
 
-      if (dp[pos + i] == -1)
+      if (result)
       {
-        result |= Aux(nums, pos + i, dp);
-        if (result)
-        {
-          return true;
-        }
-        dp[pos + i] = result ? 1 : 0;
-      }
-      else
-      {
-        return dp[pos + i] == 1 ? true : false;
+        return true;
       }
     }
 
