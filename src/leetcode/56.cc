@@ -16,53 +16,33 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<vector<int>> input1;
-    vector<int> input2;
+    vector<vector<int>> input;
     vector<vector<int>> result;
 
-    input1 = {{1, 3}, {6, 9}};
-    input2 = {2, 5};
-    result = insert(input1, input2);
+    input = {{1, 3}, {2, 6}, {8, 10}, {15, 18}};
+    result = merge(input);
     Show(result);
-    cout << "-------------------------" << endl;
-    input1 = {{1, 2}, {3, 5}, {6, 7}, {8, 10}, {12, 16}};
-    input2 = {4, 8};
-    result = insert(input1, input2);
-    Show(result);
-    cout << "-------------------------" << endl;
-    input1 = {};
-    input2 = {5, 7};
-    result = insert(input1, input2);
+
+    input = {{1, 4}, {4, 5}};
+    result = merge(input);
     Show(result);
   }
 
-  vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+  vector<vector<int>> merge(vector<vector<int>>& intervals) {
     vector<vector<int>> result;
-    if (intervals.size() == 0 && newInterval.size() == 0)
+    std::sort(intervals.begin(),
+              intervals.end(),
+              [](vector<int> &v1,
+                 vector<int> &v2)
+              {
+                return v1[0] < v2[0];
+              });
+    if (intervals.size() == 0)
     {
       return result;
     }
-    else
-    {
-      if (intervals.size() == 0 && newInterval.size() != 0)
-      {
-        intervals.push_back(newInterval);
-      }
-      else
-      {
-
-      }
-      for (auto it = intervals.begin(); it != intervals.end(); ++it)
-      {
-        if ((*it)[0] > newInterval[0])
-        {
-          intervals.insert(it, newInterval);
-          break;
-        }
-      }
-      Aux(intervals, 0, 1, result);
-      return result;
-    }
+    Aux(intervals, 0, 1, result);
+    return result;
   }
 
   void Aux(vector<vector<int>>& intervals, int pos1, int pos2, vector<vector<int>> &result)

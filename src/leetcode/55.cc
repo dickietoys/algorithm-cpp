@@ -29,28 +29,17 @@ class Solution {
   }
 
   bool canJump(vector<int>& nums) {
-    return Aux(nums, 0);
-  }
-
-  bool Aux(vector<int>& nums, int pos)
-  {
-    if (pos >= nums.size())
+    int size = nums.size();
+    int lastPos = size - 1;
+    for (int i = size - 2; i >= 0; --i)
     {
-      return false;
-    }
-
-    bool result = false;
-    for (int i = 1; i <= nums[pos]; ++i)
-    {
-      result |= Aux(nums, pos + i);
-
-      if (result)
+      if (nums[i] + i >= lastPos)
       {
-        return true;
+        lastPos = i;
       }
     }
 
-    return false;
+    return lastPos == 0;
   }
 
   void Show(vector<int> &result)
