@@ -18,43 +18,61 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<vector<int>> input;
+    int input;
     int result;
 
-    input = {
-      {1,3,1},
-      {1,5,1},
-      {4,2,1}
-    };
-    result = minPathSum(input);
+    result = uniquePaths(3, 2);
     cout << "result: " << result << endl;
-    assert(result == 7);
+    assert(result == 3);
+
+    result = uniquePaths(7, 3);
+    cout << "result: " << result << endl;
+    assert(result == 28);
   }
 
-  int minPathSum(vector<vector<int>>& grid) {
-    vector<vector<int>> dp(grid.size(), vector<int>(grid[0].size(), 0));
-    int rowSize = grid.size();
-    int colSize = grid[0].size();
-    dp[0][0] = grid[0][0];
-    for (int i = 1; i < rowSize; ++i)
+  int uniquePaths(int m, int n) {
+    // return Aux(m, n, 1, 1);
+    return DpAux(m, n);
+  }
+
+  int DpAux(int m, int n)
+  {
+    vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
+    dp[1][1] = 1;
+    for (int i = 2; i <= n; ++i)
     {
-      dp[i][0] = grid[i][0] + dp[i-1][0];
+      dp[1][i] = 1;
     }
 
-    for (int i = 1; i < colSize; ++i)
+    for (int i = 2; i <= m; ++i)
     {
-      dp[0][i] = grid[0][i] + dp[0][i-1];
+      dp[i][1] = 1;
     }
 
-    for (int i = 1; i < rowSize; ++i)
+    for (int i = 2; i <= m; ++i)
     {
-      for (int j = 1; j < colSize; ++j)
+      for (int j = 2; j <= n; ++j)
       {
-        dp[i][j] = std::min(dp[i-1][j] + grid[i][j], dp[i][j-1] + grid[i][j]);
+        dp[i][j] = dp[i-1][j] + dp[i][j-1];
       }
     }
 
-    return dp[rowSize-1][colSize-1];
+    return dp[m][n];
+  }
+
+  int Aux(int m, int n, int xpos, int ypos)
+  {
+    if (m == ypos && n == xpos)
+    {
+      return 1;
+    }
+
+    if (m < ypos || n < xpos)
+    {
+      return 0;
+    }
+
+    return Aux(m, n, xpos + 1, ypos) + Aux(m, n, xpos, ypos + 1);
   }
 
   void Show(vector<int> &result)

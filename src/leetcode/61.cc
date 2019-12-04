@@ -29,15 +29,77 @@ class Solution {
 
     input = new ListNode(1);
     input->next = new ListNode(2);
-    input->next = new ListNode(2);
-    input->next = new ListNode(2);
-    input->next = new ListNode(2);
+    input->next->next = new ListNode(3);
+    input->next->next->next = new ListNode(4);
+    input->next->next->next->next = new ListNode(5);
+    cout << "origin: ";
+    Show(input);
     result = rotateRight(input, 2);
+    cout << "result: ";
+    Show(result);
 
+    input = new ListNode(0);
+    input->next = new ListNode(1);
+    input->next->next = new ListNode(2);
+    cout << "origin: ";
+    Show(input);
+    result = rotateRight(input, 4);
+    cout << "result: ";
+    Show(result);
   }
 
-  ListNode* rotateRight(ListNode* head, int k) {
+  ListNode * rotateRight(ListNode *head, int k) {
+    if (!head)
+    {
+      return head;
+    }
 
+    ListNode *tail = nullptr;
+    ListNode *node = head;
+    int size = 0;
+    while (node)
+    {
+      ++size;
+      if (node->next)
+      {
+        node = node->next;
+      }
+      else
+      {
+        tail = node;
+        break;
+      }
+    }
+
+    k = k % size;
+    tail->next = head;
+    node = head;
+    ListNode *prevNode = nullptr;
+    for (int i = 1; i <= size - k; ++i)
+    {
+      prevNode = node;
+      node = node->next;
+    }
+    if (!prevNode)
+    {
+      return head;
+    }
+    else
+    {
+      prevNode->next = nullptr;
+      return node;
+    }
+  }
+
+  void Show(ListNode *node)
+  {
+    while (node)
+    {
+      cout << node->val << ", ";
+      node = node->next;
+    }
+
+    cout << endl;
   }
 
   void Show(vector<int> &result)
