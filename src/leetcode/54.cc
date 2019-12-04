@@ -50,8 +50,6 @@ class Solution {
     int colEnd = matrix[0].size() - 1;
     while (rowStart <= rowEnd && colStart <= colEnd)
     {
-      cout << "rowStart: " << rowStart << "; rowEnd: " << rowEnd << endl;
-      cout << "colStart: " << colStart << "; colEnd: " << colEnd << endl;
       for (int colPos = colStart; colPos <= colEnd; ++colPos)
       {
         result.push_back(matrix[rowStart][colPos]);
