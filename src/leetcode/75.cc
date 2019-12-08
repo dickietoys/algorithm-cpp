@@ -20,33 +20,34 @@ class Solution {
   void RunTest()
   {
     vector<int> input;
-    vector<vector<int>> result;
+    bool result;
 
-    input = {1, 2, 3};
-    result = subsets(input);
-    Show(result);
+    input = {1};
+    sortColors(input);
+    Show(input);
   }
 
-  vector<vector<int>> subsets(vector<int>& nums) {
-    vector<vector<int>> result = {{}};
-    vector<int> buffer;
-    Aux(nums, result, 0, buffer);
-    return result;
-  }
+  void sortColors(vector<int>& nums) {
+    int size = nums.size();
+    vector<int> counter(3, 0);
 
-  void Aux(vector<int> &nums, vector<vector<int>> &result, int pos, vector<int> &buffer)
-  {
-    if (pos >= nums.size())
+    for (int i = 0; i < size; ++i)
     {
-      return;
+      ++counter[nums[i]];
     }
 
-    for (int i = pos; i < nums.size(); ++i)
+    for (int i = 0; i < counter[0]; ++i)
     {
-      buffer.push_back(nums[i]);
-      result.push_back(buffer);
-      Aux(nums, result, i+1, buffer);
-      buffer.pop_back();
+      nums[i] = 0;
+    }
+
+    for (int i = 0; i < counter[1]; ++i)
+    {
+      nums[i+counter[0]] = 1;
+    }
+    for (int i = 0; i < counter[2]; ++i)
+    {
+      nums[i+counter[0]+counter[1]] = 2;
     }
   }
 

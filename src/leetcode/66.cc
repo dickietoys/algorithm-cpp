@@ -11,7 +11,6 @@
 #include <unordered_map>
 #include <sstream>
 #include <iterator>
-#include <set>
 
 using namespace std;
 
@@ -20,34 +19,37 @@ class Solution {
   void RunTest()
   {
     vector<int> input;
-    vector<vector<int>> result;
+    vector<int> result;
 
     input = {1, 2, 3};
-    result = subsets(input);
+    Show(input);
+    result = plusOne(input);
+    Show(result);
+
+    input = {4, 3, 2, 1};
+    Show(input);
+    result = plusOne(input);
     Show(result);
   }
 
-  vector<vector<int>> subsets(vector<int>& nums) {
-    vector<vector<int>> result = {{}};
-    vector<int> buffer;
-    Aux(nums, result, 0, buffer);
-    return result;
-  }
-
-  void Aux(vector<int> &nums, vector<vector<int>> &result, int pos, vector<int> &buffer)
-  {
-    if (pos >= nums.size())
+  vector<int> plusOne(vector<int>& digits) {
+    int remain = 1;
+    int value = 0;
+    vector<int>::reverse_iterator it;
+    for (it = digits.rbegin(); it != digits.rend(); ++it)
     {
-      return;
+      value = *it + remain;
+      remain = value / 10;
+      value = value % 10;
+      *it = value;
     }
 
-    for (int i = pos; i < nums.size(); ++i)
+    if (remain)
     {
-      buffer.push_back(nums[i]);
-      result.push_back(buffer);
-      Aux(nums, result, i+1, buffer);
-      buffer.pop_back();
+      digits.insert(digits.begin(), remain);
     }
+
+    return digits;
   }
 
   void Show(vector<int> &result)

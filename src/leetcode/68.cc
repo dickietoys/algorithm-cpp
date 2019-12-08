@@ -11,7 +11,6 @@
 #include <unordered_map>
 #include <sstream>
 #include <iterator>
-#include <set>
 
 using namespace std;
 
@@ -19,38 +18,28 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<int> input;
-    vector<vector<int>> result;
+    vector<string> input;
+    vector<string> result;
 
-    input = {1, 2, 3};
-    result = subsets(input);
+    input = {"This", "is", "an", "example", "of", "text", "justification."};
+    result = fullJustify(input, 16);
+    Show(result);
+
+    input = {"What","must","be","acknowledgment","shall","be"};
+    result = fullJustify(input, 16);
+    Show(result);
+
+    input = {"Science","is","what","we","understand","well","enough","to","explain",
+             "to","a","computer.","Art","is","everything","else","we","do"};
+    result = fullJustify(input, 20);
     Show(result);
   }
 
-  vector<vector<int>> subsets(vector<int>& nums) {
-    vector<vector<int>> result = {{}};
-    vector<int> buffer;
-    Aux(nums, result, 0, buffer);
-    return result;
+  vector<string> fullJustify(vector<string>& words, int maxWidth) {
+
   }
 
-  void Aux(vector<int> &nums, vector<vector<int>> &result, int pos, vector<int> &buffer)
-  {
-    if (pos >= nums.size())
-    {
-      return;
-    }
-
-    for (int i = pos; i < nums.size(); ++i)
-    {
-      buffer.push_back(nums[i]);
-      result.push_back(buffer);
-      Aux(nums, result, i+1, buffer);
-      buffer.pop_back();
-    }
-  }
-
-  void Show(vector<int> &result)
+  void Show(vector<string> &result)
   {
     for (size_t i = 0; i < result.size(); ++i)
     {
@@ -59,7 +48,7 @@ class Solution {
     cout << endl;
   }
 
-  void Show(vector<vector<int>> &result)
+  void Show(vector<vector<string>> &result)
   {
     for (size_t i = 0; i < result.size(); ++i)
     {

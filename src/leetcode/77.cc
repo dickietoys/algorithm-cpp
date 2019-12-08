@@ -19,33 +19,37 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<int> input;
+    vector<vector<int>> input;
     vector<vector<int>> result;
 
-    input = {1, 2, 3};
-    result = subsets(input);
+    result = combine(4, 2);
     Show(result);
   }
 
-  vector<vector<int>> subsets(vector<int>& nums) {
-    vector<vector<int>> result = {{}};
+  vector<vector<int>> combine(int n, int k) {
+    vector<vector<int>> result;
     vector<int> buffer;
-    Aux(nums, result, 0, buffer);
+    Aux(n, k, 1, 0, buffer, result);
     return result;
   }
 
-  void Aux(vector<int> &nums, vector<vector<int>> &result, int pos, vector<int> &buffer)
+  void Aux(int n, int k, int pos, int count, vector<int> &buffer, vector<vector<int>> &result)
   {
-    if (pos >= nums.size())
+    if (count == k)
+    {
+      result.push_back(buffer);
+      return;
+    }
+
+    if (pos > n)
     {
       return;
     }
 
-    for (int i = pos; i < nums.size(); ++i)
+    for (int i = pos; i <= n; ++i)
     {
-      buffer.push_back(nums[i]);
-      result.push_back(buffer);
-      Aux(nums, result, i+1, buffer);
+      buffer.push_back(i);
+      Aux(n, k, i+1, count + 1, buffer, result);
       buffer.pop_back();
     }
   }

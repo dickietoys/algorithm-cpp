@@ -24,4 +24,6 @@
 51. N-Queens
 52. N-Queens II
 53. Maximum Subarray                                  用分治算法试试
+65. Valid Number
+68. Text Justification
 ~~~

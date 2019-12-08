@@ -11,7 +11,6 @@
 #include <unordered_map>
 #include <sstream>
 #include <iterator>
-#include <set>
 
 using namespace std;
 
@@ -19,38 +18,38 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<int> input;
-    vector<vector<int>> result;
+    int input;
+    int result;
 
-    input = {1, 2, 3};
-    result = subsets(input);
-    Show(result);
+    result = climbStairs(2);
+    cout << "result: " << result << endl;
+    assert(result == 2);
+
+    result = climbStairs(3);
+    cout << "result: " << result << endl;
+    assert(result == 3);
   }
 
-  vector<vector<int>> subsets(vector<int>& nums) {
-    vector<vector<int>> result = {{}};
-    vector<int> buffer;
-    Aux(nums, result, 0, buffer);
-    return result;
+  int climbStairs(int n) {
+    return Aux(n);
   }
 
-  void Aux(vector<int> &nums, vector<vector<int>> &result, int pos, vector<int> &buffer)
+  int Aux(int n)
   {
-    if (pos >= nums.size())
+    if (n == 0)
     {
-      return;
+      return 1;
     }
 
-    for (int i = pos; i < nums.size(); ++i)
+    if (n < 0)
     {
-      buffer.push_back(nums[i]);
-      result.push_back(buffer);
-      Aux(nums, result, i+1, buffer);
-      buffer.pop_back();
+      return 0;
     }
+
+    return Aux(n - 1) + Aux(n - 2);
   }
 
-  void Show(vector<int> &result)
+  void Show(vector<string> &result)
   {
     for (size_t i = 0; i < result.size(); ++i)
     {
@@ -59,7 +58,7 @@ class Solution {
     cout << endl;
   }
 
-  void Show(vector<vector<int>> &result)
+  void Show(vector<vector<string>> &result)
   {
     for (size_t i = 0; i < result.size(); ++i)
     {

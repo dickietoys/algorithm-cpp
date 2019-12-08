@@ -11,7 +11,6 @@
 #include <unordered_map>
 #include <sstream>
 #include <iterator>
-#include <set>
 
 using namespace std;
 
@@ -19,38 +18,36 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<int> input;
-    vector<vector<int>> result;
+    int input;
+    int result;
 
-    input = {1, 2, 3};
-    result = subsets(input);
-    Show(result);
+    result = mySqrt(4);
+    cout << "result: " << result << endl;
+
+    result = mySqrt(8);
+    cout << "result: " << result << endl;
   }
 
-  vector<vector<int>> subsets(vector<int>& nums) {
-    vector<vector<int>> result = {{}};
-    vector<int> buffer;
-    Aux(nums, result, 0, buffer);
-    return result;
-  }
-
-  void Aux(vector<int> &nums, vector<vector<int>> &result, int pos, vector<int> &buffer)
-  {
-    if (pos >= nums.size())
+  int mySqrt(int x) {
+    int root = 0;
+    int value1 = 0;
+    int value2 = 0;
+    while (true)
     {
-      return;
-    }
-
-    for (int i = pos; i < nums.size(); ++i)
-    {
-      buffer.push_back(nums[i]);
-      result.push_back(buffer);
-      Aux(nums, result, i+1, buffer);
-      buffer.pop_back();
+      value1 = root * root;
+      value2 = (root + 1) * (root + 1);
+      if (value1 < x && x < value2)
+      {
+        return root;
+      }
+      else
+      {
+        root += 2;
+      }
     }
   }
 
-  void Show(vector<int> &result)
+  void Show(vector<string> &result)
   {
     for (size_t i = 0; i < result.size(); ++i)
     {
@@ -59,7 +56,7 @@ class Solution {
     cout << endl;
   }
 
-  void Show(vector<vector<int>> &result)
+  void Show(vector<vector<string>> &result)
   {
     for (size_t i = 0; i < result.size(); ++i)
     {
