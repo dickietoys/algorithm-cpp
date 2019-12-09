@@ -19,41 +19,36 @@ class Solution {
  public:
   void RunTest()
   {
-    int input;
-    int result;
+    vector<int> input;
+    bool result;
 
-    result = mySqrt(4);
-    cout << "result: " << result << endl;
-    result = mySqrt(8);
-    cout << "result: " << result << endl;
+    input = {1};
+    sortColors(input);
+    Show(input);
   }
 
-  int mySqrt(int x) {
-    if (x == 0)
-    {
-      return 0;
-    }
-    int left = 0;
-    int right = std::numeric_limits<int>::max();
-    while (left <= right)
-    {
-      int middle = (left + right) / 2;
-      if (middle > x / middle)
-      {
-        right = middle - 1;
-      }
-      else
-      {
-        if (middle + 1 > x / (middle + 1))
-        {
-          return middle;
-        }
+  void sortColors(vector<int>& nums) {
+    int size = nums.size();
+    vector<int> counter(3, 0);
 
-        left = middle + 1;
-      }
+    for (int i = 0; i < size; ++i)
+    {
+      ++counter[nums[i]];
     }
 
-    return 0;
+    for (int i = 0; i < counter[0]; ++i)
+    {
+      nums[i] = 0;
+    }
+
+    for (int i = 0; i < counter[1]; ++i)
+    {
+      nums[i+counter[0]] = 1;
+    }
+    for (int i = 0; i < counter[2]; ++i)
+    {
+      nums[i+counter[0]+counter[1]] = 2;
+    }
   }
 
   void Show(vector<int> &result)

@@ -19,41 +19,58 @@ class Solution {
  public:
   void RunTest()
   {
-    int input;
+    vector<vector<int>> input;
     int result;
 
-    result = mySqrt(4);
-    cout << "result: " << result << endl;
-    result = mySqrt(8);
-    cout << "result: " << result << endl;
+    input = {
+      {1, 1, 1},
+      {1, 0, 1},
+      {1, 1, 1}
+    };
+    setZeroes(input);
+    Show(input);
+
+    input = {
+      {0, 1, 2, 0},
+      {3, 4, 5, 2},
+      {1, 3, 1, 5}
+    };
+    setZeroes(input);
+    Show(input);
   }
 
-  int mySqrt(int x) {
-    if (x == 0)
+  void setZeroes(vector<vector<int>>& matrix) {
+    int rowSize = matrix.size();
+    int colSize = matrix[0].size();
+    set<int> row;
+    set<int> col;
+    for (int i = 0; i < rowSize; ++i)
     {
-      return 0;
-    }
-    int left = 0;
-    int right = std::numeric_limits<int>::max();
-    while (left <= right)
-    {
-      int middle = (left + right) / 2;
-      if (middle > x / middle)
+      for (int j = 0; j < colSize; ++j)
       {
-        right = middle - 1;
-      }
-      else
-      {
-        if (middle + 1 > x / (middle + 1))
+        if (matrix[i][j] == 0)
         {
-          return middle;
+          row.insert(i);
+          col.insert(j);
         }
-
-        left = middle + 1;
       }
     }
 
-    return 0;
+    for (auto it = row.begin(); it != row.end(); ++it)
+    {
+      for (int j = 0; j < colSize; ++j)
+      {
+        matrix[*it][j] = 0;
+      }
+    }
+
+    for (auto it = col.begin(); it != col.end(); ++it)
+    {
+      for (int j = 0; j < rowSize; ++j)
+      {
+        matrix[j][*it] = 0;
+      }
+    }
   }
 
   void Show(vector<int> &result)

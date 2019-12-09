@@ -19,41 +19,35 @@ class Solution {
  public:
   void RunTest()
   {
-    int input;
-    int result;
+    vector<int> input;
+    vector<vector<int>> result;
 
-    result = mySqrt(4);
-    cout << "result: " << result << endl;
-    result = mySqrt(8);
-    cout << "result: " << result << endl;
+    input = {1, 2, 3};
+    result = subsets(input);
+    Show(result);
   }
 
-  int mySqrt(int x) {
-    if (x == 0)
-    {
-      return 0;
-    }
-    int left = 0;
-    int right = std::numeric_limits<int>::max();
-    while (left <= right)
-    {
-      int middle = (left + right) / 2;
-      if (middle > x / middle)
-      {
-        right = middle - 1;
-      }
-      else
-      {
-        if (middle + 1 > x / (middle + 1))
-        {
-          return middle;
-        }
+  vector<vector<int>> subsets(vector<int>& nums) {
+    vector<vector<int>> result = {{}};
+    vector<int> buffer;
+    Aux(nums, result, 0, buffer);
+    return result;
+  }
 
-        left = middle + 1;
-      }
+  void Aux(vector<int> &nums, vector<vector<int>> &result, int pos, vector<int> &buffer)
+  {
+    if (pos >= nums.size())
+    {
+      return;
     }
 
-    return 0;
+    for (int i = pos; i < nums.size(); ++i)
+    {
+      buffer.push_back(nums[i]);
+      result.push_back(buffer);
+      Aux(nums, result, i+1, buffer);
+      buffer.pop_back();
+    }
   }
 
   void Show(vector<int> &result)

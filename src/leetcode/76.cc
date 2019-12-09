@@ -19,41 +19,60 @@ class Solution {
  public:
   void RunTest()
   {
-    int input;
-    int result;
+    vector<int> input;
+    string result;
 
-    result = mySqrt(4);
+    input = {1};
+    result = minWindow("ADOBECODEBANC", "ABC");
     cout << "result: " << result << endl;
-    result = mySqrt(8);
-    cout << "result: " << result << endl;
+    assert(result == "BANC");
+
   }
 
-  int mySqrt(int x) {
-    if (x == 0)
+  string minWindow(string s, string t)
+  {
+    vector<int> bookmark(128, 0);
+    int size = s.size();
+    int begin = 0;
+    int end = 0;
+    int counter = t.size();
+    int minStart = 0;
+    int minLen = std::numeric_limits<int>::max();
+    for (size_t i = 0; i < t.size(); ++i)
     {
-      return 0;
+      ++bookmark[t[i]];
     }
-    int left = 0;
-    int right = std::numeric_limits<int>::max();
-    while (left <= right)
+
+    while (end < size)
     {
-      int middle = (left + right) / 2;
-      if (middle > x / middle)
+      if (bookmark[s[end]] > 0)
       {
-        right = middle - 1;
+        --counter;
       }
-      else
+      --bookmark[s[end]];
+      ++end;
+      while (counter == 0)
       {
-        if (middle + 1 > x / (middle + 1))
+        if (end - begin < minLen)
         {
-          return middle;
+          minLen = end - begin;
+          minStart = begin;
         }
-
-        left = middle + 1;
+        ++bookmark[s[begin]];
+        if (bookmark[s[begin]] > 0)
+        {
+          ++counter;
+        }
+        ++begin;
       }
     }
 
-    return 0;
+    if (minLen != std::numeric_limits<int>::max())
+    {
+      return s.substr(minStart, minLen);
+    }
+
+    return "";
   }
 
   void Show(vector<int> &result)

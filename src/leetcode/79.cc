@@ -19,41 +19,55 @@ class Solution {
  public:
   void RunTest()
   {
-    int input;
-    int result;
+    vector<vector<char>> input;
+    bool result;
 
-    result = mySqrt(4);
+    input = {
+      {'A','B','C','E'},
+      {'S','F','C','S'},
+      {'A','D','E','E'}
+    };
+    result = exist(input, "ABCCED");
     cout << "result: " << result << endl;
-    result = mySqrt(8);
+    assert(result == true);
+
+    result = exist(input, "SEE");
     cout << "result: " << result << endl;
+    assert(result == true);
+
+    result = exist(input, "ABCB");
+    cout << "result: " << result << endl;
+    assert(result == false);
   }
 
-  int mySqrt(int x) {
-    if (x == 0)
+  bool exist(vector<vector<char>>& board, string word) {
+    set<string> s;
+    int rowSize = board.size();
+    int colSize = board[0].size();
+
+    int xpos = 0;
+    int ypos = 0;
+    int wordPos = 0;
+    while (xpos < rowSize && ypos < colSize)
     {
-      return 0;
-    }
-    int left = 0;
-    int right = std::numeric_limits<int>::max();
-    while (left <= right)
-    {
-      int middle = (left + right) / 2;
-      if (middle > x / middle)
+      if (board[xpos][ypos] == word[wordPos] && !s.count(genKey(xpos, ypos)))
       {
-        right = middle - 1;
+        ++wordPos;
+        s.insert(genKey(xpos, ypos));
       }
       else
       {
-        if (middle + 1 > x / (middle + 1))
+        if (xpos == 0)
         {
-          return middle;
-        }
 
-        left = middle + 1;
+        }
       }
     }
+  }
 
-    return 0;
+  string genKey(int xpos, int ypos)
+  {
+    return std::to_string(xpos).append(std::to_string(ypos));
   }
 
   void Show(vector<int> &result)

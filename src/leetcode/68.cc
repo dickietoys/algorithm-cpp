@@ -11,7 +11,6 @@
 #include <unordered_map>
 #include <sstream>
 #include <iterator>
-#include <set>
 
 using namespace std;
 
@@ -19,44 +18,28 @@ class Solution {
  public:
   void RunTest()
   {
-    int input;
-    int result;
+    vector<string> input;
+    vector<string> result;
 
-    result = mySqrt(4);
-    cout << "result: " << result << endl;
-    result = mySqrt(8);
-    cout << "result: " << result << endl;
+    input = {"This", "is", "an", "example", "of", "text", "justification."};
+    result = fullJustify(input, 16);
+    Show(result);
+
+    input = {"What","must","be","acknowledgment","shall","be"};
+    result = fullJustify(input, 16);
+    Show(result);
+
+    input = {"Science","is","what","we","understand","well","enough","to","explain",
+             "to","a","computer.","Art","is","everything","else","we","do"};
+    result = fullJustify(input, 20);
+    Show(result);
   }
 
-  int mySqrt(int x) {
-    if (x == 0)
-    {
-      return 0;
-    }
-    int left = 0;
-    int right = std::numeric_limits<int>::max();
-    while (left <= right)
-    {
-      int middle = (left + right) / 2;
-      if (middle > x / middle)
-      {
-        right = middle - 1;
-      }
-      else
-      {
-        if (middle + 1 > x / (middle + 1))
-        {
-          return middle;
-        }
+  vector<string> fullJustify(vector<string>& words, int maxWidth) {
 
-        left = middle + 1;
-      }
-    }
-
-    return 0;
   }
 
-  void Show(vector<int> &result)
+  void Show(vector<string> &result)
   {
     for (size_t i = 0; i < result.size(); ++i)
     {
@@ -65,7 +48,7 @@ class Solution {
     cout << endl;
   }
 
-  void Show(vector<vector<int>> &result)
+  void Show(vector<vector<string>> &result)
   {
     for (size_t i = 0; i < result.size(); ++i)
     {

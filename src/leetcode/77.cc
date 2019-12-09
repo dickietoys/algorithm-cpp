@@ -19,41 +19,39 @@ class Solution {
  public:
   void RunTest()
   {
-    int input;
-    int result;
+    vector<vector<int>> input;
+    vector<vector<int>> result;
 
-    result = mySqrt(4);
-    cout << "result: " << result << endl;
-    result = mySqrt(8);
-    cout << "result: " << result << endl;
+    result = combine(4, 2);
+    Show(result);
   }
 
-  int mySqrt(int x) {
-    if (x == 0)
-    {
-      return 0;
-    }
-    int left = 0;
-    int right = std::numeric_limits<int>::max();
-    while (left <= right)
-    {
-      int middle = (left + right) / 2;
-      if (middle > x / middle)
-      {
-        right = middle - 1;
-      }
-      else
-      {
-        if (middle + 1 > x / (middle + 1))
-        {
-          return middle;
-        }
+  vector<vector<int>> combine(int n, int k) {
+    vector<vector<int>> result;
+    vector<int> buffer;
+    Aux(n, k, 1, 0, buffer, result);
+    return result;
+  }
 
-        left = middle + 1;
-      }
+  void Aux(int n, int k, int pos, int count, vector<int> &buffer, vector<vector<int>> &result)
+  {
+    if (count == k)
+    {
+      result.push_back(buffer);
+      return;
     }
 
-    return 0;
+    if (pos > n)
+    {
+      return;
+    }
+
+    for (int i = pos; i <= n; ++i)
+    {
+      buffer.push_back(i);
+      Aux(n, k, i+1, count + 1, buffer, result);
+      buffer.pop_back();
+    }
   }
 
   void Show(vector<int> &result)

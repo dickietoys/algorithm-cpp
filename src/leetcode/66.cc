@@ -11,7 +11,6 @@
 #include <unordered_map>
 #include <sstream>
 #include <iterator>
-#include <set>
 
 using namespace std;
 
@@ -19,41 +18,38 @@ class Solution {
  public:
   void RunTest()
   {
-    int input;
-    int result;
+    vector<int> input;
+    vector<int> result;
 
-    result = mySqrt(4);
-    cout << "result: " << result << endl;
-    result = mySqrt(8);
-    cout << "result: " << result << endl;
+    input = {1, 2, 3};
+    Show(input);
+    result = plusOne(input);
+    Show(result);
+
+    input = {4, 3, 2, 1};
+    Show(input);
+    result = plusOne(input);
+    Show(result);
   }
 
-  int mySqrt(int x) {
-    if (x == 0)
+  vector<int> plusOne(vector<int>& digits) {
+    int remain = 1;
+    int value = 0;
+    vector<int>::reverse_iterator it;
+    for (it = digits.rbegin(); it != digits.rend(); ++it)
     {
-      return 0;
-    }
-    int left = 0;
-    int right = std::numeric_limits<int>::max();
-    while (left <= right)
-    {
-      int middle = (left + right) / 2;
-      if (middle > x / middle)
-      {
-        right = middle - 1;
-      }
-      else
-      {
-        if (middle + 1 > x / (middle + 1))
-        {
-          return middle;
-        }
-
-        left = middle + 1;
-      }
+      value = *it + remain;
+      remain = value / 10;
+      value = value % 10;
+      *it = value;
     }
 
-    return 0;
+    if (remain)
+    {
+      digits.insert(digits.begin(), remain);
+    }
+
+    return digits;
   }
 
   void Show(vector<int> &result)
