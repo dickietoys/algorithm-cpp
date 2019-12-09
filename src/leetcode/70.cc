@@ -31,7 +31,34 @@ class Solution {
   }
 
   int climbStairs(int n) {
-    return Aux(n);
+    return dpAux(n);
+  }
+
+  int dpAux(int n)
+  {
+    if (n == 0)
+    {
+      return 0;
+    }
+    else if (n == 1)
+    {
+      return 1;
+    }
+    else if (n == 2)
+    {
+      return 2;
+    }
+
+    vector<int> bookmark(n + 1, 0);
+    bookmark[0] = 0;
+    bookmark[1] = 1;
+    bookmark[2] = 2;
+    for (int i = 3; i <= n; ++i)
+    {
+      bookmark[i] = bookmark[i-1] + bookmark[i-2];
+    }
+
+    return bookmark[n];
   }
 
   int Aux(int n)
