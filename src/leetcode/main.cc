@@ -19,41 +19,102 @@ class Solution {
  public:
   void RunTest()
   {
-    int input;
-    int result;
+    vector<vector<char>> input;
+    bool result;
 
-    result = mySqrt(4);
+    // input = {
+    //   {'A','B','C','E'},
+    //   {'S','F','C','S'},
+    //   {'A','D','E','E'}
+    // };
+    // result = exist(input, "ABCCED");
+    // cout << "result: " << result << endl;
+    // assert(result == true);
+
+    // result = exist(input, "SEE");
+    // cout << "result: " << result << endl;
+    // assert(result == true);
+
+    // result = exist(input, "ABCB");
+    // cout << "result: " << result << endl;
+    // assert(result == false);
+
+    input = {
+      {'C', 'A', 'A'},
+      {'A', 'A', 'A'},
+      {'B', 'C', 'D'}
+    };
+    result = exist(input, "AAB");
     cout << "result: " << result << endl;
-    result = mySqrt(8);
-    cout << "result: " << result << endl;
+    assert(result == true);
   }
 
-  int mySqrt(int x) {
-    if (x == 0)
+  bool exist(vector<vector<char>>& board, string word) {
+    set<string> s;
+    int rowSize = board.size();
+    int colSize = board[0].size();
+    int wordSize = word.size();
+    int wordPos = 0;
+    bool found = false;
+    for (int i = 0; i < rowSize; ++i)
     {
-      return 0;
-    }
-    int left = 0;
-    int right = std::numeric_limits<int>::max();
-    while (left <= right)
-    {
-      int middle = (left + right) / 2;
-      if (middle > x / middle)
+      for (int j = 0; j < colSize; ++j)
       {
-        right = middle - 1;
-      }
-      else
-      {
-        if (middle + 1 > x / (middle + 1))
+        if (board[i][j] == word[wordPos])
         {
-          return middle;
+          if (Aux(board, i, j, word, wordPos, s))
+          {
+            return true;
+          }
+          wordPos = 0;
+          s.clear();
         }
-
-        left = middle + 1;
       }
     }
 
-    return 0;
+    return false;
+  }
+
+  bool Aux(vector<vector<char>> &board, int xpos, int ypos, string word, int &wordPos, set<string> &s)
+  {
+    if (wordPos == word.size())
+    {
+      return true;
+    }
+
+    if (xpos < 0 || xpos >= board.size())
+    {
+      return false;
+    }
+
+    if (ypos < 0 || ypos >= board[0].size())
+    {
+      return false;
+    }
+
+    cout << "!!!!!!" << xpos << ":" << ypos << ":" << board[xpos][ypos] <<"; wordPos: " << wordPos << ":" << word[wordPos] << endl;
+
+    bool result = false;
+    string key = genKey(xpos, ypos);
+    if (board[xpos][ypos] == word[wordPos] && !s.count(key))
+    {
+      ++wordPos;
+      s.insert(key);
+      result = Aux(board, xpos - 1, ypos, word, wordPos, s) ||
+               Aux(board, xpos + 1, ypos, word, wordPos, s) ||
+               Aux(board, xpos, ypos - 1, word, wordPos, s) ||
+               Aux(board, xpos, ypos + 1, word, wordPos, s);
+      return result;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  string genKey(int xpos, int ypos)
+  {
+    return std::to_string(xpos).append(std::to_string(ypos));
   }
 
   void Show(vector<int> &result)

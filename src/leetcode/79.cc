@@ -44,24 +44,55 @@ class Solution {
     set<string> s;
     int rowSize = board.size();
     int colSize = board[0].size();
-
-    int xpos = 0;
-    int ypos = 0;
+    int wordSize = word.size();
     int wordPos = 0;
-    while (xpos < rowSize && ypos < colSize)
+    bool found = false;
+    for (int i = 0; i < rowSize; ++i)
     {
-      if (board[xpos][ypos] == word[wordPos] && !s.count(genKey(xpos, ypos)))
+      for (int j = 0; j < colSize; ++j)
       {
-        ++wordPos;
-        s.insert(genKey(xpos, ypos));
-      }
-      else
-      {
-        if (xpos == 0)
+        if (board[i][j] == word[wordPos])
         {
-
+          if (dfsAux(board, i, j, word, wordPos))
+          {
+            return true;
+          }
         }
       }
+    }
+
+    return false;
+  }
+
+  bool dfsAux(vector<vector<char>>& board, int xpos, int ypos, string word, int wordPos)
+  {
+    if (wordPos >= word.size())
+    {
+      return true;
+    }
+
+    if (xpos < 0 || xpos > board.size())
+    {
+      return false;
+    }
+
+    if (ypos < 0 || ypos > board[0].size())
+    {
+      return false;
+    }
+
+    bool result = false;
+    if (board[xpos][ypos] == word[wordPos])
+    {
+      result = dfsAux(board, xpos - 1, ypos, word, wordPos+1) ||
+               dfsAux(board, xpos + 1, ypos, word, wordPos+1) ||
+               dfsAux(board, xpos, ypos - 1, word, wordPos+1) ||
+               dfsAux(board, xpos, ypos + 1, word, wordPos+1);
+      return result;
+    }
+    else
+    {
+      return false;
     }
   }
 
