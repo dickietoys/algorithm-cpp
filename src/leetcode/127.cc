@@ -22,54 +22,62 @@ class Solution {
 
   void RunTest()
   {
-    bool result = isPalindrome("race a car");
-    cout << "result: " << result << endl;
+    int result = 0;
   }
 
-  bool isPalindrome(string s) {
-    if (s.size() == 0)
-    {
-      return true;
-    }
-    int i = 0;
-    int j = s.size() - 1;
-    while (i <= j)
-    {
-      cout << i << ":" << j << endl;
-      if (!isAlpha(s[i]))
-      {
-        ++i;
-        continue;
-      }
-
-      if (!isAlpha(s[j]))
-      {
-        --j;
-        continue;
-      }
-
-      if (std::tolower(s[i]) == std::tolower(s[j]))
-      {
-        ++i;
-        --j;
-      }
-      else
-      {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-  bool isAlpha(char c)
+  int ladderLength(string beginWord, string endWord, vector<string>& wordList)
   {
-    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
+
+  }
+
+  int ladderLength(string &beginWord, string &endWord, vector<string>& wordList)
+  {
+    if (beginWord == endWord)
+    {
+      return 0;
+    }
+
+    int size = beginWord.size();
+    for (int i = 0; i < size; ++i)
+    {
+      if (beginWord[i] == endWord[i])
+      {
+        for (int j = 0; i < wordList[j].size(); ++j)
+        {
+          if (IsValid(beginWord, wordList[j]))
+          {
+
+          }
+        }
+      }
+    }
+  }
+
+  bool IsValid(string &src, string &target)
+  {
+    int diff_count = 0;
+    int size = src.size();
+    for (int i = 0; i < size; ++i)
+    {
+      if (src[i] != target[i])
+      {
+        ++diff_count;
+      }
+    }
+
+    if (diff_count == 1)
     {
       return true;
     }
+    else
+    {
+      return false;
+    }
+  }
 
-    return false;
+  int Aux(string &beginWord, string &endWord, vector<string>& wordList)
+  {
+
   }
 
   template<class T>

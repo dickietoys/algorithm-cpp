@@ -19,57 +19,40 @@ using namespace std;
 
 class Solution {
  public:
+  struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  };
 
   void RunTest()
   {
-    bool result = isPalindrome("race a car");
-    cout << "result: " << result << endl;
+    TreeNode *input;
+    int result;
+    input = new TreeNode(3);
+    input->left = new TreeNode(9);
+    input->right = new TreeNode(20);
+    input->right->left = new TreeNode(15);
+    input->right->right = new TreeNode(7);
   }
 
-  bool isPalindrome(string s) {
-    if (s.size() == 0)
-    {
-      return true;
-    }
-    int i = 0;
-    int j = s.size() - 1;
-    while (i <= j)
-    {
-      cout << i << ":" << j << endl;
-      if (!isAlpha(s[i]))
-      {
-        ++i;
-        continue;
-      }
-
-      if (!isAlpha(s[j]))
-      {
-        --j;
-        continue;
-      }
-
-      if (std::tolower(s[i]) == std::tolower(s[j]))
-      {
-        ++i;
-        --j;
-      }
-      else
-      {
-        return false;
-      }
-    }
-
-    return true;
+  void flatten(TreeNode* root) {
+    TreeNode *prevNode = nullptr;
+    return Aux(root, &prevNode);
   }
 
-  bool isAlpha(char c)
+  void Aux(TreeNode *node, TreeNode **prev)
   {
-    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
+    if (!node)
     {
-      return true;
+      return;
     }
-
-    return false;
+    Aux(node->right, prev);
+    Aux(node->left, prev);
+    node->right = *prev;
+    node->left = nullptr;
+    *prev = node;
   }
 
   template<class T>

@@ -19,57 +19,50 @@ using namespace std;
 
 class Solution {
  public:
+  struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  };
 
   void RunTest()
   {
-    bool result = isPalindrome("race a car");
-    cout << "result: " << result << endl;
+    TreeNode *input;
+    bool result;
+
+    result = isBalanced(input);
   }
 
-  bool isPalindrome(string s) {
-    if (s.size() == 0)
-    {
-      return true;
-    }
-    int i = 0;
-    int j = s.size() - 1;
-    while (i <= j)
-    {
-      cout << i << ":" << j << endl;
-      if (!isAlpha(s[i]))
-      {
-        ++i;
-        continue;
-      }
-
-      if (!isAlpha(s[j]))
-      {
-        --j;
-        continue;
-      }
-
-      if (std::tolower(s[i]) == std::tolower(s[j]))
-      {
-        ++i;
-        --j;
-      }
-      else
-      {
-        return false;
-      }
-    }
-
-    return true;
+  bool isBalanced(TreeNode* root) {
+    return Aux(root) != -1;
   }
 
-  bool isAlpha(char c)
+  int Aux(TreeNode *node)
   {
-    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
+    if (!node)
     {
-      return true;
+      return 0;
     }
 
-    return false;
+    int left = Aux(node->left);
+    int right = Aux(node->right);
+    if (left == -1)
+    {
+      return -1;
+    }
+
+    if (right == -1)
+    {
+      return -1;
+    }
+
+    if (std::abs(left - right) > 1)
+    {
+      return -1;
+    }
+
+    return std::max(left, right) + 1;
   }
 
   template<class T>

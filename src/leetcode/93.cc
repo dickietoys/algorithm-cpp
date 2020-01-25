@@ -19,58 +19,51 @@ using namespace std;
 
 class Solution {
  public:
-
   void RunTest()
   {
-    bool result = isPalindrome("race a car");
-    cout << "result: " << result << endl;
+    string input;
+    vector<string> result;
+
+    input = "0000";
+    result = restoreIpAddresses(input);
+    Show(result);
   }
 
-  bool isPalindrome(string s) {
-    if (s.size() == 0)
+  vector<string> restoreIpAddresses(string s)
+  {
+    vector<string> result;
+    int sSize = s.size();
+    for (int i = 1; i <= 3 && i <= sSize - 3; ++i)
     {
-      return true;
+      for (int j = 1; j <= 3 && i + j <= sSize - 2; ++j)
+      {
+        for (int k = 1; k <= 3 && i+ j +k <= sSize - 1; ++k)
+        {
+          string s1 = s.substr(0, i);
+          string s2 = s.substr(0 + i, j);
+          string s3 = s.substr(0 + i + j, k);
+          string s4 = s.substr(0 + i + j + k);
+          if (isValid(s1) && isValid(s2) && isValid(s3) && isValid(s4))
+          {
+            result.push_back(s1 + "." + s2 + "." + s3 + "." + s4);
+          }
+        }
+      }
     }
-    int i = 0;
-    int j = s.size() - 1;
-    while (i <= j)
+
+    return result;
+  }
+
+  bool isValid(string &s)
+  {
+    if (s.size() > 3 || s.size() == 0 || (s[0] == '0' && s.size() > 1) || std::stoi(s) > 255)
     {
-      cout << i << ":" << j << endl;
-      if (!isAlpha(s[i]))
-      {
-        ++i;
-        continue;
-      }
-
-      if (!isAlpha(s[j]))
-      {
-        --j;
-        continue;
-      }
-
-      if (std::tolower(s[i]) == std::tolower(s[j]))
-      {
-        ++i;
-        --j;
-      }
-      else
-      {
-        return false;
-      }
+      return false;
     }
 
     return true;
   }
 
-  bool isAlpha(char c)
-  {
-    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
-    {
-      return true;
-    }
-
-    return false;
-  }
 
   template<class T>
   void Show(vector<T> &result)

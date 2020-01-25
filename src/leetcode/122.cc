@@ -22,54 +22,28 @@ class Solution {
 
   void RunTest()
   {
-    bool result = isPalindrome("race a car");
+    vector<int> input = {7, 1, 5, 3, 6, 4};
+    int result = maxProfit(input);
     cout << "result: " << result << endl;
   }
 
-  bool isPalindrome(string s) {
-    if (s.size() == 0)
-    {
-      return true;
-    }
-    int i = 0;
-    int j = s.size() - 1;
-    while (i <= j)
-    {
-      cout << i << ":" << j << endl;
-      if (!isAlpha(s[i]))
-      {
-        ++i;
-        continue;
-      }
-
-      if (!isAlpha(s[j]))
-      {
-        --j;
-        continue;
-      }
-
-      if (std::tolower(s[i]) == std::tolower(s[j]))
-      {
-        ++i;
-        --j;
-      }
-      else
-      {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-  bool isAlpha(char c)
+  int maxProfit(vector<int>& prices)
   {
-    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
+    if (prices.size() < 2)
     {
-      return true;
+      return 0;
     }
 
-    return false;
+    int sum = 0;
+    for (int i = 0; i < prices.size() - 1; ++i)
+    {
+      if (prices[i+1] > prices[i])
+      {
+        sum += prices[i+1] - prices[i];
+      }
+    }
+
+    return sum;
   }
 
   template<class T>

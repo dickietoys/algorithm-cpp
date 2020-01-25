@@ -19,57 +19,41 @@ using namespace std;
 
 class Solution {
  public:
+  struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  };
 
   void RunTest()
   {
-    bool result = isPalindrome("race a car");
-    cout << "result: " << result << endl;
+    TreeNode *input;
+    bool result;
+
+    input = new TreeNode(2);
+    input->left = new TreeNode(1);
+    input->right = new TreeNode(3);
   }
 
-  bool isPalindrome(string s) {
-    if (s.size() == 0)
-    {
-      return true;
-    }
-    int i = 0;
-    int j = s.size() - 1;
-    while (i <= j)
-    {
-      cout << i << ":" << j << endl;
-      if (!isAlpha(s[i]))
-      {
-        ++i;
-        continue;
-      }
-
-      if (!isAlpha(s[j]))
-      {
-        --j;
-        continue;
-      }
-
-      if (std::tolower(s[i]) == std::tolower(s[j]))
-      {
-        ++i;
-        --j;
-      }
-      else
-      {
-        return false;
-      }
-    }
-
-    return true;
+  TreeNode* sortedArrayToBST(vector<int>& nums) {
+    int numsSize = nums.size();
+    return Aux(nums, 0, numsSize - 1);
   }
 
-  bool isAlpha(char c)
+  TreeNode *Aux(vector<int>& nums, int left, int right)
   {
-    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
+    if (left > right)
     {
-      return true;
+      return nullptr;
     }
 
-    return false;
+    int middle = (left + right) / 2;
+    TreeNode *node = new TreeNode(nums[middle]);
+    node->left = Aux(nums, left, middle - 1);
+    node->right = Aux(nums, middle + 1, right);
+
+    return node;
   }
 
   template<class T>

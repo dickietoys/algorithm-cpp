@@ -22,54 +22,41 @@ class Solution {
 
   void RunTest()
   {
-    bool result = isPalindrome("race a car");
-    cout << "result: " << result << endl;
+    vector<vector<int>> result = generate(5);
+    Show(result);
   }
 
-  bool isPalindrome(string s) {
-    if (s.size() == 0)
-    {
-      return true;
-    }
-    int i = 0;
-    int j = s.size() - 1;
-    while (i <= j)
-    {
-      cout << i << ":" << j << endl;
-      if (!isAlpha(s[i]))
-      {
-        ++i;
-        continue;
-      }
-
-      if (!isAlpha(s[j]))
-      {
-        --j;
-        continue;
-      }
-
-      if (std::tolower(s[i]) == std::tolower(s[j]))
-      {
-        ++i;
-        --j;
-      }
-      else
-      {
-        return false;
-      }
-    }
-
-    return true;
+  vector<vector<int>> generate(int numRows) {
+    vector<vector<int>> result;
+    Aux(result, 1, numRows);
+    return result;
   }
 
-  bool isAlpha(char c)
+  void Aux(vector<vector<int>> &result, int curRow, int numRows)
   {
-    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
+    if (curRow > numRows)
     {
-      return true;
+      return;
     }
 
-    return false;
+    if (curRow == 1)
+    {
+      result.push_back({1});
+    }
+    else if (curRow == 2)
+    {
+      result.push_back({1, 1});
+    }
+    else
+    {
+      vector<int> item(curRow, 1);
+      for (int i = 1; i < curRow - 1; ++i)
+      {
+        item[i] = result[curRow-2][i-1] + result[curRow-2][i];
+      }
+      result.push_back(item);
+    }
+    Aux(result, curRow + 1, numRows);
   }
 
   template<class T>

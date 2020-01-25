@@ -19,57 +19,44 @@ using namespace std;
 
 class Solution {
  public:
+  struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  };
 
   void RunTest()
   {
-    bool result = isPalindrome("race a car");
-    cout << "result: " << result << endl;
+    TreeNode *input;
+    bool result;
+
+    input = new TreeNode(2);
+    input->left = new TreeNode(1);
+    input->right = new TreeNode(3);
   }
 
-  bool isPalindrome(string s) {
-    if (s.size() == 0)
+  bool isSymmetric(TreeNode* root) {
+    if (!root)
     {
       return true;
     }
-    int i = 0;
-    int j = s.size() - 1;
-    while (i <= j)
-    {
-      cout << i << ":" << j << endl;
-      if (!isAlpha(s[i]))
-      {
-        ++i;
-        continue;
-      }
-
-      if (!isAlpha(s[j]))
-      {
-        --j;
-        continue;
-      }
-
-      if (std::tolower(s[i]) == std::tolower(s[j]))
-      {
-        ++i;
-        --j;
-      }
-      else
-      {
-        return false;
-      }
-    }
-
-    return true;
+    return Aux(root->left, root->right);
   }
 
-  bool isAlpha(char c)
+  bool Aux(TreeNode *leftNode, TreeNode *rightNode)
   {
-    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
+    if (!leftNode || !rightNode)
     {
-      return true;
+      return leftNode == rightNode;
     }
 
-    return false;
+    if (leftNode->val != rightNode->val)
+    {
+      return false;
+    }
+
+    return Aux(leftNode->left, rightNode->right) && Aux(leftNode->right, rightNode->left);
   }
 
   template<class T>

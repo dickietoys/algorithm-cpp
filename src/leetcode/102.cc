@@ -19,57 +19,53 @@ using namespace std;
 
 class Solution {
  public:
+  struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  };
 
   void RunTest()
   {
-    bool result = isPalindrome("race a car");
-    cout << "result: " << result << endl;
+    TreeNode *input;
+    bool result;
+
+    input = new TreeNode(2);
+    input->left = new TreeNode(1);
+    input->right = new TreeNode(3);
   }
 
-  bool isPalindrome(string s) {
-    if (s.size() == 0)
+  vector<vector<int>> levelOrder(TreeNode* root) {
+    vector<vector<int>> order;
+    if (!root)
     {
-      return true;
+      return order;
     }
-    int i = 0;
-    int j = s.size() - 1;
-    while (i <= j)
+    deque<TreeNode *> q;
+    q.push_back(root);
+    while (!q.empty())
     {
-      cout << i << ":" << j << endl;
-      if (!isAlpha(s[i]))
+      vector<int> item;
+      int size = q.size();
+      while(size--)
       {
-        ++i;
-        continue;
+        TreeNode *node = q.front();
+        q.pop_front();
+        item.push_back(node->val);
+        if (node->left)
+        {
+          q.push_back(node->left);
+        }
+        if (node->right)
+        {
+          q.push_back(node->right);
+        }
       }
-
-      if (!isAlpha(s[j]))
-      {
-        --j;
-        continue;
-      }
-
-      if (std::tolower(s[i]) == std::tolower(s[j]))
-      {
-        ++i;
-        --j;
-      }
-      else
-      {
-        return false;
-      }
+      order.push_back(item);
     }
 
-    return true;
-  }
-
-  bool isAlpha(char c)
-  {
-    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
-    {
-      return true;
-    }
-
-    return false;
+    return order;
   }
 
   template<class T>

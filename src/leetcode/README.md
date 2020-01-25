@@ -26,4 +26,15 @@
 53. Maximum Subarray                                  用分治算法试试
 65. Valid Number
 68. Text Justification
+84. Largest Rectangle in Histogram
+85. Maximal Rectangle
+87. Scramble String
+115. Distinct Subsequences
+123. Best Time to Buy and Sell Stock III
+124. Binary Tree Maximum Path Sum    
+126. Word Ladder II    
 ~~~
+
+#### 常用思想
+
+kadane's algorithm

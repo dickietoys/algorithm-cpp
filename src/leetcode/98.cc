@@ -19,57 +19,54 @@ using namespace std;
 
 class Solution {
  public:
+  struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  };
 
   void RunTest()
   {
-    bool result = isPalindrome("race a car");
+    TreeNode *input;
+    bool result;
+
+    input = new TreeNode(2);
+    input->left = new TreeNode(1);
+    input->right = new TreeNode(3);
+
+    result = isValidBST(input);
     cout << "result: " << result << endl;
+    assert(result == true);
   }
 
-  bool isPalindrome(string s) {
-    if (s.size() == 0)
+  bool isValidBST(TreeNode* root) {
+    if (!root)
     {
       return true;
     }
-    int i = 0;
-    int j = s.size() - 1;
-    while (i <= j)
+
+    stack<TreeNode *> s;
+    TreeNode *prevNode = nullptr;
+    while (root || !s.empty())
     {
-      cout << i << ":" << j << endl;
-      if (!isAlpha(s[i]))
+      while (root)
       {
-        ++i;
-        continue;
+        s.push(root);
+        root = root->left;
       }
 
-      if (!isAlpha(s[j]))
-      {
-        --j;
-        continue;
-      }
-
-      if (std::tolower(s[i]) == std::tolower(s[j]))
-      {
-        ++i;
-        --j;
-      }
-      else
+      root = s.top();
+      s.pop();
+      if (prevNode && prevNode->val >= root->val)
       {
         return false;
       }
+      prevNode = root;
+      root = root->right;
     }
 
     return true;
-  }
-
-  bool isAlpha(char c)
-  {
-    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
-    {
-      return true;
-    }
-
-    return false;
   }
 
   template<class T>

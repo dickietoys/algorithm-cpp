@@ -19,57 +19,63 @@ using namespace std;
 
 class Solution {
  public:
+  struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  };
 
   void RunTest()
   {
-    bool result = isPalindrome("race a car");
+    int input;
+    int result;
+
+    input = 3;
+    result = numTrees(input);
     cout << "result: " << result << endl;
+    assert(result == 5);
   }
 
-  bool isPalindrome(string s) {
-    if (s.size() == 0)
-    {
-      return true;
-    }
-    int i = 0;
-    int j = s.size() - 1;
-    while (i <= j)
-    {
-      cout << i << ":" << j << endl;
-      if (!isAlpha(s[i]))
-      {
-        ++i;
-        continue;
-      }
-
-      if (!isAlpha(s[j]))
-      {
-        --j;
-        continue;
-      }
-
-      if (std::tolower(s[i]) == std::tolower(s[j]))
-      {
-        ++i;
-        --j;
-      }
-      else
-      {
-        return false;
-      }
-    }
-
-    return true;
+  int numTrees(int n) {
+    // vector<int> bookmark(n+1, -1);
+    // bookmark[0] = 1;
+    // bookmark[1] = 1;
+    // return Aux(n, bookmark);
+    return DpAux(n);
   }
 
-  bool isAlpha(char c)
+  int DpAux(int n)
   {
-    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
+    vector<int> dp(n + 1, 0);
+    dp[0] = 1;
+    dp[1] = 1;
+    for (int i = 2; i <= n; ++i)
     {
-      return true;
+      for (int j = 0; j < i; ++j)
+      {
+        dp[i] += dp[j] * dp[i-j-1];
+      }
     }
 
-    return false;
+    return dp[n];
+  }
+
+  int Aux(int n, vector<int> &bookmark)
+  {
+    if (bookmark[n] != -1)
+    {
+      return bookmark[n];
+    }
+
+    int sum = 0;
+    for (int i = 1; i <= n; ++i)
+    {
+      sum += Aux(i - 1, bookmark) * Aux(n - i, bookmark);
+    }
+
+    bookmark[n] = sum;
+    return sum;
   }
 
   template<class T>
