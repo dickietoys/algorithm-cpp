@@ -12,92 +12,80 @@
 #include <sstream>
 #include <iterator>
 #include <set>
-#include <cmath>
-#include <bitset>
 
 using namespace std;
 
 class Solution {
  public:
-
   void RunTest()
   {
-    int result = 0;
+    vector<string> wordList = {"hot","dot","dog","lot","log","cog"};
+    int result = ladderLength("hit", "cog", wordList);
+    cout << result << endl;
   }
 
-  int ladderLength(string beginWord, string endWord, vector<string>& wordList)
-  {
-
-  }
-
-  int ladderLength(string &beginWord, string &endWord, vector<string>& wordList)
-  {
-    if (beginWord == endWord)
+  int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+    deque<string> dq;
+    unordered_set<string> bookmark;
+    dq.push_back(beginWord);
+    int counter = 1;
+    while (!dq.empty())
     {
-      return 0;
-    }
-
-    int size = beginWord.size();
-    for (int i = 0; i < size; ++i)
-    {
-      if (beginWord[i] == endWord[i])
+      int size = dq.size();
+      while (size)
       {
-        for (int j = 0; i < wordList[j].size(); ++j)
+        string data = dq.front();
+        dq.pop_front();
+        if (data == endWord)
         {
-          if (IsValid(beginWord, wordList[j]))
+          return counter;
+        }
+        for (int i = 0; i < wordList.size(); ++i)
+        {
+          if (Valid(data, wordList[i]) && bookmark.count(wordList[i]) == 0)
           {
-
+            bookmark.insert(wordList[i]);
+            dq.push_back(wordList[i]);
           }
         }
+        --size;
       }
+      ++counter;
     }
+
+    return 0;
   }
 
-  bool IsValid(string &src, string &target)
+  bool Valid(string &src, string &dst)
   {
-    int diff_count = 0;
-    int size = src.size();
-    for (int i = 0; i < size; ++i)
+    int count = 0;
+    for (int i = 0; i < src.size(); ++i)
     {
-      if (src[i] != target[i])
+      if (src[i] != dst[i])
       {
-        ++diff_count;
+        ++count;
       }
     }
 
-    if (diff_count == 1)
-    {
-      return true;
-    }
-    else
-    {
-      return false;
-    }
+    return count == 1 ? true : false;
   }
 
-  int Aux(string &beginWord, string &endWord, vector<string>& wordList)
-  {
-
-  }
-
-  template<class T>
-  void Show(vector<T> &result)
+  void Show(vector<int> &result)
   {
     for (size_t i = 0; i < result.size(); ++i)
     {
-      cout << result[i] << ", ";
+      cout << result[i] << ",";
     }
     cout << endl;
   }
 
-  template<class T>
-  void Show(vector<vector<T>> &result)
+  void Show(vector<vector<int>> &result)
   {
     for (size_t i = 0; i < result.size(); ++i)
     {
       for (size_t j = 0; j < result[i].size(); ++j)
       {
-        cout << result[i][j] << ", ";
+        cout << result[i][j] << ",";
       }
       cout << endl;
     }
