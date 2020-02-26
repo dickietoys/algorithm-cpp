@@ -20,10 +20,7 @@ class Solution {
  public:
   void RunTest()
   {
-    string s = "0123456";
-    cout << s.substr(5, 1) << endl;
-    cout << s.substr(5, 1) << endl;
-    cout << s.substr(5, 1) << endl;
+
   }
 
   int singleNumber(vector<int>& nums) {

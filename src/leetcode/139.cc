@@ -20,27 +20,46 @@ class Solution {
  public:
   void RunTest()
   {
-    string s = "0123456";
-    cout << s.substr(5, 1) << endl;
-    cout << s.substr(5, 1) << endl;
-    cout << s.substr(5, 1) << endl;
+    vector<string> wordDict = {"image", "classify"};
+    string s = "imageclassify";
+
+    bool result = wordBreak(s, wordDict);
+    cout << result << endl;
   }
 
-  int singleNumber(vector<int>& nums) {
-    int ones = 0;
-    int twos = 0;
-    int common_mask = 0;
-    int nums_size = nums.size();
-    for (int i = 0; i < nums_size; ++i)
+  bool wordBreak(string s, vector<string>& wordDict) {
+    unordered_map<string, bool> word_map;
+    for (string &item : wordDict)
     {
-      twos |= ones & nums[i];
-      ones ^= nums[i];
-      common_mask = ~(ones & twos);
-      ones &= common_mask;
-      twos &= common_mask;
+      word_map[item] = true;
     }
 
-    return ones;
+    return Aux(word_map, s);
+  }
+
+  bool Aux(unordered_map<string, bool> &word_map, const string &s)
+  {
+    int s_size = s.size();
+    if (s_size == 0)
+    {
+      return true;
+    }
+
+    bool has = false;
+    for (int i = 1; i <= s_size; ++i)
+    {
+      string tmp_s = s.substr(0, i);
+      if (word_map[tmp_s])
+      {
+        has = Aux(word_map, s.substr(i, s_size - i + 1));
+        if (has)
+        {
+          return has;
+        }
+      }
+    }
+
+    return has;
   }
 
   void Show(vector<int> &result)

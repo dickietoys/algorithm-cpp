@@ -16,31 +16,52 @@
 
 using namespace std;
 
+class Node {
+ public:
+  int val;
+  Node* next;
+  Node* random;
+
+  Node(int _val) {
+    val = _val;
+    next = NULL;
+    random = NULL;
+  }
+};
+
 class Solution {
  public:
   void RunTest()
   {
-    string s = "0123456";
-    cout << s.substr(5, 1) << endl;
-    cout << s.substr(5, 1) << endl;
-    cout << s.substr(5, 1) << endl;
+
   }
 
-  int singleNumber(vector<int>& nums) {
-    int ones = 0;
-    int twos = 0;
-    int common_mask = 0;
-    int nums_size = nums.size();
-    for (int i = 0; i < nums_size; ++i)
+  Node* copyRandomList(Node* head) {
+    Node dummy(0);
+    Node *last_new_node = &dummy;
+    Node *new_node = nullptr;
+    Node *old_node = head;
+    unordered_map<Node *, Node *> bookmark;
+    bookmark[nullptr] = nullptr;
+    while (old_node)
     {
-      twos |= ones & nums[i];
-      ones ^= nums[i];
-      common_mask = ~(ones & twos);
-      ones &= common_mask;
-      twos &= common_mask;
+      new_node = new Node(old_node->val);
+      last_new_node->next = new_node;
+      bookmark[old_node] = new_node;
+      old_node = old_node->next;
+      last_new_node = new_node;
     }
 
-    return ones;
+    old_node = head;
+    new_node = dummy.next;
+    while(old_node)
+    {
+      new_node->random = bookmark[old_node->random];
+      old_node = old_node->next;
+      new_node = new_node->next;
+    }
+
+    return dummy.next;
   }
 
   void Show(vector<int> &result)
