@@ -13,14 +13,50 @@
 #include <iterator>
 #include <set>
 #include <cmath>
+#include <bitset>
 
 using namespace std;
 
 class Solution {
  public:
+  struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  };
 
   void RunTest()
   {
+    TreeNode *input;
+    bool result;
+
+    input = new TreeNode(2);
+    input->left = new TreeNode(1);
+    input->right = new TreeNode(3);
+  }
+
+  bool isSymmetric(TreeNode* root) {
+    if (!root)
+    {
+      return true;
+    }
+    return Aux(root->left, root->right);
+  }
+
+  bool Aux(TreeNode *leftNode, TreeNode *rightNode)
+  {
+    if (!leftNode || !rightNode)
+    {
+      return leftNode == rightNode;
+    }
+
+    if (leftNode->val != rightNode->val)
+    {
+      return false;
+    }
+
+    return Aux(leftNode->left, rightNode->right) && Aux(leftNode->right, rightNode->left);
   }
 
   template<class T>

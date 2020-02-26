@@ -13,14 +13,46 @@
 #include <iterator>
 #include <set>
 #include <cmath>
+#include <bitset>
 
 using namespace std;
 
 class Solution {
  public:
+  struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  };
 
   void RunTest()
   {
+    TreeNode *input;
+    int result;
+    input = new TreeNode(3);
+    input->left = new TreeNode(9);
+    input->right = new TreeNode(20);
+    input->right->left = new TreeNode(15);
+    input->right->right = new TreeNode(7);
+  }
+
+  void flatten(TreeNode* root) {
+    TreeNode *prevNode = nullptr;
+    return Aux(root, &prevNode);
+  }
+
+  void Aux(TreeNode *node, TreeNode **prev)
+  {
+    if (!node)
+    {
+      return;
+    }
+    Aux(node->right, prev);
+    Aux(node->left, prev);
+    node->right = *prev;
+    node->left = nullptr;
+    *prev = node;
   }
 
   template<class T>

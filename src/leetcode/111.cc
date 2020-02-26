@@ -13,14 +13,48 @@
 #include <iterator>
 #include <set>
 #include <cmath>
+#include <bitset>
 
 using namespace std;
 
 class Solution {
  public:
+  struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  };
 
   void RunTest()
   {
+    TreeNode *input;
+    int result;
+    input = new TreeNode(3);
+    input->left = new TreeNode(9);
+    input->right = new TreeNode(20);
+    input->right->left = new TreeNode(15);
+    input->right->right = new TreeNode(7);
+
+    result = minDepth(input);
+    cout << result << endl;
+  }
+
+  int minDepth(TreeNode* root) {
+    return Aux(root);
+  }
+
+  int Aux(TreeNode *node)
+  {
+    if (!node)
+    {
+      return 0;
+    }
+
+    int left = Aux(node->left);
+    int right = Aux(node->right);
+
+    return (left == 0 || right == 0) ? left + right + 1 : std::min(left, right) + 1;
   }
 
   template<class T>

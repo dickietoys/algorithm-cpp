@@ -13,14 +13,46 @@
 #include <iterator>
 #include <set>
 #include <cmath>
+#include <bitset>
 
 using namespace std;
 
 class Solution {
  public:
+  struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  };
 
   void RunTest()
   {
+    TreeNode *input;
+    int result;
+    input = new TreeNode(3);
+    input->left = new TreeNode(9);
+    input->right = new TreeNode(20);
+    input->right->left = new TreeNode(15);
+    input->right->right = new TreeNode(7);
+  }
+
+  bool hasPathSum(TreeNode* root, int sum) {
+    return Aux(root, sum);
+  }
+
+  bool Aux(TreeNode* node, int sum)
+  {
+    if (!node)
+    {
+      return false;
+    }
+
+    if (!node->left && !node->right)
+    {
+      return sum - node->val == 0 ? true : false;
+    }
+    return Aux(node->left, sum - node->val) || Aux(node->right, sum - node->val);
   }
 
   template<class T>

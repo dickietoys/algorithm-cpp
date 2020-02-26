@@ -13,14 +13,43 @@
 #include <iterator>
 #include <set>
 #include <cmath>
+#include <bitset>
 
 using namespace std;
 
 class Solution {
  public:
+  struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  };
 
   void RunTest()
   {
+    TreeNode *input;
+    bool result;
+
+    input = new TreeNode(2);
+    input->left = new TreeNode(1);
+    input->right = new TreeNode(3);
+  }
+
+  int maxDepth(TreeNode* root) {
+    return Aux(root);
+  }
+
+  int Aux(TreeNode* node)
+  {
+    if (!node)
+    {
+      return 0;
+    }
+    int leftPath = Aux(node->left) + 1;
+    int rightPath = Aux(node->right) + 1;
+
+    return std::max(leftPath, rightPath);
   }
 
   template<class T>

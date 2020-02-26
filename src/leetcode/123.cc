@@ -13,6 +13,7 @@
 #include <iterator>
 #include <set>
 #include <cmath>
+#include <bitset>
 
 using namespace std;
 
@@ -21,6 +22,28 @@ class Solution {
 
   void RunTest()
   {
+    vector<int> input = {7, 1, 5, 3, 6, 4};
+    int result = maxProfit(input);
+    cout << "result: " << result << endl;
+  }
+
+  int maxProfit(vector<int>& prices)
+  {
+    if (prices.size() < 2)
+    {
+      return 0;
+    }
+
+    int sum = 0;
+    for (int i = 0; i < prices.size() - 1; ++i)
+    {
+      if (prices[i+1] > prices[i])
+      {
+        sum += prices[i+1] - prices[i];
+      }
+    }
+
+    return sum;
   }
 
   template<class T>

@@ -13,14 +13,56 @@
 #include <iterator>
 #include <set>
 #include <cmath>
+#include <bitset>
 
 using namespace std;
 
 class Solution {
  public:
+  struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  };
 
   void RunTest()
   {
+    TreeNode *input;
+    bool result;
+
+    result = isBalanced(input);
+  }
+
+  bool isBalanced(TreeNode* root) {
+    return Aux(root) != -1;
+  }
+
+  int Aux(TreeNode *node)
+  {
+    if (!node)
+    {
+      return 0;
+    }
+
+    int left = Aux(node->left);
+    int right = Aux(node->right);
+    if (left == -1)
+    {
+      return -1;
+    }
+
+    if (right == -1)
+    {
+      return -1;
+    }
+
+    if (std::abs(left - right) > 1)
+    {
+      return -1;
+    }
+
+    return std::max(left, right) + 1;
   }
 
   template<class T>

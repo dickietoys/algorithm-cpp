@@ -13,14 +13,41 @@
 #include <iterator>
 #include <set>
 #include <cmath>
+#include <bitset>
 
 using namespace std;
 
 class Solution {
  public:
+  struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  };
 
   void RunTest()
   {
+    TreeNode *input;
+    bool result;
+
+    input = new TreeNode(2);
+    input->left = new TreeNode(1);
+    input->right = new TreeNode(3);
+  }
+
+  bool isSameTree(TreeNode* p, TreeNode* q) {
+    if (!p && !q)
+    {
+      return true;
+    }
+
+    if (!p || !q)
+    {
+      return false;
+    }
+
+    return (p->val == q->val) && isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
   }
 
   template<class T>

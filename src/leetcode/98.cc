@@ -13,14 +13,60 @@
 #include <iterator>
 #include <set>
 #include <cmath>
+#include <bitset>
 
 using namespace std;
 
 class Solution {
  public:
+  struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  };
 
   void RunTest()
   {
+    TreeNode *input;
+    bool result;
+
+    input = new TreeNode(2);
+    input->left = new TreeNode(1);
+    input->right = new TreeNode(3);
+
+    result = isValidBST(input);
+    cout << "result: " << result << endl;
+    assert(result == true);
+  }
+
+  bool isValidBST(TreeNode* root) {
+    if (!root)
+    {
+      return true;
+    }
+
+    stack<TreeNode *> s;
+    TreeNode *prevNode = nullptr;
+    while (root || !s.empty())
+    {
+      while (root)
+      {
+        s.push(root);
+        root = root->left;
+      }
+
+      root = s.top();
+      s.pop();
+      if (prevNode && prevNode->val >= root->val)
+      {
+        return false;
+      }
+      prevNode = root;
+      root = root->right;
+    }
+
+    return true;
   }
 
   template<class T>

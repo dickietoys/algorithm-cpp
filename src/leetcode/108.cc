@@ -13,14 +13,47 @@
 #include <iterator>
 #include <set>
 #include <cmath>
+#include <bitset>
 
 using namespace std;
 
 class Solution {
  public:
+  struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  };
 
   void RunTest()
   {
+    TreeNode *input;
+    bool result;
+
+    input = new TreeNode(2);
+    input->left = new TreeNode(1);
+    input->right = new TreeNode(3);
+  }
+
+  TreeNode* sortedArrayToBST(vector<int>& nums) {
+    int numsSize = nums.size();
+    return Aux(nums, 0, numsSize - 1);
+  }
+
+  TreeNode *Aux(vector<int>& nums, int left, int right)
+  {
+    if (left > right)
+    {
+      return nullptr;
+    }
+
+    int middle = (left + right) / 2;
+    TreeNode *node = new TreeNode(nums[middle]);
+    node->left = Aux(nums, left, middle - 1);
+    node->right = Aux(nums, middle + 1, right);
+
+    return node;
   }
 
   template<class T>

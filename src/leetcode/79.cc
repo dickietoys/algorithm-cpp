@@ -38,10 +38,18 @@ class Solution {
     result = exist(input, "ABCB");
     cout << "result: " << result << endl;
     assert(result == false);
+
+    input = {
+      {'C', 'A', 'A'},
+      {'A', 'A', 'A'},
+      {'B', 'C', 'D'}
+    };
+    result = exist(input, "AAB");
+    cout << "result: " << result << endl;
+    assert(result == true);
   }
 
   bool exist(vector<vector<char>>& board, string word) {
-    set<string> s;
     int rowSize = board.size();
     int colSize = board[0].size();
     int wordSize = word.size();
@@ -51,12 +59,9 @@ class Solution {
     {
       for (int j = 0; j < colSize; ++j)
       {
-        if (board[i][j] == word[wordPos])
+        if (Aux(board, i, j, word, wordPos))
         {
-          if (dfsAux(board, i, j, word, wordPos))
-          {
-            return true;
-          }
+          return true;
         }
       }
     }
@@ -64,19 +69,19 @@ class Solution {
     return false;
   }
 
-  bool dfsAux(vector<vector<char>>& board, int xpos, int ypos, string word, int wordPos)
+  bool Aux(vector<vector<char>> &board, int xpos, int ypos, string &word, int wordPos)
   {
-    if (wordPos >= word.size())
+    if (wordPos == word.size())
     {
       return true;
     }
 
-    if (xpos < 0 || xpos > board.size())
+    if (xpos < 0 || xpos >= board.size())
     {
       return false;
     }
 
-    if (ypos < 0 || ypos > board[0].size())
+    if (ypos < 0 || ypos >= board[0].size())
     {
       return false;
     }
@@ -84,21 +89,19 @@ class Solution {
     bool result = false;
     if (board[xpos][ypos] == word[wordPos])
     {
-      result = dfsAux(board, xpos - 1, ypos, word, wordPos+1) ||
-               dfsAux(board, xpos + 1, ypos, word, wordPos+1) ||
-               dfsAux(board, xpos, ypos - 1, word, wordPos+1) ||
-               dfsAux(board, xpos, ypos + 1, word, wordPos+1);
+      char c = board[xpos][ypos];
+      board[xpos][ypos] = '*';
+      result = Aux(board, xpos - 1, ypos, word, wordPos + 1) ||
+               Aux(board, xpos + 1, ypos, word, wordPos + 1) ||
+               Aux(board, xpos, ypos - 1, word, wordPos + 1) ||
+               Aux(board, xpos, ypos + 1, word, wordPos + 1);
+      board[xpos][ypos] = c;
       return result;
     }
     else
     {
       return false;
     }
-  }
-
-  string genKey(int xpos, int ypos)
-  {
-    return std::to_string(xpos).append(std::to_string(ypos));
   }
 
   void Show(vector<int> &result)
