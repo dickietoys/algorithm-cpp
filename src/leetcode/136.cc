@@ -21,14 +21,18 @@ class Solution {
 
   void RunTest()
   {
-    int x = 0;
-    x = x ^ 0;
-    cout << x << endl;
+
   }
 
-  // int singleNumber(vector<int>& nums) {
+  int singleNumber(vector<int>& nums) {
+    int result = 0;
+    for (int i = 0; i < nums.size(); ++i)
+    {
+      result ^= nums[i];
+    }
 
-  // }
+    return result;
+  }
 
   template<class T>
   void Show(vector<T> &result)
