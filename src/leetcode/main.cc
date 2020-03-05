@@ -27,50 +27,41 @@ class Solution {
 
   void RunTest()
   {
-    int x = 0;
-    x = x ^ 0;
-    cout << x << endl;
   }
 
-  ListNode *detectCycle(ListNode *head) {
-    bool has_cycle = false;
-    ListNode *fast = head;
-    ListNode *slow = head;
-    while (fast)
+  void reorderList(ListNode* head) {
+    ListNode *cur_node = head;
+    vector<ListNode *> even_index_node;
+    stack<ListNode *> odd_index_node;
+    int index = 0;
+    while (cur_node)
     {
-      fast = fast->next;
-      if (fast && fast->next)
+      ++index;
+      if (index % 2 == 0)
       {
-        slow = slow->next;
-        fast = fast->next;
+        odd_index_node.push(cur_node);
       }
-
-      if (slow == fast)
+      else
       {
-        has_cycle = true;
-        break;
+        even_index_node.push_back(cur_node);
+      }
+      cur_node = cur_node->next;
+    }
+
+    int even_index_node_size = even_index_node.size();
+    ListNode dummy(0);
+    cur_node = &dummy;
+    for (int i = 0; i < even_index_node_size; ++i)
+    {
+      cur_node->next = even_index_node[i];
+      cur_node = cur_node->next;
+      if (odd_index_node.size() != 0)
+      {
+        cur_node->next = odd_index_node.top();
+        cur_node = cur_node->next;
+        odd_index_node.pop();
       }
     }
-
-    if (!has_cycle)
-    {
-      return nullptr;
-    }
-
-    slow = head;
-    while (slow != fast)
-    {
-      slow = slow->next;
-      fast = fast->next;
-    }
-
-    return slow;
-  }
-
-  bool hasCycle(ListNode *head) {
-
-
-    return false;
   }
 
   template<class T>

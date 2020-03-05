@@ -67,12 +67,6 @@ class Solution {
     return slow;
   }
 
-  bool hasCycle(ListNode *head) {
-
-
-    return false;
-  }
-
   template<class T>
   void Show(vector<T> &result)
   {
