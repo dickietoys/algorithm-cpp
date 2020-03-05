@@ -40,22 +40,24 @@ class Solution {
     return ones;
   }
 
-  void Show(vector<int> &result)
+  template<class T>
+  void Show(vector<T> &result)
   {
     for (size_t i = 0; i < result.size(); ++i)
     {
-      cout << result[i] << ",";
+      cout << result[i] << ", ";
     }
     cout << endl;
   }
 
-  void Show(vector<vector<int>> &result)
+  template<class T>
+  void Show(vector<vector<T>> &result)
   {
     for (size_t i = 0; i < result.size(); ++i)
     {
       for (size_t j = 0; j < result[i].size(); ++j)
       {
-        cout << result[i][j] << ",";
+        cout << result[i][j] << ", ";
       }
       cout << endl;
     }

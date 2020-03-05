@@ -34,7 +34,28 @@ class Solution {
       word_map[item] = true;
     }
 
-    return Aux(word_map, s);
+    return DpAux(word_map, s);
+  }
+
+  bool DpAux(unordered_map<string, bool> &word_map, const string &s)
+  {
+    int s_size = s.size();
+    vector<bool> dp(s_size + 1, false);
+    dp[0] = true;
+
+    for (int i = 1; i <= s.size(); ++i)
+    {
+      for (int j = 0; j < i; ++j)
+      {
+        if (dp[j] && word_map.count(s.substr(j, i - j)) != 0)
+        {
+          dp[i] = true;
+          break;
+        }
+      }
+    }
+
+    return dp[s_size];
   }
 
   bool Aux(unordered_map<string, bool> &word_map, const string &s)
@@ -45,39 +66,35 @@ class Solution {
       return true;
     }
 
-    bool has = false;
-    for (int i = 1; i <= s_size; ++i)
+    for (int i = 1; i <= s.size(); ++i)
     {
-      string tmp_s = s.substr(0, i);
-      if (word_map[tmp_s])
+      if (word_map.count(s.substr(0, i)) != 0 && Aux(word_map, s.substr(i, s.size() - i + 1)))
       {
-        has = Aux(word_map, s.substr(i, s_size - i + 1));
-        if (has)
-        {
-          return has;
-        }
+        return true;
       }
     }
 
-    return has;
+    return false;
   }
 
-  void Show(vector<int> &result)
+  template<class T>
+  void Show(vector<T> &result)
   {
     for (size_t i = 0; i < result.size(); ++i)
     {
-      cout << result[i] << ",";
+      cout << result[i] << ", ";
     }
     cout << endl;
   }
 
-  void Show(vector<vector<int>> &result)
+  template<class T>
+  void Show(vector<vector<T>> &result)
   {
     for (size_t i = 0; i < result.size(); ++i)
     {
       for (size_t j = 0; j < result[i].size(); ++j)
       {
-        cout << result[i][j] << ",";
+        cout << result[i][j] << ", ";
       }
       cout << endl;
     }

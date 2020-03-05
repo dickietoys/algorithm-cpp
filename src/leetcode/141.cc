@@ -16,52 +16,37 @@
 
 using namespace std;
 
-class Node {
- public:
+struct ListNode {
   int val;
-  Node* next;
-  Node* random;
-
-  Node(int _val) {
-    val = _val;
-    next = NULL;
-    random = NULL;
-  }
+  ListNode *next;
+  ListNode(int x) : val(x), next(NULL) {}
 };
 
 class Solution {
  public:
   void RunTest()
   {
-
   }
 
-  Node* copyRandomList(Node* head) {
-    Node dummy(0);
-    Node *last_new_node = &dummy;
-    Node *new_node = nullptr;
-    Node *old_node = head;
-    unordered_map<Node *, Node *> bookmark;
-    bookmark[nullptr] = nullptr;
-    while (old_node)
+  bool hasCycle(ListNode *head) {
+    ListNode *fast = head;
+    ListNode *slow = head;
+    while (fast)
     {
-      new_node = new Node(old_node->val);
-      last_new_node->next = new_node;
-      bookmark[old_node] = new_node;
-      old_node = old_node->next;
-      last_new_node = new_node;
+      fast = fast->next;
+      if (fast && fast->next)
+      {
+        slow = slow->next;
+        fast = fast->next;
+      }
+
+      if (slow == fast)
+      {
+        return true;
+      }
     }
 
-    old_node = head;
-    new_node = dummy.next;
-    while(old_node)
-    {
-      new_node->random = bookmark[old_node->random];
-      old_node = old_node->next;
-      new_node = new_node->next;
-    }
-
-    return dummy.next;
+    return false;
   }
 
   template<class T>
