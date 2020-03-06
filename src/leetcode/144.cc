@@ -55,50 +55,23 @@ class Solution {
     return result;
   }
 
-  vector<int> inorderTraversal(TreeNode* root) {
+  vector<int> Recusive(TreeNode* root)
+  {
     vector<int> result;
-    stack<TreeNode *> s;
-    TreeNode *cur_node = root;
-    while (cur_node || !s.empty())
-    {
-      if (cur_node)
-      {
-        s.push(cur_node);
-        cur_node = cur_node->left;
-        continue;
-      }
-
-      if (!s.empty())
-      {
-        cur_node = s.top();
-        s.pop();
-        result.push_back(cur_node->val);
-        cur_node = cur_node->right;
-        continue;
-      }
-    }
+    Aux(root, result);
 
     return result;
   }
 
-  vector<int> postorderTraversal(TreeNode* root) {
-    TreeNode *cur_node = root;
-    vector<int> result;
-    stack<TreeNode *> s;
-    while (cur_node)
+  void Aux(TreeNode *node, vector<int> &result)
+  {
+    if (!node)
     {
-      s.push(cur_node);
-      cur_node = cur_node->left;
-      if (cur_node)
-      {
-        continue;
-      }
-
-      if (!s.empty())
-      {
-        cur_node = s.top();
-      }
+      return;
     }
+    result.push_back(node->val);
+    Aux(node->left, result);
+    Aux(node->right, result);
   }
 
   template<class T>
