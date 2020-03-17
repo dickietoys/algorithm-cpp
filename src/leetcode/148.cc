@@ -28,38 +28,35 @@ class Solution {
   {
   }
 
-  ListNode* insertionSortList(ListNode* head) {
+  ListNode* sortList(ListNode* head) {
     if (!head || !head->next)
     {
       return head;
     }
-
-    ListNode *dummy = new ListNode(0);
-    dummy->next = head;
-    ListNode *prev_node = dummy;
-    ListNode *cur_node = head;
-    ListNode *next_node = nullptr;
-    while (cur_node)
+    ListNode *fast = head;
+    ListNode *slow = head;
+    ListNode *prev = nullptr;
+    while (fast && fast->next)
     {
-      if (cur_node->next && cur_node->val > cur_node->next->val)
-      {
-        while (prev_node->next && prev_node->next->val < cur_node->next->val)
-        {
-          prev_node = prev_node->next;
-        }
-        ListNode *tmp_node = prev_node->next;
-        prev_node->next = cur_node->next;
-        cur_node->next = cur_node->next->next;
-        prev_node->next->next = tmp_node;
-        prev_node = dummy;
-      }
-      else
-      {
-        cur_node = cur_node->next;
-      }
+      fast = fast->next->next;
+      prev = slow;
+      slow = slow->next;
     }
 
-    return dummy->next;
+    if (prev)
+    {
+      prev->next = nullptr;
+    }
+
+    ListNode *list_1 = sortList(head);
+    ListNode *list_2 = sortList(slow);
+
+    return merge(list_1, list_2);
+  }
+
+  ListNode *merge(ListNode* list_1, ListNode *list_2)
+  {
+    ListNode *dummy = new ListNode()
   }
 
   template<class T>
