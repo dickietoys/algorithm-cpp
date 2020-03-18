@@ -26,17 +26,6 @@ class Solution {
  public:
   void RunTest()
   {
-    set<int> s;
-    s.insert(5);
-    s.insert(3);
-    s.insert(7);
-    cout << *s.begin() << endl;
-    s.erase(s.begin());
-    cout << *s.begin() << endl;
-    s.erase(s.begin());
-    cout << *s.begin() << endl;
-    s.erase(s.begin());
-    cout << "s.size(): " << s.size() << endl;
   }
 
   ListNode* insertionSortList(ListNode* head) {
