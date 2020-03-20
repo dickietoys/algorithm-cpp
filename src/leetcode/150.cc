@@ -28,66 +28,56 @@ class Solution {
   {
   }
 
-  ListNode* sortList(ListNode* head) {
-    if (!head || !head->next)
+  bool is_symbols(string &s)
+  {
+    if (s == "+" || s == "-" || s == "*" || s == "/")
     {
-      return head;
+      return true;
     }
-    ListNode *fast = head;
-    ListNode *slow = head;
-    ListNode *prev = nullptr;
-    while (fast && fast->next)
+    else
     {
-      fast = fast->next->next;
-      prev = slow;
-      slow = slow->next;
+      return false;
     }
-
-    if (prev)
-    {
-      prev->next = nullptr;
-    }
-
-    ListNode *list_1 = sortList(head);
-    ListNode *list_2 = sortList(slow);
-
-    return merge(list_1, list_2);
   }
 
-  ListNode *merge(ListNode* list_1, ListNode *list_2)
-  {
-    ListNode dummy(0);
-    ListNode *cur = &dummy;
-    while (list_1 && list_2)
+  int evalRPN(vector<string>& tokens) {
+    stack<string> s;
+    for (auto it = tokens.begin(); it != tokens.end(); ++it)
     {
-      if (list_1->val >= list_2->val)
+      if (is_symbols(*it))
       {
-        cur->next = list_2;
-        list_2 = list_2->next;
+        int second_number = std::stoi(s.top());
+        s.pop();
+        int first_number = std::stoi(s.top());
+        s.pop();
+        if (*it == "+")
+        {
+          int value = first_number + second_number;
+          s.push(std::to_string(value));
+        }
+        else if (*it == "-")
+        {
+          int value = first_number - second_number;
+          s.push(std::to_string(value));
+        }
+        else if (*it == "*")
+        {
+          int value = first_number * second_number;
+          s.push(std::to_string(value));
+        }
+        else if (*it == "/")
+        {
+          int value = first_number / second_number;
+          s.push(std::to_string(value));
+        }
       }
       else
       {
-        cur->next = list_1;
-        list_1 = list_1->next;
+        s.push(*it);
       }
-      cur = cur->next;
     }
 
-    while (list_1)
-    {
-      cur->next = list_1;
-      list_1 = list_1->next;
-      cur = cur->next;
-    }
-
-    while (list_2)
-    {
-      cur->next = list_2;
-      list_2 = list_2->next;
-      cur = cur->next;
-    }
-
-    return dummy.next;
+    return std::stoi(s.top());
   }
 
   template<class T>

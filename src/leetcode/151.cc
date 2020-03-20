@@ -28,66 +28,46 @@ class Solution {
   {
   }
 
-  ListNode* sortList(ListNode* head) {
-    if (!head || !head->next)
+  string reverseWords(string s) {
+    stack<string> st;
+    int word_start_pos = -1;
+    int pos = 0;
+    s.append(" ");
+    for (pos = 0; pos < s.size(); ++pos)
     {
-      return head;
-    }
-    ListNode *fast = head;
-    ListNode *slow = head;
-    ListNode *prev = nullptr;
-    while (fast && fast->next)
-    {
-      fast = fast->next->next;
-      prev = slow;
-      slow = slow->next;
-    }
-
-    if (prev)
-    {
-      prev->next = nullptr;
-    }
-
-    ListNode *list_1 = sortList(head);
-    ListNode *list_2 = sortList(slow);
-
-    return merge(list_1, list_2);
-  }
-
-  ListNode *merge(ListNode* list_1, ListNode *list_2)
-  {
-    ListNode dummy(0);
-    ListNode *cur = &dummy;
-    while (list_1 && list_2)
-    {
-      if (list_1->val >= list_2->val)
+      if (s[pos] == ' ')
       {
-        cur->next = list_2;
-        list_2 = list_2->next;
+        if (word_start_pos != -1)
+        {
+          st.push(s.substr(word_start_pos, pos - word_start_pos));
+          word_start_pos = -1;
+        }
       }
       else
       {
-        cur->next = list_1;
-        list_1 = list_1->next;
+        if (word_start_pos == -1)
+        {
+          word_start_pos = pos;
+        }
       }
-      cur = cur->next;
     }
 
-    while (list_1)
+    string result = "";
+    while (!st.empty())
     {
-      cur->next = list_1;
-      list_1 = list_1->next;
-      cur = cur->next;
+      result.append(" ");
+      result.append(st.top());
+      st.pop();
     }
 
-    while (list_2)
+    if (result.size() != 0)
     {
-      cur->next = list_2;
-      list_2 = list_2->next;
-      cur = cur->next;
+      return result.substr(1);
     }
-
-    return dummy.next;
+    else
+    {
+      return result;
+    }
   }
 
   template<class T>
