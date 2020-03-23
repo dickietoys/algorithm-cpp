@@ -30,50 +30,36 @@ class Solution {
     cout << "result: " << result << endl;
     result = fractionToDecimal(1, 3);
     cout << "result: " << result << endl;
-    result = fractionToDecimal(-1, -2147483648);
-    cout << "result: " << result << endl;
-
   }
 
   string fractionToDecimal(int numerator, int denominator) {
-    if (numerator == 0)
-    {
+    if (!numerator) {
       return "0";
     }
-
-    string result = numerator > 0 ^ denominator > 0 ? "-" : "";
-    numerator = std::abs(numerator);
-    denominator = std::abs(denominator);
-    result += std::to_string(numerator / denominator);
-    numerator = numerator % denominator;
-    if (numerator == 0)
-    {
-      return result;
+    string ans;
+    if (numerator > 0 ^ denominator > 0) {
+      ans += '-';
     }
-    result += ".";
-    unordered_map<int, int> notebook;
-    notebook[numerator] = result.size();
-    while (numerator != 0)
-    {
-      numerator *= 10;
-      result += std::to_string(numerator / denominator);
-      numerator %= denominator;
-      if (notebook.count(numerator) != 0)
-      {
-        result.insert(notebook[numerator], "(");
-        result += ")";
+    long n = labs(numerator), d = labs(denominator), r = n % d;
+    ans += to_string(n / d);
+    if (!r) {
+      return ans;
+    }
+    ans += '.';
+    unordered_map<long, int> rs;
+    while (r) {
+      if (rs.find(r) != rs.end()) {
+        ans.insert(rs[r], "(");
+        ans += ')';
         break;
       }
-      else
-      {
-        notebook[numerator] = result.size();
-      }
+      rs[r] = ans.size();
+      r *= 10;
+      ans += to_string(r / d);
+      r %= d;
     }
-
-    return result;
+    return ans;
   }
-
-
 
   template<class T>
   void Show(vector<T> &result)
