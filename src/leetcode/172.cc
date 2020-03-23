@@ -29,16 +29,15 @@ class Solution {
     cout << std::pow(10, 2) << endl;
   }
 
-  string convertToTitle(int n) {
-    if (n == 0)
-    {
-      return "";
-    }
+   int trailingZeroes(int n) {
+     int result = 1;
+     while (n > 0)
+     {
+       result *= n--;
+     }
 
-    string prefix = convertToTitle((n - 1) / 26);
-    char suffix = char((n - 1) % 26 + 'A');
-    return prefix + suffix;
-  }
+     return result % 10 == 0 ? 1 : 0;
+   }
 
   template<class T>
   void Show(vector<T> &result)

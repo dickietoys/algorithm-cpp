@@ -26,7 +26,14 @@ class Solution {
  public:
   void RunTest()
   {
-    cout << std::pow(10, 2) << endl;
+    string result = convertToTitle(1);
+    cout << result << endl;
+
+    result = convertToTitle(28);
+    cout << result << endl;
+
+    result = convertToTitle(701);
+    cout << result << endl;
   }
 
   string convertToTitle(int n) {
