@@ -26,28 +26,35 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<int> nums = {1,2,1,4,5};
-    int result = findPeakElement(nums);
-    cout << "result: " << result << endl;
   }
 
-  int findPeakElement(vector<int>& nums) {
-    return Helper(nums, 0, nums.size()-1);
-  }
-
-  int Helper(const vector<int> &num, int low, int high)
-  {
-    if(low == high)
-      return low;
-    else
+  int findMin(vector<int>& nums) {
+    int nums_size = nums.size();
+    if (nums_size == 0)
     {
-      int mid1 = (low+high)/2;
-      int mid2 = mid1+1;
-      if(num[mid1] > num[mid2])
-        return Helper(num, low, mid1);
-      else
-        return Helper(num, mid2, high);
+      return 0;
     }
+
+    int left = 0;
+    int right = nums_size - 1;
+    while (left < right)
+    {
+      int mid = left + (right - left) / 2;
+      if (nums[mid] > nums[right])
+      {
+        left = mid + 1;
+      }
+      else if (nums[mid] < nums[right])
+      {
+        right = mid;
+      }
+      else
+      {
+        --right;
+      }
+    }
+
+    return nums[left];
   }
 
   template<class T>

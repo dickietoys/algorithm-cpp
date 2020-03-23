@@ -26,27 +26,27 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<int> nums = {1,2,1,4,5};
-    int result = findPeakElement(nums);
-    cout << "result: " << result << endl;
   }
 
   int findPeakElement(vector<int>& nums) {
     return Helper(nums, 0, nums.size()-1);
   }
 
-  int Helper(const vector<int> &num, int low, int high)
+  int Helper(const vector<int> &nums, int low, int high)
   {
-    if(low == high)
+    if (low == high)
+    {
       return low;
+    }
+
+    int middle = low + (high - low) / 2;
+    if (nums[middle] > nums[middle + 1])
+    {
+      return Helper(nums, low, middle);
+    }
     else
     {
-      int mid1 = (low+high)/2;
-      int mid2 = mid1+1;
-      if(num[mid1] > num[mid2])
-        return Helper(num, low, mid1);
-      else
-        return Helper(num, mid2, high);
+      return Helper(nums, middle+1, high);
     }
   }
 

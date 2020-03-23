@@ -26,28 +26,56 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<int> nums = {1,2,1,4,5};
-    int result = findPeakElement(nums);
-    cout << "result: " << result << endl;
   }
 
-  int findPeakElement(vector<int>& nums) {
-    return Helper(nums, 0, nums.size()-1);
-  }
-
-  int Helper(const vector<int> &num, int low, int high)
-  {
-    if(low == high)
-      return low;
-    else
+  ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+    if (!headA || !headB)
     {
-      int mid1 = (low+high)/2;
-      int mid2 = mid1+1;
-      if(num[mid1] > num[mid2])
-        return Helper(num, low, mid1);
-      else
-        return Helper(num, mid2, high);
+      return nullptr;
     }
+
+    ListNode *new_head = headA;
+    ListNode *cur_node = headA;
+    bool has_intersection = false;
+    while (cur_node->next)
+    {
+      cur_node = cur_node->next;
+    }
+    cur_node->next = headB;
+
+    ListNode *fast = new_head;
+    ListNode *slow = new_head;
+    while (fast)
+    {
+      fast = fast->next;
+      if (fast && fast->next)
+      {
+        slow = slow->next;
+        fast = fast->next;
+      }
+
+      if (slow == fast)
+      {
+        has_intersection = true;
+        break;
+      }
+    }
+
+    if (!has_intersection)
+    {
+      cur_node->next = nullptr;
+      return nullptr;
+    }
+    slow = new_head;
+    while (slow != fast)
+    {
+      slow = slow->next;
+      fast = fast->next;
+    }
+
+    cur_node->next = nullptr;
+
+    return slow;
   }
 
   template<class T>
