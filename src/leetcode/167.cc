@@ -26,18 +26,35 @@ class Solution {
  public:
   void RunTest()
   {
-    cout << std::pow(10, 2) << endl;
   }
 
-  string convertToTitle(int n) {
-    if (n == 0)
+  vector<int> twoSum(vector<int>& numbers, int target) {
+    int num_size = numbers.size();
+    if (num_size <= 1)
     {
-      return "";
+      return vector<int>();
     }
 
-    string prefix = convertToTitle((n - 1) / 26);
-    char suffix = char((n - 1) % 26 + 'A');
-    return prefix + suffix;
+    int left = 0;
+    int right = num_size - 1;
+    int sum = 0;
+    while (left < right)
+    {
+      sum = numbers[left] + numbers[right];
+      if (sum == target)
+      {
+        return {left + 1, right + 1};
+      }
+      else if (sum > target)
+      {
+        --right;
+      }
+      else
+      {
+        ++left;
+      }
+    }
+    return vector<int>();
   }
 
   template<class T>

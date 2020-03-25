@@ -29,15 +29,20 @@ class Solution {
     cout << std::pow(10, 2) << endl;
   }
 
-  string convertToTitle(int n) {
-    if (n == 0)
+  int titleToNumber(string s) {
+    int s_size = s.size();
+    return Aux(s, s_size - 1, 0);
+  }
+
+  int Aux(string &s, int pos, int index)
+  {
+    if (pos < 0)
     {
-      return "";
+      return 0;
     }
 
-    string prefix = convertToTitle((n - 1) / 26);
-    char suffix = char((n - 1) % 26 + 'A');
-    return prefix + suffix;
+    int value = s[pos] - 'A' + 1;
+    return  value + Aux(s, pos - 1, index + 1) * 26;
   }
 
   template<class T>

@@ -26,18 +26,20 @@ class Solution {
  public:
   void RunTest()
   {
-    cout << std::pow(10, 2) << endl;
+
   }
 
-  string convertToTitle(int n) {
-    if (n == 0)
+  int majorityElement(vector<int>& nums) {
+    unordered_map<int, int> notebook;
+    for (auto data : nums)
     {
-      return "";
+      if (++notebook[data] > nums.size() / 2)
+      {
+        return data;
+      }
     }
 
-    string prefix = convertToTitle((n - 1) / 26);
-    char suffix = char((n - 1) % 26 + 'A');
-    return prefix + suffix;
+    return -1;
   }
 
   template<class T>

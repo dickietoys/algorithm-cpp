@@ -33,6 +33,7 @@
 123. Best Time to Buy and Sell Stock III
 124. Binary Tree Maximum Path Sum    
 126. Word Ladder II    
+152. 试试O(nlogn)和O(n)
 ~~~
 
 #### 常用思想

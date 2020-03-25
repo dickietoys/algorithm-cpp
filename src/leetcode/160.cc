@@ -26,18 +26,56 @@ class Solution {
  public:
   void RunTest()
   {
-    cout << std::pow(10, 2) << endl;
   }
 
-  string convertToTitle(int n) {
-    if (n == 0)
+  ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+    if (!headA || !headB)
     {
-      return "";
+      return nullptr;
     }
 
-    string prefix = convertToTitle((n - 1) / 26);
-    char suffix = char((n - 1) % 26 + 'A');
-    return prefix + suffix;
+    ListNode *new_head = headA;
+    ListNode *cur_node = headA;
+    bool has_intersection = false;
+    while (cur_node->next)
+    {
+      cur_node = cur_node->next;
+    }
+    cur_node->next = headB;
+
+    ListNode *fast = new_head;
+    ListNode *slow = new_head;
+    while (fast)
+    {
+      fast = fast->next;
+      if (fast && fast->next)
+      {
+        slow = slow->next;
+        fast = fast->next;
+      }
+
+      if (slow == fast)
+      {
+        has_intersection = true;
+        break;
+      }
+    }
+
+    if (!has_intersection)
+    {
+      cur_node->next = nullptr;
+      return nullptr;
+    }
+    slow = new_head;
+    while (slow != fast)
+    {
+      slow = slow->next;
+      fast = fast->next;
+    }
+
+    cur_node->next = nullptr;
+
+    return slow;
   }
 
   template<class T>

@@ -26,18 +26,28 @@ class Solution {
  public:
   void RunTest()
   {
-    cout << std::pow(10, 2) << endl;
   }
 
-  string convertToTitle(int n) {
-    if (n == 0)
+  int findPeakElement(vector<int>& nums) {
+    return Helper(nums, 0, nums.size()-1);
+  }
+
+  int Helper(const vector<int> &nums, int low, int high)
+  {
+    if (low == high)
     {
-      return "";
+      return low;
     }
 
-    string prefix = convertToTitle((n - 1) / 26);
-    char suffix = char((n - 1) % 26 + 'A');
-    return prefix + suffix;
+    int middle = low + (high - low) / 2;
+    if (nums[middle] > nums[middle + 1])
+    {
+      return Helper(nums, low, middle);
+    }
+    else
+    {
+      return Helper(nums, middle+1, high);
+    }
   }
 
   template<class T>

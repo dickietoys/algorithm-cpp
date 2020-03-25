@@ -26,18 +26,36 @@ class Solution {
  public:
   void RunTest()
   {
-    cout << std::pow(10, 2) << endl;
   }
 
-  string convertToTitle(int n) {
-    if (n == 0)
+  int findMin(vector<int>& nums) {
+    int nums_size = nums.size();
+    if (nums_size == 0)
     {
-      return "";
+      return 0;
     }
 
-    string prefix = convertToTitle((n - 1) / 26);
-    char suffix = char((n - 1) % 26 + 'A');
-    return prefix + suffix;
+    int start_pos = 0;
+    int end_pos = nums_size - 1;
+    while (start_pos < end_pos)
+    {
+      if (nums[start_pos] < nums[end_pos])
+      {
+        return nums[start_pos];
+      }
+
+      int mid = (start_pos + end_pos) / 2;
+      if (nums[mid] >= nums[start_pos])
+      {
+        start_pos = mid + 1;
+      }
+      else
+      {
+        end_pos = mid;
+      }
+    }
+
+    return nums[start_pos];
   }
 
   template<class T>

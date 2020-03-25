@@ -16,10 +16,42 @@
 
 using namespace std;
 
-struct ListNode {
-  int val;
-  ListNode *next;
-  ListNode(int x) : val(x), next(NULL) {}
+class MinStack {
+ private:
+  vector<int> data_;
+  int min_;
+ public:
+  /** initialize your data structure here. */
+  MinStack()
+      : min_(std::numeric_limits<int>::max())
+  {}
+
+  void push(int x) {
+    if (x <= min_)
+    {
+      data_.push_back(min_);
+      min_ = x;
+    }
+    data_.push_back(x);
+  }
+
+  void pop() {
+    int data = data_.back();
+    data_.pop_back();
+    if (data == min_)
+    {
+      min_ = data_.back();
+      data_.pop_back();
+    }
+  }
+
+  int top() {
+    return data_.back();
+  }
+
+  int getMin() {
+    return min_;
+  }
 };
 
 class Solution {
@@ -28,28 +60,33 @@ class Solution {
   {
   }
 
-  int maxProduct(vector<int>& nums) {
+  int findMin(vector<int>& nums) {
     int nums_size = nums.size();
     if (nums_size == 0)
     {
       return 0;
     }
-    int max = nums[0];
-    int min = nums[0];
-    int result = nums[0];
-    for (int i = 1; i < nums_size; ++i)
-    {
-      if (nums[i] < 0)
-      {
-        std::swap(max, min);
-      }
-      max = std::max(nums[i], max * nums[i]);
-      min = std::min(nums[i], min * nums[i]);
 
-      result = std::max(result, max);
+    int left = 0;
+    int right = nums_size - 1;
+    while (left < right)
+    {
+      int mid = left + (right - left) / 2;
+      if (nums[mid] > nums[right])
+      {
+        left = mid + 1;
+      }
+      else if (nums[mid] < nums[right])
+      {
+        right = mid;
+      }
+      else
+      {
+        --right;
+      }
     }
 
-    return result;
+    return nums[left];
   }
 
   template<class T>
