@@ -28,7 +28,6 @@ class Solution {
   {
     vector<int> input = {0, 0, 0, 0, 0, 0};
     string result = largestNumber(input);
-    cout << result << endl;
   }
 
   string largestNumber(vector<int>& nums) {
@@ -51,13 +50,12 @@ class Solution {
               {
                 return lhs + rhs >= rhs + lhs ? true : false;
               });
-    stringstream ss;
+    string result = "";
     for (auto it = str_nums.begin(); it != str_nums.end(); ++it)
     {
-      ss << *it;
+      result += *it;
     }
 
-    string result = ss.str();
     if (result[0] == '0')
     {
       result = "0";
