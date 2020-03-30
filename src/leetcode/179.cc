@@ -26,8 +26,6 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<int> input = {0, 0, 0, 0, 0, 0};
-    string result = largestNumber(input);
   }
 
   string largestNumber(vector<int>& nums) {
@@ -48,7 +46,7 @@ class Solution {
     std::sort(str_nums.begin(), str_nums.end(),
               [](string &lhs, string &rhs) -> bool
               {
-                return lhs + rhs >= rhs + lhs ? true : false;
+                return lhs + rhs > rhs + lhs;
               });
     string result = "";
     for (auto it = str_nums.begin(); it != str_nums.end(); ++it)
@@ -60,7 +58,6 @@ class Solution {
     {
       result = "0";
     }
-
     return result;
   }
 
