@@ -26,39 +26,27 @@ class Solution {
  public:
   void RunTest()
   {
-    cout << std::pow(10, 2) << endl;
   }
 
   string largestNumber(vector<int>& nums) {
+    if (nums.size() == 0)
+    {
+      return "";
+    }
+
+    if (nums.size() == 1)
+    {
+      return std::to_string(nums[0]);
+    }
     vector<string> str_nums;
     for (auto it = nums.begin(); it != nums.end(); ++it)
     {
       str_nums.push_back(std::to_string(*it));
     }
-    std::sort(str_nums.begin(), str_nums.end(), [](string &s1, string &s2)
+    std::sort(str_nums.begin(), str_nums.end(),
+              [](string &lhs, string &rhs) -> bool
               {
-                int s1_size = s1.size();
-                int s2_size = s2.size();
-                int s_size = std::min(s1.size(), s2.size());
-                for (int i = 0; i < s_size; ++i)
-                {
-                  if (s1[i] != s2[i])
-                  {
-                    return s1[i] > s2[i] ? true : false;
-                  }
-                }
-                if (s1_size == s2_size)
-                {
-                  return true;
-                }
-
-                if (s1_size < s2_size)
-                {
-                  for (int i = s1_size; i < s2_size; ++i)
-                  {
-                    if ()
-                  }
-                }
+                return lhs + rhs > rhs + lhs;
               });
     string result = "";
     for (auto it = str_nums.begin(); it != str_nums.end(); ++it)
@@ -66,6 +54,10 @@ class Solution {
       result += *it;
     }
 
+    if (result[0] == '0')
+    {
+      result = "0";
+    }
     return result;
   }
 
