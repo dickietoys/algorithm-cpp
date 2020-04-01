@@ -1,3 +1,13 @@
+// All DNA is composed of a series of nucleotides abbreviated as A, C, G, and T, for example: "ACGAATTCCG". When studying DNA, it is sometimes useful to identify repeated sequences within the DNA.
+
+// Write a function to find all the 10-letter-long sequences (substrings) that occur more than once in a DNA molecule.
+
+// Example:
+
+// Input: s = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"
+
+// Output: ["AAAAACCCCC", "CCCCCAAAAA"]
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -26,39 +36,34 @@ class Solution {
  public:
   void RunTest()
   {
+    string s = "AAAAAAAAAAA";
+    vector<string> result = findRepeatedDnaSequences(s);
+    Show(result);
   }
 
-  string largestNumber(vector<int>& nums) {
-    if (nums.size() == 0)
+  vector<string> findRepeatedDnaSequences(string s) {
+    vector<string> result;
+    unordered_map <string, int> notebook;
+    int s_size = s.size();
+    if (s_size < 10)
     {
-      return "";
+      return result;
     }
 
-    if (nums.size() == 1)
+    for (int i = 0; i <= s_size - 10; ++i)
     {
-      return std::to_string(nums[0]);
-    }
-    vector<string> str_nums;
-    for (auto it = nums.begin(); it != nums.end(); ++it)
-    {
-      str_nums.push_back(std::to_string(*it));
-    }
-    std::sort(str_nums.begin(), str_nums.end(),
-              [](string &lhs, string &rhs) -> bool
-              {
-                return lhs + rhs >= rhs + lhs ? true : false;
-              });
-    stringstream ss;
-    for (auto it = str_nums.begin(); it != str_nums.end(); ++it)
-    {
-      ss << *it;
+      string tmp = s.substr(i, 10);
+      ++notebook[tmp];
     }
 
-    string result = ss.str();
-    if (result[0] == '0')
-    {
-      result = "0";
-    }
+    for_each(notebook.begin(), notebook.end(),
+             [&](unordered_map<string, int>::value_type &p)
+             {
+               if (p.second >= 2)
+               {
+                 result.push_back(p.first);
+               }
+             });
 
     return result;
   }

@@ -36,6 +36,9 @@ class Solution {
  public:
   void RunTest()
   {
+    string s = "AAAAAAAAAAA";
+    vector<string> result = findRepeatedDnaSequences(s);
+    Show(result);
   }
 
   vector<string> findRepeatedDnaSequences(string s) {
@@ -47,7 +50,7 @@ class Solution {
       return result;
     }
 
-    for (int i = 0; i < s_size - 10; ++i)
+    for (int i = 0; i <= s_size - 10; ++i)
     {
       string tmp = s.substr(i, 10);
       ++notebook[tmp];
