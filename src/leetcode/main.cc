@@ -28,39 +28,40 @@ class Solution {
   {
   }
 
-  string largestNumber(vector<int>& nums) {
-    if (nums.size() == 0)
+  //只允许一次交易
+  int maxProfitWithOneTransaction(vector<int>& prices) {
+    int prices_size = prices.size();
+    int max_value = 0;
+    int cur_value = 0;
+    for (int i = 1; i < prices_size; ++i)
     {
-      return "";
+      cur_value = std::max(cur_value + prices[i] - prices[i-1], 0);
+      max_value = std::max(cur_value, max_value);
     }
 
-    if (nums.size() == 1)
+    return max_value;
+  }
+
+  //交易次数不限
+  int maxProfitWithUnlimitedTransaction(vector<int>& prices) {
+    int prices_size = prices.size();
+    int max_value = 0;
+    for (int i = 1; i < prices_size; ++i)
     {
-      return std::to_string(nums[0]);
-    }
-    vector<string> str_nums;
-    for (auto it = nums.begin(); it != nums.end(); ++it)
-    {
-      str_nums.push_back(std::to_string(*it));
-    }
-    std::sort(str_nums.begin(), str_nums.end(),
-              [](string &lhs, string &rhs) -> bool
-              {
-                return lhs + rhs >= rhs + lhs ? true : false;
-              });
-    stringstream ss;
-    for (auto it = str_nums.begin(); it != str_nums.end(); ++it)
-    {
-      ss << *it;
+      if (prices[i] > prices[i-1])
+      {
+        max_value += prices[i] - prices[i-1];
+      }
     }
 
-    string result = ss.str();
-    if (result[0] == '0')
-    {
-      result = "0";
-    }
+    return max_value;
+  }
 
-    return result;
+  //最多完成两笔交易
+  int maxProfitWithMostTwiceTransaction(vector<int>& prices) {
+    int prices_size = prices.size();
+    vector<vector<int>> dp(prices_size, vector<int>(prices_size, 0));
+    for (int i = 0;)
   }
 
   template<class T>
