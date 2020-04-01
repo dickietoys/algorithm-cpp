@@ -1,13 +1,3 @@
-// All DNA is composed of a series of nucleotides abbreviated as A, C, G, and T, for example: "ACGAATTCCG". When studying DNA, it is sometimes useful to identify repeated sequences within the DNA.
-
-// Write a function to find all the 10-letter-long sequences (substrings) that occur more than once in a DNA molecule.
-
-// Example:
-
-// Input: s = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"
-
-// Output: ["AAAAACCCCC", "CCCCCAAAAA"]
-
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -41,31 +31,40 @@ class Solution {
     Show(result);
   }
 
-  vector<string> findRepeatedDnaSequences(string s) {
-    vector<string> result;
-    unordered_map <string, int> notebook;
-    int s_size = s.size();
-    if (s_size < 10)
+  //只允许一次交易
+  int maxProfitWithOneTransaction(vector<int>& prices) {
+    int prices_size = prices.size();
+    int max_value = 0;
+    int cur_value = 0;
+    for (int i = 1; i < prices_size; ++i)
     {
-      return result;
+      cur_value = std::max(cur_value + prices[i] - prices[i-1], 0);
+      max_value = std::max(cur_value, max_value);
     }
 
-    for (int i = 0; i <= s_size - 10; ++i)
+    return max_value;
+  }
+
+  //交易次数不限
+  int maxProfitWithUnlimitedTransaction(vector<int>& prices) {
+    int prices_size = prices.size();
+    int max_value = 0;
+    for (int i = 1; i < prices_size; ++i)
     {
-      string tmp = s.substr(i, 10);
-      ++notebook[tmp];
+      if (prices[i] > prices[i-1])
+      {
+        max_value += prices[i] - prices[i-1];
+      }
     }
 
-    for_each(notebook.begin(), notebook.end(),
-             [&](unordered_map<string, int>::value_type &p)
-             {
-               if (p.second >= 2)
-               {
-                 result.push_back(p.first);
-               }
-             });
+    return max_value;
+  }
 
-    return result;
+  //最多完成两笔交易
+  int maxProfitWithMostTwiceTransaction(vector<int>& prices) {
+    int prices_size = prices.size();
+    vector<vector<int>> dp(prices_size, vector<int>(prices_size, 0));
+    for (int i = 0;)
   }
 
   template<class T>
