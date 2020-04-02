@@ -26,9 +26,9 @@ class Solution {
  public:
   void RunTest()
   {
-    string s = "AAAAAAAAAAA";
-    vector<string> result = findRepeatedDnaSequences(s);
-    Show(result);
+    vector<int> input = {3,3,5,0,0,3,1,4};
+    int result = maxProfitWithMostTwiceTransaction(input);
+    cout << "result: " << result << endl;
   }
 
   //只允许一次交易
@@ -62,9 +62,26 @@ class Solution {
 
   //最多完成两笔交易
   int maxProfitWithMostTwiceTransaction(vector<int>& prices) {
+    // dp[k, i] = max(dp[k, i-1], prices[i] - prices[j] + dp[k-1, j-1]), j=[0..i-1]
     int prices_size = prices.size();
-    vector<vector<int>> dp(prices_size, vector<int>(prices_size, 0));
-    for (int i = 0;)
+    if (prices_size <= 1)
+    {
+      return 0;
+    }
+
+    int max_transaction = 2;
+    vector<vector<int>> dp(max_transaction + 1, vector<int>(prices_size, 0));
+    for (int k = 1; k <= max_transaction; ++k)
+    {
+      int min = prices[0];
+      for (int i = 1; i < prices_size; ++i)
+      {
+        min = std::min(min,  prices[i] - dp[k-1][i-1]);
+        dp[k][i] = std::max(dp[k][i-1], prices[i] - min);
+      }
+    }
+
+    return dp[max_transaction][prices_size-1];
   }
 
   template<class T>

@@ -1,3 +1,7 @@
+// Input: [3,3,5,0,0,3,1,4]
+// Output: 6
+// Explanation: Buy on day 4 (price = 0) and sell on day 6 (price = 3), profit = 3-0 = 3.
+//              Then buy on day 7 (price = 1) and sell on day 8 (price = 4), profit = 4-1 = 3.
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -22,28 +26,33 @@ class Solution {
 
   void RunTest()
   {
-    vector<int> input = {7, 1, 5, 3, 6, 4};
+    vector<int> input = {3,3,5,0,0,3,1,4};
     int result = maxProfit(input);
     cout << "result: " << result << endl;
   }
 
   int maxProfit(vector<int>& prices)
   {
-    if (prices.size() < 2)
+    // dp[k, i] = max(dp[k, i-1], prices[i] - prices[j] + dp[k-1, j-1]), j=[0..i-1]
+    int prices_size = prices.size();
+    if (prices_size <= 1)
     {
       return 0;
     }
 
-    int sum = 0;
-    for (int i = 0; i < prices.size() - 1; ++i)
+    int max_transaction = 2;
+    vector<vector<int>> dp(max_transaction + 1, vector<int>(prices_size, 0));
+    for (int k = 1; k <= max_transaction; ++k)
     {
-      if (prices[i+1] > prices[i])
+      int min = prices[0];
+      for (int i = 1; i < prices_size; ++i)
       {
-        sum += prices[i+1] - prices[i];
+        min = std::min(min,  prices[i] - dp[k-1][i-1]);
+        dp[k][i] = std::max(dp[k][i-1], prices[i] - min);
       }
     }
 
-    return sum;
+    return dp[max_transaction][prices_size-1];
   }
 
   template<class T>
