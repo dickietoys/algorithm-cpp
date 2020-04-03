@@ -26,21 +26,22 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<int> input = {1,2,3,4,5};
-    rotate(input, 2);
-    Show(input);
   }
 
-  void rotate(vector<int>& nums, int k) {
-    int nums_size = nums.size();
-    if (nums_size <= 1)
-    {
-      return;
-    }
-    k %= nums_size;
-    std::reverse(nums.begin(), nums.end());
-    std::reverse(nums.begin(), nums.begin() + k);
-    std::reverse(nums.begin() + k, nums.end());
+  uint32_t reverseBits(uint32_t n) {
+    // uint32_t result= 0;
+    // for(int i=0; i<32; i++)
+    // {
+    //   result = (result<<1) + (n>>i &1);
+    // }
+
+    // return result;
+    n = (n << 16) | (n >> 16);
+    n = ((n & 0xFF00FF00) >> 8) | ((n & 0x00FF00FF) << 8);
+    n = ((n & 0xF0F0F0F0) >> 4) | ((n & 0x0F0F0F0F) << 4);
+    n = ((n & 0x) >> 2) | ((n & 0x0) << 2);
+
+    return n;
   }
 
   template<class T>

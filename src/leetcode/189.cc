@@ -28,7 +28,6 @@ class Solution {
   {
     vector<int> input = {1,2,3,4,5};
     rotate(input, 2);
-    Show(input);
   }
 
   void rotate(vector<int>& nums, int k) {
