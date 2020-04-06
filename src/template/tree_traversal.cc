@@ -40,74 +40,87 @@ class Solution {
     cout << "s.size(): " << s.size() << endl;
   }
 
-  vector<int> preorderTraversal(TreeNode* root) {
-    vector<int> result;
-    stack<TreeNode *> s;
-    TreeNode *cur_node = root;
-    while (cur_node)
+  void preorder_traversal_iteratively(TreeNode* root)
+  {
+    if (root == 0)
+      return;
+    stack<TreeNode*> s;
+    s.push(root);
+    cout << root->val << ' '; // visit root
+    TreeNode* last_pop = root;
+    while (!s.empty())
     {
-      result.push_back(cur_node->val);
-      if (cur_node->right)
+      TreeNode* top = s.top();
+      if (top->left != 0 && top->left != last_pop && top->right != last_pop) // push_left
       {
-        s.push(cur_node->right);
+        s.push(top->left);
+        cout << top->left->val << ' '; // visit top->left
       }
-
-      if (!cur_node->left && !s.empty())
+      else if (top->right != 0 && top->right != last_pop && (top->left == 0 || top->left == last_pop)) // push_right
       {
-        cur_node = s.top();
+        s.push(top->right);
+        cout << top->right->val << ' '; // visit top->right
+      }
+      else // pop
+      {
         s.pop();
-      }
-      else
-      {
-        cur_node = cur_node->left;
+        last_pop = top;
       }
     }
-
-    return result;
   }
 
-  vector<int> inorderTraversal(TreeNode* root) {
-    vector<int> result;
-    stack<TreeNode *> s;
-    TreeNode *cur_node = root;
-    while (cur_node || !s.empty())
+  void inorder_traversal_iteratively(TreeNode* root)
+  {
+    if (root == 0)
+      return;
+    stack<TreeNode*> s;
+    s.push(root);
+    TreeNode* last_pop = root;
+    while (!s.empty())
     {
-      if (cur_node)
+      TreeNode* top = s.top();
+      if (top->left != 0 && top->left != last_pop && top->right != last_pop) // push_left
       {
-        s.push(cur_node);
-        cur_node = cur_node->left;
-        continue;
+        s.push(top->left);
       }
-
-      if (!s.empty())
+      else if (top->right != 0 && top->right != last_pop && (top->left == 0 || top->left == last_pop)) // push_right
       {
-        cur_node = s.top();
+        s.push(top->right);
+        cout << top->val << ' '; // visit top
+      }
+      else // pop
+      {
         s.pop();
-        result.push_back(cur_node->val);
-        cur_node = cur_node->right;
-        continue;
+        last_pop = top;
+        if (top->right == 0)
+          cout << top->val << ' '; // visit top
       }
     }
-
-    return result;
   }
 
-  vector<int> postorderTraversal(TreeNode* root) {
-    TreeNode *cur_node = root;
-    vector<int> result;
-    stack<TreeNode *> s;
-    while (cur_node)
+  void postorder_traversal_iteratively(TreeNode* root)
+  {
+    if (root == 0)
+      return;
+    stack<TreeNode*> s;
+    s.push(root);
+    TreeNode* last_pop = root;
+    while (!s.empty())
     {
-      s.push(cur_node);
-      cur_node = cur_node->left;
-      if (cur_node)
+      TreeNode* top = s.top();
+      if (top->left != 0 && top->left != last_pop && top->right != last_pop) // push_left
       {
-        continue;
+        s.push(top->left);
       }
-
-      if (!s.empty())
+      else if (top->right != 0 && top->right != last_pop && (top->left == 0 || top->left == last_pop)) // push_right
       {
-        cur_node = s.top();
+        s.push(top->right);
+      }
+      else // pop
+      {
+        s.pop();
+        last_pop = top;
+        cout << top->val << ' '; // visit top
       }
     }
   }

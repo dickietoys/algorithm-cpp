@@ -22,37 +22,21 @@ struct ListNode {
   ListNode(int x) : val(x), next(NULL) {}
 };
 
+struct TreeNode {
+  int val;
+  TreeNode *left;
+  TreeNode *right;
+  TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+
 class Solution {
  public:
   void RunTest()
   {
-    vector<int> input = {1, 2, 3, 1};
-    int result = rob(input);
-    cout << result << endl;
   }
 
-  int rob(vector<int>& nums)
-  {
-    int nums_size = nums.size();
-    vector<int> notebook(nums_size, 0);
-    if (nums_size == 0)
-    {
-      return 0;
-    }
+  vector<int> rightSideView(TreeNode* root) {
 
-    if (nums_size == 1)
-    {
-      return nums[0];
-    }
-
-    notebook[0] = nums[0];
-    notebook[1] = std::max(nums[0], nums[1]);
-    for (int i = 2; i < nums_size; ++i)
-    {
-      notebook[i] = std::max(notebook[i-1], notebook[i-2] + nums[i]);
-    }
-
-    return notebook[nums_size-1];
   }
 
 

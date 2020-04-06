@@ -34,25 +34,21 @@ class Solution {
   int rob(vector<int>& nums)
   {
     int nums_size = nums.size();
-    vector<int> notebook(nums_size, 0);
-    if (nums_size == 0)
+    if (nums_size < 0)
+    {
+      return 0;
+    }
+    return Aux(nums, nums_size - 1);
+  }
+
+  int Aux(vector<int>& nums, int pos)
+  {
+    if (pos < nums.size())
     {
       return 0;
     }
 
-    if (nums_size == 1)
-    {
-      return nums[0];
-    }
-
-    notebook[0] = nums[0];
-    notebook[1] = std::max(nums[0], nums[1]);
-    for (int i = 2; i < nums_size; ++i)
-    {
-      notebook[i] = std::max(notebook[i-1], notebook[i-2] + nums[i]);
-    }
-
-    return notebook[nums_size-1];
+    return std::max(nums[pos] + Aux(nums, pos - 2), Aux(nums, pos - 1));
   }
 
 

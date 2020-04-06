@@ -26,35 +26,18 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<int> input = {1, 2, 3, 1};
-    int result = rob(input);
-    cout << result << endl;
   }
 
-  int rob(vector<int>& nums)
-  {
-    int nums_size = nums.size();
-    vector<int> notebook(nums_size, 0);
-    if (nums_size == 0)
+  int hammingWeight(uint32_t n) {
+    int count = 0;
+    while (n != 0)
     {
-      return 0;
+      count += n & 1;
+      n = n >> 1;
     }
 
-    if (nums_size == 1)
-    {
-      return nums[0];
-    }
-
-    notebook[0] = nums[0];
-    notebook[1] = std::max(nums[0], nums[1]);
-    for (int i = 2; i < nums_size; ++i)
-    {
-      notebook[i] = std::max(notebook[i-1], notebook[i-2] + nums[i]);
-    }
-
-    return notebook[nums_size-1];
+    return count;
   }
-
 
   template<class T>
   void Show(vector<T> &result)
