@@ -35,38 +35,14 @@ class Solution {
   {
   }
 
-  vector<int> rightSideView(TreeNode* root)
-  {
-    vector<int> result;
-    if (!root)
+  int numIslands(vector<vector<char>>& grid) {
+    int row_size = grid.size();
+    int col_size = grid[0].size();
+    for (int i = 0; i < row_size; ++i)
     {
-      return result;
-    }
-    deque<TreeNode *> dq;
-    dq.push_back(root);
-    while (!dq.empty())
-    {
-      int dq_size = dq.size();
-      result.push_back(dq[dq_size-1]->val);
-      while (dq_size >= 1)
-      {
-        TreeNode *node = dq.front();
-        dq.pop_front();
-        if (node->left)
-        {
-          dq.push_back(node->left);
-        }
-        if (node->right)
-        {
-          dq.push_back(node->right);
-        }
-        --dq_size;
-      }
-    }
 
-    return result;
+    }
   }
-
 
   template<class T>
   void Show(vector<T> &result)
