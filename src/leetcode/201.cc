@@ -35,46 +35,8 @@ class Solution {
   {
   }
 
-  int numIslands(vector<vector<char>>& grid) {
-    int row_size = grid.size();
-    if (row_size == 0)
-    {
-      return 0;
-    }
-    int col_size = grid[0].size();
-    int counter = 0;
-    for (int i = 0; i < row_size; ++i)
-    {
-      for (int j = 0; j < col_size; ++j)
-      {
-        if (grid[i][j] == '1')
-        {
-          ++counter;
-          Marking(grid, i, j);
-        }
-      }
-    }
-    return counter;
-  }
-
-  void Marking(vector<vector<char>>& grid, int row_pos, int col_pos)
-  {
-    int row_size = grid.size();
-    int col_size = grid[0].size();
-    if (row_pos < 0
-        || row_pos >= row_size
-        || col_pos < 0
-        || col_pos >= col_size
-        || grid[row_pos][col_pos] != '1')
-    {
-      return;
-    }
-
-    grid[row_pos][col_pos] = '0';
-    Marking(grid, row_pos + 1, col_pos);
-    Marking(grid, row_pos - 1, col_pos);
-    Marking(grid, row_pos, col_pos + 1);
-    Marking(grid, row_pos, col_pos - 1);
+  int rangeBitwiseAnd(int m, int n) {
+    return n > m ? rangeBitwiseAnd(m / 2, n / 2) << 1 : m;
   }
 
   template<class T>

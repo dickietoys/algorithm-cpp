@@ -35,46 +35,26 @@ class Solution {
   {
   }
 
-  int numIslands(vector<vector<char>>& grid) {
-    int row_size = grid.size();
-    if (row_size == 0)
+  ListNode* removeElements(ListNode* head, int val) {
+    ListNode dummy(0);
+    dummy.next = head;
+    ListNode *prev_node = &dummy;
+    ListNode *cur_node = head;
+    while (cur_node)
     {
-      return 0;
-    }
-    int col_size = grid[0].size();
-    int counter = 0;
-    for (int i = 0; i < row_size; ++i)
-    {
-      for (int j = 0; j < col_size; ++j)
+      if (cur_node->val == val)
       {
-        if (grid[i][j] == '1')
-        {
-          ++counter;
-          Marking(grid, i, j);
-        }
+        prev_node->next = cur_node->next;
+        cur_node = prev_node->next;
+      }
+      else
+      {
+        prev_node = cur_node;
+        cur_node = cur_node->next;
       }
     }
-    return counter;
-  }
 
-  void Marking(vector<vector<char>>& grid, int row_pos, int col_pos)
-  {
-    int row_size = grid.size();
-    int col_size = grid[0].size();
-    if (row_pos < 0
-        || row_pos >= row_size
-        || col_pos < 0
-        || col_pos >= col_size
-        || grid[row_pos][col_pos] != '1')
-    {
-      return;
-    }
-
-    grid[row_pos][col_pos] = '0';
-    Marking(grid, row_pos + 1, col_pos);
-    Marking(grid, row_pos - 1, col_pos);
-    Marking(grid, row_pos, col_pos + 1);
-    Marking(grid, row_pos, col_pos - 1);
+    return dummy.next;
   }
 
   template<class T>

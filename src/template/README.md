@@ -23,7 +23,11 @@ LC 122. Best Time to Buy and Sell Stock II
 LC 123. Best Time to Buy and Sell Stock III
 LC 188. Best Time to Buy and Sell Stock IV
 
-树的遍历
+树:
+树的前序,中序,后序,层序遍历,递归和非递归
 根据某两个序列得到第三个序列
 根据某两个序列得到二叉树
+
+位操作:
+LC 201. Bitwise AND of Numbers Range
 ~~~

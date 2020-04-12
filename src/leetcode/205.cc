@@ -35,46 +35,27 @@ class Solution {
   {
   }
 
-  int numIslands(vector<vector<char>>& grid) {
-    int row_size = grid.size();
-    if (row_size == 0)
+  bool isIsomorphic(string s, string t) {
+    unordered_map<char, int> um1;
+    unordered_map<char, int> um2;
+    int s_size = s.size();
+    int t_size = t.size();
+    if (s_size != t_size)
     {
-      return 0;
+      return false;
     }
-    int col_size = grid[0].size();
-    int counter = 0;
-    for (int i = 0; i < row_size; ++i)
+
+    for (int i = 0; i < s_size; ++i)
     {
-      for (int j = 0; j < col_size; ++j)
+      um1[s[i]] = um1[s[i]] == 0 ? i + 1 : um1[s[i]];
+      um2[t[i]] = um2[t[i]] == 0 ? i + 1 : um2[t[i]];
+      if (um1[s[i]] != um2[t[i]])
       {
-        if (grid[i][j] == '1')
-        {
-          ++counter;
-          Marking(grid, i, j);
-        }
+        return false;
       }
     }
-    return counter;
-  }
 
-  void Marking(vector<vector<char>>& grid, int row_pos, int col_pos)
-  {
-    int row_size = grid.size();
-    int col_size = grid[0].size();
-    if (row_pos < 0
-        || row_pos >= row_size
-        || col_pos < 0
-        || col_pos >= col_size
-        || grid[row_pos][col_pos] != '1')
-    {
-      return;
-    }
-
-    grid[row_pos][col_pos] = '0';
-    Marking(grid, row_pos + 1, col_pos);
-    Marking(grid, row_pos - 1, col_pos);
-    Marking(grid, row_pos, col_pos + 1);
-    Marking(grid, row_pos, col_pos - 1);
+    return true;
   }
 
   template<class T>

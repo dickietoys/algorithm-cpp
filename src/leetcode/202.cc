@@ -35,46 +35,36 @@ class Solution {
   {
   }
 
-  int numIslands(vector<vector<char>>& grid) {
-    int row_size = grid.size();
-    if (row_size == 0)
+  bool isHappy(int n) {
+    if (n <= 0)
     {
-      return 0;
+      return false;
     }
-    int col_size = grid[0].size();
-    int counter = 0;
-    for (int i = 0; i < row_size; ++i)
+
+    unordered_set<int> s;
+    while (s.count(n) == 0)
     {
-      for (int j = 0; j < col_size; ++j)
+      s.insert(n);
+      n = GetSum(n);
+      if (n == 1)
       {
-        if (grid[i][j] == '1')
-        {
-          ++counter;
-          Marking(grid, i, j);
-        }
+        return true;
       }
     }
-    return counter;
+
+    return false;
   }
 
-  void Marking(vector<vector<char>>& grid, int row_pos, int col_pos)
+  int GetSum(int n)
   {
-    int row_size = grid.size();
-    int col_size = grid[0].size();
-    if (row_pos < 0
-        || row_pos >= row_size
-        || col_pos < 0
-        || col_pos >= col_size
-        || grid[row_pos][col_pos] != '1')
+    int sum = 0;
+    while (n != 0)
     {
-      return;
+      sum += std::pow(n % 10, 2);
+      n = n / 10;
     }
 
-    grid[row_pos][col_pos] = '0';
-    Marking(grid, row_pos + 1, col_pos);
-    Marking(grid, row_pos - 1, col_pos);
-    Marking(grid, row_pos, col_pos + 1);
-    Marking(grid, row_pos, col_pos - 1);
+    return sum;
   }
 
   template<class T>

@@ -26,9 +26,10 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<int> input = {1, 2, 3, 1};
-    int result = rob(input);
-    cout << result << endl;
+    cout << (5 & 6 & 7) << endl;
+    // vector<int> input = {1, 2, 3, 1};
+    // int result = rob(input);
+    // cout << result << endl;
   }
 
   int rob(vector<int>& nums)

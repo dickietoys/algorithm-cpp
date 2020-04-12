@@ -35,46 +35,23 @@ class Solution {
   {
   }
 
-  int numIslands(vector<vector<char>>& grid) {
-    int row_size = grid.size();
-    if (row_size == 0)
-    {
-      return 0;
-    }
-    int col_size = grid[0].size();
+  int countPrimes(int n) {
+    vector<bool> not_primes(n, false);
     int counter = 0;
-    for (int i = 0; i < row_size; ++i)
+    for (int i = 2; i < n; ++i)
     {
-      for (int j = 0; j < col_size; ++j)
+      if (!not_primes[i])
       {
-        if (grid[i][j] == '1')
-        {
-          ++counter;
-          Marking(grid, i, j);
-        }
+        ++counter;
+      }
+
+      for (int j = 2; i * j < n; ++j)
+      {
+        not_primes[i * j] = true;
       }
     }
+
     return counter;
-  }
-
-  void Marking(vector<vector<char>>& grid, int row_pos, int col_pos)
-  {
-    int row_size = grid.size();
-    int col_size = grid[0].size();
-    if (row_pos < 0
-        || row_pos >= row_size
-        || col_pos < 0
-        || col_pos >= col_size
-        || grid[row_pos][col_pos] != '1')
-    {
-      return;
-    }
-
-    grid[row_pos][col_pos] = '0';
-    Marking(grid, row_pos + 1, col_pos);
-    Marking(grid, row_pos - 1, col_pos);
-    Marking(grid, row_pos, col_pos + 1);
-    Marking(grid, row_pos, col_pos - 1);
   }
 
   template<class T>
