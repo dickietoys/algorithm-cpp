@@ -36,16 +36,18 @@ class Solution {
   }
 
   ListNode* reverseList(ListNode* head) {
-    ListNode dummy(0);
-    dummy.next = head;
-    ListNode *prev = &dummy;
+    ListNode *prev = nullptr;
     ListNode *cur = head;
     ListNode *next = nullptr;
     while(cur)
     {
       next = cur->next;
-
+      cur->next = prev;
+      prev = cur;
+      cur = next;
     }
+
+    return prev;
   }
 
   template<class T>
