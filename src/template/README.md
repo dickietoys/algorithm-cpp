@@ -30,4 +30,9 @@ LC 188. Best Time to Buy and Sell Stock IV
 
 位操作:
 LC 201. Bitwise AND of Numbers Range
+
+
+word search
+LC 79. Word Search
+LC 212. Word Search II
 ~~~
