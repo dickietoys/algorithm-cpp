@@ -33,19 +33,12 @@ class Solution {
  public:
   void RunTest()
   {
-    // vector<vector<char>> matrix = {
-    //   {'1','0','1','0','0'},
-    //   {'1','0','1','1','1'},
-    //   {'1','1','1','1','1'},
-    //   {'1','0','0','1','0'}
-    // };
-
     vector<vector<char>> matrix = {
-      {'0','0','0','1'},
-      {'1','1','0','1'},
-      {'1','1','1','1'},
-      {'0','1','1','1'},
-      {'0','1','1','1'}};
+      {'1','0','1','0','0'},
+      {'1','0','1','1','1'},
+      {'1','1','1','1','1'},
+      {'1','0','0','1','0'}
+    };
     int result = maximalSquare(matrix);
     cout << "result: " << result << endl;
   }
@@ -54,7 +47,7 @@ class Solution {
   {
     int rows = matrix.size();
     int cols = matrix[0].size();
-    if (row_pos >= rows || col_pos >= cols)
+    if (row_pos >= 0 || col_pos >= cols)
     {
       return false;
     }
@@ -94,15 +87,7 @@ class Solution {
     int max = 0;
     int cur_value = 0;
     int rows = matrix.size();
-    if (rows <= 0)
-    {
-      return 0;
-    }
     int cols = matrix[0].size();
-    if (cols <= 0)
-    {
-      return 0;
-    }
     for (int i = 0; i < rows; ++i)
     {
       for (int j = 0; j < cols; ++j)
@@ -116,7 +101,7 @@ class Solution {
       }
     }
 
-    return max * max;
+    return max;
   }
 
   template<class T>
