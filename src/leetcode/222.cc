@@ -33,47 +33,37 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<vector<char>> matrix = {
-      {'1','0','1','0','0'},
-      {'1','0','1','1','1'},
-      {'1','1','1','1','1'},
-      {'1','0','0','1','0'}
-    };
-    int result = maximalSquare(matrix);
-    cout << "result: " << result << endl;
   }
 
-
-  int maximalSquare(vector<vector<char>>& matrix) {
-    int max = 0;
-    int rows = matrix.size();
-    if (rows <= 0)
+  int countNodes(TreeNode* root) {
+    int count = 0;
+    if (!root)
     {
       return 0;
     }
-    int cols = matrix[0].size();
-    if (cols <= 0)
+    deque<TreeNode *> dq;
+    dq.push_back(root);
+    while (!dq.empty())
     {
-      return 0;
-    }
-    vector<vector<int>> dp(rows, vector<int>(cols, 0));
-    for (int i = 0; i < rows; ++i)
-    {
-      for (int j = 0; j < cols; ++j)
+      int dq_size = dq.size();
+      count += dq_size;
+      while (dq_size)
       {
-        if (i == 0 || j == 0 || matrix[i][j] == '0')
+        --dq_size;
+        TreeNode *node = dq.front();
+        if (node->left)
         {
-          dp[i][j] = matrix[i][j] - '0';
+          dq.push_back(node->left);
         }
-        else
+        if (node->right)
         {
-          dp[i][j] = std::min({dp[i-1][j], dp[i][j-1], dp[i-1][j-1]}) + 1;
+          dq.push_back(node->right);
         }
-        max = std::max(max, dp[i][j]);
+        dq.pop_front();
       }
     }
 
-    return max * max;
+    return count;
   }
 
   template<class T>

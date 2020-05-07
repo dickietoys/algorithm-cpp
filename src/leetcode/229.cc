@@ -33,78 +33,73 @@ class Solution {
  public:
   void RunTest()
   {
-    string s = "123";
-    int result = calculate(s);
-    cout << result << endl;
   }
 
-  bool is_number(char c)
-  {
-    if (c >= '0' && c <= '9')
+  vector<int> majorityElement(vector<int>& nums) {
+    vector<int> result;
+    int nums_size = nums.size();
+    if (nums_size <= 0)
     {
-      return true;
+      return result;
     }
-    else
-    {
-      return false;
-    }
-  }
 
-  int calculate(string s) {
-    stack<int> st;
-    long sum = 0;
-    long number = 0;
-    int sign = 1;
-    for (int i = 0; i < s.size(); ++i)
-    {
-      if (s[i] == ' ')
-      {
-        continue;
-      }
+    int nums1 = 0;
+    int count1 = 0;
+    int nums2 = 0;
+    int count2 = 0;
 
-      if (is_number(s[i]))
+    for (int i = 0; i < nums_size; ++i)
+    {
+      if (nums1 == nums[i])
       {
-        number = number * 10 + s[i] - '0';
+        ++count1;
       }
-      else if (s[i] == '+')
+      else if (nums2 == nums[i])
       {
-        sum += sign * number;
-        number = 0;
-        sign = 1;
+        ++count2;
       }
-      else if (s[i] == '-')
+      else if (count1 == 0)
       {
-        sum += sign * number;
-        number = 0;
-        sign = -1;
+        nums1 = nums[i];
+        count1 = 1;
       }
-      else if (s[i] == '(')
+      else if (count2 == 0)
       {
-        st.push(sum);
-        st.push(sign);
-        number = 0;
-        sign = 1;
-        sum = 0;
+        nums2 = nums[i];
+        count2 = 1;
       }
-      else if (s[i] == ')')
+      else
       {
-        sum += sign * number;
-        int prev_sign = st.top();
-        st.pop();
-        int prev_sum = st.top();
-        st.pop();
-        sum *= prev_sign;
-        sum = prev_sum + sum;
-        number = 0;
+        --count1;
+        --count2;
       }
     }
 
-    if (number != 0)
+    count1 = 0;
+    count2 = 0;
+    for (int i = 0; i < nums_size; ++i)
     {
-      sum += sign * number;
+      if (nums[i] == nums1)
+      {
+        ++count1;
+      }
+      else if (nums[i] == nums2)
+      {
+        ++count2;
+      }
     }
 
-    return sum;
+    if (count1 > nums_size / 3)
+    {
+      result.push_back(nums1);
+    }
+
+    if (count2 > nums_size / 3)
+    {
+      result.push_back(nums2);
+    }
+
+    return result;
   }
 
   template<class T>

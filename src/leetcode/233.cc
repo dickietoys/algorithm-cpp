@@ -33,78 +33,30 @@ class Solution {
  public:
   void RunTest()
   {
-    string s = "123";
-    int result = calculate(s);
-    cout << result << endl;
   }
 
-  bool is_number(char c)
-  {
-    if (c >= '0' && c <= '9')
+  int countDigitOne(int n) {
+    int count = 0;
+    for (int factor = 1; factor <= n; factor = factor * 10)
     {
-      return true;
-    }
-    else
-    {
-      return false;
-    }
-  }
-
-  int calculate(string s) {
-    stack<int> st;
-    long sum = 0;
-    long number = 0;
-    int sign = 1;
-    for (int i = 0; i < s.size(); ++i)
-    {
-      if (s[i] == ' ')
+      int first = n / factor;
+      int second = n % factor;
+      int digit = first % 10;
+      if (digit == 0)
       {
-        continue;
+        count += first / 10 * factor;
       }
-
-      if (is_number(s[i]))
+      else if (digit == 1)
       {
-        number = number * 10 + s[i] - '0';
+        count += first / 10 * factor + second + 1;
       }
-      else if (s[i] == '+')
+      else
       {
-        sum += sign * number;
-        number = 0;
-        sign = 1;
-      }
-      else if (s[i] == '-')
-      {
-        sum += sign * number;
-        number = 0;
-        sign = -1;
-      }
-      else if (s[i] == '(')
-      {
-        st.push(sum);
-        st.push(sign);
-        number = 0;
-        sign = 1;
-        sum = 0;
-      }
-      else if (s[i] == ')')
-      {
-        sum += sign * number;
-        int prev_sign = st.top();
-        st.pop();
-        int prev_sum = st.top();
-        st.pop();
-        sum *= prev_sign;
-        sum = prev_sum + sum;
-        number = 0;
+        count += (first / 10 + 1) * factor;
       }
     }
 
-    if (number != 0)
-    {
-      sum += sign * number;
-    }
-
-    return sum;
+    return count;
   }
 
   template<class T>

@@ -33,78 +33,29 @@ class Solution {
  public:
   void RunTest()
   {
-    string s = "123";
-    int result = calculate(s);
-    cout << result << endl;
   }
 
-  bool is_number(char c)
-  {
-    if (c >= '0' && c <= '9')
+  bool isPowerOfTwo(int n) {
+    while (true)
     {
-      return true;
-    }
-    else
-    {
-      return false;
-    }
-  }
-
-  int calculate(string s) {
-    stack<int> st;
-    long sum = 0;
-    long number = 0;
-    int sign = 1;
-    for (int i = 0; i < s.size(); ++i)
-    {
-      if (s[i] == ' ')
+      if (n == 0)
       {
-        continue;
+        return false;
       }
 
-      if (is_number(s[i]))
+      if (n == 1)
       {
-        number = number * 10 + s[i] - '0';
+        return true;
       }
-      else if (s[i] == '+')
+      if (n % 2 == 0)
       {
-        sum += sign * number;
-        number = 0;
-        sign = 1;
+        n = n / 2;
       }
-      else if (s[i] == '-')
+      else
       {
-        sum += sign * number;
-        number = 0;
-        sign = -1;
-      }
-      else if (s[i] == '(')
-      {
-        st.push(sum);
-        st.push(sign);
-        number = 0;
-        sign = 1;
-        sum = 0;
-      }
-      else if (s[i] == ')')
-      {
-        sum += sign * number;
-        int prev_sign = st.top();
-        st.pop();
-        int prev_sum = st.top();
-        st.pop();
-        sum *= prev_sign;
-        sum = prev_sum + sum;
-        number = 0;
+        return false;
       }
     }
-
-    if (number != 0)
-    {
-      sum += sign * number;
-    }
-
-    return sum;
   }
 
   template<class T>

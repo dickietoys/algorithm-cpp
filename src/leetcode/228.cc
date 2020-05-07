@@ -33,78 +33,40 @@ class Solution {
  public:
   void RunTest()
   {
-    string s = "123";
-    int result = calculate(s);
-    cout << result << endl;
   }
 
-  bool is_number(char c)
-  {
-    if (c >= '0' && c <= '9')
+  vector<string> summaryRanges(vector<int>& nums) {
+    vector<string> result;
+    int nums_size = nums.size();
+    if (nums_size <= 0)
     {
-      return true;
+      return result;
     }
-    else
+    int left = 0;
+    int right = 0;
+    nums.push_back(nums[nums_size-1] - 1);
+    ++nums_size;
+    for (right = 0; right < nums_size; ++right)
     {
-      return false;
-    }
-  }
-
-  int calculate(string s) {
-    stack<int> st;
-    long sum = 0;
-    long number = 0;
-    int sign = 1;
-    for (int i = 0; i < s.size(); ++i)
-    {
-      if (s[i] == ' ')
+      if ((long)nums[right] - (long)nums[left] == right - left && right != nums_size - 1)
       {
         continue;
       }
-
-      if (is_number(s[i]))
+      else
       {
-        number = number * 10 + s[i] - '0';
-      }
-      else if (s[i] == '+')
-      {
-        sum += sign * number;
-        number = 0;
-        sign = 1;
-      }
-      else if (s[i] == '-')
-      {
-        sum += sign * number;
-        number = 0;
-        sign = -1;
-      }
-      else if (s[i] == '(')
-      {
-        st.push(sum);
-        st.push(sign);
-        number = 0;
-        sign = 1;
-        sum = 0;
-      }
-      else if (s[i] == ')')
-      {
-        sum += sign * number;
-        int prev_sign = st.top();
-        st.pop();
-        int prev_sum = st.top();
-        st.pop();
-        sum *= prev_sign;
-        sum = prev_sum + sum;
-        number = 0;
+        if (right - left <= 1)
+        {
+          result.push_back(std::to_string(nums[left]));
+        }
+        else
+        {
+          result.push_back(std::to_string(nums[left]) + "->" + std::to_string(nums[right-1]));
+        }
+        left = right;
       }
     }
 
-    if (number != 0)
-    {
-      sum += sign * number;
-    }
-
-    return sum;
+    return result;
   }
 
   template<class T>

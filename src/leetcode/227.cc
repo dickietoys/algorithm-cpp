@@ -51,10 +51,10 @@ class Solution {
   }
 
   int calculate(string s) {
-    stack<int> st;
-    long sum = 0;
+    char sign = '+';
     long number = 0;
-    int sign = 1;
+    stack<int> st;
+    s += "+";
     for (int i = 0; i < s.size(); ++i)
     {
       if (s[i] == ' ')
@@ -66,42 +66,41 @@ class Solution {
       {
         number = number * 10 + s[i] - '0';
       }
-      else if (s[i] == '+')
+      else if (sign == '+')
       {
-        sum += sign * number;
+        st.push(number);
         number = 0;
-        sign = 1;
+        sign = s[i];
       }
-      else if (s[i] == '-')
+      else if (sign == '-')
       {
-        sum += sign * number;
+        st.push(-number);
         number = 0;
-        sign = -1;
+        sign = s[i];
       }
-      else if (s[i] == '(')
+      else if (sign == '*')
       {
-        st.push(sum);
-        st.push(sign);
-        number = 0;
-        sign = 1;
-        sum = 0;
-      }
-      else if (s[i] == ')')
-      {
-        sum += sign * number;
-        int prev_sign = st.top();
+        int value = st.top() * number;
         st.pop();
-        int prev_sum = st.top();
+        st.push(value);
+        sign = s[i];
+        number = 0;
+      }
+      else if (sign == '/')
+      {
+        int value = st.top() / number;
         st.pop();
-        sum *= prev_sign;
-        sum = prev_sum + sum;
+        st.push(value);
+        sign = s[i];
         number = 0;
       }
     }
 
-    if (number != 0)
+    int sum = 0;
+    while (!st.empty())
     {
-      sum += sign * number;
+      sum += st.top();
+      st.pop();
     }
 
     return sum;

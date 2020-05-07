@@ -54,4 +54,15 @@ LC 131.	Palindrome Partitioning
 LC 132. Palindrome Partitioning II
 LC 214. Shortest Palindrome
 LC 234. Palindrome Linked List
+
+
+图:
+判断有环
+拓扑排序
+DFS
+BFS
+
+stack
+infix to postfix
+postfix to calculate
 ~~~

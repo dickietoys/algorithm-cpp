@@ -33,78 +33,51 @@ class Solution {
  public:
   void RunTest()
   {
-    string s = "123";
-    int result = calculate(s);
-    cout << result << endl;
   }
 
-  bool is_number(char c)
-  {
-    if (c >= '0' && c <= '9')
-    {
-      return true;
-    }
-    else
+  bool isPalindrome(ListNode* head) {
+    if (!head)
     {
       return false;
     }
-  }
-
-  int calculate(string s) {
-    stack<int> st;
-    long sum = 0;
-    long number = 0;
-    int sign = 1;
-    for (int i = 0; i < s.size(); ++i)
+    ListNode *fast = head;
+    ListNode *slow = head;
+    while (fast && fast->next)
     {
-      if (s[i] == ' ')
+      fast = fast->next;
+      if (fast->next)
       {
-        continue;
-      }
-
-      if (is_number(s[i]))
-      {
-        number = number * 10 + s[i] - '0';
-      }
-      else if (s[i] == '+')
-      {
-        sum += sign * number;
-        number = 0;
-        sign = 1;
-      }
-      else if (s[i] == '-')
-      {
-        sum += sign * number;
-        number = 0;
-        sign = -1;
-      }
-      else if (s[i] == '(')
-      {
-        st.push(sum);
-        st.push(sign);
-        number = 0;
-        sign = 1;
-        sum = 0;
-      }
-      else if (s[i] == ')')
-      {
-        sum += sign * number;
-        int prev_sign = st.top();
-        st.pop();
-        int prev_sum = st.top();
-        st.pop();
-        sum *= prev_sign;
-        sum = prev_sum + sum;
-        number = 0;
+        fast = fast->next;
+        slow = slow->next;
       }
     }
 
-    if (number != 0)
+    ListNode *prev = nullptr;
+    ListNode *cur = slow->next;
+    ListNode *next = nullptr;
+    while (cur)
     {
-      sum += sign * number;
+      next = cur->next;
+      cur->next = prev;
+      prev = cur;
+      cur = next;
     }
 
-    return sum;
+    slow->next = nullptr;
+    ListNode *node1 = head;
+    ListNode *node2 = prev;
+    while (node1 && node2)
+    {
+      if (node1->val != node2->val)
+      {
+        return false;
+      }
+
+      node1 = node1->next;
+      node2 = node2->next;
+    }
+
+    return true;
   }
 
   template<class T>

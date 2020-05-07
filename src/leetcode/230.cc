@@ -33,47 +33,32 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<vector<char>> matrix = {
-      {'1','0','1','0','0'},
-      {'1','0','1','1','1'},
-      {'1','1','1','1','1'},
-      {'1','0','0','1','0'}
-    };
-    int result = maximalSquare(matrix);
-    cout << "result: " << result << endl;
   }
 
+  int result;
 
-  int maximalSquare(vector<vector<char>>& matrix) {
-    int max = 0;
-    int rows = matrix.size();
-    if (rows <= 0)
+  int kthSmallest(TreeNode* root, int k) {
+    result = 0;
+    Aux(root, k);
+
+    return result;
+  }
+
+  void Aux(TreeNode* node, int &k)
+  {
+    if (!node)
     {
-      return 0;
-    }
-    int cols = matrix[0].size();
-    if (cols <= 0)
-    {
-      return 0;
-    }
-    vector<vector<int>> dp(rows, vector<int>(cols, 0));
-    for (int i = 0; i < rows; ++i)
-    {
-      for (int j = 0; j < cols; ++j)
-      {
-        if (i == 0 || j == 0 || matrix[i][j] == '0')
-        {
-          dp[i][j] = matrix[i][j] - '0';
-        }
-        else
-        {
-          dp[i][j] = std::min({dp[i-1][j], dp[i][j-1], dp[i-1][j-1]}) + 1;
-        }
-        max = std::max(max, dp[i][j]);
-      }
+      return;
     }
 
-    return max * max;
+    Aux(node->left, k);
+    --k;
+    if (k == 0)
+    {
+      result = node->val;
+      return;
+    }
+    Aux(node->right, k);
   }
 
   template<class T>
