@@ -13,6 +13,7 @@
 #include <iterator>
 #include <set>
 #include <cmath>
+#include <queue>
 
 using namespace std;
 
@@ -33,29 +34,38 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<int> s({3,0,6,1,5});
-    int result = hIndex(s);
+    int result = nthUglyNumber(10);
     cout << result << endl;
   }
 
-  int hIndex(vector<int>& citations) {
-    int citations_size = citations.size();
-    if (citations_size <= 0)
+  int nthUglyNumber(int n) {
+    if (n <= 0)
     {
       return 0;
     }
-
-    int h_index = 0;
-    std::sort(citations.begin(), citations.end(), greater<int>());
-    for (int i = 0; i < citations_size; ++i)
+    vector<int> result(n, 0);
+    result[0] = 1;
+    int two_pos = 0;
+    int three_pos = 0;
+    int five_pos = 0;
+    for (int i = 1; i < n; ++i)
     {
-      if (i > citations[i])
+      result[i] = std::min({result[two_pos] * 2, result[three_pos] * 3, result[five_pos] * 5});
+      if (result[i] == result[two_pos] * 2)
       {
-        return citations[i];
+        ++two_pos;
+      }
+      if (result[i] == result[three_pos] * 3)
+      {
+        ++three_pos;
+      }
+      if (result[i] == result[five_pos] * 5)
+      {
+        ++five_pos;
       }
     }
 
-    return 0;
+    return result[n-1];
   }
 
   template<class T>

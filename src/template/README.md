@@ -4,12 +4,12 @@ LC 56.  (扫描线算法)
 LC 200. (看似简单的dfs，bfs，最后才知道flood fill)
 LC 215. (quick select)
 
-Combination Sum
+Combination Sum:
 LC 39.  Combination Sum
 LC 40.  Combination Sum II
 LC 216. Combination Sum III
 
-Path Sum
+Path Sum:
 LC 112. PathSum
 LC 113. PathSum II
 
@@ -42,11 +42,11 @@ LC 188. Best Time to Buy and Sell Stock IV
 LC 201. Bitwise AND of Numbers Range
 
 
-word search
+word search:
 LC 79. Word Search
 LC 212. Word Search II
 
-palindrome
+palindrome:
 LC 5.   Longest Palindromic Substring
 LC 9.   Palindrome Number
 LC 125. Valid Palindrome
@@ -62,7 +62,12 @@ LC 234. Palindrome Linked List
 DFS
 BFS
 
-stack
+stack:
 infix to postfix
 postfix to calculate
+
+single number:
+LC 136.	Single Number
+LC 137.	Single Number II
+LC 260. Single Number III
 ~~~

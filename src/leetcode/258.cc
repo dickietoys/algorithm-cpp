@@ -13,6 +13,7 @@
 #include <iterator>
 #include <set>
 #include <cmath>
+#include <queue>
 
 using namespace std;
 
@@ -33,29 +34,24 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<int> s({3,0,6,1,5});
-    int result = hIndex(s);
-    cout << result << endl;
   }
 
-  int hIndex(vector<int>& citations) {
-    int citations_size = citations.size();
-    if (citations_size <= 0)
+  int addDigits(int num) {
+    long result = 0;
+    while (true)
     {
-      return 0;
-    }
-
-    int h_index = 0;
-    std::sort(citations.begin(), citations.end(), greater<int>());
-    for (int i = 0; i < citations_size; ++i)
-    {
-      if (i > citations[i])
+      result += num % 10;
+      num /= 10;
+      if (num == 0)
       {
-        return citations[i];
+        if (result < 10)
+        {
+          return result;
+        }
+        num = result;
+        result = 0;
       }
     }
-
-    return 0;
   }
 
   template<class T>

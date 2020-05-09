@@ -13,6 +13,7 @@
 #include <iterator>
 #include <set>
 #include <cmath>
+#include <queue>
 
 using namespace std;
 
@@ -33,29 +34,34 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<int> s({3,0,6,1,5});
-    int result = hIndex(s);
-    cout << result << endl;
   }
 
-  int hIndex(vector<int>& citations) {
-    int citations_size = citations.size();
-    if (citations_size <= 0)
-    {
-      return 0;
-    }
+  /*
+    A scientist has index h if h of his/her N papers have at least h citations each, and the other N − h papers have no more than h citations each.
 
+
+    Input: citations = [3,0,6,1,5]
+    Output: 3
+    Explanation: [3,0,6,1,5] means the researcher has 5 papers in total and each of them had
+    received 3, 0, 6, 1, 5 citations respectively.
+    Since the researcher has 3 papers with at least 3 citations each and the remaining
+    two with no more than 3 citations each, her h-index is 3.
+
+
+   */
+
+  int hIndex(vector<int>& citations) {
     int h_index = 0;
     std::sort(citations.begin(), citations.end(), greater<int>());
-    for (int i = 0; i < citations_size; ++i)
+    for (int i = 0; i < citations.size(); ++i)
     {
-      if (i > citations[i])
+      if (i + 1 > citations[i])
       {
-        return citations[i];
+        h_index = i;
       }
     }
 
-    return 0;
+    return h_index;
   }
 
   template<class T>
