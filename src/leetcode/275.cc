@@ -13,6 +13,7 @@
 #include <iterator>
 #include <set>
 #include <cmath>
+#include <queue>
 
 using namespace std;
 
@@ -33,37 +34,47 @@ class Solution {
  public:
   void RunTest()
   {
-    int result = numSquares(51);
-    cout << result << endl;
   }
 
-  int min_count;
-  int numSquares(int n) {
-    int max_sqrt_nurm = std::sqrt(n);
-    min_count = std::numeric_limits<int>::max();
-    Aux(n, 0);
-
-    return min_count;
-  }
-
-  bool Aux(int n, int count)
-  {
-    if (n == 0)
+  /*
+    int left=0, len = citations.size(), right= len-1,  mid;
+    while(left<=right)
     {
-      min_count = std::min(min_count, count);
-      return true;
+        mid=(left+right)>>1;
+        if(citations[mid]== (len-mid)) return citations[mid];
+        else if(citations[mid] > (len-mid)) right = mid - 1;
+        else left = mid + 1;
     }
+    return len - (right+1);
+   */
 
-    int max_sqrt_nurm = std::sqrt(n);
-    for (int i = max_sqrt_nurm; i > 0; --i)
+  int hIndex(vector<int>& citations) {
+    int citations_size = citations.size();
+    if (citations_size <= 0)
     {
-      if (Aux(n - i*i, count + 1))
+      return 0;
+    }
+    int left = 0;
+    int right = citations_size - 1;
+    int mid = 0;
+    while (left <= right)
+    {
+      mid = (left + right) / 2;
+      if (citations[mid] == (citations_size - mid))
       {
-        return true;
+        return citations[mid];
+      }
+      else if (citations[mid] > (citations_size - mid))
+      {
+        right = mid - 1;
+      }
+      else
+      {
+        left = left + 1;
       }
     }
 
-    return false;
+    return citations_size - (right + 1);
   }
 
   template<class T>

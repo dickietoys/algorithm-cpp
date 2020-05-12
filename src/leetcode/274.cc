@@ -51,17 +51,35 @@ class Solution {
    */
 
   int hIndex(vector<int>& citations) {
-    int h_index = 0;
-    std::sort(citations.begin(), citations.end(), greater<int>());
+    if (citations.size() <= 0)
+    {
+      return 0;
+    }
+
+    vector<int> bucket(citations.size() + 1, 0);
     for (int i = 0; i < citations.size(); ++i)
     {
-      if (i + 1 > citations[i])
+      if (citations[i] >= citations.size())
       {
-        h_index = i;
+        bucket[citations.size()]++;
+      }
+      else
+      {
+        bucket[citations[i]]++;
       }
     }
 
-    return h_index;
+    int count = 0;
+    for (int i = citations.size(); i >= 0; --i)
+    {
+      count += bucket[i];
+      if (count >= i)
+      {
+        return i;
+      }
+    }
+
+    return 0;
   }
 
   template<class T>

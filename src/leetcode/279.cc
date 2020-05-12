@@ -13,6 +13,7 @@
 #include <iterator>
 #include <set>
 #include <cmath>
+#include <queue>
 
 using namespace std;
 
@@ -33,37 +34,29 @@ class Solution {
  public:
   void RunTest()
   {
-    int result = numSquares(51);
-    cout << result << endl;
   }
 
   int min_count;
   int numSquares(int n) {
-    int max_sqrt_nurm = std::sqrt(n);
     min_count = std::numeric_limits<int>::max();
     Aux(n, 0);
 
     return min_count;
   }
 
-  bool Aux(int n, int count)
+  void Aux(int n, int count)
   {
     if (n == 0)
     {
       min_count = std::min(min_count, count);
-      return true;
+      return;
     }
 
     int max_sqrt_nurm = std::sqrt(n);
     for (int i = max_sqrt_nurm; i > 0; --i)
     {
-      if (Aux(n - i*i, count + 1))
-      {
-        return true;
-      }
+      Aux(n - i*i, count + 1);
     }
-
-    return false;
   }
 
   template<class T>
