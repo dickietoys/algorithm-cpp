@@ -13,6 +13,7 @@
 #include <iterator>
 #include <set>
 #include <cmath>
+#include <queue>
 
 using namespace std;
 
@@ -33,8 +34,6 @@ class Solution {
  public:
   void RunTest()
   {
-    bool result = wordPattern("abba", "dog cat cat fish");
-    cout << result << endl;
   }
 
   std::vector<std::string> split(std::string strToSplit, char delimeter)
@@ -67,8 +66,8 @@ class Solution {
 
       if (p_urmap[pattern[i]] == 0)
       {
-        p_urmap[pattern[i]] = i + 1;
-        str_urmap[s[i]] = i + 1;
+        p_urmap[pattern[i]] = i;
+        str_urmap[s[i]] = i;
       }
     }
 

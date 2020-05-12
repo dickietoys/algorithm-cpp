@@ -13,6 +13,7 @@
 #include <iterator>
 #include <set>
 #include <cmath>
+#include <queue>
 
 using namespace std;
 
@@ -33,46 +34,28 @@ class Solution {
  public:
   void RunTest()
   {
-    bool result = wordPattern("abba", "dog cat cat fish");
-    cout << result << endl;
   }
 
-  std::vector<std::string> split(std::string strToSplit, char delimeter)
-  {
-    std::stringstream ss(strToSplit);
-    std::string item;
-    std::vector<std::string> splittedStrings;
-    while (std::getline(ss, item, delimeter))
+  void moveZeroes(vector<int>& nums) {
+    int nums_size = nums.size();
+    if (nums_size <= 0)
     {
-      splittedStrings.push_back(item);
-    }
-    return splittedStrings;
-  }
-
-  bool wordPattern(string pattern, string str) {
-    vector<string> s = split(str, ' ');
-    if (pattern.size() != s.size())
-    {
-      return false;
+      return;
     }
 
-    unordered_map<char, int> p_urmap;
-    unordered_map<string, int> str_urmap;
-    for (int i = 0; i < s.size(); ++i)
+    int index = 0;
+    for (int i = 0; i < nums_size; ++i)
     {
-      if (p_urmap[pattern[i]] != str_urmap[s[i]])
+      if (nums[i] != 0)
       {
-        return false;
-      }
-
-      if (p_urmap[pattern[i]] == 0)
-      {
-        p_urmap[pattern[i]] = i + 1;
-        str_urmap[s[i]] = i + 1;
+        nums[index++] = nums[i];
       }
     }
 
-    return true;
+    for (int i = index; i < nums_size; ++i)
+    {
+      nums[i] = 0;
+    }
   }
 
   template<class T>

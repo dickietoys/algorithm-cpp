@@ -13,6 +13,7 @@
 #include <iterator>
 #include <set>
 #include <cmath>
+#include <queue>
 
 using namespace std;
 
@@ -33,46 +34,18 @@ class Solution {
  public:
   void RunTest()
   {
-    bool result = wordPattern("abba", "dog cat cat fish");
-    cout << result << endl;
   }
 
-  std::vector<std::string> split(std::string strToSplit, char delimeter)
-  {
-    std::stringstream ss(strToSplit);
-    std::string item;
-    std::vector<std::string> splittedStrings;
-    while (std::getline(ss, item, delimeter))
+  int findDuplicate(vector<int>& nums) {
+    int nums_size = nums.size();
+    long regular_sum = (1 + nums_size - 1) * (nums_size - 1) / 2;
+    long now_sum = 0;
+    for (int i = 0; i < nums.size(); ++i)
     {
-      splittedStrings.push_back(item);
-    }
-    return splittedStrings;
-  }
-
-  bool wordPattern(string pattern, string str) {
-    vector<string> s = split(str, ' ');
-    if (pattern.size() != s.size())
-    {
-      return false;
+      now_sum += nums[i];
     }
 
-    unordered_map<char, int> p_urmap;
-    unordered_map<string, int> str_urmap;
-    for (int i = 0; i < s.size(); ++i)
-    {
-      if (p_urmap[pattern[i]] != str_urmap[s[i]])
-      {
-        return false;
-      }
-
-      if (p_urmap[pattern[i]] == 0)
-      {
-        p_urmap[pattern[i]] = i + 1;
-        str_urmap[s[i]] = i + 1;
-      }
-    }
-
-    return true;
+    return now_sum - regular_sum;
   }
 
   template<class T>

@@ -13,6 +13,7 @@
 #include <iterator>
 #include <set>
 #include <cmath>
+#include <queue>
 
 using namespace std;
 
@@ -33,46 +34,43 @@ class Solution {
  public:
   void RunTest()
   {
-    bool result = wordPattern("abba", "dog cat cat fish");
-    cout << result << endl;
   }
 
-  std::vector<std::string> split(std::string strToSplit, char delimeter)
+  vector<string> addOperators(string num, int target) {
+    vector<string> result;
+    Aux(num, target, 0, 0, "", result);
+    return result;
+  }
+
+  void Aux(string &num, int target, int pos, int cur_value, string item, vector<string> &result)
   {
-    std::stringstream ss(strToSplit);
-    std::string item;
-    std::vector<std::string> splittedStrings;
-    while (std::getline(ss, item, delimeter))
+    int num_size = num.size();
+    if (num_size == 0)
     {
-      splittedStrings.push_back(item);
-    }
-    return splittedStrings;
-  }
-
-  bool wordPattern(string pattern, string str) {
-    vector<string> s = split(str, ' ');
-    if (pattern.size() != s.size())
-    {
-      return false;
+      return;
     }
 
-    unordered_map<char, int> p_urmap;
-    unordered_map<string, int> str_urmap;
-    for (int i = 0; i < s.size(); ++i)
+    if (num_size == pos)
     {
-      if (p_urmap[pattern[i]] != str_urmap[s[i]])
+      if (target == cur_value)
       {
-        return false;
+        result.push_back(item);
       }
 
-      if (p_urmap[pattern[i]] == 0)
-      {
-        p_urmap[pattern[i]] = i + 1;
-        str_urmap[s[i]] = i + 1;
-      }
+      return;
     }
 
-    return true;
+    int cur = num[pos] - '0';
+    if (pos == 0)
+    {
+      Aux(num, target, pos + 1, cur, item + num[pos], result);
+    }
+    else
+    {
+      Aux(num, target, pos + 1, cur_value + cur, item + "+" + num[pos], result);
+      Aux(num, target, pos + 1, cur_value - cur, item + "-" + num[pos], result);
+      Aux(num, target, pos + 1, cur_value * cur, item + "*" + num[pos], result);
+    }
   }
 
   template<class T>
