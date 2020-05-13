@@ -13,6 +13,7 @@
 #include <iterator>
 #include <set>
 #include <cmath>
+#include <queue>
 
 using namespace std;
 
@@ -33,51 +34,10 @@ class Solution {
  public:
   void RunTest()
   {
-    string str = "|1|2|3|";
-    stringstream ss(str);
-    string s;
-    while (std::getline(ss, s, '|'))
-    {
-      cout << s << " : " << s.size() << endl;
-    }
   }
 
-  std::vector<std::string> split(std::string strToSplit, char delimeter)
-  {
-    std::stringstream ss(strToSplit);
-    std::string item;
-    std::vector<std::string> splittedStrings;
-    while (std::getline(ss, item, delimeter))
-    {
-      splittedStrings.push_back(item);
-    }
-    return splittedStrings;
-  }
+  int numSquares(int n) {
 
-  bool wordPattern(string pattern, string str) {
-    vector<string> s = split(str, ' ');
-    if (pattern.size() != s.size())
-    {
-      return false;
-    }
-
-    unordered_map<char, int> p_urmap;
-    unordered_map<string, int> str_urmap;
-    for (int i = 0; i < s.size(); ++i)
-    {
-      if (p_urmap[pattern[i]] != str_urmap[s[i]])
-      {
-        return false;
-      }
-
-      if (p_urmap[pattern[i]] == 0)
-      {
-        p_urmap[pattern[i]] = i + 1;
-        str_urmap[s[i]] = i + 1;
-      }
-    }
-
-    return true;
   }
 
   template<class T>

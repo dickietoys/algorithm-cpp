@@ -36,7 +36,14 @@ class Solution {
   {
   }
 
-  int numSquares(int n) {
+  priority_queue<long, greater<long>> small;
+  priority_queue<long> large;
+
+  void addNum(int num) {
+
+  }
+
+  double findMedian() {
 
   }
 
