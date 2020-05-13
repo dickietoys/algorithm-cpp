@@ -33,8 +33,13 @@ class Solution {
  public:
   void RunTest()
   {
-    bool result = wordPattern("abba", "dog cat cat fish");
-    cout << result << endl;
+    string str = "|1|2|3|";
+    stringstream ss(str);
+    string s;
+    while (std::getline(ss, s, '|'))
+    {
+      cout << s << " : " << s.size() << endl;
+    }
   }
 
   std::vector<std::string> split(std::string strToSplit, char delimeter)
