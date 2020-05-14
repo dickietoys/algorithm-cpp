@@ -34,42 +34,23 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<int> input = {1, 3, 4, 2, 2};
-    int result = findDuplicate(input);
-    cout << result << endl;
+    numSquares(10);
   }
 
-  int findDuplicate(vector<int>& nums) {
-    int nums_size = nums.size();
-    if (nums_size <= 1)
+  int numSquares(int n) {
+    vector<int> dp(n + 1, std::numeric_limits<int>::max());
+    dp[0] = 0;
+    for (int i = 1; i <= n; ++i)
     {
-      return 0;
-    }
-
-    int left = 0;
-    int right = nums_size - 1;
-    while (left < right)
-    {
-      int mid = left + (right - left) / 2;
-      int count = 0;
-      for (int v : nums)
+      for (int j = 1; j * j <= i; ++j)
       {
-        if (v <= mid)
-        {
-          ++count;
-        }
-      }
-      if (count <= mid)
-      {
-        left = mid;
-      }
-      else
-      {
-        right = mid - 1;
+        cout << dp[i - j * j] + 1 << endl;
+        dp[i] = std::min(dp[i], dp[i - j * j] + 1);
+        cout << dp[i] << endl;
       }
     }
 
-    return left;
+    return dp.back();
   }
 
   int findDup2(vector<int> &nums)

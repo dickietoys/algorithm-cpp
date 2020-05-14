@@ -38,38 +38,45 @@ class Solution {
 
   vector<string> addOperators(string num, int target) {
     vector<string> result;
-    Aux(num, target, 0, 0, "", result);
+    if (num.size() <= 0)
+    {
+      return result;
+    }
+
+    Aux(num, target, 0, "", 0, 0, result);
     return result;
   }
 
-  void Aux(string &num, int target, int pos, int cur_value, string item, vector<string> &result)
+  void Aux(string num, int target, int pos, string path, long cur_value, long prev_value, vector<string> &result)
   {
-    int num_size = num.size();
-    if (num_size == 0)
+    if (pos == num.size())
     {
-      return;
-    }
-
-    if (num_size == pos)
-    {
-      if (target == cur_value)
+      if (cur_value == target)
       {
-        result.push_back(item);
+        result.push_back(path);
       }
 
       return;
     }
 
-    int cur = num[pos] - '0';
-    if (pos == 0)
+    for (int i = pos; i < num.size(); i++)
     {
-      Aux(num, target, pos + 1, cur, item + num[pos], result);
-    }
-    else
-    {
-      Aux(num, target, pos + 1, cur_value + cur, item + "+" + num[pos], result);
-      Aux(num, target, pos + 1, cur_value - cur, item + "-" + num[pos], result);
-      Aux(num, target, pos + 1, cur_value * cur, item + "*" + num[pos], result);
+      if (num[pos] == '0' && i != pos)
+      {
+        break;
+      }
+      string str_value = num.substr(pos, i - pos + 1);
+      long value = std::stol(str_value);
+      if (pos == 0)
+      {
+        Aux(num, target, i + 1, path + str_value, value, value, result);
+      }
+      else
+      {
+        Aux(num, target, i + 1, path + "+" + str_value, cur_value + value, value, result);
+        Aux(num, target, i + 1, path + "-" + str_value, cur_value - value, -value, result);
+        Aux(num, target, i + 1, path + "*" + str_value, cur_value - prev_value + prev_value * value, prev_value * value, result);
+      }
     }
   }
 
