@@ -55,6 +55,14 @@ LC 132. Palindrome Partitioning II
 LC 214. Shortest Palindrome
 LC 234. Palindrome Linked List
 
+链表：
+LC 141. Linked List Cycle
+LC 142. Linked List Cycle II
+
+二分搜索：
+LC 278. First Bad Version
+LC 287. Find the Duplicate Number
+
 
 图:
 判断有环

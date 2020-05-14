@@ -34,10 +34,65 @@ class Solution {
  public:
   void RunTest()
   {
+    vector<int> input = {1, 3, 4, 2, 2};
+    int result = findDuplicate(input);
+    cout << result << endl;
   }
 
-  int numSquares(int n) {
+  int findDuplicate(vector<int>& nums) {
+    int nums_size = nums.size();
+    if (nums_size <= 1)
+    {
+      return 0;
+    }
 
+    int left = 0;
+    int right = nums_size - 1;
+    while (left < right)
+    {
+      int mid = left + (right - left) / 2;
+      int count = 0;
+      for (int v : nums)
+      {
+        if (v <= mid)
+        {
+          ++count;
+        }
+      }
+      if (count <= mid)
+      {
+        left = mid;
+      }
+      else
+      {
+        right = mid - 1;
+      }
+    }
+
+    return left;
+  }
+
+  int findDup2(vector<int> &nums)
+  {
+    if (nums.size() > 1)
+    {
+      int slow = nums[0];
+      int fast = nums[nums[0]];
+      while (slow != fast)
+      {
+        slow = nums[slow];
+        fast = nums[nums[fast]];
+      }
+
+      fast = 0;
+      while (fast != slow)
+      {
+        fast = nums[fast];
+        slow = nums[slow];
+      }
+      return slow;
+    }
+    return -1;
   }
 
   template<class T>
