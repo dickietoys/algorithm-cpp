@@ -74,8 +74,13 @@ stack:
 infix to postfix
 postfix to calculate
 
+
 single number:
 LC 136.	Single Number
 LC 137.	Single Number II
 LC 260. Single Number III
+
+计算器
+LC 224. Basic Calculator
+LC 227.	Basic Calculator II
 ~~~
