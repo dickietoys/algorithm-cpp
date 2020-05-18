@@ -26,6 +26,12 @@ LC 81.  Search in Rotated Sorted Array II
 LC 153. Find Minimum in Rotated Sorted Array
 LC 154. Find Minimum in Rotated Sorted Array II
 
+permutations:
+LC 31. Next Permutation
+LC 46. Permutations
+LC 47. Permutations II
+LC 279. Perfect Squares
+
 
 stock 问题:
 LC 121. Best Time to Buy and Sell Stock
@@ -41,6 +47,9 @@ LC 188. Best Time to Buy and Sell Stock IV
 位操作:
 LC 201. Bitwise AND of Numbers Range
 
+word break
+LC 139. Word Break
+LC 140. Word Break II
 
 word search:
 LC 79. Word Search

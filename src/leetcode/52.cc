@@ -34,47 +34,68 @@ class Solution {
  public:
   void RunTest()
   {
-    string s = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-    vector<string> word_dict = {"a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"};
-    vector<string> result = wordBreak(s, word_dict);
-    Show(result);
+    int result = totalNQueens(4);
+    cout << result << endl;
   }
 
-  bool Valid(vector<string>& wordDict, string &item)
-  {
-    for (string &word : wordDict)
-    {
-      if (item == word)
-      {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  vector<string> wordBreak(string s, vector<string>& wordDict) {
-    vector<string> result;
-    Aux(s, wordDict, 0, "", result);
+  int totalNQueens(int n) {
+    vector<vector<string>> board(n, vector<string>(n, "."));
+    int result = 0;
+    Aux(board, n, 0, result);
 
     return result;
   }
 
-  bool Aux(string &s, vector<string>& wordDict, int pos, string cur_str, vector<string> &result)
+  bool IsValid(vector<vector<string>> &board, int n, int row_pos, int col_pos)
   {
-    int s_size = s.size();
-    if (pos >= s_size)
+    for (int i = row_pos, j = col_pos; i >= 0 && j >= 0; --i, --j)
     {
-      result.push_back(cur_str);
+      if (board[i][j] == "Q")
+      {
+        return false;
+      }
+    }
+
+    for (int i = row_pos, j = col_pos; i >= 0 && j < n; --i, ++j)
+    {
+      if (board[i][j] == "Q")
+      {
+        return false;
+      }
+    }
+
+    for (int i = row_pos; i >= 0; --i)
+    {
+      if (board[i][col_pos] == "Q")
+      {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  bool Aux(vector<vector<string>> &board, int n, int row_pos, int &result)
+  {
+    if (row_pos >= n)
+    {
       return true;
     }
 
-    for (int i = 1; i <= s_size - pos; ++i)
+    for (int i = 0; i < n; ++i)
     {
-      string item = s.substr(pos, i);
-      if (Valid(wordDict, item))
+      if (IsValid(board, n, row_pos, i))
       {
-        Aux(s, wordDict, pos + i, cur_str == "" ? item : cur_str + " " + item, result);
+        board[row_pos][i] = "Q";
+        if (Aux(board, n, row_pos + 1, result))
+        {
+          ++result;
+          board[row_pos][i] = ".";
+        }
+        else
+        {
+          board[row_pos][i] = ".";
+        }
       }
     }
 

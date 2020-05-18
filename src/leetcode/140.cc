@@ -63,7 +63,7 @@ class Solution {
   bool Aux(string &s, vector<string>& wordDict, int pos, string cur_str, vector<string> &result)
   {
     int s_size = s.size();
-    if (pos >= s_size)
+    if (pos == s_size)
     {
       result.push_back(cur_str);
       return true;
