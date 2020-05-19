@@ -34,51 +34,45 @@ class Solution {
  public:
   void RunTest()
   {
-    string s = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+    string s = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
     vector<string> word_dict = {"a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"};
     vector<string> result = wordBreak(s, word_dict);
     Show(result);
   }
 
-  bool Valid(vector<string>& wordDict, string &item)
-  {
-    for (string &word : wordDict)
-    {
-      if (item == word)
-      {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
   vector<string> wordBreak(string s, vector<string>& wordDict) {
-    vector<string> result;
-    Aux(s, wordDict, 0, "", result);
+    unordered_map<string, vector<string>> dp;
+    vector<string> result = Aux(s, wordDict, dp);
 
     return result;
   }
 
-  bool Aux(string &s, vector<string>& wordDict, int pos, string cur_str, vector<string> &result)
+  vector<string> Aux(string s, vector<string>& wordDict, unordered_map<string, vector<string>> &dp)
   {
-    int s_size = s.size();
-    if (pos >= s_size)
+    if (dp.count(s))
     {
-      result.push_back(cur_str);
-      return true;
+      return dp[s];
+    }
+    vector<string> result;
+    if (s.empty())
+    {
+      return {""};
     }
 
-    for (int i = 1; i <= s_size - pos; ++i)
+    for (string word : wordDict)
     {
-      string item = s.substr(pos, i);
-      if (Valid(wordDict, item))
+      if (s.size() >= word.size() && s.substr(0, word.size()) == word)
       {
-        Aux(s, wordDict, pos + i, cur_str == "" ? item : cur_str + " " + item, result);
+        vector<string> subs = Aux(s.substr(word.size()), wordDict, dp);
+        for (string sub : subs)
+        {
+          result.push_back(word + (sub.size() ? " " + sub : ""));
+        }
       }
     }
 
-    return false;
+    dp[s] = result;
+    return result;
   }
 
   template<class T>
