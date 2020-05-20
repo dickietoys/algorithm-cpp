@@ -34,45 +34,17 @@ class Solution {
  public:
   void RunTest()
   {
-    string s = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-    vector<string> word_dict = {"a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"};
-    vector<string> result = wordBreak(s, word_dict);
-    Show(result);
-  }
-
-  vector<string> wordBreak(string s, vector<string>& wordDict) {
-    unordered_map<string, vector<string>> dp;
-    vector<string> result = Aux(s, wordDict, dp);
-
-    return result;
-  }
-
-  vector<string> Aux(string s, vector<string>& wordDict, unordered_map<string, vector<string>> &dp)
-  {
-    if (dp.count(s))
+    string s = ")))()";
+    while(!s.empty())
     {
-      return dp[s];
-    }
-    vector<string> result;
-    if (s.empty())
-    {
-      return {""};
-    }
-
-    for (string word : wordDict)
-    {
-      if (s.size() >= word.size() && s.substr(0, word.size()) == word)
+      if (s[0] != ')')
       {
-        vector<string> subs = Aux(s.substr(word.size()), wordDict, dp);
-        for (string sub : subs)
-        {
-          result.push_back(word + (sub.size() ? " " + sub : ""));
-        }
+        break;
       }
+      s.erase(0, 1);
     }
 
-    dp[s] = result;
-    return result;
+    cout << s << endl;
   }
 
   template<class T>
