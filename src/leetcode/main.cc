@@ -34,17 +34,86 @@ class Solution {
  public:
   void RunTest()
   {
-    string s = ")))()";
-    while(!s.empty())
+    vector<int> nums = {2,1,3,2,1,7};
+    cout << "----- SelectionSort" << endl;
+    vector<int> result = SelectionSort(nums);
+    Show(result);
+
+    cout << "----- BubbleSort" << endl;
+    result = BubbleSort(nums);
+    Show(result);
+
+    cout << "----- InsertionSort" << endl;
+    result = InsertionSort(nums);
+    Show(result);
+  }
+
+  vector<int> SelectionSort(vector<int> arr)
+  {
+    if (arr.empty())
     {
-      if (s[0] != ')')
-      {
-        break;
-      }
-      s.erase(0, 1);
+      return arr;
     }
 
-    cout << s << endl;
+    for (int i = 0; i < arr.size() - 1; ++i)
+    {
+      int min_pos = i;
+      for (int j = i + 1; j < arr.size(); ++j)
+      {
+        if (arr[j] < arr[min_pos])
+        {
+          min_pos = j;
+        }
+      }
+      std::swap(arr[min_pos], arr[i]);
+    }
+
+    return arr;
+  }
+
+  vector<int> BubbleSort(vector<int> arr)
+  {
+    if (arr.empty())
+    {
+      return arr;
+    }
+
+    for (int i = 0; i < arr.size(); ++i)
+    {
+      for (int j = 0; j < arr.size() - i - 1; ++j)
+      {
+        if (arr[j] > arr[j+1])
+        {
+          std::swap(arr[j], arr[j+1]);
+        }
+      }
+    }
+
+    return arr;
+  }
+
+
+  vector<int> InsertionSort(vector<int> arr)
+  {
+    if (arr.empty())
+    {
+      return arr;
+    }
+
+    for (int i = 1; i < arr.size(); ++i)
+    {
+      int j = i - 1;
+      for (; j >= 0; --j)
+      {
+        if (arr[i] > arr[j])
+        {
+          break;
+        }
+      }
+      std::swap(arr[i], arr[j]);
+    }
+
+    return arr;
   }
 
   template<class T>

@@ -34,9 +34,6 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<int> arr = {1,3,4,7,8,9};
-    int pos = BinarySearch(arr, 3);
-    cout << "pos: " << pos << endl;
   }
 
   int BinarySearch(vector<int> arr, int target)

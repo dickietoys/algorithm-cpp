@@ -20,11 +20,15 @@ LC 78.  Subsets
 LC 90.  Subsets II
 LC 152. Maximum Product Subarray
 
-rotated array:
+rotated array (binary search)
+LC Median of two sorted arrays of same size
 LC 33.  Search in Rotated Sorted Array
 LC 81.  Search in Rotated Sorted Array II
 LC 153. Find Minimum in Rotated Sorted Array
 LC 154. Find Minimum in Rotated Sorted Array II
+LC 189. Rotate Array
+LC 215. Kth Largest Element in an Array
+LC 35. Search Insert Positionbinary search lower-upper bound
 
 
 stock 问题:

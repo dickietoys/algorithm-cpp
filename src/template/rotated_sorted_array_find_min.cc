@@ -13,6 +13,7 @@
 #include <iterator>
 #include <set>
 #include <cmath>
+#include <queue>
 
 using namespace std;
 
@@ -22,40 +23,49 @@ struct ListNode {
   ListNode(int x) : val(x), next(NULL) {}
 };
 
+struct TreeNode {
+  int val;
+  TreeNode *left;
+  TreeNode *right;
+  TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+
 class Solution {
  public:
   void RunTest()
   {
+    vector<int> nums = {1,2,1};
+    bool result = search(nums, 2);
+
+    cout << result << endl;
   }
 
-  int findMin(vector<int>& nums) {
-    int nums_size = nums.size();
-    if (nums_size == 0)
+  bool search(vector<int>& nums, int target) {
+    if (nums.empty())
     {
-      return 0;
+      return -1;
     }
-
-    int start_pos = 0;
-    int end_pos = nums_size - 1;
-    while (start_pos < end_pos)
+    int low = 0;
+    int high = nums.size() - 1;
+    while (low < high)
     {
-      if (nums[start_pos] < nums[end_pos])
+      if (nums[low] == nums[high])
       {
-        return nums[start_pos];
+        ++low;
+        continue;
       }
-
-      int mid = (start_pos + end_pos) / 2;
-      if (nums[mid] >= nums[start_pos])
+      int mid = low + (high - low) / 2;
+      if (nums[mid] > nums[high])
       {
-        start_pos = mid + 1;
+        low = mid + 1;
       }
       else
       {
-        end_pos = mid;
+        high = mid;
       }
     }
 
-    return nums[start_pos];
+    return nums[low];
   }
 
   template<class T>
@@ -63,7 +73,7 @@ class Solution {
   {
     for (size_t i = 0; i < result.size(); ++i)
     {
-      cout << result[i] << ", ";
+      cout << result[i] << ", " << endl;
     }
     cout << endl;
   }
@@ -75,7 +85,7 @@ class Solution {
     {
       for (size_t j = 0; j < result[i].size(); ++j)
       {
-        cout << result[i][j] << ", ";
+        cout << result[i][j] << ", " << endl;
       }
       cout << endl;
     }

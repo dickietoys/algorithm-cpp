@@ -1,5 +1,26 @@
 ##　算法
 
+#### 搜索
+~~~
+1. binary search
+2. jump search
+3. Find the missing number
+4. rotate array search
+~~~
+
+#### 排序
+~~~
+1. Selection Sort
+2. Bubble Sort
+3. Insertion Sort
+4. Merge Sort
+5. Quick Sort
+6. Heap Sort
+7. Counting Sort
+8. Radix Sort
+9. Bucket Sort
+~~~
+
 #### 回朔算法
 ~~~
 1. N Queens Problem
@@ -12,31 +33,7 @@
 ~~~
 
 
-#### 分支定界
-~~~
-1. 0/1 Knapsack
-2. 8 puzzle problem
-3. Job Assignment Problem
-4. N Queen Problem
-5. Traveling Salesman Problem
-~~~
-
-
-#### 搜索
-~~~
-~~~
-
-#### 排序
-~~~
-~~~
-
-
 #### 动态规划
-~~~
-~~~
-
-
-#### 模式搜索
 ~~~
 ~~~
 
@@ -48,9 +45,23 @@
 ~~~
 ~~~
 
+#### 模式搜索
+~~~
+~~~
+
 #### 随机算法
 ~~~
 K’th Smallest/Largest Element in Unsorted Array | Set 2 (Expected Linear Time)
+~~~
+
+
+#### 分支定界
+~~~
+1. 0/1 Knapsack
+2. 8 puzzle problem
+3. Job Assignment Problem
+4. N Queen Problem
+5. Traveling Salesman Problem
 ~~~
 
 
