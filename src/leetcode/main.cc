@@ -34,7 +34,7 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<int> nums = {2,1,3,2,1,7};
+    vector<int> nums = {2,1,13,142,2,11,7};
     cout << "----- SelectionSort" << endl;
     vector<int> result = SelectionSort(nums);
     Show(result);
@@ -57,6 +57,14 @@ class Solution {
 
     cout << "----- HeapSort" << endl;
     result = HeapSort(nums);
+    Show(result);
+
+    cout << "----- CountingSort" << endl;
+    result = CountingSort(nums);
+    Show(result);
+
+    cout << "----- RadixSort" << endl;
+    result = RadixSort(nums);
     Show(result);
   }
 
@@ -238,6 +246,82 @@ class Solution {
       pq.pop();
     }
     return result;
+  }
+
+  vector<int> CountingSort(vector<int> arr)
+  {
+    if (arr.empty())
+    {
+      return arr;
+    }
+
+    int max = *std::max_element(arr.begin(), arr.end());
+    int min = *std::min_element(arr.begin(), arr.end());
+    int count_size = max - min + 1;
+    vector<int> counter(count_size, 0);
+    for (int v : arr)
+    {
+      counter[v-min]++;
+    }
+
+    for (int i = 1; i < counter.size(); ++i)
+    {
+      counter[i] += counter[i - 1];
+    }
+
+    vector<int> output(arr.size(), 0);
+    for (int i = 0; i < arr.size(); ++i)
+    {
+      output[counter[arr[i] - min] - 1] = arr[i];
+      --counter[arr[i] - min];
+    }
+
+    return output;
+  }
+
+  void CountingSortAux(vector<int> &arr, int exp)
+  {
+    if (arr.empty())
+    {
+      return;
+    }
+
+    vector<int> counter(10, 0);
+    for (int v : arr)
+    {
+      counter[v / exp % 10]++;
+    }
+
+    for (int i = 1; i < counter.size(); ++i)
+    {
+      counter[i] += counter[i - 1];
+    }
+
+    vector<int> output(arr.size(), 0);
+    for (int i = arr.size() - 1; i >= 0; --i)
+    {
+      output[counter[arr[i] / exp % 10] - 1] = arr[i];
+      --counter[arr[i] / exp % 10];
+    }
+
+    for (int i = 0; i < arr.size(); ++i)
+    {
+      arr[i] = output[i];
+    }
+  }
+
+  vector<int> RadixSort(vector<int> arr)
+  {
+    if (arr.empty())
+    {
+      return arr;
+    }
+    int max = *std::max_element(arr.begin(), arr.end());
+    for (int i = 1; max / i > 0; i *= 10)
+    {
+      CountingSortAux(arr, i);
+    }
+    return arr;
   }
 
   template<class T>
