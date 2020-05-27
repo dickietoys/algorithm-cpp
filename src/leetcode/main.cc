@@ -34,294 +34,113 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<int> nums = {2,1,13,142,2,11,7};
-    cout << "----- SelectionSort" << endl;
-    vector<int> result = SelectionSort(nums);
-    Show(result);
-
-    cout << "----- BubbleSort" << endl;
-    result = BubbleSort(nums);
-    Show(result);
-
-    cout << "----- InsertionSort" << endl;
-    result = InsertionSort(nums);
-    Show(result);
-
-    cout << "----- MergeSort" << endl;
-    result = MergeSort(nums);
-    Show(result);
-
-    cout << "----- QuickSort" << endl;
-    result = QuickSort(nums);
-    Show(result);
-
-    cout << "----- HeapSort" << endl;
-    result = HeapSort(nums);
-    Show(result);
-
-    cout << "----- CountingSort" << endl;
-    result = CountingSort(nums);
-    Show(result);
-
-    cout << "----- RadixSort" << endl;
-    result = RadixSort(nums);
-    Show(result);
+    vector<string> arr = {"geeksforgeeks", "geeks", "geek", "geezer"};
+    string result = LongestCommonPrefix(arr);
+    cout << result << endl;
   }
 
-  vector<int> SelectionSort(vector<int> arr)
-  {
-    if (arr.empty())
-    {
-      return arr;
-    }
-
-    for (int i = 0; i < arr.size() - 1; ++i)
-    {
-      int min_pos = i;
-      for (int j = i + 1; j < arr.size(); ++j)
-      {
-        if (arr[j] < arr[min_pos])
-        {
-          min_pos = j;
-        }
-      }
-      std::swap(arr[min_pos], arr[i]);
-    }
-
-    return arr;
-  }
-
-  vector<int> BubbleSort(vector<int> arr)
-  {
-    if (arr.empty())
-    {
-      return arr;
-    }
-
-    for (int i = 0; i < arr.size(); ++i)
-    {
-      for (int j = 0; j < arr.size() - i - 1; ++j)
-      {
-        if (arr[j] > arr[j+1])
-        {
-          std::swap(arr[j], arr[j+1]);
-        }
-      }
-    }
-
-    return arr;
-  }
-
-  vector<int> InsertionSort(vector<int> arr)
-  {
-    if (arr.empty())
-    {
-      return arr;
-    }
-
-    for (int i = 1; i < arr.size(); ++i)
-    {
-      int value = arr[i];
-      int j = i - 1;
-      while (j >= 0 && value < arr[j])
-      {
-        arr[j+1] = arr[j];
-        --j;
-      }
-      arr[j+1] = value;
-    }
-
-    return arr;
-  }
-
-
-  void MergeSortConquer(vector<int> &arr, int left_pos, int middle_pos, int right_pos)
+  int GetInvCountMerge(vector<int> &arr, int left, int middle, int right)
   {
     vector<int> buffer(arr.size(), 0);
-
-    int buffer_index = left_pos;
-    int left_start = left_pos;
-    int right_start = middle_pos + 1;
-    while (left_start <= middle_pos && right_start <= right_pos)
+    int left_pos = left;
+    int right_pos = middle + 1;
+    int buffer_pos = left;
+    int counter = 0;
+    while (left_pos <= middle && right_pos <= right)
     {
-      if (arr[left_start] < arr[right_start])
+      if (arr[left_pos] <= arr[right_pos])
       {
-        buffer[buffer_index++] = arr[left_start++];
-        continue;
+        buffer[buffer_pos++] = arr[left_pos++];
       }
       else
       {
-        buffer[buffer_index++] = arr[right_start++];
-        continue;
+        counter += middle - left_pos + 1;
+        buffer[buffer_pos++] = arr[right_pos++];
       }
     }
 
-    while (left_start <= middle_pos)
+    while (left_pos <= middle)
     {
-      buffer[buffer_index++] = arr[left_start++];
+      buffer[buffer_pos++] = arr[left_pos++];
     }
 
-    while (right_start <= right_pos)
+    while (right_pos <= right)
     {
-      buffer[buffer_index++] = arr[right_start++];
+      buffer[buffer_pos++] = arr[right_pos++];
     }
 
-    for (int i = left_pos; i <= right_pos; ++i)
+    for (int i = left; i <= right; ++i)
     {
       arr[i] = buffer[i];
     }
+
+    return counter;
   }
 
-  void MergeSortDivideConquer(vector<int> &arr, int left_pos, int right_pos)
+  int GetInvCountAux(vector<int> &arr, int left, int right)
   {
-    if (left_pos >= right_pos)
+    int counter = 0;
+    if (left >= right)
     {
-      return;
+      return counter;
     }
 
-    int middle_pos = left_pos + (right_pos - left_pos) / 2;
-    MergeSortDivideConquer(arr, left_pos, middle_pos);
-    MergeSortDivideConquer(arr, middle_pos + 1, right_pos);
-    MergeSortConquer(arr, left_pos, middle_pos, right_pos);
+    int middle = left + (right - left) / 2;
+    counter += GetInvCountAux(arr, left, middle);
+    counter += GetInvCountAux(arr, middle + 1, right);
+    counter += GetInvCountMerge(arr, left, middle, right);
+
+    return counter;
   }
 
-  vector<int> MergeSort(vector<int> arr)
+  int GetInvCount(vector<int> arr)
   {
     if (arr.empty())
     {
-      return arr;
+      return 0;
     }
+    int counter = GetInvCountAux(arr, 0, arr.size() - 1);
 
-    MergeSortDivideConquer(arr, 0, arr.size() - 1);
-
-    return arr;
+    return counter;
   }
 
-  int QuickSortRecursivePivot(vector<int> &arr, int left, int right)
-  {
-    int pivot_value = arr[right];
-    int left_start = left;
-    for (int i = left; i <= right - 1; ++i)
-    {
-      if (arr[i] < pivot_value)
-      {
-        std::swap(arr[left_start++], arr[i]);
-      }
-    }
-    std::swap(arr[left_start], arr[right]);
-    return left_start;
-  }
-
-  void QuickSortRecursive(vector<int> &arr, int left, int right)
+  string LongestCommonPrefixAux(vector<string> &arr, int left, int right)
   {
     if (left >= right)
     {
-      return;
+      return arr[left];
     }
 
-    int pivot = QuickSortRecursivePivot(arr, 0, right);
-    QuickSortRecursive(arr, left, pivot - 1);
-    QuickSortRecursive(arr, pivot + 1, right);
+    int middle = left + (right - left) / 2;
+    string long_left = LongestCommonPrefixAux(arr, left, middle);
+    string long_right = LongestCommonPrefixAux(arr, middle + 1, right);
+
+    string buffer = "";
+    int size = std::min(long_left.size(), long_right.size());
+    for (int i = 0; i < size; ++i)
+    {
+      if (long_left[i] == long_right[i])
+      {
+        buffer += long_left[i];
+      }
+      else
+      {
+        break;
+      }
+    }
+    return buffer;
   }
 
-  vector<int> QuickSort(vector<int> arr)
+  string LongestCommonPrefix(vector<string> arr)
   {
     if (arr.empty())
     {
-      return arr;
+      return "";
     }
 
-    QuickSortRecursive(arr, 0, arr.size() - 1);
+    string result = LongestCommonPrefixAux(arr, 0, arr.size() - 1);
 
-    return arr;
-  }
-
-  vector<int> HeapSort(vector<int> arr)
-  {
-    std::priority_queue<int, vector<int>, greater<int>> pq(arr.begin(), arr.end());
-    vector<int> result;
-    while (!pq.empty())
-    {
-      result.push_back(pq.top());
-      pq.pop();
-    }
     return result;
-  }
-
-  vector<int> CountingSort(vector<int> arr)
-  {
-    if (arr.empty())
-    {
-      return arr;
-    }
-
-    int max = *std::max_element(arr.begin(), arr.end());
-    int min = *std::min_element(arr.begin(), arr.end());
-    int count_size = max - min + 1;
-    vector<int> counter(count_size, 0);
-    for (int v : arr)
-    {
-      counter[v-min]++;
-    }
-
-    for (int i = 1; i < counter.size(); ++i)
-    {
-      counter[i] += counter[i - 1];
-    }
-
-    vector<int> output(arr.size(), 0);
-    for (int i = 0; i < arr.size(); ++i)
-    {
-      output[counter[arr[i] - min] - 1] = arr[i];
-      --counter[arr[i] - min];
-    }
-
-    return output;
-  }
-
-  void CountingSortAux(vector<int> &arr, int exp)
-  {
-    if (arr.empty())
-    {
-      return;
-    }
-
-    vector<int> counter(10, 0);
-    for (int v : arr)
-    {
-      counter[v / exp % 10]++;
-    }
-
-    for (int i = 1; i < counter.size(); ++i)
-    {
-      counter[i] += counter[i - 1];
-    }
-
-    vector<int> output(arr.size(), 0);
-    for (int i = arr.size() - 1; i >= 0; --i)
-    {
-      output[counter[arr[i] / exp % 10] - 1] = arr[i];
-      --counter[arr[i] / exp % 10];
-    }
-
-    for (int i = 0; i < arr.size(); ++i)
-    {
-      arr[i] = output[i];
-    }
-  }
-
-  vector<int> RadixSort(vector<int> arr)
-  {
-    if (arr.empty())
-    {
-      return arr;
-    }
-    int max = *std::max_element(arr.begin(), arr.end());
-    for (int i = 1; max / i > 0; i *= 10)
-    {
-      CountingSortAux(arr, i);
-    }
-    return arr;
   }
 
   template<class T>

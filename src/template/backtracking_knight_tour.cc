@@ -51,7 +51,6 @@ class Solution {
 
   void Solve(int n)
   {
-    index = 0;
     vector<vector<int>> tours(n, vector<int>(n, -1));
     vector<pair<int, int>> next_move =
         {
@@ -97,7 +96,6 @@ class Solution {
   {
     int rows = tours.size();
     int cols = tours[0].size();
-    // cout << ++index << ":" << rows << ":" << cols << endl;
     if (step == rows * cols)
     {
       return true;

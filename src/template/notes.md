@@ -39,14 +39,24 @@
 
 #### 分治算法
 ~~~
+1. Maximum Subarray Sum
+2. Longest Common Prefix
+3. Count Inversions
 ~~~
 
 #### 图算法
 ~~~
+1. DFS
+2. BFS
+3. Graph Cycle
+4. Topological Sorting
+5. BackTracking
+6. Shortest Paths
 ~~~
 
 #### 模式搜索
 ~~~
+
 ~~~
 
 #### 随机算法
@@ -95,3 +105,9 @@ K’th Smallest/Largest Element in Unsorted Array | Set 2 (Expected Linear Time)
 #### Graph
 ~~~
 ~~~
+
+#### B tree
+
+#### Trie(字典树),前缀树
+
+#### Suffix Array and Suffix Tree
