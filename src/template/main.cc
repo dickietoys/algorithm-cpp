@@ -13,8 +13,16 @@
 #include <iterator>
 #include <set>
 #include <cmath>
+#include <queue>
+#include <list>
 
 using namespace std;
+
+struct ListNode {
+  int val;
+  ListNode *next;
+  ListNode(int x) : val(x), next(NULL) {}
+};
 
 struct TreeNode {
   int val;
@@ -23,101 +31,97 @@ struct TreeNode {
   TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
+class Graph
+{
+ public:
+  int vertex_nums_;
+  vector<vector<bool>> matrix_graph_;
+  vector<list<int>> list_graph_;
+
+  Graph(int vertex_nums)
+      : vertex_nums_(vertex_nums)
+      , matrix_graph_(vertex_nums, vector<bool>(vertex_nums, false))
+      , list_graph_(vertex_nums)
+  {}
+
+  void AddEdge(int src_vertex, int dst_vertex)
+  {
+    matrix_graph_[src_vertex][dst_vertex] = true;
+    list<int> &vertex_node = list_graph_[src_vertex];
+    if (std::find(vertex_node.begin(), vertex_node.end(), dst_vertex) == vertex_node.end())
+    {
+      vertex_node.push_back(dst_vertex);
+    }
+  }
+
+  void BFS(int vertex)
+  {
+    vector<bool> visited(vertex_nums_, false);
+    deque<int> dq;
+    dq.push_back(vertex);
+    visited[vertex] = true;
+    while (!dq.empty())
+    {
+      list<int> &vertex_node = list_graph_[vertex];
+    }
+
+  }
+
+  void ShowByMatrix()
+  {
+    for (int i = 0; i < matrix_graph_.size(); ++i)
+    {
+      cout << i << " -> ";
+      for (int j = 0; j < matrix_graph_[i].size(); ++j)
+      {
+        if (matrix_graph_[i][j])
+        {
+          cout << j << " -> ";
+        }
+      }
+      cout << "end" << endl;
+    }
+  }
+
+  void ShowByList()
+  {
+    for (int i = 0; i < list_graph_.size(); ++i)
+    {
+      cout << i << " -> ";
+      for (int j : list_graph_[i])
+      {
+          cout << j << " -> ";
+      }
+      cout << "end" << endl;
+    }
+  }
+};
+
 class Solution {
  public:
   void RunTest()
   {
-    set<int> s;
-    s.insert(5);
-    s.insert(3);
-    s.insert(7);
-    cout << *s.begin() << endl;
-    s.erase(s.begin());
-    cout << *s.begin() << endl;
-    s.erase(s.begin());
-    cout << *s.begin() << endl;
-    s.erase(s.begin());
-    cout << "s.size(): " << s.size() << endl;
+    Graph graph(5);
+    graph.AddEdge(0, 1);
+    graph.AddEdge(0, 4);
+    graph.AddEdge(1, 2);
+    graph.AddEdge(1, 3);
+    graph.AddEdge(1, 4);
+    graph.AddEdge(2, 3);
+    graph.AddEdge(3, 4);
+    graph.ShowByMatrix();
+    cout << "====================================" << endl;
+    graph.ShowByList();
   }
 
-  vector<int> preorderTraversal(TreeNode* root) {
-    vector<int> result;
-    stack<TreeNode *> s;
-    TreeNode *cur_node = root;
-    while (cur_node)
-    {
-      result.push_back(cur_node->val);
-      if (cur_node->right)
-      {
-        s.push(cur_node->right);
-      }
 
-      if (!cur_node->left && !s.empty())
-      {
-        cur_node = s.top();
-        s.pop();
-      }
-      else
-      {
-        cur_node = cur_node->left;
-      }
-    }
-
-    return result;
-  }
-
-  vector<int> inorderTraversal(TreeNode* root) {
-    vector<int> result;
-    stack<TreeNode *> s;
-    TreeNode *cur_node = root;
-    while (cur_node || !s.empty())
-    {
-      if (cur_node)
-      {
-        s.push(cur_node);
-        cur_node = cur_node->left;
-        continue;
-      }
-
-      if (!s.empty())
-      {
-        cur_node = s.top();
-        s.pop();
-        result.push_back(cur_node->val);
-        cur_node = cur_node->right;
-        continue;
-      }
-    }
-
-    return result;
-  }
-
-  vector<int> postorderTraversal(TreeNode* root) {
-    TreeNode *cur_node = root;
-    vector<int> result;
-    stack<TreeNode *> s;
-    while (cur_node)
-    {
-      s.push(cur_node);
-      cur_node = cur_node->left;
-      if (cur_node)
-      {
-        continue;
-      }
-
-      if (!s.empty())
-      {
-        cur_node = s.top();
-      }
-    }
-  }
 
   template<class T>
   void Show(vector<T> &result)
   {
     for (size_t i = 0; i < result.size(); ++i)
     {
-      cout << result[i] << ", ";
+      cout << result[i] << ", " << endl;
     }
     cout << endl;
   }
@@ -129,7 +133,7 @@ class Solution {
     {
       for (size_t j = 0; j < result[i].size(); ++j)
       {
-        cout << result[i][j] << ", ";
+        cout << result[i][j] << ", " << endl;
       }
       cout << endl;
     }
