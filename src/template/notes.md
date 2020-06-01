@@ -14,11 +14,11 @@
 2. Bubble Sort
 3. Insertion Sort
 4. Merge Sort
-5. Quick Sort
+5. Quick Sort    *
 6. Heap Sort
-7. Counting Sort
-8. Radix Sort
-9. Bucket Sort
+7. Counting Sort *
+8. Radix Sort    *
+9. Bucket Sort   *
 ~~~
 
 #### 回朔算法
@@ -56,7 +56,9 @@
 
 #### 模式搜索
 ~~~
-
+1. Naive Pattern Searching
+2. KMP Algorithm
+3. Rabin-Karp Algorithm
 ~~~
 
 #### 随机算法
@@ -84,14 +86,17 @@ K’th Smallest/Largest Element in Unsorted Array | Set 2 (Expected Linear Time)
 
 #### Stack
 ~~~
+1. nothing special
 ~~~
 
 #### Queue
 ~~~
+1. nothing special
 ~~~
 
 #### Binary Tree
 ~~~
+
 ~~~
 
 #### Binary Search Tree
@@ -100,14 +105,24 @@ K’th Smallest/Largest Element in Unsorted Array | Set 2 (Expected Linear Time)
 
 #### Heap
 ~~~
+1. Heap Sort
+2. Priority Queue
+3. k'th largest element in array
+4. sort an almost sorted array
+5. Merge K Sorted Arrays
 ~~~
 
-#### Graph
-~~~
-~~~
 
 #### B tree
+~~~
+
+~~~
 
 #### Trie(字典树),前缀树
+~~~
+
+~~~
 
 #### Suffix Array and Suffix Tree
+~~~
+~~~
