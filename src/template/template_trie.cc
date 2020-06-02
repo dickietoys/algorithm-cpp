@@ -85,9 +85,7 @@ class Trie
   }
 
   void Delete(const string &s)
-  {
-
-  }
+  {}
 };
 
 

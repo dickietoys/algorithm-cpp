@@ -115,7 +115,7 @@ K’th Smallest/Largest Element in Unsorted Array | Set 2 (Expected Linear Time)
 
 #### B tree
 ~~~
-
+1. 搜索、遍历、插入、删除
 ~~~
 
 #### Trie(字典树),前缀树
