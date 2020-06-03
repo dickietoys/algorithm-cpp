@@ -82,6 +82,8 @@ K’th Smallest/Largest Element in Unsorted Array | Set 2 (Expected Linear Time)
 
 #### Linked List
 ~~~
+1. Nth node from the end of a Linked List
+2. Print the middle of a given linked list
 ~~~
 
 #### Stack
@@ -120,9 +122,5 @@ K’th Smallest/Largest Element in Unsorted Array | Set 2 (Expected Linear Time)
 
 #### Trie(字典树),前缀树
 ~~~
-
-~~~
-
-#### Suffix Array and Suffix Tree
-~~~
+1. insert,search,delete
 ~~~

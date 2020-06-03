@@ -18,59 +18,61 @@
 
 using namespace std;
 
-class PatternSearch
+struct LinkedListNode
 {
- public:
-  PatternSearch()
+  int data;
+  struct LinkedListNode *next;
+  LinkedListNode()
+      : data(0)
+      , next(nullptr)
   {}
 
+  LinkedListNode(int value)
+      : data(value)
+      , next(nullptr)
+  {}
+};
 
-  bool BfSearch(string s, string pattern)
+class LinkedList
+{
+ private:
+  LinkedListNode *head_;
+  LinkedListNode *tail_;
+ public:
+  LinkedList()
+      :head_(new LinkedListNode())
+      ,tail_(head_)
+  {}
+
+  void Insert(int value)
   {
-    int s_size = s.size();
-    int pattern_size = pattern.size();
-    if (s_size < pattern_size)
+    LinkedListNode *node = new LinkedListNode(value);
+    tail_->next = node;
+    tail_ = node;
+  }
+
+  void ShowList()
+  {
+    LinkedListNode *node = head_->next;
+    while (node)
     {
-      return false;
+      cout << node->data << ", ";
+      node = node->next;
     }
 
-    for (int i = 0; i < s_size - pattern_size; ++i)
-    {
-      int s_pos = i;
-      int p_pos = 0;
-      while (p_pos < pattern_size)
-      {
-        if (s[s_pos] == pattern[p_pos])
-        {
-          ++s_pos;
-          ++p_pos;
-        }
-        else
-        {
-          break;
-        }
-      }
-      if (p_pos == pattern_size)
-      {
-        return true;
-      }
-    }
-
-    return false;
+    cout << endl;
   }
 };
+
 
 class Solution {
  public:
   void RunTest()
   {
-    PatternSearch ps;
-    int result = ps.BfSearch("THIS IS A TEST TEXT", "TEST");
-    cout << result << endl;
   }
 
   template<class T>
-  void Show(vector<T> &result)
+  void Show(const vector<T> &result)
   {
     for (size_t i = 0; i < result.size(); ++i)
     {
@@ -80,7 +82,7 @@ class Solution {
   }
 
   template<class T>
-  void Show(vector<vector<T>> &result)
+  void Show(const vector<vector<T>> &result)
   {
     for (size_t i = 0; i < result.size(); ++i)
     {

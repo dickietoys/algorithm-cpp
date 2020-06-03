@@ -18,75 +18,135 @@
 
 using namespace std;
 
-struct ListNode {
-  int val;
-  ListNode *next;
-  ListNode(int x) : val(x), next(NULL) {}
-};
+struct LinkedListNode
+{
+  int data;
+  struct LinkedListNode *next;
+  LinkedListNode()
+      : data(0)
+      , next(nullptr)
+  {}
 
-struct TreeNode {
-  int val;
-  TreeNode *left;
-  TreeNode *right;
-  TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
-
-struct TrieNode {
-  vector<TrieNode *> children;
-  bool end_of_word;
-
-  TrieNode()
-      : children(26, NULL)
+  LinkedListNode(int value)
+      : data(value)
+      , next(nullptr)
   {}
 };
 
-class Trie
+class LinkedList
 {
  private:
-  TrieNode root;
+  LinkedListNode *head_;
+  LinkedListNode *tail_;
  public:
-  Trie()
+  LinkedList()
+      :head_(new LinkedListNode())
+      ,tail_(head_)
   {}
 
-  void Insert(const string &s)
+  void Insert(int value)
   {
-    TrieNode *node = &root;
-    int s_size = s.size();
-    for (int i = 0; i < s_size; ++i)
-    {
-      int index = s[i] - 'a';
-      if (!node->children[index])
-      {
-        node->children[index] = new TrieNode();
-      }
-
-      node = node->children[index];
-    }
-
-    node->end_of_word = true;
+    LinkedListNode *node = new LinkedListNode(value);
+    tail_->next = node;
+    tail_ = node;
   }
 
-  bool Search(const string &s)
+  void DeleteByPos(int pos)
   {
-    TrieNode *node = &root;
-    int s_size = s.size();
-    for (int i = 0; i < s_size; ++i)
+    LinkedListNode *prev = head_;
+    LinkedListNode *cur = head_->next;
+    int cur_pos = 0;
+    while (cur)
     {
-      int index = s[i] - 'a';
-      if (!node->children[index])
+      if (cur_pos == pos)
       {
-        return false;
+        prev->next = cur->next;
+        if (cur == tail_)
+        {
+          tail_ = prev;
+        }
+        delete cur;
       }
-
-      node = node->children[index];
+      prev = cur;
+      cur = cur->next;
+      ++cur_pos;
     }
-
-    return node->end_of_word;
   }
 
-  void Delete(const string &s)
+  void DeleteByValue(int value)
   {
+    LinkedListNode *prev = head_;
+    LinkedListNode *cur = head_->next;
+    while (cur)
+    {
+      if (cur->data == value)
+      {
+        prev->next = cur->next;
+        if (cur == tail_)
+        {
+          tail_ = prev;
+        }
+        delete cur;
+      }
+      prev = cur;
+      cur = cur->next;
+    }
+  }
 
+  void Clear()
+  {
+    LinkedListNode *cur = head_->next;
+    LinkedListNode *next = nullptr;
+    while (cur)
+    {
+      next = cur->next;
+      delete cur;
+      cur = next;
+    }
+
+    head_->next = nullptr;
+  }
+
+  LinkedListNode * FindRKthNode(int kth)
+  {
+    LinkedListNode *slow = head_->next;
+    LinkedListNode *fast = head_->next;
+    while (kth && fast)
+    {
+      fast = fast->next;
+      --kth;
+    }
+
+    if (kth != 0)
+    {
+      return nullptr;
+    }
+
+    while (fast)
+    {
+      fast = fast->next;
+      slow = slow->next;
+    }
+
+    return slow;
+  }
+
+  void ShowList()
+  {
+    if (!head_->next)
+    {
+      cout << "empty" << endl;
+      return;
+    }
+
+    LinkedListNode *node = head_->next;
+    while (node)
+    {
+      cout << node->data << ", ";
+      node = node->next;
+    }
+
+    cout << endl;
   }
 };
 
@@ -95,18 +155,23 @@ class Solution {
  public:
   void RunTest()
   {
-    Trie t;
-    vector<string> keys = {"the", "a", "there",
-                           "answer", "any", "by",
-                           "bye", "their"};
-    for (string &s : keys)
-    {
-      t.Insert(s);
-    }
+    LinkedList list;
+    list.Insert(0);
+    list.Insert(1);
+    list.Insert(2);
+    list.Insert(3);
+    list.Insert(4);
+    list.Insert(5);
 
-    cout << t.Search("the") << endl;
-    cout << t.Search("these") << endl;
-    cout << t.Search("answer") << endl;
+    LinkedListNode *node = list.FindRKthNode(2);
+    cout << (node ? node->data : -1) << endl;
+    // list.ShowList();
+    // list.DeleteByPos(2);
+    // list.ShowList();
+    // list.DeleteByValue(4);
+    // list.ShowList();
+    // list.Clear();
+    // list.ShowList();
   }
 
   template<class T>

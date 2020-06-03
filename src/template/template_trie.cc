@@ -18,18 +18,6 @@
 
 using namespace std;
 
-struct ListNode {
-  int val;
-  ListNode *next;
-  ListNode(int x) : val(x), next(NULL) {}
-};
-
-struct TreeNode {
-  int val;
-  TreeNode *left;
-  TreeNode *right;
-  TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
 
 struct TrieNode {
   vector<TrieNode *> children;
@@ -84,8 +72,62 @@ class Trie
     return node->end_of_word;
   }
 
+  bool HasChildren(TrieNode *node)
+  {
+    for (TrieNode *item : node->children)
+    {
+      if (item)
+      {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  TrieNode *DeleteAux(TrieNode *node, const string &s, int depth)
+  {
+    if (!node)
+    {
+      return nullptr;
+    }
+
+    if (depth == s.size())
+    {
+      if (node->end_of_word)
+      {
+        node->end_of_word = false;
+      }
+
+      if (!HasChildren(node))
+      {
+        delete node;
+        node = nullptr;
+      }
+
+      return node;
+    }
+
+    int index = s[depth] - 'a';
+    node->children[index] = DeleteAux(node->children[index], s, depth + 1);
+    if (!HasChildren(node) && !node->end_of_word)
+    {
+      delete  node;
+      node = nullptr;
+    }
+
+    return node;
+  }
+
   void Delete(const string &s)
-  {}
+  {
+    if (s.empty())
+    {
+      return;
+    }
+
+    DeleteAux(&root, s, 0);
+  }
 };
 
 
@@ -105,6 +147,8 @@ class Solution {
     cout << t.Search("the") << endl;
     cout << t.Search("these") << endl;
     cout << t.Search("answer") << endl;
+    t.Delete("the");
+    cout << t.Search("the") << endl;
   }
 
   template<class T>
