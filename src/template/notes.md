@@ -84,6 +84,14 @@ K’th Smallest/Largest Element in Unsorted Array | Set 2 (Expected Linear Time)
 ~~~
 1. Nth node from the end of a Linked List
 2. Print the middle of a given linked list
+3. Function to check if a singly linked list is palindrome
+4. Remove duplicates from a sorted linked list
+5. Remove duplicates from an unsorted linked list
+6. Swap nodes in a linked list without swapping data
+7. Intersection of two Sorted Linked Lists
+8. Intersection point of two Linked Lists.
+9. QuickSort on Singly Linked List
+10. Reverse a linked list
 ~~~
 
 #### Stack

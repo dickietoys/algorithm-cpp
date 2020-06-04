@@ -172,6 +172,31 @@ class LinkedList
     return false;
   }
 
+  int CycleSize()
+  {
+    LinkedListNode *slow = head_->next;
+    LinkedListNode *fast = head_->next;
+    while (fast && fast->next)
+    {
+      fast = fast->next->next;
+      slow = slow->next;
+      if (slow == fast)
+      {
+        break;
+      }
+    }
+
+    int size = 1;
+    fast = fast->next;
+    while (fast != slow)
+    {
+      ++size;
+      fast = fast->next;
+    }
+
+    return size;
+  }
+
   void ShowList()
   {
     if (!head_->next)
@@ -224,10 +249,12 @@ class Solution {
     LinkedListNode *head = list.GetHeader();
     head->next = new LinkedListNode(0);
     head->next->next = new LinkedListNode(1);
-    head->next->next = new LinkedListNode(2);
-    head->next->next = new LinkedListNode(3);
-    head->next->next = new LinkedListNode(4);
+    head->next->next->next = new LinkedListNode(2);
+    head->next->next->next->next = new LinkedListNode(3);
+    head->next->next->next->next->next = new LinkedListNode(4);
+    head->next->next->next->next->next->next = head->next->next->next;
     cout << list.DetectCycle() << endl;
+    cout << list.CycleSize() << endl;
   }
 
   void RunTest()
