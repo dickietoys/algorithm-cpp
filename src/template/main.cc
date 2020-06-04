@@ -44,11 +44,22 @@ class LinkedList
       ,tail_(head_)
   {}
 
+  LinkedListNode * GetHeader()
+  {
+    return head_;
+  }
+
   void Insert(int value)
   {
     LinkedListNode *node = new LinkedListNode(value);
     tail_->next = node;
     tail_ = node;
+  }
+
+  LinkedListNode * Insert(LinkedListNode *prev, LinkedListNode *node)
+  {
+    prev->next = node;
+    return node;
   }
 
   void DeleteByPos(int pos)
@@ -131,6 +142,36 @@ class LinkedList
     return slow;
   }
 
+  LinkedListNode * FindMidNode()
+  {
+    LinkedListNode *slow = head_->next;
+    LinkedListNode *fast = head_->next;
+    while (fast && fast->next)
+    {
+      fast = fast->next->next;
+      slow = slow->next;
+    }
+
+    return slow;
+  }
+
+  bool DetectCycle()
+  {
+    LinkedListNode *slow = head_->next;
+    LinkedListNode *fast = head_->next;
+    while (fast && fast->next)
+    {
+      fast = fast->next->next;
+      slow = slow->next;
+      if (slow == fast)
+      {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   void ShowList()
   {
     if (!head_->next)
@@ -153,25 +194,45 @@ class LinkedList
 
 class Solution {
  public:
-  void RunTest()
+  void TestFind()
   {
     LinkedList list;
+    LinkedListNode *node = nullptr;
     list.Insert(0);
     list.Insert(1);
     list.Insert(2);
     list.Insert(3);
     list.Insert(4);
     list.Insert(5);
-
-    LinkedListNode *node = list.FindRKthNode(2);
+    list.ShowList();
+    node = list.FindRKthNode(6);
     cout << (node ? node->data : -1) << endl;
-    // list.ShowList();
-    // list.DeleteByPos(2);
-    // list.ShowList();
-    // list.DeleteByValue(4);
-    // list.ShowList();
-    // list.Clear();
-    // list.ShowList();
+    node = list.FindMidNode();
+    cout << (node ? node->data : -1) << endl;
+    list.DeleteByPos(2);
+    list.ShowList();
+    list.DeleteByValue(4);
+    list.ShowList();
+    list.Clear();
+    list.ShowList();
+  }
+
+  void TestCycle()
+  {
+    LinkedList list;
+    LinkedListNode *node = nullptr;
+    LinkedListNode *head = list.GetHeader();
+    head->next = new LinkedListNode(0);
+    head->next->next = new LinkedListNode(1);
+    head->next->next = new LinkedListNode(2);
+    head->next->next = new LinkedListNode(3);
+    head->next->next = new LinkedListNode(4);
+    cout << list.DetectCycle() << endl;
+  }
+
+  void RunTest()
+  {
+    TestCycle();
   }
 
   template<class T>
