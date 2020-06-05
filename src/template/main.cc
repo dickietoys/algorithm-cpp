@@ -197,6 +197,121 @@ class LinkedList
     return size;
   }
 
+  bool IsPalindrome()
+  {
+    LinkedListNode *slow = head_->next;
+    LinkedListNode *fast = head_->next;
+    while (fast && fast->next)
+    {
+      fast = fast->next;
+      if (fast->next)
+      {
+        slow = slow->next;
+        fast = fast->next;
+      }
+    }
+
+    LinkedListNode *first_head = head_->next;
+    LinkedListNode *first_tail = slow;
+    LinkedListNode *second_head = slow->next;
+    slow->next = nullptr;
+
+    //reverse second list
+    LinkedListNode *prev = nullptr;
+    LinkedListNode *cur = second_head;
+    LinkedListNode *next = nullptr;
+    while (cur)
+    {
+      next = cur->next;
+      cur->next = prev;
+      prev = cur;
+      cur = next;
+    }
+    second_head = prev;
+
+    LinkedListNode *left = first_head;
+    LinkedListNode *right = second_head;
+    while (left && right)
+    {
+      if (left->data != right->data)
+      {
+        return false;
+      }
+      left = left->next;
+      right = right->next;
+    }
+
+    return true;
+  }
+
+  void RemoveDupNodeInSorted()
+  {
+    LinkedListNode *cur = head_->next;
+    LinkedListNode *next = nullptr;
+    while (cur)
+    {
+      next = cur->next;
+      if (next && cur->data == next->data)
+      {
+        cur->next = next->next;
+        delete next;
+        continue;
+      }
+      cur = next;
+    }
+  }
+
+  void SwapNode(int lvalue, int rvalue)
+  {
+    LinkedListNode *first_prev = nullptr;
+    LinkedListNode *first_cur = nullptr;
+    LinkedListNode *second_prev = nullptr;
+    LinkedListNode *second_cur = nullptr;
+
+    LinkedListNode *prev = nullptr;
+    LinkedListNode *cur = head_->next;
+    while (cur)
+    {
+      if (cur->data == lvalue)
+      {
+        first_prev = prev;
+        first_cur = cur;
+      }
+      else if (cur->data == rvalue)
+      {
+        second_prev = prev;
+        second_cur = cur;
+      }
+
+      prev = cur;
+      cur = cur->next;
+    }
+
+    LinkedListNode *tmp = nullptr;
+    first_prev->next = second_cur;
+    tmp = second_cur->next;
+    second_cur->next = first_cur->next;
+
+    second_prev->next = first_cur;
+    first_cur->next = tmp;
+  }
+
+  void SwapPairs()
+  {
+    LinkedListNode *prev = head_;
+    LinkedListNode *cur = head_->next;
+    LinkedListNode *tmp = nullptr;
+    while (cur && cur->next)
+    {
+      prev->next = cur->next;
+      cur->next = cur->next->next;
+      prev->next->next = cur;
+
+      prev = prev->next->next;
+      cur = cur->next;
+    }
+  }
+
   void ShowList()
   {
     if (!head_->next)
@@ -219,6 +334,47 @@ class LinkedList
 
 class Solution {
  public:
+  void TestSwapPair()
+  {
+    LinkedList list;
+    list.Insert(0);
+    list.Insert(1);
+    list.Insert(2);
+    list.Insert(3);
+    list.Insert(4);
+    list.Insert(5);
+    list.ShowList();
+    list.SwapPairs();
+    list.ShowList();
+  }
+
+  void TestSwapNode()
+  {
+    LinkedList list;
+    list.Insert(0);
+    list.Insert(1);
+    list.Insert(2);
+    list.Insert(3);
+    list.Insert(4);
+    list.Insert(5);
+    list.ShowList();
+    list.SwapNode(1, 4);
+    list.ShowList();
+  }
+
+  void TestRemoveDup()
+  {
+    LinkedList list;
+    list.Insert(11);
+    list.Insert(11);
+    list.Insert(11);
+    list.Insert(13);
+    list.Insert(13);
+    list.Insert(20);
+    list.RemoveDupNodeInSorted();
+    list.ShowList();
+  }
+
   void TestFind()
   {
     LinkedList list;
@@ -257,9 +413,25 @@ class Solution {
     cout << list.CycleSize() << endl;
   }
 
+  void TestPalindrome()
+  {
+    LinkedList list;
+    list.Insert(0);
+    list.Insert(1);
+    list.Insert(2);
+    list.Insert(3);
+    list.Insert(3);
+    list.Insert(2);
+    list.Insert(1);
+    list.Insert(0);
+
+    cout << list.IsPalindrome() << endl;
+  }
+
   void RunTest()
   {
-    TestCycle();
+    // TestSwapNode();
+    TestSwapPair();
   }
 
   template<class T>
