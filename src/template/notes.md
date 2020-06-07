@@ -105,13 +105,9 @@ K’th Smallest/Largest Element in Unsorted Array | Set 2 (Expected Linear Time)
 1. nothing special
 ~~~
 
-#### Binary Tree
-~~~
-
-~~~
-
 #### Binary Search Tree
 ~~~
+1. preorder\inorder\postorder  recusive and iterator
 ~~~
 
 #### Heap

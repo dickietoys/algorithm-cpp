@@ -22,11 +22,11 @@ struct TreeNode
 {
   TreeNode *left;
   TreeNode *right;
-  int val;
+  int data;
   TreeNode(int value)
       : left(nullptr)
       , right(nullptr)
-      , val(value)
+      , data(value)
   {}
 };
 
@@ -40,7 +40,7 @@ class BinaryTree
     {
       return;
     }
-    cout << node->val << ", ";
+    cout << node->data << ", ";
     PreOrderRecurAux(node->left);
     PreOrderRecurAux(node->right);
   }
@@ -53,7 +53,7 @@ class BinaryTree
     }
 
     InOrderRecurAux(node->left);
-    cout << node->val << ", ";
+    cout << node->data << ", ";
     InOrderRecurAux(node->right);
   }
 
@@ -66,7 +66,7 @@ class BinaryTree
 
     PostOrderRecurAux(node->left);
     PostOrderRecurAux(node->right);
-    cout << node->val << ", ";
+    cout << node->data << ", ";
   }
  public:
   BinaryTree()
@@ -78,9 +78,9 @@ class BinaryTree
     return root_;
   }
 
-  void InsertLevel(int val)
+  void InsertLevel(int value)
   {
-    TreeNode *new_node = new TreeNode(val);
+    TreeNode *new_node = new TreeNode(value);
     if (!root_)
     {
       root_ = new_node;
@@ -139,50 +139,13 @@ class BinaryTree
     cout << endl;
   }
 
-  vector<int> PreOrderInter()
+  void PreOrderInter()
   {
-    vector<int> result;
-    if (!root_)
-    {
-      return result;
-    }
 
-    stack<TreeNode *> st;
-    st.push(root_);
-    result.push_back(root_->val);
-    TreeNode *last_pop = root_;
-    while (!st.empty())
-    {
-      TreeNode *node = st.top();
-      if (node->left && node->left != last_pop && node->right != last_pop)
-      {
-        st.push(node->left);
-        result.push_back(node->left->val);
-      }
-      else if (node->right && node->right != last_pop)
-      {
-        st.push(node->right);
-        result.push_back(node->right->val);
-      }
-      else
-      {
-        st.pop();
-        last_pop = node;
-      }
-    }
-
-    return result;
   }
 
-  vector<int> InOrderInter()
+  void InOrderInter()
   {
-    vector<int> result;
-    if (!root_)
-    {
-      return result;
-    }
-    stack<TreeNode *> st;
-    st.push(root_);
 
   }
 

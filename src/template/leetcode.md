@@ -39,6 +39,9 @@ LC 188. Best Time to Buy and Sell Stock IV
 
 树:
 树的前序,中序,后序,层序遍历,递归和非递归
+LC 94. Binary Tree Inorder Traversal
+LC 144. Binary Tree Preorder Traversal
+LC 145. Binary Tree Postorder Traversal
 根据某两个序列得到第三个序列
 根据某两个序列得到二叉树
 
