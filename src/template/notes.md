@@ -110,7 +110,13 @@ K’th Smallest/Largest Element in Unsorted Array | Set 2 (Expected Linear Time)
 1. preorder\inorder\postorder  recusive and iterator
 2. A program to check if a binary tree is BST or not
 3. Construct BST from given preorder traversal
-4. 
+4. Sorted Linked List to Balanced BST
+5. Sorted Array to Balanced BST
+6. Check if the given array can represent Level Order Traversal of Binary Search Tree
+7. Check if a given array can represent Preorder Traversal of Binary Search Tree
+8. Lowest Common Ancestor in a Binary Search Tree
+9. Find k-th smallest element in BST (Order Statistics in BST)
+10. K’th Largest Element in BST when modification to BST is not allowed
 ~~~
 
 #### Heap

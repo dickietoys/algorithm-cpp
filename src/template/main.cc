@@ -34,6 +34,42 @@ class BinaryTree
 {
  private:
   TreeNode *root_;
+
+  TreeNode *GenBySortedListAux(list<int> &l, list<int>::const_iterator &cur_it, int n)
+  {
+    if (n <= 0)
+    {
+      return nullptr;
+    }
+
+    TreeNode *left = GenBySortedListAux(l, cur_it, n / 2);
+    TreeNode *node =  new TreeNode(*cur_it);
+    node->left = left;
+    ++cur_it;
+    node->right = GenBySortedListAux(l, cur_it, n - n / 2 - 1);
+
+    return node;
+  }
+
+  TreeNode * GenBySortedArrayAux(vector<int> &arr, int low, int high)
+  {
+    if (low > high)
+    {
+      return nullptr;
+    }
+
+    if (low == high)
+    {
+      return new TreeNode(arr[low]);
+    }
+    int mid = low + (high-low) / 2;
+    TreeNode *new_node = new TreeNode(arr[mid]);
+    new_node->left = GenBySortedArrayAux(arr, low, mid - 1);
+    new_node->right = GenBySortedArrayAux(arr, mid + 1, high);
+
+    return new_node;
+  }
+
   bool IsBSTAux(TreeNode *node, TreeNode *min, TreeNode *max)
   {
     if (!node)
@@ -273,7 +309,6 @@ class BinaryTree
     }
     queue<TreeNode *> q;
     q.push(root_);
-    result.push_back({root_->val});
     while (!q.empty())
     {
       int q_size = q.size();
@@ -327,6 +362,17 @@ class BinaryTree
     int cur_pos = 0;
     root_ = GenByPreOrderAux(arr, cur_pos, nullptr, nullptr);
   }
+
+  void GenBySortedArray(vector<int> arr)
+  {
+    root_ = GenBySortedArrayAux(arr, 0, arr.size() - 1);
+  }
+
+  void GenBySortedList(list<int> l)
+  {
+    list<int>::const_iterator it = l.begin();
+    root_ = GenBySortedListAux(l, it, l.size());
+  }
 };
 
 class Solution {
@@ -334,10 +380,29 @@ class Solution {
   void RunTest()
   {
     // TestIsValid();
-    GenByPreOrder();
+    // TestGenByPreOrder();
+    // TestGenBySortedArray();
+    TestGenBySortedArray();
+    TestGenBySortedList();
   }
 
-  void GenByPreOrder()
+  void TestGenBySortedList()
+  {
+    BinaryTree bt;
+    bt.GenBySortedList({1,2,3,4,5,6});
+    bt.InOrderRecur();
+    Show(bt.LevelOrder());
+  }
+
+  void TestGenBySortedArray()
+  {
+    BinaryTree bt;
+    bt.GenBySortedArray({1,2,3,4,5,6});
+    bt.InOrderRecur();
+    Show(bt.LevelOrder());
+  }
+
+  void TestGenByPreOrder()
   {
     BinaryTree bt;
     bt.GenByPreOrder({10, 5, 1, 7, 40, 50});
