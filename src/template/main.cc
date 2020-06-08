@@ -35,96 +35,6 @@ class BinaryTree
  private:
   TreeNode *root_;
 
-  TreeNode *GenBySortedListAux(list<int> &l, list<int>::const_iterator &cur_it, int n)
-  {
-    if (n <= 0)
-    {
-      return nullptr;
-    }
-
-    TreeNode *left = GenBySortedListAux(l, cur_it, n / 2);
-    TreeNode *node =  new TreeNode(*cur_it);
-    node->left = left;
-    ++cur_it;
-    node->right = GenBySortedListAux(l, cur_it, n - n / 2 - 1);
-
-    return node;
-  }
-
-  TreeNode * GenBySortedArrayAux(vector<int> &arr, int low, int high)
-  {
-    if (low > high)
-    {
-      return nullptr;
-    }
-
-    if (low == high)
-    {
-      return new TreeNode(arr[low]);
-    }
-    int mid = low + (high-low) / 2;
-    TreeNode *new_node = new TreeNode(arr[mid]);
-    new_node->left = GenBySortedArrayAux(arr, low, mid - 1);
-    new_node->right = GenBySortedArrayAux(arr, mid + 1, high);
-
-    return new_node;
-  }
-
-  bool IsBSTAux(TreeNode *node, TreeNode *min, TreeNode *max)
-  {
-    if (!node)
-    {
-      return true;
-    }
-
-    if (min && node->val <= min->val)
-    {
-      return false;
-    }
-
-    if (max && node->val >= max->val)
-    {
-      return false;
-    }
-
-    return IsBSTAux(node->left, min, node) &&
-        IsBSTAux(node->right, node, max);
-  }
-
-  void PreOrderRecurAux(TreeNode *node)
-  {
-    if (!node)
-    {
-      return;
-    }
-    cout << node->val << ", ";
-    PreOrderRecurAux(node->left);
-    PreOrderRecurAux(node->right);
-  }
-
-  void InOrderRecurAux(TreeNode *node)
-  {
-    if (!node)
-    {
-      return;
-    }
-
-    InOrderRecurAux(node->left);
-    cout << node->val << ", ";
-    InOrderRecurAux(node->right);
-  }
-
-  void PostOrderRecurAux(TreeNode *node)
-  {
-    if (!node)
-    {
-      return;
-    }
-
-    PostOrderRecurAux(node->left);
-    PostOrderRecurAux(node->right);
-    cout << node->val << ", ";
-  }
  public:
   BinaryTree()
       : root_(nullptr)
@@ -176,6 +86,41 @@ class BinaryTree
       node = node->left;
     }
     node->left = new_node;
+  }
+
+  void PreOrderRecurAux(TreeNode *node)
+  {
+    if (!node)
+    {
+      return;
+    }
+    cout << node->val << ", ";
+    PreOrderRecurAux(node->left);
+    PreOrderRecurAux(node->right);
+  }
+
+  void InOrderRecurAux(TreeNode *node)
+  {
+    if (!node)
+    {
+      return;
+    }
+
+    InOrderRecurAux(node->left);
+    cout << node->val << ", ";
+    InOrderRecurAux(node->right);
+  }
+
+  void PostOrderRecurAux(TreeNode *node)
+  {
+    if (!node)
+    {
+      return;
+    }
+
+    PostOrderRecurAux(node->left);
+    PostOrderRecurAux(node->right);
+    cout << node->val << ", ";
   }
 
   void PreOrderRecur()
@@ -333,6 +278,27 @@ class BinaryTree
     return result;
   }
 
+  bool IsBSTAux(TreeNode *node, TreeNode *min, TreeNode *max)
+  {
+    if (!node)
+    {
+      return true;
+    }
+
+    if (min && node->val <= min->val)
+    {
+      return false;
+    }
+
+    if (max && node->val >= max->val)
+    {
+      return false;
+    }
+
+    return IsBSTAux(node->left, min, node) &&
+        IsBSTAux(node->right, node, max);
+  }
+
   bool IsBST()
   {
     return IsBSTAux(root_, nullptr, nullptr);
@@ -363,15 +329,77 @@ class BinaryTree
     root_ = GenByPreOrderAux(arr, cur_pos, nullptr, nullptr);
   }
 
+  TreeNode * GenBySortedArrayAux(vector<int> &arr, int low, int high)
+  {
+    if (low > high)
+    {
+      return nullptr;
+    }
+
+    if (low == high)
+    {
+      return new TreeNode(arr[low]);
+    }
+    int mid = low + (high-low) / 2;
+    TreeNode *new_node = new TreeNode(arr[mid]);
+    new_node->left = GenBySortedArrayAux(arr, low, mid - 1);
+    new_node->right = GenBySortedArrayAux(arr, mid + 1, high);
+
+    return new_node;
+  }
+
   void GenBySortedArray(vector<int> arr)
   {
     root_ = GenBySortedArrayAux(arr, 0, arr.size() - 1);
+  }
+
+  TreeNode *GenBySortedListAux(list<int> &l, list<int>::const_iterator &cur_it, int n)
+  {
+    if (n <= 0)
+    {
+      return nullptr;
+    }
+
+    TreeNode *left = GenBySortedListAux(l, cur_it, n / 2);
+    TreeNode *node =  new TreeNode(*cur_it);
+    node->left = left;
+    ++cur_it;
+    node->right = GenBySortedListAux(l, cur_it, n - n / 2 - 1);
+
+    return node;
   }
 
   void GenBySortedList(list<int> l)
   {
     list<int>::const_iterator it = l.begin();
     root_ = GenBySortedListAux(l, it, l.size());
+  }
+
+  TreeNode *GenByLevelOrderAux(TreeNode *node, int data)
+  {
+    if (!node)
+    {
+      return new TreeNode(data);
+    }
+
+    if (node->val >= data)
+    {
+      node->left = GenByLevelOrderAux(node->left, data);
+    }
+    else
+    {
+      node->right = GenByLevelOrderAux(node->right, data);
+    }
+
+    return node;
+  }
+
+  void GenByLevelOrder(vector<int> arr)
+  {
+    for (int data : arr)
+    {
+      root_ = GenByLevelOrderAux(root_, data);
+    }
   }
 };
 
@@ -382,8 +410,16 @@ class Solution {
     // TestIsValid();
     // TestGenByPreOrder();
     // TestGenBySortedArray();
-    TestGenBySortedArray();
-    TestGenBySortedList();
+    // TestGenBySortedArray();
+    // TestGenBySortedList();
+    TestGenByLevelOrder();
+  }
+
+  void TestGenByLevelOrder()
+  {
+    BinaryTree bt;
+    bt.GenByLevelOrder({7, 4, 12, 3, 6, 8, 1, 5, 10});
+    bt.InOrderRecur();
   }
 
   void TestGenBySortedList()
