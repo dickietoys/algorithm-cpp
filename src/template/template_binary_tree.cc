@@ -22,11 +22,11 @@ struct TreeNode
 {
   TreeNode *left;
   TreeNode *right;
-  int data;
+  int val;
   TreeNode(int value)
       : left(nullptr)
       , right(nullptr)
-      , data(value)
+      , val(value)
   {}
 };
 
@@ -40,7 +40,7 @@ class BinaryTree
     {
       return;
     }
-    cout << node->data << ", ";
+    cout << node->val << ", ";
     PreOrderRecurAux(node->left);
     PreOrderRecurAux(node->right);
   }
@@ -53,7 +53,7 @@ class BinaryTree
     }
 
     InOrderRecurAux(node->left);
-    cout << node->data << ", ";
+    cout << node->val << ", ";
     InOrderRecurAux(node->right);
   }
 
@@ -66,7 +66,7 @@ class BinaryTree
 
     PostOrderRecurAux(node->left);
     PostOrderRecurAux(node->right);
-    cout << node->data << ", ";
+    cout << node->val << ", ";
   }
  public:
   BinaryTree()
@@ -78,9 +78,9 @@ class BinaryTree
     return root_;
   }
 
-  void InsertLevel(int value)
+  void InsertLevel(int val)
   {
-    TreeNode *new_node = new TreeNode(value);
+    TreeNode *new_node = new TreeNode(val);
     if (!root_)
     {
       root_ = new_node;
@@ -139,19 +139,108 @@ class BinaryTree
     cout << endl;
   }
 
-  void PreOrderInter()
+  vector<int> PreOrderInter()
   {
+    vector<int> result;
+    if (!root_)
+    {
+      return result;
+    }
 
+    stack<TreeNode *> st;
+    st.push(root_);
+    result.push_back(root_->val);
+    TreeNode *last_pop = root_;
+    while (!st.empty())
+    {
+      TreeNode *node = st.top();
+      if (node->left && node->left != last_pop && node->right != last_pop)
+      {
+        st.push(node->left);
+        result.push_back(node->left->val);
+      }
+      else if (node->right && node->right != last_pop)
+      {
+        st.push(node->right);
+        result.push_back(node->right->val);
+      }
+      else
+      {
+        st.pop();
+        last_pop = node;
+      }
+    }
+
+    return result;
   }
 
-  void InOrderInter()
+  vector<int> InOrderInter()
   {
+    vector<int> result;
+    if (!root_)
+    {
+      return result;
+    }
+    stack<TreeNode *> st;
+    st.push(root_);
+    TreeNode *last_pop = root_;
+    while (!st.empty())
+    {
+      TreeNode *node = st.top();
+      if (node->left && node->left != last_pop && node->right != last_pop)
+      {
+        st.push(node->left);
+      }
+      else if (node->right && node->right != last_pop)
+      {
+        st.push(node->right);
+        result.push_back(node->val);
+      }
+      else
+      {
+        last_pop = node;
+        st.pop();
+        if (!node->right)
+        {
+          result.push_back(node->val);
+        }
+      }
+    }
 
+    return result;
   }
 
-  void PostOrderInter()
+  vector<int> PostOrderInter()
   {
+    vector<int> result;
+    if (!root_)
+    {
+      return result;
+    }
 
+    stack<TreeNode *> st;
+    st.push(root_);
+    TreeNode *last_pop = root_;
+    while (!st.empty())
+    {
+      TreeNode *node = st.top();
+      if (node->left && node->left != last_pop && node->right != last_pop)
+      {
+        st.push(node->left);
+      }
+      else if (node->right && node->right != last_pop)
+      {
+        st.push(node->right);
+      }
+      else
+      {
+        last_pop = node;
+        st.pop();
+        result.push_back(node->val);
+      }
+    }
+
+    return result;
   }
 
   void LevelOrder()

@@ -1,3 +1,5 @@
 build
 core
 run-test
+tmp
+tmp.cc

@@ -144,6 +144,17 @@ class LinkedList
 
   LinkedListNode * FindMidNode()
   {
+    // ListNode *slow = head;
+    // ListNode *fast = head;
+    // while (fast && fast->next)
+    // {
+    //   fast = fast->next;
+    //   if (fast->next)
+    //   {
+    //     fast = fast->next;
+    //     slow = slow->next;
+    //   }
+    // }
     LinkedListNode *slow = head_->next;
     LinkedListNode *fast = head_->next;
     while (fast && fast->next)
@@ -157,6 +168,24 @@ class LinkedList
 
   bool DetectCycle()
   {
+    // ListNode *fast = head;
+    // ListNode *slow = head;
+    // while (fast)
+    // {
+    //   fast = fast->next;
+    //   if (fast && fast->next)
+    //   {
+    //     slow = slow->next;
+    //     fast = fast->next;
+    //   }
+
+    //   if (slow == fast)
+    //   {
+    //     return true;
+    //   }
+    // }
+
+    // return false;
     LinkedListNode *slow = head_->next;
     LinkedListNode *fast = head_->next;
     while (fast && fast->next)

@@ -108,6 +108,9 @@ K’th Smallest/Largest Element in Unsorted Array | Set 2 (Expected Linear Time)
 #### Binary Search Tree
 ~~~
 1. preorder\inorder\postorder  recusive and iterator
+2. A program to check if a binary tree is BST or not
+3. Construct BST from given preorder traversal
+4. 
 ~~~
 
 #### Heap

@@ -34,6 +34,27 @@ class BinaryTree
 {
  private:
   TreeNode *root_;
+  bool IsBSTAux(TreeNode *node, TreeNode *min, TreeNode *max)
+  {
+    if (!node)
+    {
+      return true;
+    }
+
+    if (min && node->val <= min->val)
+    {
+      return false;
+    }
+
+    if (max && node->val >= max->val)
+    {
+      return false;
+    }
+
+    return IsBSTAux(node->left, min, node) &&
+        IsBSTAux(node->right, node, max);
+  }
+
   void PreOrderRecurAux(TreeNode *node)
   {
     if (!node)
@@ -183,22 +204,165 @@ class BinaryTree
     }
     stack<TreeNode *> st;
     st.push(root_);
+    TreeNode *last_pop = root_;
+    while (!st.empty())
+    {
+      TreeNode *node = st.top();
+      if (node->left && node->left != last_pop && node->right != last_pop)
+      {
+        st.push(node->left);
+      }
+      else if (node->right && node->right != last_pop)
+      {
+        st.push(node->right);
+        result.push_back(node->val);
+      }
+      else
+      {
+        last_pop = node;
+        st.pop();
+        if (!node->right)
+        {
+          result.push_back(node->val);
+        }
+      }
+    }
 
+    return result;
   }
 
-  void PostOrderInter()
+  vector<int> PostOrderInter()
   {
+    vector<int> result;
+    if (!root_)
+    {
+      return result;
+    }
 
+    stack<TreeNode *> st;
+    st.push(root_);
+    TreeNode *last_pop = root_;
+    while (!st.empty())
+    {
+      TreeNode *node = st.top();
+      if (node->left && node->left != last_pop && node->right != last_pop)
+      {
+        st.push(node->left);
+      }
+      else if (node->right && node->right != last_pop)
+      {
+        st.push(node->right);
+      }
+      else
+      {
+        last_pop = node;
+        st.pop();
+        result.push_back(node->val);
+      }
+    }
+
+    return result;
   }
 
-  void LevelOrder()
-  {}
+  vector<vector<int>> LevelOrder()
+  {
+    vector<vector<int>> result;
+    if (!root_)
+    {
+      return result;
+    }
+    queue<TreeNode *> q;
+    q.push(root_);
+    result.push_back({root_->val});
+    while (!q.empty())
+    {
+      int q_size = q.size();
+      vector<int> item;
+      for (int i = 0; i < q_size; ++i)
+      {
+        TreeNode *node = q.front();
+        q.pop();
+        item.push_back(node->val);
+        if (node->left)
+        {
+          q.push(node->left);
+        }
+        if (node->right)
+        {
+          q.push(node->right);
+        }
+      }
+      result.push_back(item);
+    }
+
+    return result;
+  }
+
+  bool IsBST()
+  {
+    return IsBSTAux(root_, nullptr, nullptr);
+  }
+
+  TreeNode * GenByPreOrderAux(vector<int> &arr, int &cur_pos, TreeNode *min, TreeNode *max)
+  {
+    if (cur_pos >= arr.size())
+    {
+      return nullptr;
+    }
+
+    TreeNode *node = nullptr;
+    if ((!min or arr[cur_pos] > min->val) && (!max or arr[cur_pos] < max->val))
+    {
+      node = new TreeNode(arr[cur_pos]);
+      ++cur_pos;
+      node->left = GenByPreOrderAux(arr, cur_pos, min, node);
+      node->right = GenByPreOrderAux(arr, cur_pos, node, max);
+    }
+
+    return node;
+  }
+
+  void GenByPreOrder(vector<int> arr)
+  {
+    int cur_pos = 0;
+    root_ = GenByPreOrderAux(arr, cur_pos, nullptr, nullptr);
+  }
 };
 
 class Solution {
  public:
-
   void RunTest()
+  {
+    // TestIsValid();
+    GenByPreOrder();
+  }
+
+  void GenByPreOrder()
+  {
+    BinaryTree bt;
+    bt.GenByPreOrder({10, 5, 1, 7, 40, 50});
+    bt.InOrderRecur();
+  }
+
+  void TestIsValid()
+  {
+    BinaryTree bt;
+    bt.InsertLevel(3);
+    bt.GetRoot()->left = new TreeNode(2);
+    bt.GetRoot()->right = new TreeNode(5);
+    bt.GetRoot()->left->left = new TreeNode(1);
+    bt.GetRoot()->left->right = new TreeNode(4);
+    if (bt.IsBST())
+    {
+      cout << "Is BST" << endl;
+    }
+    else
+    {
+      cout << "Not BST" << endl;
+    }
+  }
+
+  void TestTraversal()
   {
     BinaryTree bt;
     bt.InsertLevel(10);
@@ -212,6 +376,7 @@ class Solution {
     bt.InsertLevel(12);
     bt.InOrderRecur();
   }
+
 
   template<class T>
   void Show(const vector<T> &result)
