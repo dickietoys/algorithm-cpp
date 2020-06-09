@@ -40,7 +40,7 @@ class BinaryTree
       : root_(nullptr)
   {}
 
-  TreeNode *GetRoot()
+  TreeNode *root()
   {
     return root_;
   }
@@ -401,6 +401,162 @@ class BinaryTree
       root_ = GenByLevelOrderAux(root_, data);
     }
   }
+
+  struct NodeDetail
+  {
+    int val;
+    int min;
+    int max;
+    NodeDetail(int value,
+               int limit_min = std::numeric_limits<int>::min(),
+               int limit_max = std::numeric_limits<int>::max())
+        : val(value)
+        , min(limit_min)
+        , max(limit_max)
+    {}
+  };
+
+  bool CheckValidByLevelOrder(vector<int> arr)
+  {
+    int pos = 0;
+    queue<NodeDetail *> q;
+    q.push(new NodeDetail(arr[pos++]));
+    while (pos < arr.size() && !q.empty())
+    {
+      NodeDetail *detail_node = q.front();
+      q.pop();
+      if (pos < arr.size() && arr[pos] < detail_node->val && arr[pos] > detail_node->min)
+      {
+        q.push(new NodeDetail(arr[pos++], detail_node->min, detail_node->val));
+
+      }
+
+      if (pos < arr.size() && arr[pos] > detail_node->val && arr[pos] < detail_node->max)
+      {
+        q.push(new NodeDetail(arr[pos++], detail_node->val, detail_node->max));
+      }
+    }
+
+    if (pos != arr.size())
+    {
+      return false;
+    }
+    else
+    {
+      return true;
+    }
+  }
+
+  bool CheckValidByPreOrder(vector<int> arr)
+  {
+    stack<int> st;
+    int root = std::numeric_limits<int>::min();
+    st.push(root);
+    for (int i = 0; i < arr.size(); ++i)
+    {
+      if (arr[i] < root)
+      {
+        return false;
+      }
+
+      while (!st.empty() && arr[i] > st.top())
+      {
+        root = st.top();
+        st.pop();
+      }
+
+      st.push(arr[i]);
+    }
+
+    return true;
+  }
+
+  bool CheckValidByInOrder(vector<int> arr)
+  {
+    //check sorted
+    for (int i = 1; i < arr.size(); ++i)
+    {
+      if (arr[i] < arr[i-1])
+      {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  TreeNode * FindKthSmallestAux(TreeNode *node, int &kth)
+  {
+    if (!node)
+    {
+      return nullptr;
+    }
+
+    TreeNode *result = nullptr;
+    result = FindKthSmallestAux(node->left, kth);
+    if (result)
+    {
+      return result;
+    }
+
+    --kth;
+    if (kth == 0)
+    {
+      return node;
+    }
+
+    return FindKthSmallestAux(node->right, kth);
+  }
+
+  int FindKthSmallest(int kth)
+  {
+    TreeNode *target = FindKthSmallestAux(root_, kth);
+
+    if (target)
+    {
+      return target->val;
+    }
+    else
+    {
+      return -1;
+    }
+  }
+
+  TreeNode *FindKthLargestAux(TreeNode *node, int &kth)
+  {
+    if (!node)
+    {
+      return node;
+    }
+
+    TreeNode *result = FindKthLargestAux(node->right, kth);
+    if (result)
+    {
+      return result;
+    }
+
+    --kth;
+    if (kth == 0)
+    {
+      return node;
+    }
+
+    return FindKthLargestAux(node->left, kth);
+  }
+
+  int FindKthLargest(int kth)
+  {
+    TreeNode *target = FindKthLargestAux(root_, kth);
+
+    if (target)
+    {
+      return target->val;
+    }
+    else
+    {
+      return -1;
+    }
+  }
 };
 
 class Solution {
@@ -412,7 +568,48 @@ class Solution {
     // TestGenBySortedArray();
     // TestGenBySortedArray();
     // TestGenBySortedList();
-    TestGenByLevelOrder();
+    // TestGenByLevelOrder();
+    // TestCheckValidByLevelOrder();
+    // TestCheckValidByPreOrder();
+    TestFindKth();
+  }
+
+  void TestFindKth()
+  {
+    BinaryTree bt;
+
+    bt.InsertLevel(10);
+    bt.root()->left = new TreeNode(5);
+    bt.root()->left->left = new TreeNode(2);
+    bt.root()->left->right = new TreeNode(6);
+    bt.root()->right = new TreeNode(15);
+    bt.root()->right->left = new TreeNode(12);
+    bt.root()->right->right = new TreeNode(18);
+
+    cout << bt.FindKthSmallest(3) << endl;
+    cout << bt.FindKthLargest(3) << endl;
+  }
+
+  void TestCheckValidByPreOrder()
+  {
+    BinaryTree bt;
+    // true
+    cout << bt.CheckValidByPreOrder({2, 4, 3}) << endl;
+    // false
+    cout << bt.CheckValidByPreOrder({2, 4, 1}) << endl;
+    // true
+    cout << bt.CheckValidByPreOrder({40, 30, 35, 80, 100}) << endl;
+    // false
+    cout << bt.CheckValidByPreOrder({40, 30, 35, 20, 80, 100}) << endl;
+  }
+
+  void TestCheckValidByLevelOrder()
+  {
+    BinaryTree bt;
+    // true
+    cout << bt.CheckValidByLevelOrder({7, 4, 12, 3, 6, 8, 1, 5, 10}) << endl;
+    // false
+    cout << bt.CheckValidByLevelOrder({11, 6, 13, 5, 12, 10}) << endl;
   }
 
   void TestGenByLevelOrder()
@@ -449,10 +646,10 @@ class Solution {
   {
     BinaryTree bt;
     bt.InsertLevel(3);
-    bt.GetRoot()->left = new TreeNode(2);
-    bt.GetRoot()->right = new TreeNode(5);
-    bt.GetRoot()->left->left = new TreeNode(1);
-    bt.GetRoot()->left->right = new TreeNode(4);
+    bt.root()->left = new TreeNode(2);
+    bt.root()->right = new TreeNode(5);
+    bt.root()->left->left = new TreeNode(1);
+    bt.root()->left->right = new TreeNode(4);
     if (bt.IsBST())
     {
       cout << "Is BST" << endl;
@@ -467,11 +664,11 @@ class Solution {
   {
     BinaryTree bt;
     bt.InsertLevel(10);
-    bt.GetRoot()->left = new TreeNode(11);
-    bt.GetRoot()->left->left = new TreeNode(7);
-    bt.GetRoot()->right = new TreeNode(9);
-    bt.GetRoot()->right->left = new TreeNode(15);
-    bt.GetRoot()->right->right = new TreeNode(8);
+    bt.root()->left = new TreeNode(11);
+    bt.root()->left->left = new TreeNode(7);
+    bt.root()->right = new TreeNode(9);
+    bt.root()->right->left = new TreeNode(15);
+    bt.root()->right->right = new TreeNode(8);
 
     bt.InOrderRecur();
     bt.InsertLevel(12);
