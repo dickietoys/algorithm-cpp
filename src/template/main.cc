@@ -579,7 +579,7 @@ class BinaryTree
 
   TreeNode *FindLCA(int n1, int n2)
   {
-
+    return FindLcaAux(root_, n1, n2);
   }
 };
 
