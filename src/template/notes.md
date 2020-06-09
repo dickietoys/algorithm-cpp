@@ -35,6 +35,27 @@
 
 #### 动态规划
 ~~~
+# Longest Common Subsequence
+# Longest Increasing Subsequence
+# Edit Distance
+# Minimum Partition
+# Ways to Cover a Distance
+# Longest Path In Matrix
+# Subset Sum Problem
+# Optimal Strategy for a Game
+# 0-1 Knapsack Problem
+# Boolean Parenthesization Problem
+# Shortest Common Supersequence
+# Matrix Chain Multiplication
+# Partition problem
+# Rod Cutting
+# Coin change problem
+# Word Break Problem
+# Maximal Product when Cutting Rope
+# Dice Throw Problem
+# Box Stacking
+# Egg Dropping Puzzle
+# Longest Palindromic Subsequence
 ~~~
 
 #### 分治算法
@@ -120,7 +141,7 @@
 # Check if an array represents Inorder of Binary Search tree or not
 # Check if two BSTs contain same set of elements
 # Lowest Common Ancestor in a Binary Search Tree
-# Shortest distance between two nodes in BST
+# Find distance between two nodes of a Binary Search Tree
 ~~~
 
 #### Heap
