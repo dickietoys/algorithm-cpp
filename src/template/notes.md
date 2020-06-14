@@ -56,6 +56,7 @@
 # Box Stacking
 # Egg Dropping Puzzle
 # Longest Palindromic Subsequence
+# Longest Palindromic Substring
 ~~~
 
 #### 分治算法
