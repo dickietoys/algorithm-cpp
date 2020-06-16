@@ -96,9 +96,6 @@ class Solution {
         if (dp[i-1][j])
         {
           dp[i][j] = true;
-        }
-        if (dp[i][j])
-        {
           dp[i][j+arr[i]] = true;
         }
       }

@@ -24,126 +24,38 @@ class Solution {
   void RunTest()
   {
     cout << "==================bruteforce======================" << endl;
-    int result = LongestPathInMatrixRecur(
-        {
-          {1, 2, 9},
-          {5, 3, 8},
-          {4, 6, 7}
-        });
-    cout << "LongestPathInMatrixRecur: " << result << endl;
+    // 15
+    int result = OptimalStrategyForAGameRecur({5, 3, 7, 10});
+    cout << "OptimalStrategyForAGameRecur: " << result << endl;
+    // 22
+    result = OptimalStrategyForAGameRecur({8, 15, 3, 7});
+    cout << "OptimalStrategyForAGameRecur: " << result << endl;
+    // 4
+    result = OptimalStrategyForAGameRecur({2, 2, 2, 2});
+    cout << "OptimalStrategyForAGameRecur: " << result << endl;
+    // 42
+    result = OptimalStrategyForAGameRecur({20, 30, 2, 2, 2, 10});
+    cout << "OptimalStrategyForAGameRecur: " << result << endl;
+
     cout << "==================dp======================" << endl;
-    result = LongestPathInMatrixDp(
-        {
-          {1, 2, 9},
-          {5, 3, 8},
-          {4, 6, 7}
-        });
-    cout << "LongestPathInMatrixDp: " << result << endl;
+    result = OptimalStrategyForAGameDp({5, 3, 7, 10});
+    cout << "OptimalStrategyForAGameDp: " << result << endl;
+    result = OptimalStrategyForAGameDp({8, 15, 3, 7});
+    cout << "OptimalStrategyForAGameDp: " << result << endl;
+    result = OptimalStrategyForAGameDp({2, 2, 2, 2});
+    cout << "OptimalStrategyForAGameDp: " << result << endl;
+    result = OptimalStrategyForAGameDp({20, 30, 2, 2, 2, 10});
+    cout << "OptimalStrategyForAGameDp: " << result << endl;
   }
 
-  bool IsValidPos(int xpos, int ypos, int rows, int cols)
+  int OptimalStrategyForAGameRecur(vector<int> arr)
   {
-    if (xpos < 0 || xpos >= rows || ypos < 0 || ypos >= cols)
-    {
-      return false;
-    }
-    else
-    {
-      return true;
-    }
+
   }
 
-  int LongestPathInMatrixRecurAux(vector<vector<int>> arr, int xpos, int ypos, int prev_value)
+  int OptimalStrategyForAGameDp(vector<int> arr)
   {
-    int row_size = arr.size();
-    int col_size = arr[0].size();
-    if (!IsValidPos(xpos, ypos, row_size, col_size) || arr[xpos][ypos] - prev_value != 1)
-    {
-      return 0;
-    }
-
-    int cur_size =  std::max({LongestPathInMatrixRecurAux(arr, xpos+1, ypos, arr[xpos][ypos]),
-                    LongestPathInMatrixRecurAux(arr, xpos-1, ypos, arr[xpos][ypos]),
-                    LongestPathInMatrixRecurAux(arr, xpos, ypos+1, arr[xpos][ypos]),
-                    LongestPathInMatrixRecurAux(arr, xpos, ypos-1, arr[xpos][ypos])}) + 1;
-    return cur_size;
-  }
-
-  int LongestPathInMatrixRecur(vector<vector<int>> arr)
-  {
-    int row_size = arr.size();
-    if (row_size == 0)
-    {
-      return 0;
-    }
-    int col_size = arr[0].size();
-    if (col_size == 0)
-    {
-      return 0;
-    }
-
-    int max = 0;
-    for (int i = 0; i < row_size; ++i)
-    {
-      for (int j = 0; j < col_size; ++j)
-      {
-        max = std::max(max, LongestPathInMatrixRecurAux(arr, i, j, arr[i][j] - 1));
-      }
-    }
-
-    return max;
-  }
-
-  int LongestPathInMatrixDpAux(vector<vector<int>> arr,
-                               int xpos,
-                               int ypos,
-                               int prev_value,
-                               vector<vector<int>> &dp)
-  {
-    int row_size = arr.size();
-    int col_size = arr[0].size();
-    if (!IsValidPos(xpos, ypos, row_size, col_size) || arr[xpos][ypos] - prev_value != 1)
-    {
-      return 0;
-    }
-
-    if (dp[xpos][ypos] != -1)
-    {
-      return dp[xpos][ypos];
-    }
-
-    int cur_size =  std::max({LongestPathInMatrixRecurAux(arr, xpos+1, ypos, arr[xpos][ypos]),
-                    LongestPathInMatrixRecurAux(arr, xpos-1, ypos, arr[xpos][ypos]),
-                    LongestPathInMatrixRecurAux(arr, xpos, ypos+1, arr[xpos][ypos]),
-                    LongestPathInMatrixRecurAux(arr, xpos, ypos-1, arr[xpos][ypos])}) + 1;
-    dp[xpos][ypos] = cur_size;
-    return cur_size;
-  }
-
-  int LongestPathInMatrixDp(vector<vector<int>> arr)
-  {
-    int row_size = arr.size();
-    if (row_size == 0)
-    {
-      return 0;
-    }
-    int col_size = arr[0].size();
-    if (col_size == 0)
-    {
-      return 0;
-    }
-
-    vector<vector<int>> dp(row_size, vector<int>(col_size, -1));
-    int max = 0;
-    for (int i = 0; i < row_size; ++i)
-    {
-      for (int j = 0; j < col_size; ++j)
-      {
-        max = std::max(max, LongestPathInMatrixDpAux(arr, i, j, arr[i][j] - 1, dp));
-      }
-    }
-
-    return max;
+    return 0;
   }
 
   template<class T>
