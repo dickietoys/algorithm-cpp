@@ -25,36 +25,48 @@ class Solution {
   {
     cout << "==================bruteforce======================" << endl;
     // 15
-    int result = OptimalStrategyForAGameRecur({5, 3, 7, 10});
-    cout << "OptimalStrategyForAGameRecur: " << result << endl;
-    // 22
-    result = OptimalStrategyForAGameRecur({8, 15, 3, 7});
-    cout << "OptimalStrategyForAGameRecur: " << result << endl;
-    // 4
-    result = OptimalStrategyForAGameRecur({2, 2, 2, 2});
-    cout << "OptimalStrategyForAGameRecur: " << result << endl;
-    // 42
-    result = OptimalStrategyForAGameRecur({20, 30, 2, 2, 2, 10});
-    cout << "OptimalStrategyForAGameRecur: " << result << endl;
+    int result = KnapsackProblem01Recur({{60, 10}, {100, 20}, {120, 30}}, 50);
+    cout << "KnapsackProblem01Recur: " << result << endl;
 
     cout << "==================dp======================" << endl;
-    result = OptimalStrategyForAGameDp({5, 3, 7, 10});
-    cout << "OptimalStrategyForAGameDp: " << result << endl;
-    result = OptimalStrategyForAGameDp({8, 15, 3, 7});
-    cout << "OptimalStrategyForAGameDp: " << result << endl;
-    result = OptimalStrategyForAGameDp({2, 2, 2, 2});
-    cout << "OptimalStrategyForAGameDp: " << result << endl;
-    result = OptimalStrategyForAGameDp({20, 30, 2, 2, 2, 10});
-    cout << "OptimalStrategyForAGameDp: " << result << endl;
+    result = KnapsackProblem01Dp({{60, 10}, {100, 20}, {120, 30}}, 50);
+    cout << "KnapsackProblem01Dp: " << result << endl;
   }
 
-  int OptimalStrategyForAGameRecur(vector<int> arr)
+  int KnapsackProblem01RecurAux(vector<pair<int, int>> goods, int pos, int weight)
   {
+    if (pos >= goods.size())
+    {
+      return 0;
+    }
 
+    int val1 = 0;
+    int val2 = 0;
+
+    if (goods[pos].second <= weight)
+    {
+      val1 = goods[pos].first + KnapsackProblem01RecurAux(goods, pos + 1, weight - goods[pos].second);
+    }
+
+    val2 = KnapsackProblem01RecurAux(goods, pos + 1, weight);
+
+    return std::max(val1, val2);
   }
 
-  int OptimalStrategyForAGameDp(vector<int> arr)
+  int KnapsackProblem01Recur(vector<pair<int, int>> goods, int weight)
   {
+    int goods_size = goods.size();
+    if (goods_size <= 0)
+    {
+      return 0;
+    }
+
+    return KnapsackProblem01RecurAux(goods, 0, weight);
+  }
+
+  int KnapsackProblem01Dp(vector<pair<int, int>> goods, int weight)
+  {
+    int goods_size = goods.size();
     return 0;
   }
 
