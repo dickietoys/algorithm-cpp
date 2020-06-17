@@ -12,9 +12,6 @@
 using namespace std;
 
 /*
-  有n个(偶数)硬笔，价值不等，每次只能取第一个或最后一个。
-  先选如何保证最大收益
-
   operation 0 |, 1 &, 2 ^
 */
 class BooleanParenthesizationProblem : public TestBase

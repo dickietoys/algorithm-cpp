@@ -24,49 +24,62 @@ class Solution {
   void RunTest()
   {
     cout << "==================bruteforce======================" << endl;
-    // 15
-    int result = KnapsackProblem01Recur({{60, 10}, {100, 20}, {120, 30}}, 50);
-    cout << "KnapsackProblem01Recur: " << result << endl;
+    // 2
+    int result = BooleanParenthesizationProblemRecur({true, false, true}, "^&");
+    cout << "BooleanParenthesizationProblemRecur: " << result << endl;
+    // 2
+    result = BooleanParenthesizationProblemRecur({true, false, false}, "^|");
+    cout << "BooleanParenthesizationProblemRecur: " << result << endl;
+    // 4
+    result = BooleanParenthesizationProblemRecur({true, true, false, true}, "|&^");
+    cout << "BooleanParenthesizationProblemRecur: " << result << endl;
 
     cout << "==================dp======================" << endl;
-    result = KnapsackProblem01Dp({{60, 10}, {100, 20}, {120, 30}}, 50);
-    cout << "KnapsackProblem01Dp: " << result << endl;
+    result = BooleanParenthesizationProblemDp({true, false, true}, "^&");
+    cout << "BooleanParenthesizationProblemDp: " << result << endl;
+    result = BooleanParenthesizationProblemDp({true, false, false}, "^|");
+    cout << "BooleanParenthesizationProblemDp: " << result << endl;
+    result = BooleanParenthesizationProblemDp({true, true, false, true}, "|&^");
+    cout << "BooleanParenthesizationProblemDp: " << result << endl;
   }
 
-  int KnapsackProblem01RecurAux(vector<pair<int, int>> goods, int pos, int weight)
+  bool CalcOp(bool lhs, bool rhs, char prev_op)
   {
-    if (pos >= goods.size())
+    switch (prev_op)
     {
-      return 0;
+      case '^':
+        return lhs ^ rhs;
+      case '|':
+        return lhs | rhs;
+      case '&':
+        return lhs & rhs;
+      default:
+        return false;
     }
-
-    int val1 = 0;
-    int val2 = 0;
-
-    if (goods[pos].second <= weight)
-    {
-      val1 = goods[pos].first + KnapsackProblem01RecurAux(goods, pos + 1, weight - goods[pos].second);
-    }
-
-    val2 = KnapsackProblem01RecurAux(goods, pos + 1, weight);
-
-    return std::max(val1, val2);
   }
 
-  int KnapsackProblem01Recur(vector<pair<int, int>> goods, int weight)
-  {
-    int goods_size = goods.size();
-    if (goods_size <= 0)
-    {
-      return 0;
-    }
+  int count_ = 0;
 
-    return KnapsackProblem01RecurAux(goods, 0, weight);
+  void BooleanParenthesizationProblemRecurAux(vector<bool> symbols,
+                                              int s_pos,
+                                              string operators,
+                                              int o_pos,
+                                              bool prev_symbols,
+                                              char prev_op)
+  {
+    bool cur_symbol = symbols[s_pos];
+    bool cur_op = operators[o_pos];
+
   }
 
-  int KnapsackProblem01Dp(vector<pair<int, int>> goods, int weight)
+  int BooleanParenthesizationProblemRecur(vector<bool> symbols, string operators)
   {
-    int goods_size = goods.size();
+    BooleanParenthesizationProblemRecurAux(symbols, operators, 0, true, '&');
+    return count_;
+  }
+
+  int BooleanParenthesizationProblemDp(vector<bool> symbols, string operators)
+  {
     return 0;
   }
 
