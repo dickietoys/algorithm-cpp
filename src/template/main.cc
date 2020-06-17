@@ -24,61 +24,43 @@ class Solution {
   void RunTest()
   {
     cout << "==================bruteforce======================" << endl;
-    // 2
-    int result = BooleanParenthesizationProblemRecur({true, false, true}, "^&");
-    cout << "BooleanParenthesizationProblemRecur: " << result << endl;
-    // 2
-    result = BooleanParenthesizationProblemRecur({true, false, false}, "^|");
-    cout << "BooleanParenthesizationProblemRecur: " << result << endl;
-    // 4
-    result = BooleanParenthesizationProblemRecur({true, true, false, true}, "|&^");
-    cout << "BooleanParenthesizationProblemRecur: " << result << endl;
+    // 22
+    int result = RodCuttingRecur({0, 1, 5, 8, 9, 10, 17, 17, 20});
+    cout << "RodCuttingRecur: " << result << endl;
+    // 24
+    result = RodCuttingRecur({0, 3, 5, 8, 9, 10, 17, 17, 20});
+    cout << "RodCuttingRecur: " << result << endl;
 
     cout << "==================dp======================" << endl;
-    result = BooleanParenthesizationProblemDp({true, false, true}, "^&");
-    cout << "BooleanParenthesizationProblemDp: " << result << endl;
-    result = BooleanParenthesizationProblemDp({true, false, false}, "^|");
-    cout << "BooleanParenthesizationProblemDp: " << result << endl;
-    result = BooleanParenthesizationProblemDp({true, true, false, true}, "|&^");
-    cout << "BooleanParenthesizationProblemDp: " << result << endl;
+    result = RodCuttingDp({0, 1, 5, 8, 9, 10, 17, 17, 20});
+    cout << "RodCuttingDp: " << result << endl;
+    result = RodCuttingDp({0, 3, 5, 8, 9, 10, 17, 17, 20});
+    cout << "RodCuttingDp: " << result << endl;
   }
 
-  bool CalcOp(bool lhs, bool rhs, char prev_op)
+  int RodCuttingRecurAux(vector<int> &prices, int n)
   {
-    switch (prev_op)
+    if (n <= 1)
     {
-      case '^':
-        return lhs ^ rhs;
-      case '|':
-        return lhs | rhs;
-      case '&':
-        return lhs & rhs;
-      default:
-        return false;
+      return prices[n];
     }
+
+    int max = 0;
+    for (int i = 1; i <= n; ++i)
+    {
+      int current = prices[i] + RodCuttingRecurAux(prices, n - i);
+      max = std::max(current, max);
+    }
+
+    return max;
   }
 
-  int count_ = 0;
-
-  void BooleanParenthesizationProblemRecurAux(vector<bool> symbols,
-                                              int s_pos,
-                                              string operators,
-                                              int o_pos,
-                                              bool prev_symbols,
-                                              char prev_op)
+  int RodCuttingRecur(vector<int> prices)
   {
-    bool cur_symbol = symbols[s_pos];
-    bool cur_op = operators[o_pos];
-
+    return RodCuttingRecurAux(prices, prices.size() - 1);
   }
 
-  int BooleanParenthesizationProblemRecur(vector<bool> symbols, string operators)
-  {
-    BooleanParenthesizationProblemRecurAux(symbols, operators, 0, true, '&');
-    return count_;
-  }
-
-  int BooleanParenthesizationProblemDp(vector<bool> symbols, string operators)
+  int RodCuttingDp(vector<int> prices)
   {
     return 0;
   }

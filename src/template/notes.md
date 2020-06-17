@@ -44,9 +44,9 @@
 # Subset Sum Problem
 # Optimal Strategy for a Game
 # 0-1 Knapsack Problem
-# Boolean Parenthesization Problem
+# Boolean Parenthesization Problem   ******
 # Shortest Common Supersequence
-# Matrix Chain Multiplication
+# Matrix Chain Multiplication        不清楚矩阵乘法规则了
 # Partition problem
 # Rod Cutting
 # Coin change problem
