@@ -24,45 +24,82 @@ class Solution {
   void RunTest()
   {
     cout << "==================bruteforce======================" << endl;
-    // 22
-    int result = RodCuttingRecur({0, 1, 5, 8, 9, 10, 17, 17, 20});
-    cout << "RodCuttingRecur: " << result << endl;
-    // 24
-    result = RodCuttingRecur({0, 3, 5, 8, 9, 10, 17, 17, 20});
-    cout << "RodCuttingRecur: " << result << endl;
-
+    vector<string> dict = {"mobile","samsung","sam","sung",
+                           "man","mango","icecream","and",
+                           "go","i","like","ice","cream"};
+    // true
+    bool result = WordBreakProblemRecur(dict,
+                                        "ilikesamsung");
+    cout << "WordBreakProblemRecur: " << result << endl;
+    // true
+    result = WordBreakProblemRecur(dict,
+                                   "iiiiiiii");
+    cout << "WordBreakProblemRecur: " << result << endl;
+    // true
+    result = WordBreakProblemRecur(dict,
+                                   "");
+    cout << "WordBreakProblemRecur: " << result << endl;
+    // true
+    result = WordBreakProblemRecur(dict,
+                                   "ilikelikeimangoiii");
+    cout << "WordBreakProblemRecur: " << result << endl;
+    // true
+    result = WordBreakProblemRecur(dict,
+                                   "samsungandmango");
+    cout << "WordBreakProblemRecur: " << result << endl;
+    // false
+    result = WordBreakProblemRecur(dict,
+                                   "samsungandmangok");
+    cout << "WordBreakProblemRecur: " << result << endl;
     cout << "==================dp======================" << endl;
-    result = RodCuttingDp({0, 1, 5, 8, 9, 10, 17, 17, 20});
-    cout << "RodCuttingDp: " << result << endl;
-    result = RodCuttingDp({0, 3, 5, 8, 9, 10, 17, 17, 20});
-    cout << "RodCuttingDp: " << result << endl;
+    result = WordBreakProblemDp(dict,
+                                "ilikesamsung");
+    cout << "WordBreakProblemDp: " << result << endl;
+    result = WordBreakProblemDp(dict,
+                                "iiiiiiii");
+    cout << "WordBreakProblemDp: " << result << endl;
+    result = WordBreakProblemDp(dict,
+                                "");
+    cout << "WordBreakProblemDp: " << result << endl;
+    result = WordBreakProblemDp(dict,
+                                "ilikelikeimangoiii");
+    cout << "WordBreakProblemDp: " << result << endl;
+    result = WordBreakProblemDp(dict,
+                                "samsungandmango");
+    cout << "WordBreakProblemDp: " << result << endl;
+    result = WordBreakProblemDp(dict,
+                                "samsungandmangok");
+    cout << "WordBreakProblemDp: " << result << endl;
   }
 
-  int RodCuttingRecurAux(vector<int> &prices, int n)
+
+  bool WordBreakProblemRecurAux(vector<string> dict, string &s, int pos)
   {
-    if (n <= 1)
+    if (pos >= s.size())
     {
-      return prices[n];
+      return true;
     }
 
-    int max = 0;
-    for (int i = 1; i <= n; ++i)
+    for (int i = 0; i < dict.size(); ++i)
     {
-      int current = prices[i] + RodCuttingRecurAux(prices, n - i);
-      max = std::max(current, max);
+      string &item = dict[i];
+      if (s.substr(pos, item.size()) == item)
+      {
+        return WordBreakProblemRecurAux(dict, s, pos + item.size());
+      }
     }
 
-    return max;
+    return false;
   }
 
-  int RodCuttingRecur(vector<int> prices)
+  bool WordBreakProblemRecur(vector<string> dict, string s)
   {
-    return RodCuttingRecurAux(prices, prices.size() - 1);
+    return WordBreakProblemRecurAux(dict, s, 0);
   }
 
-  int RodCuttingDp(vector<int> prices)
+  bool WordBreakProblemDp(vector<string> dict, string s)
   {
-    return 0;
+    return false;
   }
 
   template<class T>
