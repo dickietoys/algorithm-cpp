@@ -97,9 +97,47 @@ class Solution {
     return WordBreakProblemRecurAux(dict, s, 0);
   }
 
+  bool Contains(const string &s, vector<string> &dict)
+  {
+    for (string &item : dict)
+    {
+      if (s == item)
+      {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   bool WordBreakProblemDp(vector<string> dict, string s)
   {
-    return false;
+    vector<bool> dp(s.size() + 1, false);
+    int dict_size = dict.size();
+
+    for (int i = 1; i <= dict_size; ++i)
+    {
+      if (!dp[i] && Contains(s.substr(0, i), dict))
+      {
+        dp[i] = true;
+      }
+
+      if (dp[i] == true)
+      {
+        if (i == dict_size)
+        {
+          return true;
+        }
+
+        for (int j = i+1; j <= dict_size; ++j)
+        {
+          if (!dp[j] && Contains(s.substr(i, j - i), dict))
+          {
+            dp[j] = true;
+          }
+        }
+      }
+    }
   }
 
   template<class T>
