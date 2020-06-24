@@ -24,120 +24,73 @@ class Solution {
   void RunTest()
   {
     cout << "==================bruteforce======================" << endl;
-    vector<string> dict = {"mobile","samsung","sam","sung",
-                           "man","mango","icecream","and",
-                           "go","i","like","ice","cream"};
-    // true
-    bool result = WordBreakProblemRecur(dict,
-                                        "ilikesamsung");
-    cout << "WordBreakProblemRecur: " << result << endl;
-    // true
-    result = WordBreakProblemRecur(dict,
-                                   "iiiiiiii");
-    cout << "WordBreakProblemRecur: " << result << endl;
-    // true
-    result = WordBreakProblemRecur(dict,
-                                   "");
-    cout << "WordBreakProblemRecur: " << result << endl;
-    // true
-    result = WordBreakProblemRecur(dict,
-                                   "ilikelikeimangoiii");
-    cout << "WordBreakProblemRecur: " << result << endl;
-    // true
-    result = WordBreakProblemRecur(dict,
-                                   "samsungandmango");
-    cout << "WordBreakProblemRecur: " << result << endl;
-    // false
-    result = WordBreakProblemRecur(dict,
-                                   "samsungandmangok");
-    cout << "WordBreakProblemRecur: " << result << endl;
+
+    // 1
+    int result = MaximalProductWhenCuttingRopeRecur(2);
+    cout << "MaximalProductWhenCuttingRopeRecur: " << result << endl;
+
+    // 2
+    result = MaximalProductWhenCuttingRopeRecur(3);
+    cout << "MaximalProductWhenCuttingRopeRecur: " << result << endl;
+
+    // 4
+    result = MaximalProductWhenCuttingRopeRecur(4);
+    cout << "MaximalProductWhenCuttingRopeRecur: " << result << endl;
+
+    // 6
+    result = MaximalProductWhenCuttingRopeRecur(5);
+    cout << "MaximalProductWhenCuttingRopeRecur: " << result << endl;
+
+    // 10
+    result = MaximalProductWhenCuttingRopeRecur(10);
+    cout << "MaximalProductWhenCuttingRopeRecur: " << result << endl;
+
     cout << "==================dp======================" << endl;
-    result = WordBreakProblemDp(dict,
-                                "ilikesamsung");
-    cout << "WordBreakProblemDp: " << result << endl;
-    result = WordBreakProblemDp(dict,
-                                "iiiiiiii");
-    cout << "WordBreakProblemDp: " << result << endl;
-    result = WordBreakProblemDp(dict,
-                                "");
-    cout << "WordBreakProblemDp: " << result << endl;
-    result = WordBreakProblemDp(dict,
-                                "ilikelikeimangoiii");
-    cout << "WordBreakProblemDp: " << result << endl;
-    result = WordBreakProblemDp(dict,
-                                "samsungandmango");
-    cout << "WordBreakProblemDp: " << result << endl;
-    result = WordBreakProblemDp(dict,
-                                "samsungandmangok");
-    cout << "WordBreakProblemDp: " << result << endl;
+
+    result = MaximalProductWhenCuttingRopeDp(2);
+    cout << "MaximalProductWhenCuttingRopeDp: " << result << endl;
+
+    result = MaximalProductWhenCuttingRopeDp(3);
+    cout << "MaximalProductWhenCuttingRopeDp: " << result << endl;
+
+    result = MaximalProductWhenCuttingRopeDp(4);
+    cout << "MaximalProductWhenCuttingRopeDp: " << result << endl;
+
+    result = MaximalProductWhenCuttingRopeDp(5);
+    cout << "MaximalProductWhenCuttingRopeDp: " << result << endl;
+
+    result = MaximalProductWhenCuttingRopeDp(10);
+    cout << "MaximalProductWhenCuttingRopeDp: " << result << endl;
   }
 
-
-  bool WordBreakProblemRecurAux(vector<string> dict, string &s, int pos)
+  int MaximalProductWhenCuttingRopeRecurAux(int n)
   {
-    if (pos >= s.size())
+    if (n <= 1)
     {
-      return true;
+      return 1;
     }
 
-    for (int i = 0; i < dict.size(); ++i)
+
+    int cur_max = 0;
+    for (int i = 1; i < n; ++i)
     {
-      string &item = dict[i];
-      if (s.substr(pos, item.size()) == item)
-      {
-        return WordBreakProblemRecurAux(dict, s, pos + item.size());
-      }
+
+      cur_max = std::max({i * MaximalProductWhenCuttingRopeRecurAux(n - i),
+                i * (n-i),
+                cur_max});
     }
 
-    return false;
+    return cur_max;
   }
 
-  bool WordBreakProblemRecur(vector<string> dict, string s)
+  int MaximalProductWhenCuttingRopeRecur(int n)
   {
-    return WordBreakProblemRecurAux(dict, s, 0);
+    return MaximalProductWhenCuttingRopeRecurAux(n);
   }
 
-  bool Contains(const string &s, vector<string> &dict)
+  int MaximalProductWhenCuttingRopeDp(int n)
   {
-    for (string &item : dict)
-    {
-      if (s == item)
-      {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  bool WordBreakProblemDp(vector<string> dict, string s)
-  {
-    vector<bool> dp(s.size() + 1, false);
-    int dict_size = dict.size();
-
-    for (int i = 1; i <= dict_size; ++i)
-    {
-      if (!dp[i] && Contains(s.substr(0, i), dict))
-      {
-        dp[i] = true;
-      }
-
-      if (dp[i] == true)
-      {
-        if (i == dict_size)
-        {
-          return true;
-        }
-
-        for (int j = i+1; j <= dict_size; ++j)
-        {
-          if (!dp[j] && Contains(s.substr(i, j - i), dict))
-          {
-            dp[j] = true;
-          }
-        }
-      }
-    }
+    return 0;
   }
 
   template<class T>
