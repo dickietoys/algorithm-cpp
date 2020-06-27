@@ -32,7 +32,7 @@ class Solution {
   }
 
   //只允许一次交易
-  int maxProfitWithOneTransaction(vector<int>& prices)
+  int maxProfitWithOneTransaction(vector<int> prices)
   {
     int prices_size = prices.size();
     int max_value = 0;
@@ -47,7 +47,7 @@ class Solution {
   }
 
   //交易次数不限
-  int maxProfitWithUnlimitedTransaction(vector<int>& prices)
+  int maxProfitWithUnlimitedTransaction(vector<int> prices)
   {
     int prices_size = prices.size();
     int max_value = 0;
@@ -63,7 +63,7 @@ class Solution {
   }
 
   //最多完成两笔交易
-  int maxProfitWithMostTwiceTransaction(vector<int>& prices)
+  int maxProfitWithMostTwiceTransaction(vector<int> prices)
   {
     // dp[k, i] = max(dp[k, i-1], prices[i] - prices[j] + dp[k-1, j-1]), j=[0..i-1]
     int prices_size = prices.size();
@@ -88,7 +88,7 @@ class Solution {
   }
 
   //最多完成k笔交易
-  int maxProfitWithMostKthTransaction(int m, vector<int>& prices) {
+  int maxProfitWithMostKthTransaction(int m, vector<int> prices) {
     // dp[k, i] = max(dp[k, i-1], prices[i] - prices[j] + dp[k-1, j-1]), j=[0..i-1]
     int prices_size = prices.size();
     if (prices_size <= 1)

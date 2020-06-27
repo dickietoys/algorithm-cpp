@@ -13,88 +13,117 @@
 #include <iterator>
 #include <set>
 #include <cmath>
-#include <queue>
-#include <list>
 
 using namespace std;
 
+struct ListNode {
+  int val;
+  ListNode *next;
+  ListNode(int x) : val(x), next(NULL) {}
+};
 
 class Solution {
  public:
   void RunTest()
   {
-    cout << "==================bruteforce======================" << endl;
-
-    // 1
-    int result = MaximalProductWhenCuttingRopeRecur(2);
-    cout << "MaximalProductWhenCuttingRopeRecur: " << result << endl;
-
-    // 2
-    result = MaximalProductWhenCuttingRopeRecur(3);
-    cout << "MaximalProductWhenCuttingRopeRecur: " << result << endl;
+    vector<int> input = {3,3,5,0,0,3,1,4};
 
     // 4
-    result = MaximalProductWhenCuttingRopeRecur(4);
-    cout << "MaximalProductWhenCuttingRopeRecur: " << result << endl;
+    int result = maxProfitWithOneTransaction(input);
+    cout << "maxProfitWithOneTransaction: " << result << endl;
+
+    // 8
+    result = maxProfitWithUnlimitedTransaction(input);
+    cout << "maxProfitWithUnlimitedTransaction: " << result << endl;
 
     // 6
-    result = MaximalProductWhenCuttingRopeRecur(5);
-    cout << "MaximalProductWhenCuttingRopeRecur: " << result << endl;
+    result = maxProfitWithMostTwiceTransaction(input);
+    cout << "maxProfitWithMostTwiceTransaction: " << result << endl;
 
-    // 10
-    result = MaximalProductWhenCuttingRopeRecur(10);
-    cout << "MaximalProductWhenCuttingRopeRecur: " << result << endl;
-
-    cout << "==================dp======================" << endl;
-
-    result = MaximalProductWhenCuttingRopeDp(2);
-    cout << "MaximalProductWhenCuttingRopeDp: " << result << endl;
-
-    result = MaximalProductWhenCuttingRopeDp(3);
-    cout << "MaximalProductWhenCuttingRopeDp: " << result << endl;
-
-    result = MaximalProductWhenCuttingRopeDp(4);
-    cout << "MaximalProductWhenCuttingRopeDp: " << result << endl;
-
-    result = MaximalProductWhenCuttingRopeDp(5);
-    cout << "MaximalProductWhenCuttingRopeDp: " << result << endl;
-
-    result = MaximalProductWhenCuttingRopeDp(10);
-    cout << "MaximalProductWhenCuttingRopeDp: " << result << endl;
+    // 6
+    result = maxProfitWithMostKthTransaction(2, input);
+    cout << "maxProfitWithMostKthTransaction: " << result << endl;
   }
 
-  int MaximalProductWhenCuttingRopeRecurAux(int n)
+  //只允许一次交易
+  int maxProfitWithOneTransaction(vector<int> prices)
   {
-    if (n <= 1)
+    int max = 0;
+    int cur = 0;
+    for (int i = 1; i < prices.size(); ++i)
     {
-      return 1;
+      cur = std::max(cur + prices[i] - prices[i-1], 0);
+      max = std::max(max, cur);
     }
 
+    return max;
+  }
 
-    int cur_max = 0;
-    for (int i = 1; i < n; ++i)
+  //交易次数不限
+  int maxProfitWithUnlimitedTransaction(vector<int> prices)
+  {
+    int max = 0;
+    for (int i = 1; i < prices.size(); ++i)
     {
-
-      cur_max = std::max({i * MaximalProductWhenCuttingRopeRecurAux(n - i),
-                i * (n-i),
-                cur_max});
+      max = max + std::max(prices[i] - prices[i-1], 0);
     }
 
-    return cur_max;
+    return max;
   }
 
-  int MaximalProductWhenCuttingRopeRecur(int n)
+  //最多完成两笔交易
+  int maxProfitWithMostTwiceTransaction(vector<int> prices)
   {
-    return MaximalProductWhenCuttingRopeRecurAux(n);
+    set<int, greater<int>> s;
+    int cur_value = 0;
+    int max = 0;
+    for (int i = 1; i < prices.size(); ++i)
+    {
+      cur_value += prices[i] - prices[i-1];
+      max = max + cur_value;
+
+    }
   }
 
-  int MaximalProductWhenCuttingRopeDp(int n)
-  {
-    return 0;
+  //最多完成k笔交易
+  int maxProfitWithMostKthTransaction(int m, vector<int> prices) {
+    // dp[k, i] = max(dp[k, i-1], prices[i] - prices[j] + dp[k-1, j-1]), j=[0..i-1]
+    int prices_size = prices.size();
+    if (prices_size <= 1)
+    {
+      return 0;
+    }
+
+    if (m >= prices_size / 2)
+    {
+      int max_value = 0;
+      for (int i = 1; i < prices_size; ++i)
+      {
+        if (prices[i] > prices[i-1])
+        {
+          max_value += prices[i] - prices[i-1];
+        }
+      }
+      return max_value;
+    }
+
+    int max_transaction = m;
+    vector<vector<int>> dp(max_transaction + 1, vector<int>(prices_size, 0));
+    for (int k = 1; k <= max_transaction; ++k)
+    {
+      int min = prices[0];
+      for (int i = 1; i < prices_size; ++i)
+      {
+        min = std::min(min,  prices[i] - dp[k-1][i-1]);
+        dp[k][i] = std::max(dp[k][i-1], prices[i] - min);
+      }
+    }
+
+    return dp[max_transaction][prices_size-1];
   }
 
   template<class T>
-  void Show(const vector<T> &result)
+  void Show(vector<T> &result)
   {
     for (size_t i = 0; i < result.size(); ++i)
     {
@@ -104,7 +133,7 @@ class Solution {
   }
 
   template<class T>
-  void Show(const vector<vector<T>> &result)
+  void Show(vector<vector<T>> &result)
   {
     for (size_t i = 0; i < result.size(); ++i)
     {
