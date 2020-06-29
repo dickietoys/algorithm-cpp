@@ -34,49 +34,22 @@ class Solution {
  public:
   void RunTest()
   {
-    string result;
-    result = longestPalindrome("bb");
   }
 
-  string longestPalindrome(string s) {
-    string result = "";
-    if (s.empty())
+  int myAtoi(string str) {
+    int first_pos = 0;
+    for (; first_pos < str.size(); ++first_pos)
     {
-      return result;
-    }
-    vector<vector<bool>> dp(s.size(), vector<bool>(s.size(), false));
-    vector<int> memory(2, 0);
-    for (int i = 0; i < s.size(); ++i)
-    {
-      dp[i][i] = true;
-      memory[0] = i;
-      memory[1] = 1;
-    }
-
-    for (int i = 1; i < s.size(); ++i)
-    {
-      if (s[i] == s[i-1])
+      if (str[first_pos] == '+' ||
+          str[first_pos] == '-' ||
+          (str[first_pos] >= '0' && str[first_pos] <= '9'))
       {
-        dp[i-1][i] = true;
-        memory[0] = i-1;
-        memory[1] = 2;
+        break;
       }
     }
 
-    for (int i = 3; i <= s.size(); ++i)
-    {
-      for (int j = 0; j + i - 1 < s.size(); ++j)
-      {
-        if (s[j] == s[j+i-1] && dp[j+1][j+i-1-1])
-        {
-          dp[j][j+i-1] = true;
-          memory[0] = j;
-          memory[1] = i;
-        }
-      }
-    }
-
-    return s.substr(memory[0], memory[1]);
+    stack<int> st;
+    for (int i = first_pos; i < str.size(); ++i)
   }
 
   template<class T>
