@@ -1,5 +1,11 @@
 ## 记录
 
+#### 需要加强
+
+~~~
+LC. 4. Median of Two Sorted Arrays
+~~~
+
 #### 未解决的问题
 
 ~~~
