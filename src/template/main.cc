@@ -26,8 +26,6 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<int> input = {3,3,5,0,0,3,1,4};
-    int result = 0;
   }
 
   template<class T>

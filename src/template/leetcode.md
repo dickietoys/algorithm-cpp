@@ -42,6 +42,10 @@ LC 188. Best Time to Buy and Sell Stock IV
 LC 94. Binary Tree Inorder Traversal
 LC 144. Binary Tree Preorder Traversal
 LC 145. Binary Tree Postorder Traversal
+LC 104. Maximum Depth of Binary Tree
+LC 110. Balanced Binary Tree
+LC 124. Binary Tree Maximum Path Sum
+LC 236. Lowest Common Ancestor of a Binary Tree
 根据某两个序列得到第三个序列
 根据某两个序列得到二叉树
 

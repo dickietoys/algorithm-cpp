@@ -30,63 +30,47 @@ public:
     assert(result == 2);
   }
 
-  bool isValid(string s)
+  /*
+    If s[i] is '(', set longest[i] to 0,because any string end with '(' cannot be a valid one.
+
+    Else if s[i] is ')'
+
+    If s[i-1] is '(', longest[i] = longest[i-2] + 2
+
+    Else if s[i-1] is ')' and s[i-longest[i-1]-1] == '(', longest[i] = longest[i-1] + 2 + longest[i-longest[i-1]-2]
+
+    For example, input "()(())", at i = 5, longest array is [0,2,0,0,2,0], longest[5] = longest[4] + 2 + longest[1] = 6.
+  */
+
+  int longestValidParentheses(string s)
   {
-    stack<int> st;
-    for (int i = 0; i < s.size(); ++i)
+    if(s.length() <= 1)
     {
-      if (s[i] == '(')
+      return 0;
+    }
+
+    int curMax = 0;
+    vector<int> dp(s.size(),0);
+    for(int i=1; i < s.length(); i++)
+    {
+      if(s[i] == ')')
       {
-        st.push(1);
-      }
-      else
-      {
-        if (st.empty())
+        if(s[i-1] == '(')
         {
-          return false;
+          dp[i] = (i-2) >= 0 ? (dp[i-2] + 2) : 2;
+          curMax = max(dp[i],curMax);
         }
-        else
-        {
-          st.pop();
+        else{ // if s[i-1] == ')', combine the previous length.
+          if(i-dp[i-1]-1 >= 0 && s[i-dp[i-1]-1] == '(')
+          {
+            dp[i] = dp[i-1] + 2 + ((i-dp[i-1]-2 >= 0) ? dp[i-dp[i-1]-2] : 0);
+            curMax = max(dp[i],curMax);
+          }
         }
       }
     }
-
-    return st.empty();
+    return curMax;
   }
-
-  int longestValidParentheses(string s) {
-
-    int max = 0;
-    for (int i = 2 ; i <= s.size(); i += 2)
-    {
-      for (int j = 0; j <= s.size() - i; ++j)
-      {
-        if (isValid(s.substr(j, i)))
-        {
-          max = std::max(i, max);
-        }
-      }
-    }
-
-    return max;
-  }
-
-  // int longestValidParentheses(string s) {
-  //   int max = 0;
-  //   for (int i = 2 ; i <= s.size(); i += 2)
-  //   {
-  //     for (int j = 0; j <= s.size() - i; ++j)
-  //     {
-  //       if (isValid(s.substr(j, i)))
-  //       {
-  //         max = std::max(i, max);
-  //       }
-  //     }
-  //   }
-
-  //   return max;
-  // }
 };
 
 int main()

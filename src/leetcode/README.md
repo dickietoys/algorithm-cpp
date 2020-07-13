@@ -4,6 +4,9 @@
 
 ~~~
 LC. 4. Median of Two Sorted Arrays
+LC. 10 
+LC. 31
+LC. 32
 ~~~
 
 #### 未解决的问题

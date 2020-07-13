@@ -34,22 +34,49 @@ class Solution {
  public:
   void RunTest()
   {
+
   }
 
-  int myAtoi(string str) {
-    int first_pos = 0;
-    for (; first_pos < str.size(); ++first_pos)
+  TreeNode* Aux(TreeNode* node, TreeNode* p, TreeNode* q)
+  {
+    if (!node)
     {
-      if (str[first_pos] == '+' ||
-          str[first_pos] == '-' ||
-          (str[first_pos] >= '0' && str[first_pos] <= '9'))
-      {
-        break;
-      }
+      return nullptr;
     }
 
-    stack<int> st;
-    for (int i = first_pos; i < str.size(); ++i)
+    if (node == p || node == q)
+    {
+      return node;
+    }
+
+    TreeNode *left = Aux(node->left, p, q);
+    TreeNode *right = Aux(node->right, p, q);
+
+    if (left && right)
+    {
+      return node;
+    }
+    else if (left)
+    {
+      return left;
+    }
+    else if (right)
+    {
+      return right;
+    }
+    else
+    {
+      return nullptr;
+    }
+  }
+
+  TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+    if (!root)
+    {
+      return nullptr;
+    }
+
+    return Aux(root, p, q);
   }
 
   template<class T>
