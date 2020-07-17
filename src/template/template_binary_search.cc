@@ -49,7 +49,7 @@ int BinarySearchNormal(vector<int> arr, int target)
 }
 
 // rotate旋转数组的支点
-int FindPivot(vector<int> arr, int target)
+int FindPivot(vector<int> arr)
 {
   if (arr.empty())
   {

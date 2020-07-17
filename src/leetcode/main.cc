@@ -30,53 +30,89 @@ struct TreeNode {
   TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
+class Node {
+public:
+    int val;
+    vector<Node*> neighbors;
+
+    Node() {
+        val = 0;
+        neighbors = vector<Node*>();
+    }
+
+    Node(int _val) {
+        val = _val;
+        neighbors = vector<Node*>();
+    }
+
+    Node(int _val, vector<Node*> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
+};
+
 class Solution {
  public:
   void RunTest()
   {
-
+    // BANC
+    string result = minWindow("ADOBECODEBANC", "ABC");
+    cout << result << endl;
   }
 
-  TreeNode* Aux(TreeNode* node, TreeNode* p, TreeNode* q)
-  {
-    if (!node)
+  string minWindow(string s, string t) {
+    int i = 0;
+    int j = 0;
+
+    vector<int> distance(2, 0);
+    int min = std::numeric_limits<int>::max();
+    unordered_map<char, int> hashtable;
+    int count = 0;
+    for (char c : t)
     {
-      return nullptr;
+      hashtable[c] = 1;
     }
 
-    if (node == p || node == q)
+    while (j < s.size())
     {
-      return node;
+      if (hashtable[s[j]] == 1)
+      {
+        ++hashtable[s[j]];
+        ++count;
+      }
+      else
+      {
+        ++j;
+      }
+
+      while (count == t.size())
+      {
+        cout << i << ", " << j << endl;
+        if (min > j - i + 1)
+        {
+          distance[0] = i;
+          distance[1] = j;
+          min = j - i + 1;
+        }
+
+        if (hashtable[s[i]] >= 2)
+        {
+          --hashtable[s[i]];
+          --count;
+        }
+        ++i;
+      }
     }
 
-    TreeNode *left = Aux(node->left, p, q);
-    TreeNode *right = Aux(node->right, p, q);
-
-    if (left && right)
+    if (min != std::numeric_limits<int>::max())
     {
-      return node;
-    }
-    else if (left)
-    {
-      return left;
-    }
-    else if (right)
-    {
-      return right;
+      cout << distance[0] << ", " << distance[1] << endl;
+      return s.substr(distance[0], distance[1] - distance[0] + 1);
     }
     else
     {
-      return nullptr;
+      return "";
     }
-  }
-
-  TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-    if (!root)
-    {
-      return nullptr;
-    }
-
-    return Aux(root, p, q);
   }
 
   template<class T>

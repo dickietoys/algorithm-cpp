@@ -1,4 +1,11 @@
 ~~~
+LC 10. Regular Expression Matching
+LC 84. Largest Rectangle in Histogram
+LC 85. Maximal Rectangle
+LC 95. Unique Binary Search Trees II
+LC 96. Unique Binary Search Trees
+
+
 LC 76.  (Sliding Window)
 LC 56.  (扫描线算法)
 LC 200. (看似简单的dfs，bfs，最后才知道flood fill)
@@ -21,7 +28,7 @@ LC 90.  Subsets II
 LC 152. Maximum Product Subarray
 
 rotated array (binary search)
-LC Median of two sorted arrays of same size
+LC 4. Median of two sorted arrays of same size
 LC 33.  Search in Rotated Sorted Array
 LC 81.  Search in Rotated Sorted Array II
 LC 153. Find Minimum in Rotated Sorted Array
@@ -38,19 +45,9 @@ LC 123. Best Time to Buy and Sell Stock III
 LC 188. Best Time to Buy and Sell Stock IV
 
 树:
-树的前序,中序,后序,层序遍历,递归和非递归
-LC 94. Binary Tree Inorder Traversal
-LC 144. Binary Tree Preorder Traversal
-LC 145. Binary Tree Postorder Traversal
-LC 104. Maximum Depth of Binary Tree
-LC 110. Balanced Binary Tree
-LC 124. Binary Tree Maximum Path Sum
-LC 236. Lowest Common Ancestor of a Binary Tree
 根据某两个序列得到第三个序列
 根据某两个序列得到二叉树
 
-位操作:
-LC 201. Bitwise AND of Numbers Range
 
 word search:
 LC 79. Word Search
@@ -64,15 +61,6 @@ LC 131.	Palindrome Partitioning
 LC 132. Palindrome Partitioning II
 LC 214. Shortest Palindrome
 LC 234. Palindrome Linked List
-
-链表：
-LC 141. Linked List Cycle
-LC 142. Linked List Cycle II
-
-二分搜索：
-LC 278. First Bad Version
-LC 287. Find the Duplicate Number
-
 
 图:
 判断有环

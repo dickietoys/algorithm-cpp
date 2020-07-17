@@ -10,6 +10,11 @@ LC 236. Lowest Common Ancestor of a Binary Tree
 LC 102. Binary Tree Level Order Traversal
 LC 98. Validate Binary Search Tree
 LC 701. Insert into a Binary Search Tree
+
+
+LC 94. Binary Tree Inorder Traversal
+LC 144. Binary Tree Preorder Traversal
+LC 145. Binary Tree Postorder Traversal
 ~~~
 
 #### 链表
@@ -102,6 +107,7 @@ LC 153. Find Minimum in Rotated Sorted Array
 LC 154. Find Minimum in Rotated Sorted Array II
 LC 33. Search in Rotated Sorted Array
 LC 81. Search in Rotated Sorted Array II
+LC 287. Find the Duplicate Number
 ~~~
 
 #### 排序算法
