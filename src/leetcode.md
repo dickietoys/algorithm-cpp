@@ -1,11 +1,4 @@
 ~~~
-LC 10. Regular Expression Matching
-LC 84. Largest Rectangle in Histogram
-LC 85. Maximal Rectangle
-LC 95. Unique Binary Search Trees II
-LC 96. Unique Binary Search Trees
-
-
 LC 76.  (Sliding Window)
 LC 56.  (扫描线算法)
 LC 200. (看似简单的dfs，bfs，最后才知道flood fill)
@@ -26,17 +19,6 @@ LC 53.  最大subarray O(n)算法
 LC 78.  Subsets
 LC 90.  Subsets II
 LC 152. Maximum Product Subarray
-
-rotated array (binary search)
-LC 4. Median of two sorted arrays of same size
-LC 33.  Search in Rotated Sorted Array
-LC 81.  Search in Rotated Sorted Array II
-LC 153. Find Minimum in Rotated Sorted Array
-LC 154. Find Minimum in Rotated Sorted Array II
-LC 189. Rotate Array
-LC 215. Kth Largest Element in an Array
-LC 35. Search Insert Positionbinary search lower-upper bound
-
 
 stock 问题:
 LC 121. Best Time to Buy and Sell Stock
@@ -71,12 +53,6 @@ BFS
 stack:
 infix to postfix
 postfix to calculate
-
-
-single number:
-LC 136.	Single Number
-LC 137.	Single Number II
-LC 260. Single Number III
 
 计算器
 LC 224. Basic Calculator

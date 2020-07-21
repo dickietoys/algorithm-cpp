@@ -15,6 +15,9 @@ LC 701. Insert into a Binary Search Tree
 LC 94. Binary Tree Inorder Traversal
 LC 144. Binary Tree Preorder Traversal
 LC 145. Binary Tree Postorder Traversal
+
+LC 95. Unique Binary Search Trees II
+LC 96. Unique Binary Search Trees
 ~~~
 
 #### 链表
@@ -44,6 +47,7 @@ LC 94. Binary Tree Inorder Traversal
 LC 133. Clone Graph
 LC 200. Number of Islands
 LC 84. Largest Rectangle in Histogram
+LC 85. Maximal Rectangle
 
 LC 232. Implement Queue using Stacks
 LC 542. 01 Matrix
@@ -108,6 +112,11 @@ LC 154. Find Minimum in Rotated Sorted Array II
 LC 33. Search in Rotated Sorted Array
 LC 81. Search in Rotated Sorted Array II
 LC 287. Find the Duplicate Number
+
+
+LC 4. Median of two sorted arrays of same size
+LC 189. Rotate Array
+LC 215. Kth Largest Element in an Array
 ~~~
 
 #### 排序算法
@@ -143,6 +152,9 @@ LC 128. Longest Consecutive Sequence 位置可以交互，所以不用动态规�
 ~~~
 
 常见四种类型  
+
+LC 10. Regular Expression Matching
+
 ~~~
 Matrix DP (10%)
 Sequence (40%)

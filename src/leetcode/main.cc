@@ -55,64 +55,27 @@ class Solution {
  public:
   void RunTest()
   {
-    // BANC
-    string result = minWindow("ADOBECODEBANC", "ABC");
-    cout << result << endl;
   }
 
-  string minWindow(string s, string t) {
-    int i = 0;
-    int j = 0;
-
-    vector<int> distance(2, 0);
-    int min = std::numeric_limits<int>::max();
-    unordered_map<char, int> hashtable;
-    int count = 0;
-    for (char c : t)
+  int findDuplicate(vector<int>& nums) {
+    for (int i = 0; i < nums.size(); ++i)
     {
-      hashtable[c] = 1;
-    }
-
-    while (j < s.size())
-    {
-      if (hashtable[s[j]] == 1)
+      int cur_value = nums[i];
+      while (cur_value - 1 != i)
       {
-        ++hashtable[s[j]];
-        ++count;
-      }
-      else
-      {
-        ++j;
-      }
-
-      while (count == t.size())
-      {
-        cout << i << ", " << j << endl;
-        if (min > j - i + 1)
+        if (cur_value == nums[cur_value - 1])
         {
-          distance[0] = i;
-          distance[1] = j;
-          min = j - i + 1;
+          return cur_value;
         }
-
-        if (hashtable[s[i]] >= 2)
+        else
         {
-          --hashtable[s[i]];
-          --count;
+          std::swap(nums[i], nums[cur_value - 1]);
+          cur_value = nums[i];
         }
-        ++i;
       }
     }
 
-    if (min != std::numeric_limits<int>::max())
-    {
-      cout << distance[0] << ", " << distance[1] << endl;
-      return s.substr(distance[0], distance[1] - distance[0] + 1);
-    }
-    else
-    {
-      return "";
-    }
+    return -1;
   }
 
   template<class T>
