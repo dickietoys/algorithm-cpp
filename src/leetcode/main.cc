@@ -57,25 +57,28 @@ class Solution {
   {
   }
 
-  int findDuplicate(vector<int>& nums) {
-    for (int i = 0; i < nums.size(); ++i)
+  vector<vector<int>> result_;
+
+  void Aux(vector<int>& nums, int pos)
+  {
+    if (pos >= nums.size())
     {
-      int cur_value = nums[i];
-      while (cur_value - 1 != i)
-      {
-        if (cur_value == nums[cur_value - 1])
-        {
-          return cur_value;
-        }
-        else
-        {
-          std::swap(nums[i], nums[cur_value - 1]);
-          cur_value = nums[i];
-        }
-      }
+      result_.push_back(nums);
+      return;
     }
 
-    return -1;
+    for (int i = pos; i < nums.size(); ++i)
+    {
+      std::swap(nums[i], nums[pos]);
+      Aux(nums, pos + 1);
+      std::swap(nums[i], nums[pos]);
+    }
+  }
+
+  vector<vector<int>> permute(vector<int>& nums) {
+    Aux(nums, 0);
+
+    return result_;
   }
 
   template<class T>

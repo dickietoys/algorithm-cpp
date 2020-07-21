@@ -111,7 +111,7 @@ LC 153. Find Minimum in Rotated Sorted Array
 LC 154. Find Minimum in Rotated Sorted Array II
 LC 33. Search in Rotated Sorted Array
 LC 81. Search in Rotated Sorted Array II
-LC 287. Find the Duplicate Number
+LC 287. Find the Duplicate Number  **
 
 
 LC 4. Median of two sorted arrays of same size
@@ -188,6 +188,7 @@ LC 72. Edit Distance
 ~~~
 
 Backpack (10%)  
+
 ~~~
 LC 322. Coin Change
 LT 92. Backpack
@@ -289,6 +290,8 @@ LC 90. Subsets II
 LC 46. Permutations
 LC 47. Permutations II
 LC 39. Combination Sum
+LC 40. Combination Sum II
+
 LC 17. Letter Combinations of a Phone Number
 LC 131. Palindrome Partitioning
 LC 132. Palindrome Partitioning II
