@@ -28,32 +28,29 @@ class Solution {
     Show(result);
   }
 
+  void Aux(vector<int>& nums, int pos, vector<int> &item, vector<vector<int>> &result)
+  {
+    result.push_back(item);
+
+    for (int i = pos; i < nums.size(); ++i)
+    {
+      if (i > pos && nums[i] == nums[i - 1])
+      {
+        continue;
+      }
+
+      item.push_back(nums[i]);
+      Aux(nums, i + 1, item, result);
+      item.pop_back();
+    }
+  }
+
   vector<vector<int>> subsetsWithDup(vector<int>& nums)
   {
-    vector<vector<int>> result = {{}};
-    sort(nums.begin(), nums.end());
-    for (int i = 0; i < nums.size();)
-    {
-      int count = 0;
-      while (count + i < nums.size() && nums[count + i] == nums[i])
-      {
-        ++count;
-      }
-
-      int resultSize = result.size();
-      for (int j = 0; j < resultSize; ++j)
-      {
-        vector<int> prevResult = result[j];
-        for (int k = 0; k < count; ++k)
-        {
-          prevResult.push_back(nums[i]);
-          result.push_back(prevResult);
-        }
-      }
-
-      i += count;
-    }
-
+    std::sort(nums.begin(), nums.end());
+    vector<vector<int>> result;
+    vector<int> item;
+    Aux(nums, 0, item, result);
     return result;
   }
 

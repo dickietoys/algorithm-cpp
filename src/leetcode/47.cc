@@ -23,29 +23,33 @@ class Solution {
     Show(result);
   }
 
-  vector<vector<int>> permuteUnique(vector<int>& nums) {
-    vector<vector<int>> result;
-    Aux(nums, 0, result);
-    return result;
-  }
-
   void Aux(vector<int>& nums, int pos, vector<vector<int>> &result)
   {
-    if (pos == nums.size() - 1)
+    if (pos >= nums.size())
     {
       result.push_back(nums);
       return;
     }
 
-    for (size_t i = pos; i < nums.size(); ++i)
+    unordered_set<int> used;
+    for (int i = pos; i < nums.size(); ++i)
     {
-      if (i == pos || nums[pos] != nums[i])
+      if (used.count(nums[i]) == 1)
       {
-        std::swap(nums[pos], nums[i]);
-        Aux(nums, pos + 1, result);
-        std::swap(nums[pos], nums[i]);
+        continue;
       }
+      used.insert(nums[i]);
+      std::swap(nums[i], nums[pos]);
+      Aux(nums, pos + 1, result);
+      std::swap(nums[i], nums[pos]);
     }
+  }
+
+  vector<vector<int>> permuteUnique(vector<int>& nums) {
+    std::sort(nums.begin(), nums.end());
+    vector<vector<int>> result;
+    Aux(nums, 0, result);
+    return result;
   }
 
   void Show(vector<vector<int>> &result)

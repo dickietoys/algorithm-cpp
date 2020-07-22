@@ -57,28 +57,60 @@ class Solution {
   {
   }
 
-  vector<vector<int>> result_;
-
-  void Aux(vector<int>& nums, int pos)
+  bool IsValid(string &s, int low, int high)
   {
-    if (pos >= nums.size())
+    int size = high - low + 1;
+    if (size > 3 || (s[low] == '0' && size > 1) || std::stoi(s.substr(low, high - low + 1))  > 255)
     {
-      result_.push_back(nums);
-      return;
+      return false;
     }
-
-    for (int i = pos; i < nums.size(); ++i)
+    else
     {
-      std::swap(nums[i], nums[pos]);
-      Aux(nums, pos + 1);
-      std::swap(nums[i], nums[pos]);
+      return true;
     }
   }
 
-  vector<vector<int>> permute(vector<int>& nums) {
-    Aux(nums, 0);
+  void Aux(string &s, int pos, int count, vector<string> &item, vector<string> &result)
+  {
+    if (pos >= s.size() && count == 4)
+    {
+      string s;
+      for (string &tmp : item)
+      {
+        s += tmp + ".";
+      }
+      s = s.substr(0, s.size() - 1);
+      result.push_back(s);
+      return;
+    }
 
-    return result_;
+
+    for (int i = pos; i < s.size(); ++i)
+    {
+      if (i - pos + 1 > 3)
+      {
+        break;
+      }
+
+      if (IsValid(s, pos, i))
+      {
+        item.push_back(s.substr(pos, i - pos + 1));
+        Aux(s, i + 1, count + 1, item, result);
+        item.pop_back();
+      }
+    }
+  }
+
+  vector<string> restoreIpAddresses(string s) {
+    vector<string> result;
+    if (s.size() > 12)
+    {
+      return result;
+    }
+    vector<string> item;
+    Aux(s, 0, 0, item, result);
+
+    return result;
   }
 
   template<class T>
@@ -98,7 +130,7 @@ class Solution {
     {
       for (size_t j = 0; j < result[i].size(); ++j)
       {
-        cout << result[i][j] << ", " << endl;
+        cout << result[i][j] << ", ";
       }
       cout << endl;
     }

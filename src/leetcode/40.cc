@@ -21,35 +21,42 @@ class Solution {
 
     input = {10,1,2,7,6,1,5};
     target = 8;
-    result = combinationSum(input, target);
+    result = combinationSum2(input, target);
     show(result);
   }
 
-  vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-    vector<vector<int>> result;
-    vector<int> item;
-    std::sort(candidates.begin(), candidates.end());
-    Aux(candidates, target, 0, item, result);
-    return result;
-  }
-
-  void Aux(vector<int>& candidates, int target, int pos, vector<int> item, vector<vector<int>> &result)
+  void Aux(vector<int>& candidates, int target, int pos, vector<int> &item, vector<vector<int>> &result)
   {
-    if (target == candidates.size())
+    if (target == 0)
     {
       result.push_back(item);
       return;
     }
 
-    for (int i = pos; i < candidates.size() && target >= candidates[i]; ++i)
+    if (target < 0)
     {
-      if (i == pos || candidates[i] != candidates[i-1])
-      {
-        item.push_back(candidates[i]);
-        Aux(candidates, target - candidates[i], i, item, result);
-        item.pop_back();
-      }
+      return;
     }
+
+    for (int i = pos; i < candidates.size(); ++i)
+    {
+      if (i > pos && candidates[i] == candidates[i-1])
+      {
+        continue;
+      }
+      item.push_back(candidates[i]);
+      Aux(candidates, target - candidates[i], i + 1, item, result);
+      item.pop_back();
+    }
+  }
+
+  vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+    std::sort(candidates.begin(), candidates.end());
+    vector<vector<int>> result;
+    vector<int> item;
+    Aux(candidates, target, 0, item, result);
+
+    return result;
   }
 
   void show(vector<vector<int>> &result)

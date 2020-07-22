@@ -153,8 +153,6 @@ LC 128. Longest Consecutive Sequence 位置可以交互，所以不用动态规�
 
 常见四种类型  
 
-LC 10. Regular Expression Matching
-
 ~~~
 Matrix DP (10%)
 Sequence (40%)
@@ -179,6 +177,8 @@ LC 132. Palindrome Partitioning II
 LC 300. Longest Increasing Subsequence
 LC 139. Word Break
 LC 140. Word Break II
+
+LC 10. Regular Expression Matching
 ~~~
 
 Two Sequences DP（40%）  
@@ -291,9 +291,8 @@ LC 46. Permutations
 LC 47. Permutations II
 LC 39. Combination Sum
 LC 40. Combination Sum II
+LC 131. Palindrome Partitioning
 
 LC 17. Letter Combinations of a Phone Number
-LC 131. Palindrome Partitioning
-LC 132. Palindrome Partitioning II
 LC 93. Restore IP Addresses
 ~~~

@@ -28,7 +28,7 @@ class Solution {
   }
 
   vector<vector<int>> subsets(vector<int>& nums) {
-    vector<vector<int>> result = {{}};
+    vector<vector<int>> result;
     vector<int> buffer;
     Aux(nums, result, 0, buffer);
     return result;
@@ -36,15 +36,11 @@ class Solution {
 
   void Aux(vector<int> &nums, vector<vector<int>> &result, int pos, vector<int> &buffer)
   {
-    if (pos >= nums.size())
-    {
-      return;
-    }
+    result.push_back(buffer);
 
     for (int i = pos; i < nums.size(); ++i)
     {
       buffer.push_back(nums[i]);
-      result.push_back(buffer);
       Aux(nums, result, i+1, buffer);
       buffer.pop_back();
     }
