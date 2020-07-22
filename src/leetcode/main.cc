@@ -55,62 +55,42 @@ class Solution {
  public:
   void RunTest()
   {
+    vector<vector<int>> triangle = {{-1}, {2, 3}, {1, -1, -3}};
+    int result = minimumTotal(triangle);
+
+    cout << "result: " << result << endl;
   }
 
-  bool IsValid(string &s, int low, int high)
+  int Aux(vector<vector<int>>& triangle, int row, int col)
   {
-    int size = high - low + 1;
-    if (size > 3 || (s[low] == '0' && size > 1) || std::stoi(s.substr(low, high - low + 1))  > 255)
+    if (row >= triangle.size())
     {
-      return false;
+      return 0;
+    }
+
+    int sum1 = triangle[row][col] +
+               // Aux(triangle, row + 1, col);
+               std::min(Aux(triangle, row + 1, col),
+                        Aux(triangle, row + 1, col + 1));
+
+    if (col+1 < triangle[row].size())
+    {
+      int sum2 = triangle[row][col+1] +
+                 // Aux(triangle, row + 1, col + 1);
+             std::min(Aux(triangle, row + 1, col+1),
+                      Aux(triangle, row + 1, col+2));
+      cout << triangle[row][col] << ", " << triangle[row][col+1] << ", sum1: " << sum1 << ", sum2: " << sum2 << endl;
+      return std::min(sum1, sum2);
     }
     else
     {
-      return true;
+      cout << triangle[row][col] << ", sum1: " << sum1 << endl;
+      return sum1;
     }
   }
 
-  void Aux(string &s, int pos, int count, vector<string> &item, vector<string> &result)
-  {
-    if (pos >= s.size() && count == 4)
-    {
-      string s;
-      for (string &tmp : item)
-      {
-        s += tmp + ".";
-      }
-      s = s.substr(0, s.size() - 1);
-      result.push_back(s);
-      return;
-    }
-
-
-    for (int i = pos; i < s.size(); ++i)
-    {
-      if (i - pos + 1 > 3)
-      {
-        break;
-      }
-
-      if (IsValid(s, pos, i))
-      {
-        item.push_back(s.substr(pos, i - pos + 1));
-        Aux(s, i + 1, count + 1, item, result);
-        item.pop_back();
-      }
-    }
-  }
-
-  vector<string> restoreIpAddresses(string s) {
-    vector<string> result;
-    if (s.size() > 12)
-    {
-      return result;
-    }
-    vector<string> item;
-    Aux(s, 0, 0, item, result);
-
-    return result;
+  int minimumTotal(vector<vector<int>>& triangle) {
+    return Aux(triangle, 0, 0);
   }
 
   template<class T>
@@ -141,6 +121,6 @@ int main()
 {
   Solution *solution = new Solution();
   solution->RunTest();
-
+  delete solution;
   return 0;
 }
