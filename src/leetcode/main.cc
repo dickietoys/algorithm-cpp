@@ -68,23 +68,36 @@ class Solution {
       return 0;
     }
 
+    cout << "start---------------------------" << row << ", " << col <<"-----------------------" << endl;
+    int tmp1 = Aux(triangle, row + 1, col);
+    int tmp2 = Aux(triangle, row + 1, col + 1);
+
     int sum1 = triangle[row][col] +
+               std::min(tmp1, tmp2);
                // Aux(triangle, row + 1, col);
-               std::min(Aux(triangle, row + 1, col),
-                        Aux(triangle, row + 1, col + 1));
+               // std::min(Aux(triangle, row + 1, col),
+               //          Aux(triangle, row + 1, col + 1));
 
     if (col+1 < triangle[row].size())
     {
+      int tmp3 = Aux(triangle, row + 1, col+2);
+      cout << "val: " << triangle[row][col] << ", " << triangle[row][col+1] << endl;
+      cout << "tmp: " << tmp1 << ", " << tmp2 << ", " << tmp3 << endl;
       int sum2 = triangle[row][col+1] +
+                 std::min(tmp2, tmp3);
                  // Aux(triangle, row + 1, col + 1);
-             std::min(Aux(triangle, row + 1, col+1),
-                      Aux(triangle, row + 1, col+2));
-      cout << triangle[row][col] << ", " << triangle[row][col+1] << ", sum1: " << sum1 << ", sum2: " << sum2 << endl;
+                 // std::min(Aux(triangle, row + 1, col+1),
+                 //      Aux(triangle, row + 1, col+2));
+      cout << "result: " << std::min(sum1, sum2) << endl;
+      cout << "stop---------------------------" << row << ", " << col <<"-----------------------" << endl;
       return std::min(sum1, sum2);
     }
     else
     {
-      cout << triangle[row][col] << ", sum1: " << sum1 << endl;
+      cout << "val: " << triangle[row][col] << endl;
+      cout << "tmp: " << tmp1 << ", " << tmp2 << endl;
+      cout << "result: " << sum1 << endl;
+      cout << "stop---------------------------" << row << ", " << col <<"-----------------------" << endl;
       return sum1;
     }
   }
