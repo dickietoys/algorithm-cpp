@@ -48,43 +48,40 @@ public:
     assert(result = false);
   }
 
-  bool isMatch(string s, string p) {
-    return Recursive(s, 0, p, 0);
-  }
-
-  bool Recursive(string s, int sPos, string p, int pPos)
+  bool Aux(string &s, string &p, int s_pos, int p_pos)
   {
-    if (sPos == s.size() && pPos == p.size())
+    if (p_pos < 0)
     {
-      return true;
+      return s_pos < 0;
     }
 
-    if (sPos >= s.size() || pPos >= p.size())
+    if (p[p_pos] == '*')
     {
-      return false;
-    }
-
-    bool result = false;
-    if (Compare(s[sPos], p[pPos]))
-    {
-      result = Recursive(s, sPos + 1, p, pPos + 1);
-    }
-
-    result |= Recursive(s, sPos + 1, p, 0);
-
-    return result;
-  }
-
-  bool Compare(char c, char p)
-  {
-    if (p == '.' || c == p)
-    {
-      return true;
+      if (s_pos >= 0 && (p[p_pos - 1] == '.' || p[p_pos - 1] == s[s_pos]))
+      {
+        return Aux(s, p, s_pos, p_pos - 2) || Aux(s, p, s_pos - 1, p_pos);
+      }
+      else
+      {
+        return Aux(s, p, s_pos, p_pos - 2);
+      }
     }
     else
     {
-      return false;
+      if (s_pos >= 0 && (p[p_pos] == '.' || p[p_pos] == s[s_pos]))
+      {
+        return Aux(s, p, s_pos - 1, p_pos - 1);
+      }
+      else
+      {
+        return false;
+      }
     }
+  }
+
+  bool isMatch(string s, string p)
+  {
+    return Aux(s, p, s.size() - 1, p.size() - 1);
   }
 };
 

@@ -57,47 +57,31 @@ class Solution {
   {
     // "aab"
     // "c*a*b"
-    bool result = isMatch("aa", "a*");
+    bool result = isMatch("aaa", "aaaa");
     cout << "result: " << result << endl;
   }
 
   bool Aux(string &s, string &p, int s_pos, int p_pos)
   {
-    if (s_pos < 0 && p_pos < 0)
+    if (p_pos < 0)
     {
-      return true;
-    }
-
-    if (s_pos < 0)
-    {
-      if (p[p_pos] == '*')
-      {
-        return Aux(s, p, s_pos, p_pos - 2);
-      }
-      else
-      {
-        return false;
-      }
-    }
-    else
-    {
-      return false;
+      return s_pos < 0;
     }
 
     if (p[p_pos] == '*')
     {
-      if (p[p_pos - 1] == '.' || p[p_pos - 1] == s[s_pos])
+      if (s_pos >= 0 && (p[p_pos - 1] == '.' || p[p_pos - 1] == s[s_pos]))
       {
         return Aux(s, p, s_pos, p_pos - 2) || Aux(s, p, s_pos - 1, p_pos);
       }
       else
       {
-        return false;
+        return Aux(s, p, s_pos, p_pos - 2);
       }
     }
     else
     {
-      if (p[p_pos] == '.' || p[p_pos] == s[s_pos])
+      if (s_pos >= 0 && (p[p_pos] == '.' || p[p_pos] == s[s_pos]))
       {
         return Aux(s, p, s_pos - 1, p_pos - 1);
       }
