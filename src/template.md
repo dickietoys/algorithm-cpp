@@ -162,10 +162,18 @@ Backpack (10%)
 
 Matrix (10%)  
 ~~~
+LC 115. Distinct Subsequences
 LC 120. Triangle
 LC 64. Minimum Path Sum
 LC 62. Unique Paths
 LC 63. Unique Paths II
+
+LC 10. Regular Expression Matching
+LC 44. Wildcard Matching
+
+LC 5. Longest Palindromic Substring
+LC 53. Maximum Subarray
+LC 72. Edit Distance
 ~~~
 
 Sequence (40%)  
@@ -178,7 +186,6 @@ LC 300. Longest Increasing Subsequence
 LC 139. Word Break
 LC 140. Word Break II
 
-LC 10. Regular Expression Matching
 ~~~
 
 Two Sequences DP（40%）  

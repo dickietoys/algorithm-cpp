@@ -55,55 +55,62 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<vector<int>> triangle = {{-1}, {2, 3}, {1, -1, -3}};
-    int result = minimumTotal(triangle);
-
+    // "aab"
+    // "c*a*b"
+    bool result = isMatch("aa", "a*");
     cout << "result: " << result << endl;
   }
 
-  int Aux(vector<vector<int>>& triangle, int row, int col)
+  bool Aux(string &s, string &p, int s_pos, int p_pos)
   {
-    if (row >= triangle.size())
+    if (s_pos < 0 && p_pos < 0)
     {
-      return 0;
+      return true;
     }
 
-    cout << "start---------------------------" << row << ", " << col <<"-----------------------" << endl;
-    int tmp1 = Aux(triangle, row + 1, col);
-    int tmp2 = Aux(triangle, row + 1, col + 1);
-
-    int sum1 = triangle[row][col] +
-               std::min(tmp1, tmp2);
-               // Aux(triangle, row + 1, col);
-               // std::min(Aux(triangle, row + 1, col),
-               //          Aux(triangle, row + 1, col + 1));
-
-    if (col+1 < triangle[row].size())
+    if (s_pos < 0)
     {
-      int tmp3 = Aux(triangle, row + 1, col+2);
-      cout << "val: " << triangle[row][col] << ", " << triangle[row][col+1] << endl;
-      cout << "tmp: " << tmp1 << ", " << tmp2 << ", " << tmp3 << endl;
-      int sum2 = triangle[row][col+1] +
-                 std::min(tmp2, tmp3);
-                 // Aux(triangle, row + 1, col + 1);
-                 // std::min(Aux(triangle, row + 1, col+1),
-                 //      Aux(triangle, row + 1, col+2));
-      cout << "result: " << std::min(sum1, sum2) << endl;
-      cout << "stop---------------------------" << row << ", " << col <<"-----------------------" << endl;
-      return std::min(sum1, sum2);
+      if (p[p_pos] == '*')
+      {
+        return Aux(s, p, s_pos, p_pos - 2);
+      }
+      else
+      {
+        return false;
+      }
     }
     else
     {
-      cout << "val: " << triangle[row][col] << endl;
-      cout << "tmp: " << tmp1 << ", " << tmp2 << endl;
-      cout << "result: " << sum1 << endl;
-      cout << "stop---------------------------" << row << ", " << col <<"-----------------------" << endl;
-      return sum1;
+      return false;
+    }
+
+    if (p[p_pos] == '*')
+    {
+      if (p[p_pos - 1] == '.' || p[p_pos - 1] == s[s_pos])
+      {
+        return Aux(s, p, s_pos, p_pos - 2) || Aux(s, p, s_pos - 1, p_pos);
+      }
+      else
+      {
+        return false;
+      }
+    }
+    else
+    {
+      if (p[p_pos] == '.' || p[p_pos] == s[s_pos])
+      {
+        return Aux(s, p, s_pos - 1, p_pos - 1);
+      }
+      else
+      {
+        return false;
+      }
     }
   }
 
-  int minimumTotal(vector<vector<int>>& triangle) {
-    return Aux(triangle, 0, 0);
+  bool isMatch(string s, string p)
+  {
+    return Aux(s, p, s.size() - 1, p.size() - 1);
   }
 
   template<class T>
