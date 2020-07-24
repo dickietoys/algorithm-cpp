@@ -52,6 +52,8 @@ class Solution {
     }
   }
 
+  // f(n, m) = f(m+1, n-1) +2 || f(m+1, n), f(m, n-1)
+
   int LpsRecur(string s)
   {
     return LpsRecurAux(s, 0, s.size() - 1);
