@@ -55,50 +55,52 @@ class Solution {
  public:
   void RunTest()
   {
-    string result = longestPalindrome("abcda");
-    cout << result << endl;
+    bool result = isMatch("aa", "a*");
+    cout << "result: " << result << endl;
   }
 
-  string longestPalindrome(string s) {
-    int max_size = 0;
-    string result;
-    vector<vector<bool>> dp(s.size(), vector<bool>(s.size(), 0));
-    for (int i = 0; i < s.size(); ++i)
+  bool Aux(string &s, string &p, int s_pos, int p_pos)
+  {
+    if (p_pos < 0)
     {
-      dp[i][i] = true;
-      max_size = 1;
-      result = s.substr(i, 1);
+      return s_pos < 0;
     }
 
-    for (int i = 1; i < s.size(); ++i)
+    if (p[p_pos] == '*')
     {
-      if (s[i-1] == s[i])
+      if (s_pos >= 0 && (p[p_pos - 1] == '.' || p[p_pos - 1] == s[s_pos]))
       {
-        dp[i-1][i] = true;
-        max_size = 2;
-        result = s.substr(i-1, 2);
-      }
-    }
-
-    for (int i = 3; i <= s.size(); ++i)
-    {
-      for (int j = 0; j + i - 1 < s.size(); ++j)
-      {
-        int low = j;
-        int high = j + i - 1;
-        if (s[low] == s[high] && dp[low+1][high-1])
+        if (Aux(s, p, s_pos - 1, p_pos))
         {
-          dp[low][high] = true;
-          if (i > max_size)
-          {
-            max_size = i;
-            result = s.substr(j, i);
-          }
+          return true;
         }
       }
-    }
 
-    return result;
+      return Aux(s, p, s_pos, p_pos - 2);
+    }
+    else
+    {
+      if (s_pos >= 0 && (p[p_pos] == '.' || s[s_pos] == p[p_pos]))
+      {
+        return Aux(s, p, s_pos - 1, p_pos - 1);
+      }
+      else
+      {
+        return false;
+      }
+    }
+  }
+
+  bool isMatch(string s, string p)
+  {
+    // return Aux(s, p, s.size() - 1, p.size() - 1);
+
+    /*
+      f(n, m) = f(n-1, m) || f(n, m-2)
+                f(n-1, m-1)
+     */
+
+    vector<vector<int>>
   }
 
   template<class T>

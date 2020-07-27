@@ -13,71 +13,95 @@
 #include <iterator>
 #include <set>
 #include <cmath>
-#include <bitset>
+#include <queue>
 
 using namespace std;
 
+struct ListNode {
+  int val;
+  ListNode *next;
+  ListNode(int x) : val(x), next(NULL) {}
+};
+
+struct TreeNode {
+  int val;
+  TreeNode *left;
+  TreeNode *right;
+  TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+
+class Node {
+public:
+    int val;
+    vector<Node*> neighbors;
+
+    Node() {
+        val = 0;
+        neighbors = vector<Node*>();
+    }
+
+    Node(int _val) {
+        val = _val;
+        neighbors = vector<Node*>();
+    }
+
+    Node(int _val, vector<Node*> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
+};
+
 class Solution {
  public:
-
   void RunTest()
   {
-    vector<vector<int>> input = {{2},
-                                 {3, 4},
-                                 {6,5,7},
-                                 {4,1,8,3}};
-    int result = minimumTotal(input);
+    vector<vector<int>> triangle = {
+      {2},
+      {3,4},
+      {6,5,7},
+      {4,1,8,3}
+    };
+    int result = minimumTotal(triangle);
     cout << "result: " << result << endl;
   }
 
-  int minimumTotal(vector<vector<int>>& triangle) {
-    vector<vector<int>> dp(triangle.size() + 1, vector<int>(triangle.size() + 1, std::numeric_limits<int>::min()));
-    return Aux(triangle, 0, 0, dp);
-  }
-
-  int Aux(vector<vector<int>>& triangle, int row, int pos, vector<vector<int>> &dp)
+  int Aux(vector<vector<int>>& triangle, int row_pos, int col_pos)
   {
-    if (row >= triangle.size())
+    if (row_pos >= triangle.size())
     {
       return 0;
     }
 
-    int mid = 0;
-    int right = 0;
-    bool hasRight = false;
-    if (pos + 1 <= row)
+    int size1 = Aux(triangle, row_pos + 1, col_pos);
+    int size2 = size2 = Aux(triangle, row_pos + 1, col_pos + 1);
+
+    return std::min(size1, size2) + triangle[row_pos][col_pos];
+  }
+
+  int minimumTotal(vector<vector<int>>& triangle) {
+    // return Aux(triangle, 0, 0);
+
+    /*
+      f(n,m) = min(f(n+1, m), f(n+1, m+1)) + arr[n][m]
+
+      f(n,m)
+     */
+
+    vector<vector<int>> dp(triangle.size(), vector<int>(triangle[triangle.size() - 1].size(), 0));
+    for (int i = 0; i < triangle[triangle.size()-1].size(); ++i)
     {
-      if (dp[row+1][pos+1] == std::numeric_limits<int>::min())
-      {
-        right = Aux(triangle, row + 1, pos + 1, dp) + triangle[row][pos+1];
-      }
-      else
-      {
-        right = dp[row+1][pos+1] + triangle[row][pos+1];
-      }
-      hasRight = true;
+      dp[triangle.size()-1][i] = triangle[triangle.size()-1][i];
     }
 
-    if (dp[row+1][pos] == std::numeric_limits<int>::min())
+    for (int i = triangle.size() - 2; i >= 0; --i)
     {
-      mid = Aux(triangle, row + 1, pos, dp) + triangle[row][pos];
-    }
-    else
-    {
-      mid = dp[row+1][pos] + triangle[row][pos];
+      for (int j = triangle[i].size() - 1; j >= 0; --j)
+      {
+        dp[i][j] = std::min(dp[i+1][j], dp[i+1][j+1]) + triangle[i][j];
+      }
     }
 
-    if (hasRight)
-    {
-      int minValue = std::min(mid, right);
-      dp[row][pos] = minValue;
-      return minValue;
-    }
-    else
-    {
-      dp[row][pos] = mid;
-      return mid;
-    }
+    return dp[0][0];
   }
 
   template<class T>
@@ -85,7 +109,7 @@ class Solution {
   {
     for (size_t i = 0; i < result.size(); ++i)
     {
-      cout << result[i] << ", ";
+      cout << result[i] << ", " << endl;
     }
     cout << endl;
   }
@@ -108,6 +132,6 @@ int main()
 {
   Solution *solution = new Solution();
   solution->RunTest();
-
+  delete solution;
   return 0;
 }
