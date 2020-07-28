@@ -162,7 +162,7 @@ Backpack (10%)
 
 Matrix (10%)  
 ~~~
-LC 115. Distinct Subsequences
+LC 115. Distinct Subsequences  [**]
 LC 120. Triangle
 LC 64. Minimum Path Sum
 LC 62. Unique Paths
@@ -178,9 +178,9 @@ LC 72. Edit Distance
 Sequence (40%)  
 ~~~
 LC 70. Climbing Stairs
-LC 55. Jump Game
-LC 45. Jump Game II
-LC 132. Palindrome Partitioning II
+LC 55. Jump Game [*** greedy]
+LC 45. Jump Game II [*** greedy]
+LC 132. Palindrome Partitioning II [***]
 LC 300. Longest Increasing Subsequence
 LC 139. Word Break
 LC 140. Word Break II

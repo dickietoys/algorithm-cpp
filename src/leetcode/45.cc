@@ -30,32 +30,57 @@ struct TreeNode {
   TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
+class Node {
+public:
+    int val;
+    vector<Node*> neighbors;
+
+    Node() {
+        val = 0;
+        neighbors = vector<Node*>();
+    }
+
+    Node(int _val) {
+        val = _val;
+        neighbors = vector<Node*>();
+    }
+
+    Node(int _val, vector<Node*> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
+};
+
 class Solution {
  public:
   void RunTest()
   {
+    vector<int> nums = {2,3,1,1,4};
+    int result = jump(nums);
+    cout << result << endl;
   }
 
-  int lengthOfLIS(vector<int>& nums) {
-    if (nums.empty())
+  int jump(vector<int>& nums) {
+    int end = 0;
+    int next_end = 0;
+    int count = 0;
+    for (int i = 0; i < nums.size(); ++i)
     {
-      return 0;
-    }
-    vector<int> dp(nums.size(), 1);
-    int max = 1;
-    for (int i = 1; i < nums.size(); ++i)
-    {
-      for (int j = 0; j < i; ++j)
+      next_end = std::max(next_end, nums[i] + i);
+      if (end >= nums.size() - 1)
       {
-        if (nums[j] < nums[i])
-        {
-          dp[i] = std::max(dp[i], dp[j] + 1);
-        }
+        break;
       }
-      max = std::max(dp[i], max);
+
+      if (i == end)
+      {
+        ++count;
+        end = next_end;
+        next_end = 0 ;
+      }
     }
 
-    return max;
+    return count;
   }
 
   template<class T>
@@ -63,7 +88,7 @@ class Solution {
   {
     for (size_t i = 0; i < result.size(); ++i)
     {
-      cout << result[i] << ", ";
+      cout << result[i] << ", " << endl;
     }
     cout << endl;
   }
@@ -86,6 +111,6 @@ int main()
 {
   Solution *solution = new Solution();
   solution->RunTest();
-
+  delete solution;
   return 0;
 }

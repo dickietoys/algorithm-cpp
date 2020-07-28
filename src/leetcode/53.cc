@@ -9,51 +9,93 @@
 #include <deque>
 #include <unordered_set>
 #include <unordered_map>
+#include <sstream>
+#include <iterator>
+#include <set>
+#include <cmath>
+#include <queue>
 
 using namespace std;
+
+struct ListNode {
+  int val;
+  ListNode *next;
+  ListNode(int x) : val(x), next(NULL) {}
+};
+
+struct TreeNode {
+  int val;
+  TreeNode *left;
+  TreeNode *right;
+  TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+
+class Node {
+public:
+    int val;
+    vector<Node*> neighbors;
+
+    Node() {
+        val = 0;
+        neighbors = vector<Node*>();
+    }
+
+    Node(int _val) {
+        val = _val;
+        neighbors = vector<Node*>();
+    }
+
+    Node(int _val, vector<Node*> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
+};
 
 class Solution {
  public:
   void RunTest()
   {
-    vector<int> input;
-    int result;
-
-    input = {-2,1,-3,4,-1,2,1,-5,4};
-    result = maxSubArray(input);
-    cout << "result: " << result << endl;
   }
 
   int maxSubArray(vector<int>& nums) {
-    return aux(nums, 0, 0);
-  }
-
-  int aux(vector<int>& nums, int pos, int sum)
-  {
-    if (pos == nums.size())
+    vector<int> dp(nums.size(), 0);
+    dp[0] = nums[0];
+    int max = dp[0];
+    for (int i = 1; i < nums.size(); ++i)
     {
-      return sum;
-    }
+      if (dp[i-1] + nums[i] >= nums[i])
+      {
+        dp[i] = dp[i-1] + nums[i];
+      }
+      else
+      {
+        dp[i] = nums[i];
+      }
 
-    int length = nums.size();
-    int max = 0;
-    for (int i = pos; i < length; ++i)
-    {
-      max = std::max({max,
-            aux(nums, pos + 1, sum + nums[i]),
-            aux(nums, pos + 1, sum)});
+      max = std::max(max, dp[i]);
     }
 
     return max;
   }
 
-  void Show(vector<vector<string>> &result)
+  template<class T>
+  void Show(vector<T> &result)
+  {
+    for (size_t i = 0; i < result.size(); ++i)
+    {
+      cout << result[i] << ", " << endl;
+    }
+    cout << endl;
+  }
+
+  template<class T>
+  void Show(vector<vector<T>> &result)
   {
     for (size_t i = 0; i < result.size(); ++i)
     {
       for (size_t j = 0; j < result[i].size(); ++j)
       {
-        cout << result[i][j] << ",";
+        cout << result[i][j] << ", ";
       }
       cout << endl;
     }
@@ -64,6 +106,6 @@ int main()
 {
   Solution *solution = new Solution();
   solution->RunTest();
-
+  delete solution;
   return 0;
 }
