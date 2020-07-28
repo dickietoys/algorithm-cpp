@@ -172,7 +172,6 @@ LC 10. Regular Expression Matching  [**]
 LC 44. Wildcard Matching
 
 LC 5. Longest Palindromic Substring
-LC 53. Maximum Subarray
 LC 72. Edit Distance
 ~~~
 
@@ -186,6 +185,7 @@ LC 300. Longest Increasing Subsequence
 LC 139. Word Break
 LC 140. Word Break II
 
+LC 53. Maximum Subarray
 ~~~
 
 Two Sequences DP（40%）  

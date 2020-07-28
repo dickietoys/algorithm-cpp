@@ -55,52 +55,26 @@ class Solution {
  public:
   void RunTest()
   {
-    bool result = isMatch("aa", "a*");
-    cout << "result: " << result << endl;
+    vector<int> nums = {2,3,1,1,4};
+    int result = jump(nums);
+    cout << result << endl;
   }
 
-  bool Aux(string &s, string &p, int s_pos, int p_pos)
-  {
-    if (p_pos < 0)
+  int jump(vector<int>& nums) {
+    int end = 0;
+    int cur_max = 0;
+    int count = 0;
+    for (int i = 0; i < nums.size(); ++i)
     {
-      return s_pos < 0;
-    }
-
-    if (p[p_pos] == '*')
-    {
-      if (s_pos >= 0 && (p[p_pos - 1] == '.' || p[p_pos - 1] == s[s_pos]))
+      cur_max = nums[i] + i;
+      if (i <= end)
       {
-        if (Aux(s, p, s_pos - 1, p_pos))
+        if (cur_max > end)
         {
-          return true;
+          ++count;
         }
       }
-
-      return Aux(s, p, s_pos, p_pos - 2);
     }
-    else
-    {
-      if (s_pos >= 0 && (p[p_pos] == '.' || s[s_pos] == p[p_pos]))
-      {
-        return Aux(s, p, s_pos - 1, p_pos - 1);
-      }
-      else
-      {
-        return false;
-      }
-    }
-  }
-
-  bool isMatch(string s, string p)
-  {
-    // return Aux(s, p, s.size() - 1, p.size() - 1);
-
-    /*
-      f(n, m) = f(n-1, m) || f(n, m-2)
-                f(n-1, m-1)
-     */
-
-    vector<vector<int>>
   }
 
   template<class T>
