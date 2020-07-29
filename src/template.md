@@ -5,10 +5,10 @@
 ~~~
 LC 104. Maximum Depth of Binary Tree
 LC 110. Balanced Binary Tree
-LC 124. Binary Tree Maximum Path Sum
-LC 236. Lowest Common Ancestor of a Binary Tree
+LC 124. Binary Tree Maximum Path Sum  [**]
+LC 236. Lowest Common Ancestor of a Binary Tree  [**]
 LC 102. Binary Tree Level Order Traversal
-LC 98. Validate Binary Search Tree
+LC 98. Validate Binary Search Tree    [**]
 LC 701. Insert into a Binary Search Tree
 
 
@@ -16,8 +16,8 @@ LC 94. Binary Tree Inorder Traversal
 LC 144. Binary Tree Preorder Traversal
 LC 145. Binary Tree Postorder Traversal
 
-LC 95. Unique Binary Search Trees II
-LC 96. Unique Binary Search Trees
+LC 95. Unique Binary Search Trees II [**]
+LC 96. Unique Binary Search Trees    [**]
 ~~~
 
 #### 链表
@@ -44,13 +44,13 @@ LC 155. Min Stack
 LC 150. Evaluate Reverse Polish Notation
 LC 394. Decode String
 LC 94. Binary Tree Inorder Traversal
-LC 133. Clone Graph
-LC 200. Number of Islands
-LC 84. Largest Rectangle in Histogram
-LC 85. Maximal Rectangle
+LC 133. Clone Graph       [**]
+LC 200. Number of Islands [**]
+LC 84. Largest Rectangle in Histogram [**]
+LC 85. Maximal Rectangle [**]
 
 LC 232. Implement Queue using Stacks
-LC 542. 01 Matrix
+LC 542. 01 Matrix [**]
 ~~~
 
 #### 二进制
@@ -111,10 +111,10 @@ LC 153. Find Minimum in Rotated Sorted Array
 LC 154. Find Minimum in Rotated Sorted Array II
 LC 33. Search in Rotated Sorted Array
 LC 81. Search in Rotated Sorted Array II
-LC 287. Find the Duplicate Number  **
+LC 287. Find the Duplicate Number  [**]
 
 
-LC 4. Median of two sorted arrays of same size
+LC 4. Median of two sorted arrays of same size [**]
 LC 189. Rotate Array
 LC 215. Kth Largest Element in an Array
 ~~~
@@ -162,21 +162,18 @@ Backpack (10%)
 
 Matrix (10%)  
 ~~~
-LC 115. Distinct Subsequences  [**]
 LC 120. Triangle
 LC 64. Minimum Path Sum
 LC 62. Unique Paths
 LC 63. Unique Paths II
-
-LC 10. Regular Expression Matching  [**]
-LC 44. Wildcard Matching
-
-LC 5. Longest Palindromic Substring
-LC 72. Edit Distance
 ~~~
 
 Sequence (40%)  
 ~~~
+LC 115. Distinct Subsequences  [**]
+LC 10. Regular Expression Matching  [**]
+LC 44. Wildcard Matching
+LC 5. Longest Palindromic Substring
 LC 70. Climbing Stairs
 LC 55. Jump Game [*** greedy]
 LC 45. Jump Game II [*** greedy]
@@ -184,7 +181,6 @@ LC 132. Palindrome Partitioning II [***]
 LC 300. Longest Increasing Subsequence
 LC 139. Word Break
 LC 140. Word Break II
-
 LC 53. Maximum Subarray
 ~~~
 

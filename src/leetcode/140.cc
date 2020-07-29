@@ -40,38 +40,75 @@ class Solution {
     Show(result);
   }
 
-  vector<string> wordBreak(string s, vector<string>& wordDict) {
-    unordered_map<string, vector<string>> dp;
-    vector<string> result = Aux(s, wordDict, dp);
+  void Aux(string s,
+           unordered_set<string> &dict,
+           int s_pos,
+           vector<string> &item,
+           vector<string> &result,
+           vector<bool> &dp)
+  {
+    if (s_pos < 0)
+    {
+      string one_result;
+      for (vector<string>::const_reverse_iterator rit = item.crbegin(); rit != item.crend(); ++rit)
+      {
+        one_result += *rit + " ";
+      }
 
-    return result;
+      result.push_back(one_result.substr(0, one_result.size() - 1));
+      return;
+    }
+
+    for (int i = s_pos; i >= 0; --i)
+    {
+      string cur_str = s.substr(i, s_pos - i + 1);
+      if (dict.count(cur_str) != 0)
+      {
+        if (i == 0 || dp[i-1])
+        {
+          item.push_back(cur_str);
+          Aux(s, dict, i - 1, item, result, dp);
+          item.pop_back();
+        }
+      }
+    }
   }
 
-  vector<string> Aux(string s, vector<string>& wordDict, unordered_map<string, vector<string>> &dp)
-  {
-    if (dp.count(s))
+  vector<string> wordBreak(string s, vector<string>& wordDict) {
+    vector<bool> dp(s.size(), false);
+
+    unordered_set<string> dict;
+    for (const string &item : wordDict)
     {
-      return dp[s];
-    }
-    vector<string> result;
-    if (s.empty())
-    {
-      return {""};
+      dict.insert(item);
     }
 
-    for (string word : wordDict)
+    for (int i = 0; i < s.size(); ++i)
     {
-      if (s.size() >= word.size() && s.substr(0, word.size()) == word)
+      for (int j = 0; j <= i; ++j)
       {
-        vector<string> subs = Aux(s.substr(word.size()), wordDict, dp);
-        for (string sub : subs)
+        int left = i - j;
+        int right = i;
+        if (left == 0)
         {
-          result.push_back(word + (sub.size() ? " " + sub : ""));
+          if (dict.count(s.substr(left, right - left + 1)) == 1)
+          {
+            dp[i] = true;
+            break;
+          }
+        }
+        else if (dp[left-1] && dict.count(s.substr(left, right - left + 1)) == 1)
+        {
+          dp[i] = true;
+          break;
         }
       }
     }
 
-    dp[s] = result;
+    vector<string> result;
+    vector<string> item;
+    Aux(s, dict, s.size() - 1, item, result, dp);
+
     return result;
   }
 
