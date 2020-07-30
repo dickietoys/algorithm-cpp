@@ -103,7 +103,7 @@ LC 201. Bitwise AND of Numbers Range
 
 ~~~
 LC 704. Binary Search
-LT 61. Search For Range
+LintCode 61. Search For Range
 LC 35. Search Insert Position
 LC 74. Search a 2D Matrix
 LC 278. First Bad Version
@@ -194,8 +194,8 @@ Backpack (10%)
 
 ~~~
 LC 322. Coin Change
-LT 92. Backpack
-LT 125. Backpack II
+LintCode 92. Backpack
+LintCode 125. Backpack II
 ~~~
 
 

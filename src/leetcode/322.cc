@@ -55,81 +55,67 @@ class Solution {
  public:
   void RunTest()
   {
+    vector<int> coins = {1, 2, 5};
+    int result = coinChange(coins, 11);
+    cout << result << endl;
   }
 
-  int Aux(int package_size,
-           vector<int> &goods,
-           int goods_pos,
-           vector<vector<int>> &dp)
+  int Aux(vector<int>& coins, int amount, vector<int> &dp)
   {
-    if (goods_pos >= goods.size())
+    if (amount < 0)
+    {
+      return -1;
+    }
+
+    if (amount == 0)
     {
       return 0;
     }
 
-    if (dp[goods_pos][package_size] != -1)
+    if (dp[amount] != -2)
     {
-      return dp[goods_pos][package_size];
+      return dp[amount];
     }
 
-    int size1 = 0;
-    int size2 = 0;
-    if (package_size - goods[goods_pos] >= 0)
+    int min = std::numeric_limits<int>::max();
+    for (int i = 0; i < coins.size(); ++i)
     {
-      size1 = goods[goods_pos] + Aux(package_size - goods[goods_pos], goods, goods_pos + 1, dp);
+      int val = Aux(coins, amount - coins[i], dp);
+      if (val != -1)
+      {
+        min = std::min(min, val + 1);
+      }
     }
-    size2 = Aux(package_size, goods, goods_pos + 1, dp);
 
-    dp[goods_pos][package_size] = std::max(size1, size2);
-
-    return dp[goods_pos][package_size];
+    dp[amount] = min == std::numeric_limits<int>::max() ? -1 : min;
+    return dp[amount];
   }
 
-  int backPack(int package_size, vector<int> &goods) {
-    // vector<vector<int>> dp(goods.size(), vector<int>(package_size + 1, -1));
-    // return Aux(package_size, goods, 0, dp);
+  int coinChange(vector<int>& coins, int amount) {
+    // vector<int> dp(amount + 1, -2);
+    // return Aux(coins, amount, dp);
 
-    /*
-      f(n, m) = 1. f(n-1, m - arr[i]);
-                2. f(n-1, m);
-     */
-
-    vector<vector<bool>> dp(goods.size(), vector<bool>(package_size + 1, false));
-    for (int i = 0; i < goods.size(); ++i)
+    vector<int> dp(amount + 1, -1);
+    dp[0] = 0;
+    for (int i = 1; i <= amount; ++i)
     {
-      dp[i][0] = true;
-    }
-
-    if (goods[0] <= package_size)
-    {
-      dp[0][goods[0]] = true;
-    }
-
-    for (int i = 1; i < goods.size(); ++i)
-    {
-      for (int j = 1; j <= package_size; ++j)
+      int cur_min = std::numeric_limits<int>::max();
+      for (int j = 0; j < coins.size(); ++j)
       {
-        if (j - goods[i] >= 0 && dp[i-1][j - goods[i]])
+        int remain = i - coins[j];
+        if (remain >= 0 && dp[remain] != -1)
         {
-          dp[i][j] = true;
-        }
-        else
-        {
-          dp[i][j] = dp[i-1][j];
+          cur_min = std::min(cur_min, dp[remain] + 1);
         }
       }
-    }
-
-    const vector<bool> &last_row = *dp.rbegin();
-    for (int i = last_row.size() - 1; i >= 0; --i)
-    {
-      if (last_row[i])
+      if (cur_min == std::numeric_limits<int>::max())
       {
-        return i;
+        cur_min = -1;
       }
+      dp[i] = cur_min;
     }
 
-    return 0;
+    return dp[amount];
   }
 
   template<class T>
