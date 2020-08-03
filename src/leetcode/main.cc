@@ -51,85 +51,45 @@ public:
     }
 };
 
+static int a = 0;
+
 class Solution {
  public:
   void RunTest()
   {
+    vector<int> nums = {0,1,2,2,3,0,4,2};
+    int val = 2;
+    int result = removeElement(nums, 2);
+    cout << result << endl;
   }
 
-  int Aux(int package_size,
-           vector<int> &goods,
-           int goods_pos,
-           vector<vector<int>> &dp)
-  {
-    if (goods_pos >= goods.size())
+  int removeElement(vector<int>& nums, int val) {
+    int start_pos = 0;
+    int nums_size = nums.size();
+    int total_count = nums_size;
+    int valid_pos = 0;
+    for (int i = 0; i < nums_size;)
     {
-      return 0;
-    }
-
-    if (dp[goods_pos][package_size] != -1)
-    {
-      return dp[goods_pos][package_size];
-    }
-
-    int size1 = 0;
-    int size2 = 0;
-    if (package_size - goods[goods_pos] >= 0)
-    {
-      size1 = goods[goods_pos] + Aux(package_size - goods[goods_pos], goods, goods_pos + 1, dp);
-    }
-    size2 = Aux(package_size, goods, goods_pos + 1, dp);
-
-    dp[goods_pos][package_size] = std::max(size1, size2);
-
-    return dp[goods_pos][package_size];
-  }
-
-  int backPack(int package_size, vector<int> &goods) {
-    // vector<vector<int>> dp(goods.size(), vector<int>(package_size + 1, -1));
-    // return Aux(package_size, goods, 0, dp);
-
-    /*
-      f(n, m) = 1. f(n-1, m - arr[i]);
-                2. f(n-1, m);
-     */
-
-    vector<vector<bool>> dp(goods.size(), vector<bool>(package_size + 1, false));
-    for (int i = 0; i < goods.size(); ++i)
-    {
-      dp[i][0] = true;
-    }
-
-    if (goods[0] <= package_size)
-    {
-      dp[0][goods[0]] = true;
-    }
-
-    for (int i = 1; i < goods.size(); ++i)
-    {
-      for (int j = 1; j <= package_size; ++j)
+      if (nums[i] == val)
       {
-        if (j - goods[i] >= 0 && dp[i-1][j - goods[i]])
+        for (int j = i + 1; j < nums_size; ++j)
         {
-          dp[i][j] = true;
+          if (nums[j] != val)
+          {
+            nums[valid_pos++] = nums[j];
+            total_count -= j - i;
+            i = j + 1;
+            break;
+          }
         }
-        else
-        {
-          dp[i][j] = dp[i-1][j];
-        }
+      }
+      else
+      {
+        nums[valid_pos++] = nums[i++];
       }
     }
 
-    const vector<bool> &last_row = *dp.rbegin();
-    for (int i = last_row.size() - 1; i >= 0; --i)
-    {
-      if (last_row[i])
-      {
-        return i;
-      }
-    }
-
-    return 0;
+    return total_count;
   }
 
   template<class T>
@@ -137,7 +97,7 @@ class Solution {
   {
     for (size_t i = 0; i < result.size(); ++i)
     {
-      cout << result[i] << ", " << endl;
+      cout << result[i] << ", ";
     }
     cout << endl;
   }
