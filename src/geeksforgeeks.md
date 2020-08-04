@@ -101,6 +101,12 @@
 
 ## 数据结构
 
+#### 数组
+
+~~~
+# Count Triplets Sum Smaller    [**]
+~~~
+
 
 #### Linked List
 ~~~

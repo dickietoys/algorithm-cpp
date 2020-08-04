@@ -31,41 +31,31 @@ struct TreeNode {
 };
 
 class Node {
-public:
-    int val;
-    vector<Node*> neighbors;
+ public:
+  int val;
+  vector<Node*> neighbors;
 
-    Node() {
-        val = 0;
-        neighbors = vector<Node*>();
-    }
+  Node() {
+    val = 0;
+    neighbors = vector<Node*>();
+  }
 
-    Node(int _val) {
-        val = _val;
-        neighbors = vector<Node*>();
-    }
+  Node(int _val) {
+    val = _val;
+    neighbors = vector<Node*>();
+  }
 
-    Node(int _val, vector<Node*> _neighbors) {
-        val = _val;
-        neighbors = _neighbors;
-    }
+  Node(int _val, vector<Node*> _neighbors) {
+    val = _val;
+    neighbors = _neighbors;
+  }
 };
-
-static int a = 0;
 
 class Solution {
  public:
   void RunTest()
   {
-    vector<int> preorder = {1,2,4,5,3,6,7};
-    vector<int> postorder = {4,5,2,6,7,3,1};
-    constructFromPrePost(preorder, postorder);
   }
-
-  /*
-    [1]  [2,4,5] [3,6,7]
-    [4,5,2] [6,7,3] [1]
-   */
 
   TreeNode* Aux(vector<int>& pre,
                 int pre_start,
@@ -74,32 +64,45 @@ class Solution {
                 int post_start,
                 int post_stop)
   {
-    if (pre_start > pre_stop || post_start > post_stop)
+    if (pre_start > pre_stop)
     {
       return nullptr;
     }
-
 
     TreeNode *root = new TreeNode(pre[pre_start]);
     if (pre_start == pre_stop)
     {
       return root;
     }
+    /*
+      1,2,4,5,3,6,7
+      4,5,2,6,7,3,1
 
-    int found_pos = FindPos(post, pre[pre_start+1]);
-    int size = found_pos - post_start + 1;
+      [1] [2,4,5] [3,6,7]
+      [4,5,2] [6,7,3] [1]
 
+    */
+
+    int pos = post_start;
+    for (; pos <= post_stop; ++pos)
+    {
+      if (post[pos] == pre[pre_start + 1])
+      {
+        break;
+      }
+    }
+    int size = pos - post_start + 1;
     root->left = Aux(pre,
                      pre_start + 1,
                      pre_start + size,
                      post,
                      post_start,
-                     found_pos);
+                     post_start + size - 1);
     root->right = Aux(pre,
                       pre_start + size + 1,
                       pre_stop,
                       post,
-                      post_start + size,
+                      pos + 1,
                       post_stop - 1);
 
     return root;
@@ -107,20 +110,6 @@ class Solution {
 
   TreeNode* constructFromPrePost(vector<int>& pre, vector<int>& post) {
     return Aux(pre, 0, pre.size() - 1, post, 0, post.size() - 1);
-  }
-
-  int FindPos(vector<int> &arr, int val)
-  {
-    int i = 0;
-    for (; i < arr.size(); ++i)
-    {
-      if (arr[i] == val)
-      {
-        return i;
-      }
-    }
-
-    return i;
   }
 
   template<class T>

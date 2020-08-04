@@ -31,25 +31,27 @@ struct TreeNode {
 };
 
 class Node {
- public:
-  int val;
-  vector<Node*> neighbors;
+public:
+    int val;
+    vector<Node*> neighbors;
 
-  Node() {
-    val = 0;
-    neighbors = vector<Node*>();
-  }
+    Node() {
+        val = 0;
+        neighbors = vector<Node*>();
+    }
 
-  Node(int _val) {
-    val = _val;
-    neighbors = vector<Node*>();
-  }
+    Node(int _val) {
+        val = _val;
+        neighbors = vector<Node*>();
+    }
 
-  Node(int _val, vector<Node*> _neighbors) {
-    val = _val;
-    neighbors = _neighbors;
-  }
+    Node(int _val, vector<Node*> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
 };
+
+static int a = 0;
 
 class Solution {
  public:
@@ -57,15 +59,32 @@ class Solution {
   {
   }
 
-
-
-  TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-    if (!root)
+  TreeNode* Aux(vector<int>& preorder, int start_pos, int stop_pos)
+  {
+    if (start_pos > stop_pos || start_pos > preorder.size())
     {
       return nullptr;
     }
 
-    return Aux(root, p, q);
+    TreeNode *node = new TreeNode(preorder[start_pos]);
+    int left_end_pos = start_pos + 1;
+    for (; left_end_pos < preorder.size(); ++left_end_pos)
+    {
+      if (preorder[left_end_pos] > node->val)
+      {
+        break;
+      }
+    }
+
+    node->left = Aux(preorder, start_pos + 1, left_end_pos - 1);
+    node->right = Aux(preorder, left_end_pos, stop_pos);
+
+    return node;
+  }
+
+  TreeNode* bstFromPreorder(vector<int>& preorder) {
+    // 8,5,1,7,10,12
+    return Aux(preorder, 0, preorder.size() - 1);
   }
 
   template<class T>
