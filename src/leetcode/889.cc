@@ -57,17 +57,70 @@ class Solution {
  public:
   void RunTest()
   {
+    vector<int> preorder = {1,2,4,5,3,6,7};
+    vector<int> postorder = {4,5,2,6,7,3,1};
+    constructFromPrePost(preorder, postorder);
   }
 
-  TreeNode* Aux(vector<int>& preorder, int start_pos, int stop_pos)
+  /*
+    [1]  [2,4,5] [3,6,7]
+    [4,5,2] [6,7,3] [1]
+   */
+
+  TreeNode* Aux(vector<int>& pre,
+                int pre_start,
+                int pre_stop,
+                vector<int>& post,
+                int post_start,
+                int post_stop)
   {
-    TreeNode *node = new TreeNode(preorder[pos]);
-    for (int i = pos + 1; i < preorder.size())
+    if (pre_start > pre_stop || post_start > post_stop)
+    {
+      return nullptr;
+    }
+
+
+    TreeNode *root = new TreeNode(pre[pre_start]);
+    if (pre_start == pre_stop)
+    {
+      return root;
+    }
+
+    int found_pos = FindPos(post, pre[pre_start+1]);
+    int size = found_pos - post_start + 1;
+
+    root->left = Aux(pre,
+                     pre_start + 1,
+                     pre_start + size,
+                     post,
+                     post_start,
+                     found_pos);
+    root->right = Aux(pre,
+                      pre_start + size + 1,
+                      pre_stop,
+                      post,
+                      post_start + size,
+                      post_stop - 1);
+
+    return root;
   }
 
-  TreeNode* bstFromPreorder(vector<int>& preorder) {
-    // 8,5,1,7,10,12
+  TreeNode* constructFromPrePost(vector<int>& pre, vector<int>& post) {
+    return Aux(pre, 0, pre.size() - 1, post, 0, post.size() - 1);
+  }
 
+  int FindPos(vector<int> &arr, int val)
+  {
+    int i = 0;
+    for (; i < arr.size(); ++i)
+    {
+      if (arr[i] == val)
+      {
+        return i;
+      }
+    }
+
+    return i;
   }
 
   template<class T>

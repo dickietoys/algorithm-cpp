@@ -18,6 +18,12 @@ LC 145. Binary Tree Postorder Traversal
 
 LC 95. Unique Binary Search Trees II [**]
 LC 96. Unique Binary Search Trees    [**]
+
+LC 105. Construct Binary Tree from Preorder and Inorder Traversal [**]
+LC 106. Construct Binary Tree from Inorder and Postorder Traversal [**]
+LC 889. Construct Binary Tree from Preorder and Postorder Traversal [**]
+LC 1008. Construct Binary Search Tree from Preorder Traversal [**]
+
 ~~~
 
 #### 链表
