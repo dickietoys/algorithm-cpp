@@ -57,15 +57,15 @@ class Solution {
   {
   }
 
-
-
-  TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-    if (!root)
+  bool isValidBST(TreeNode* root) {
+    stack<TreeNode *> st;
+    st.push(root);
+    TreeNode *last_pop = root;
+    TreeNode *prev_node = nullptr;
+    while (!st.empty())
     {
-      return nullptr;
-    }
 
-    return Aux(root, p, q);
+    }
   }
 
   template<class T>

@@ -17,7 +17,6 @@
 
 using namespace std;
 
-
 struct ListNode {
   int val;
   ListNode *next;
@@ -31,92 +30,166 @@ struct TreeNode {
   TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-class Codec {
+class Node {
  public:
+  int val;
+  vector<Node*> neighbors;
+
+  Node() {
+    val = 0;
+    neighbors = vector<Node*>();
+  }
+
+  Node(int _val) {
+    val = _val;
+    neighbors = vector<Node*>();
+  }
+
+  Node(int _val, vector<Node*> _neighbors) {
+    val = _val;
+    neighbors = _neighbors;
+  }
+};
+
+class Solution {
+ public:
+  void RunTest()
+  {
+    string data = "1,2,3,null,null,4,5";
+    deserialize(data);
+  }
 
   // Encodes a tree to a single string.
-  // Encodes a tree to a single string.
   string serialize(TreeNode* root) {
+    if (!root)
+    {
+      return "";
+    }
+
     string result = "";
     deque<TreeNode *> dq;
     dq.push_back(root);
     while (!dq.empty())
     {
       int dq_size = dq.size();
-      for (int i = 0; i < dq_size; ++i)
+      while (dq_size > 0)
       {
         TreeNode *node = dq.front();
         dq.pop_front();
-        if (!node)
+        if (node)
         {
-          result += "null,";
+          dq.push_back(node->left);
+          dq.push_back(node->right);
+          result += std::to_string(node->val) + ",";
         }
         else
         {
-          result += std::to_string(node->val) + ",";
-          dq.push_back(node->left);
-          dq.push_back(node->right);
+          result += "null,";
         }
+        --dq_size;
       }
     }
 
-    if (result != "")
-    {
-      result = result.substr(0, result.size() - 1);
-    }
+    result = result.substr(0, result.size() - 1);
 
     return result;
   }
 
   // Decodes your encoded data to tree.
   TreeNode* deserialize(string data) {
-    stringstream ss(data);
-    queue<TreeNode *> q;
-    string s;
-    while (getline(ss, s, ','))
-    {
-      if (s == "null")
-      {
-        q.push(nullptr);
-      }
-      else
-      {
-        q.push(new TreeNode(std::stoi(s)));
-      }
-    }
-
-    if (q.size() <= 0)
+    if (data == "")
     {
       return nullptr;
     }
 
-    TreeNode *root = q.front();
-    q.pop();
-    int depth = 1;
-    queue<TreeNode *> last_depth;
-    last_depth.push(root);
-    while (!q.empty())
+    std::stringstream ss(data);
+    std::string item;
+    vector<TreeNode *> items;
+    while (std::getline(ss, item, ','))
     {
-      int last_depth_size = last_depth.size();
-      for (int i = 0; i < last_depth_size; ++i)
+      if (item == "null")
       {
-        TreeNode *node = last_depth.front();
-        last_depth.pop();
-        node->left = q.front();
-        q.pop();
-        node->right = q.front();
-        q.pop();
+        items.push_back(nullptr);
+      }
+      else
+      {
+        items.push_back(new TreeNode(std::stoi(item)));
+      }
+    }
+
+    /*
+                 1
+             2         3
+         null null   4   5
+
+      [1,2,3,null,null,4,5]
+
+      [1] [2,3,null] [null, 4, 5]
+
+      [2] [3] [null]
+    */
+
+    TreeNode *root = items[0];
+    if (!root)
+    {
+      return root;
+    }
+
+    int pos = 1;
+    deque<TreeNode*> dq;
+    dq.push_back(root);
+    while (pos < items.size())
+    {
+      int dq_size = dq.size();
+      while (dq_size > 0)
+      {
+        TreeNode *node = dq.front();
+        dq.pop_front();
+        node->left = items[pos++];
+        node->right = items[pos++];
         if (node->left)
         {
-          last_depth.push(node->left);
+          dq.push_back(node->left);
         }
         if (node->right)
         {
-          last_depth.push(node->right);
+          dq.push_back(node->right);
         }
+        --dq_size;
       }
     }
 
     return root;
   }
+
+  template<class T>
+  void Show(vector<T> &result)
+  {
+    for (size_t i = 0; i < result.size(); ++i)
+    {
+      cout << result[i] << ", ";
+    }
+    cout << endl;
+  }
+
+  template<class T>
+  void Show(vector<vector<T>> &result)
+  {
+    for (size_t i = 0; i < result.size(); ++i)
+    {
+      for (size_t j = 0; j < result[i].size(); ++j)
+      {
+        cout << result[i][j] << ", ";
+      }
+      cout << endl;
+    }
+  }
 };
+
+int main()
+{
+  Solution *solution = new Solution();
+  solution->RunTest();
+  delete solution;
+  return 0;
+}
