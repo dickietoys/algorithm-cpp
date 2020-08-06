@@ -55,34 +55,73 @@ class Solution {
  public:
   void RunTest()
   {
-    bool result = isPerfectSquare(2000105819);
-
+    int result = numSquares(12);
     cout << result << endl;
   }
 
-  bool isPerfectSquare(int num) {
-    int low = 0;
-    int high = num;
-
-    while (low <= high)
+  int Aux(int n)
+  {
+    if (n == 0)
     {
-      long mid = low + (high - low) / 2;
-      unsigned long tmp = mid * mid;
-      if (tmp > num)
+      return 0;
+    }
+
+    if (n < 0)
+    {
+      return -1;
+    }
+
+    int min = std::numeric_limits<int>::max();
+    for (int i = 1; i * i <= n; ++i)
+    {
+      int cur = Aux(n - i*i);
+      if (cur != -1)
       {
-        high = mid - 1;
-      }
-      else if (tmp < num)
-      {
-        low = mid + 1;
-      }
-      else
-      {
-        return true;
+        min = std::min(cur + 1, min);
       }
     }
 
-    return false;
+    if (min == std::numeric_limits<int>::max())
+    {
+      return -1;
+    }
+    else
+    {
+      return min;
+    }
+  }
+
+  int numSquares(int n) {
+    // return Aux(n);
+
+    /*
+      f(n) = f(n-1)
+             f(n-4)
+             f(n-9) ...
+     */
+    vector<int> dp(n + 1, 0);
+    for (int i = 1; i <= n; ++i)
+    {
+      int min = std::numeric_limits<int>::max();
+      for (int j = 1; j * j <= i; ++j)
+      {
+        int pos = i - j * j;
+        if (pos == 0)
+        {
+          min = std::min(min, 1);
+        }
+        else
+        {
+          if (dp[pos] != 0)
+          {
+            min = std::min(dp[pos] + 1, min);
+          }
+        }
+      }
+      dp[i] = min == std::numeric_limits<int>::max() ? 0 : min;
+    }
+
+    return dp[n];
   }
 
   template<class T>
