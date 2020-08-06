@@ -42,80 +42,59 @@ class Solution {
   }
 
   bool searchMatrix(vector<vector<int>>& matrix, int target) {
-    if (matrix.size() == 0)
+    if (matrix.empty() || matrix[0].empty())
     {
-      return 0;
+      return false;
     }
-
-    if (matrix[0].size() == 0)
-    {
-      return 0;
-    }
-    int rowSize = matrix.size();
-    int colSize =matrix[0].size();
+    int rows = matrix.size() - 1;
+    int cols = matrix[0].size() - 1;
     int low = 0;
-    int high = rowSize - 1;
+    int high = rows;
+    int pos = -1;
     while (low <= high)
     {
-      int middle = (low + high) / 2;
-      if (matrix[middle][0] > target)
+      int mid = low + (high - low) / 2;
+      if (matrix[mid][0] > target)
       {
-        high = middle - 1;
+        // 在上面
+        high = mid - 1;
       }
-      else if (matrix[middle][0] < target)
+      else
       {
-        if (middle == rowSize - 1)
+        //在本行或在下面
+        if ((matrix[mid][cols] >= target))
         {
-          if (matrix[middle][colSize-1] >= target)
-          {
-            return Aux(matrix, target, middle);
-          }
-          else
-          {
-            break;
-          }
+          pos = mid;
+          break;
         }
         else
         {
-          if (matrix[middle+1][0] > target)
-          {
-            return Aux(matrix, target, middle);
-          }
-          else
-          {
-            low = middle + 1;
-          }
+          low = mid + 1;
         }
-      }
-      else
-      {
-        return true;
       }
     }
 
-    return false;
-  }
-
-  bool Aux(vector<vector<int>>& matrix, int target, int row)
-  {
-    int colSize =matrix[0].size();
-    int left = 0;
-    int right = colSize - 1;
-    while (left <= right)
+    if (pos == -1)
     {
-      int middle = (left + right) / 2;
-      if (target == matrix[row][middle])
+      return false;
+    }
+
+    low = 0;
+    high = cols;
+    while (low <= high)
+    {
+      int mid = low + (high - low) / 2;
+      if (matrix[pos][mid] == target)
       {
         return true;
       }
-
-      if (target > matrix[row][middle])
+      else if (matrix[pos][mid] > target)
       {
-        left = middle + 1;
+        high = mid - 1;
       }
       else
       {
-        right = middle - 1;
+        low = mid + 1;
       }
     }
 

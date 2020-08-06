@@ -112,6 +112,7 @@ LC 704. Binary Search
 LintCode 61. Search For Range
 LC 35. Search Insert Position
 LC 74. Search a 2D Matrix
+LC 240. Search a 2D Matrix II [**]
 LC 278. First Bad Version
 LC 153. Find Minimum in Rotated Sorted Array
 LC 154. Find Minimum in Rotated Sorted Array II
@@ -301,6 +302,12 @@ LC 47. Permutations II
 LC 39. Combination Sum
 LC 40. Combination Sum II
 LC 131. Palindrome Partitioning
+
+LC 36. Valid Sudoku
+LC 37. Sodoku Solver
+
+LC 51. N-Queens
+Lc 52. N-Queens II
 
 LC 17. Letter Combinations of a Phone Number
 LC 93. Restore IP Addresses
