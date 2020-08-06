@@ -55,17 +55,34 @@ class Solution {
  public:
   void RunTest()
   {
+    bool result = isPerfectSquare(2000105819);
+
+    cout << result << endl;
   }
 
-  bool isValidBST(TreeNode* root) {
-    stack<TreeNode *> st;
-    st.push(root);
-    TreeNode *last_pop = root;
-    TreeNode *prev_node = nullptr;
-    while (!st.empty())
-    {
+  bool isPerfectSquare(int num) {
+    int low = 0;
+    int high = num;
 
+    while (low <= high)
+    {
+      long mid = low + (high - low) / 2;
+      unsigned long tmp = mid * mid;
+      if (tmp > num)
+      {
+        high = mid - 1;
+      }
+      else if (tmp < num)
+      {
+        low = mid + 1;
+      }
+      else
+      {
+        return true;
+      }
     }
+
+    return false;
   }
 
   template<class T>
