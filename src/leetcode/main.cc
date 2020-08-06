@@ -55,17 +55,73 @@ class Solution {
  public:
   void RunTest()
   {
+    int result = numSquares(12);
+    cout << result << endl;
   }
 
-  bool isValidBST(TreeNode* root) {
-    stack<TreeNode *> st;
-    st.push(root);
-    TreeNode *last_pop = root;
-    TreeNode *prev_node = nullptr;
-    while (!st.empty())
+  int Aux(int n)
+  {
+    if (n == 0)
     {
-
+      return 0;
     }
+
+    if (n < 0)
+    {
+      return -1;
+    }
+
+    int min = std::numeric_limits<int>::max();
+    for (int i = 1; i * i <= n; ++i)
+    {
+      int cur = Aux(n - i*i);
+      if (cur != -1)
+      {
+        min = std::min(cur + 1, min);
+      }
+    }
+
+    if (min == std::numeric_limits<int>::max())
+    {
+      return -1;
+    }
+    else
+    {
+      return min;
+    }
+  }
+
+  int numSquares(int n) {
+    // return Aux(n);
+
+    /*
+      f(n) = f(n-1)
+             f(n-4)
+             f(n-9) ...
+     */
+    vector<int> dp(n + 1, 0);
+    for (int i = 1; i <= n; ++i)
+    {
+      int min = std::numeric_limits<int>::max();
+      for (int j = 1; j * j <= i; ++j)
+      {
+        int pos = i - j * j;
+        if (pos == 0)
+        {
+          min = std::min(min, 1);
+        }
+        else
+        {
+          if (dp[pos] != 0)
+          {
+            min = std::min(dp[pos] + 1, min);
+          }
+        }
+      }
+      dp[i] = min == std::numeric_limits<int>::max() ? 0 : min;
+    }
+
+    return dp[n];
   }
 
   template<class T>

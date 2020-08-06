@@ -4,6 +4,11 @@ LC 56.  (扫描线算法)
 LC 200. (看似简单的dfs，bfs，最后才知道flood fill)
 LC 215. (quick select)
 
+3 Sum:
+LC 15. 3Sum
+LC 16. 3Sum Closest
+LC 18. 4Sum
+
 Combination Sum:
 LC 39.  Combination Sum
 LC 40.  Combination Sum II

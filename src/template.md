@@ -54,6 +54,7 @@ LC 133. Clone Graph       [**]
 LC 200. Number of Islands [**]
 LC 84. Largest Rectangle in Histogram [**]
 LC 85. Maximal Rectangle [**]
+LC 42. Trapping Rain Water [**]
 
 LC 232. Implement Queue using Stacks
 LC 542. 01 Matrix [**]
@@ -189,6 +190,7 @@ LC 300. Longest Increasing Subsequence
 LC 139. Word Break
 LC 140. Word Break II
 LC 53. Maximum Subarray
+LC 279. Perfect Squares
 ~~~
 
 Two Sequences DP（40%）  
@@ -265,6 +267,10 @@ LC 76. Minimum Window Substring
 LC 567. Permutation in String
 LC 438. Find All Anagrams in a String
 LC 3. Longest Substring Without Repeating Characters
+
+LC 15. 3Sum
+LC 16. 3Sum Closest
+LC 18. 4Sum
 ~~~
 
 #### 二叉搜索树
@@ -301,6 +307,7 @@ LC 46. Permutations
 LC 47. Permutations II
 LC 39. Combination Sum
 LC 40. Combination Sum II
+LC 216. Combination Sum III
 LC 131. Palindrome Partitioning
 
 LC 36. Valid Sudoku
