@@ -121,10 +121,12 @@ LC 33. Search in Rotated Sorted Array
 LC 81. Search in Rotated Sorted Array II
 LC 287. Find the Duplicate Number  [**]
 
-
 LC 4. Median of two sorted arrays of same size [**]
 LC 189. Rotate Array
 LC 215. Kth Largest Element in an Array
+
+LC 349. Intersection of Two Arrays
+LC 350. Intersection of Two Arrays II
 ~~~
 
 #### 排序算法
