@@ -125,7 +125,7 @@
 
 #### Stack
 ~~~
-# next-greater-element
+# next-greater-element [**]
 ~~~
 
 #### Queue
@@ -168,5 +168,5 @@
 
 #### Trie(字典树),前缀树
 ~~~
-# insert,search,delete
+# insert,search,delete [**]
 ~~~
