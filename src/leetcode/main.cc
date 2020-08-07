@@ -55,73 +55,45 @@ class Solution {
  public:
   void RunTest()
   {
-    int result = numSquares(12);
-    cout << result << endl;
   }
 
-  int Aux(int n)
+  /*
+    Given an array nums containing n + 1 integers where each integer is between 1 and n (inclusive), prove that at least one duplicate number must exist. Assume that there is only one duplicate number, find the duplicate one.
+   */
+  int findDuplicate(vector<int>& nums)
   {
-    if (n == 0)
-    {
-      return 0;
-    }
-
-    if (n < 0)
-    {
-      return -1;
-    }
-
-    int min = std::numeric_limits<int>::max();
-    for (int i = 1; i * i <= n; ++i)
-    {
-      int cur = Aux(n - i*i);
-      if (cur != -1)
-      {
-        min = std::min(cur + 1, min);
-      }
-    }
-
-    if (min == std::numeric_limits<int>::max())
-    {
-      return -1;
-    }
-    else
-    {
-      return min;
-    }
-  }
-
-  int numSquares(int n) {
-    // return Aux(n);
-
     /*
-      f(n) = f(n-1)
-             f(n-4)
-             f(n-9) ...
-     */
-    vector<int> dp(n + 1, 0);
-    for (int i = 1; i <= n; ++i)
+      [0,1,2]
+      [1,2,2]
+
+
+    */
+
+    int low = 0;
+    int high = nums.size() - 1;
+    while (low < high)
     {
-      int min = std::numeric_limits<int>::max();
-      for (int j = 1; j * j <= i; ++j)
+      int mid = low + (high - low) / 2;
+      int count = 0;
+      for (int i = 0; i < nums.size(); ++i)
       {
-        int pos = i - j * j;
-        if (pos == 0)
+        if (nums[i] <= mid)
         {
-          min = std::min(min, 1);
-        }
-        else
-        {
-          if (dp[pos] != 0)
-          {
-            min = std::min(dp[pos] + 1, min);
-          }
+          ++count;
         }
       }
-      dp[i] = min == std::numeric_limits<int>::max() ? 0 : min;
+
+      if (count <= mid)
+      {
+        low = mid + 1;
+      }
+      else
+      {
+        high = mid;
+      }
     }
 
-    return dp[n];
+    return low;
   }
 
   template<class T>
