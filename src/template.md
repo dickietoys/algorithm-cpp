@@ -127,6 +127,11 @@ LC 215. Kth Largest Element in an Array
 
 LC 349. Intersection of Two Arrays
 LC 350. Intersection of Two Arrays II
+
+LC 378. Kth Smallest Element in a Sorted Matrix     [**]
+LC 668. Kth Smallest Number in Multiplication Table [**]
+LC 719. Find K-th Smallest Pair Distance [**]
+LC 410. Split Array Largest Sum [**]
 ~~~
 
 #### 排序算法
