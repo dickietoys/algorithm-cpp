@@ -95,12 +95,10 @@ void MergeSortConquer(vector<int> &arr, int left_pos, int middle_pos, int right_
     if (arr[left_start] < arr[right_start])
     {
       buffer[buffer_index++] = arr[left_start++];
-      continue;
     }
     else
     {
       buffer[buffer_index++] = arr[right_start++];
-      continue;
     }
   }
 

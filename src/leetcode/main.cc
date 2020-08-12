@@ -55,45 +55,64 @@ class Solution {
  public:
   void RunTest()
   {
+    int result = ReOrderCount({1, 7, 2, 9, 6, 4, 5, 3});
+    cout << result << endl;
   }
 
-  /*
-    Given an array nums containing n + 1 integers where each integer is between 1 and n (inclusive), prove that at least one duplicate number must exist. Assume that there is only one duplicate number, find the duplicate one.
-   */
-  int findDuplicate(vector<int>& nums)
+  int count = 0;
+
+  void Merge(vector<int> &arr, int left, int mid, int right)
   {
-    /*
-      [0,1,2]
-      [1,2,2]
+    vector<int> tmp(arr.size(), 0);
 
-
-    */
-
-    int low = 0;
-    int high = nums.size() - 1;
-    while (low < high)
+    int left_pos = left;
+    int right_pos = mid + 1;
+    int tmp_pos = left;
+    while (left_pos <= mid && right_pos <= right)
     {
-      int mid = low + (high - low) / 2;
-      int count = 0;
-      for (int i = 0; i < nums.size(); ++i)
+      if (arr[left_pos] > arr[right_pos])
       {
-        if (nums[i] <= mid)
-        {
-          ++count;
-        }
-      }
-
-      if (count <= mid)
-      {
-        low = mid + 1;
+        count += mid - left_pos + 1;
+        tmp[tmp_pos++] = arr[right_pos++];
       }
       else
       {
-        high = mid;
+        tmp[tmp_pos++] = arr[left_pos++];
       }
     }
 
-    return low;
+    while (left_pos <= mid)
+    {
+      tmp[tmp_pos++] = arr[left_pos++];
+    }
+
+    while (right_pos <= right)
+    {
+      tmp[tmp_pos++] = arr[right_pos++];
+    }
+
+    for (int i = left; i <= right; ++i)
+    {
+      arr[i] = tmp[i];
+    }
+  }
+
+  void Aux(vector<int> &arr, int left, int right)
+  {
+    if (left >= right)
+    {
+      return;
+    }
+    int mid = left + (right - left) / 2;
+    Aux(arr, left, mid);
+    Aux(arr, mid + 1, right);
+    Merge(arr, left, mid, right);
+  }
+
+  int ReOrderCount(vector<int> arr)
+  {
+    Aux(arr, 0, arr.size() - 1);
+    return count;
   }
 
   template<class T>
