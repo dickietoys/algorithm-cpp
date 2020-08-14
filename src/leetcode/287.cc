@@ -74,23 +74,22 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<int> input = {1, 3, 4, 2, 2};
+    vector<int> input = {2, 3, 5, 4, 3, 2, 6, 7};
     int result = findDuplicate(input);
     cout << result << endl;
   }
 
   int findDuplicate(vector<int>& nums) {
-    int nums_size = nums.size();
-    if (nums_size <= 1)
+    if (nums.empty())
     {
-      return 0;
+      return -1;
     }
 
-    int left = 0;
-    int right = nums_size - 1;
-    while (left < right)
+    int low = 1;
+    int high = nums.size() - 1;
+    while (low <= high)
     {
-      int mid = left + (right - left) / 2;
+      int mid = low + (high - low) / 2;
       int count = 0;
       for (int i = 0; i < nums.size(); ++i)
       {
@@ -100,17 +99,29 @@ class Solution {
         }
       }
 
+      if (low == high)
+      {
+        if (count > low)
+        {
+          return low;
+        }
+        else
+        {
+          break;
+        }
+      }
+
       if (count <= mid)
       {
-        left = mid + 1;
+        low = mid + 1;
       }
       else
       {
-        right = mid;
+        high = mid;
       }
     }
 
-    return left;
+    return -1;
   }
 
   template<class T>
