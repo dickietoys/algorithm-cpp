@@ -41,6 +41,7 @@ LC 141. Linked List Cycle
 LC 142. Linked List Cycle II
 LC 234. Palindrome Linked List
 LC 138. Copy List with Random Pointer
+LC 146. LRU Cache [**]
 ~~~
 
 #### 栈和队列
