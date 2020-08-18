@@ -51,66 +51,32 @@ class Node {
   }
 };
 
-// class Node {
-// public:
-//     int val;
-//     Node* left;
-//     Node* right;
-
-//     Node() {}
-
-//     Node(int _val) {
-//         val = _val;
-//         left = NULL;
-//         right = NULL;
-//     }
-
-//     Node(int _val, Node* _left, Node* _right) {
-//         val = _val;
-//         left = _left;
-//         right = _right;
-//     }
-// };
-
 class Solution {
  public:
   void RunTest()
   {
-    vector<int> arr = {1,2,3};
-    vector<int> result = getLeastNumbers(arr, 2);
-    Show(result);
   }
 
-  vector<int> getLeastNumbers(vector<int>& arr, int k) {
-    if (k <= 0)
+  int max_ = std::numeric_limits<int>::min();
+
+  int Aux(TreeNode *node)
+  {
+    if (!node)
     {
-      return {};
-    }
-    std::priority_queue<int, vector<int>, less<int>> pq;
-    for (int i = 0; i < arr.size(); ++i)
-    {
-      if (pq.size() < k)
-      {
-        pq.push(arr[i]);
-      }
-      else
-      {
-        if (pq.top() > arr[i])
-        {
-          pq.pop();
-          pq.push(arr[i]);
-        }
-      }
+      return 0;
     }
 
-    vector<int> result;
-    while (!pq.empty())
-    {
-      result.push_back(pq.top());
-      pq.pop();
-    }
+    int left_sum = std::max(Aux(node->left), 0);
+    int cur = node->val;
+    int right_sum = std::max(Aux(node->right), 0);
+    max_ = std::max(max_, left_sum + cur + right_sum);
 
-    return result;
+    return std::max(left_sum + cur, right_sum + cur);
+  }
+
+  int maxPathSum(TreeNode* root) {
+    Aux(root);
+    return max_;
   }
 
   template<class T>

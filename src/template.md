@@ -24,6 +24,9 @@ LC 106. Construct Binary Tree from Inorder and Postorder Traversal [**]
 LC 889. Construct Binary Tree from Preorder and Postorder Traversal [**]
 LC 1008. Construct Binary Search Tree from Preorder Traversal [**]
 LC 297. Serialize and Deserialize Binary Tree [**]
+
+LC 112. PathSum     [**]
+LC 113. PathSum II  [**]
 ~~~
 
 #### 链表

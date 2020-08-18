@@ -14,10 +14,6 @@ LC 39.  Combination Sum
 LC 40.  Combination Sum II
 LC 216. Combination Sum III
 
-Path Sum:
-LC 112. PathSum
-LC 113. PathSum II
-
 
 subarray:
 LC 53.  最大subarray O(n)算法
