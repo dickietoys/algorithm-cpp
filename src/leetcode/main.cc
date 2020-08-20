@@ -76,41 +76,60 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<int> arr = {1,2,3};
-    vector<int> result = getLeastNumbers(arr, 2);
-    Show(result);
+    int result = findNthDigit(11);
+    cout << "---------------------result-----------------------" << endl;
+    cout << "result: " << result << endl;
   }
 
-  vector<int> getLeastNumbers(vector<int>& arr, int k) {
-    if (k <= 0)
+  /*
+    012345678910111213..99
+
+    9             [1 ... 9]
+    90 * 2        [10 ... 99]
+    900 * 3       [100 ... 999]
+   */
+  int NumOfDigit(int n)
+  {
+    int count = 0;
+    while (n)
     {
-      return {};
+      ++count;
+      n = n / 10;
     }
-    std::priority_queue<int, vector<int>, less<int>> pq;
-    for (int i = 0; i < arr.size(); ++i)
+
+    return count;
+  }
+
+  int findNthDigit(int n) {
+    if (n == 0)
     {
-      if (pq.size() < k)
+      return 0;
+    }
+
+    long num = 9;
+    int factor = 1;
+    while (true)
+    {
+      if (n <= num * factor)
       {
-        pq.push(arr[i]);
+        break;
       }
       else
       {
-        if (pq.top() > arr[i])
-        {
-          pq.pop();
-          pq.push(arr[i]);
-        }
+        n = n - num * factor;
+        num = num * 10;
+        ++factor;
       }
     }
 
-    vector<int> result;
-    while (!pq.empty())
-    {
-      result.push_back(pq.top());
-      pq.pop();
-    }
+    long start_num = num / 9;
+    long target_num = std::ceil(double(n) / factor) + start_num - 1;
+    cout << "n: " << n << ", [" << start_num << ", " << target_num << "]" << endl;
+    n = (target_num - start_num) * factor - n;
 
-    return result;
+
+    string s = std::to_string(num);
+    return s[n-1] - '0';
   }
 
   template<class T>

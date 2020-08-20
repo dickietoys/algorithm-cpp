@@ -35,9 +35,23 @@ class Solution {
   {
   }
 
+  /*
+    11011
+
+    10100   10199
+    09100   09199
+
+    11111
+
+    11100   11111
+    10100   10199
+
+    11211
+    11100   11199
+  */
   int countDigitOne(int n) {
     int count = 0;
-    for (int factor = 1; factor <= n; factor = factor * 10)
+    for (long factor = 1; factor <= n; factor = factor * 10)
     {
       int first = n / factor;
       int second = n % factor;

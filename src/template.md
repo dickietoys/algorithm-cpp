@@ -1,5 +1,12 @@
 ## 数据结构
 
+#### Math
+
+~~~
+LC 233. Number of Digit One [**]
+LC 400. Nth Digit [**]
+~~~
+
 #### 二叉树
 
 ~~~
@@ -62,6 +69,7 @@ LC 42. Trapping Rain Water [**]
 
 LC 232. Implement Queue using Stacks
 LC 542. 01 Matrix [**]
+LC 31. Next Permutation [**]
 ~~~
 
 #### 二进制
@@ -146,7 +154,8 @@ LC 410. Split Array Largest Sum [**]
 
 #### 动态规划
 
-使用场景  
+使用场景
+
 ~~~
 1. 满足两个条件
    满足以下条件之一
@@ -158,7 +167,8 @@ LC 410. Split Array Largest Sum [**]
 LC 128. Longest Consecutive Sequence 位置可以交互，所以不用动态规划
 ~~~
 
-四点要素  
+四点要素
+
 ~~~
 1. 状态 State
    灵感，创造力，存储小规模问题的结果
@@ -170,7 +180,7 @@ LC 128. Longest Consecutive Sequence 位置可以交互，所以不用动态规�
    最大的那个状态是什么，终点
 ~~~
 
-常见四种类型  
+常见四种类型
 
 ~~~
 Matrix DP (10%)
@@ -179,7 +189,8 @@ Two Sequences DP (40%)
 Backpack (10%)
 ~~~
 
-Matrix (10%)  
+Matrix (10%)
+
 ~~~
 LC 120. Triangle
 LC 64. Minimum Path Sum
@@ -187,7 +198,8 @@ LC 62. Unique Paths
 LC 63. Unique Paths II
 ~~~
 
-Sequence (40%)  
+Sequence (40%)
+
 ~~~
 LC 115. Distinct Subsequences  [**]
 LC 10. Regular Expression Matching  [**]
@@ -204,13 +216,14 @@ LC 53. Maximum Subarray
 LC 279. Perfect Squares
 ~~~
 
-Two Sequences DP（40%）  
+Two Sequences DP（40%）
+
 ~~~
 LC 1143. Longest Common Subsequence
 LC 72. Edit Distance
 ~~~
 
-Backpack (10%)  
+Backpack (10%)
 
 ~~~
 LC 322. Coin Change
@@ -279,9 +292,9 @@ LC 567. Permutation in String
 LC 438. Find All Anagrams in a String
 LC 3. Longest Substring Without Repeating Characters
 
-LC 15. 3Sum
-LC 16. 3Sum Closest
-LC 18. 4Sum
+LC 15. 3Sum   [**]
+LC 16. 3Sum Closest [**]
+LC 18. 4Sum [**]
 ~~~
 
 #### 二叉搜索树
