@@ -14,6 +14,7 @@
 #include <set>
 #include <cmath>
 #include <queue>
+#include <functional>
 
 using namespace std;
 
@@ -76,60 +77,26 @@ class Solution {
  public:
   void RunTest()
   {
-    int result = findNthDigit(11);
-    cout << "---------------------result-----------------------" << endl;
+    int result;
+    result = nthUglyNumber(10);
     cout << "result: " << result << endl;
   }
 
   /*
-    012345678910111213..99
+    1  [2   3   5]
 
-    9             [1 ... 9]
-    90 * 2        [10 ... 99]
-    900 * 3       [100 ... 999]
    */
-  int NumOfDigit(int n)
-  {
-    int count = 0;
-    while (n)
+
+  int nthUglyNumber(int n) {
+    vector<int> result(n, 0);
+    result[0] = 1;
+    int two_pos = 0;
+    int three_pos = 0;
+    int five_pos = 0;
+    for (int i = 1; i < n; ++i)
     {
-      ++count;
-      n = n / 10;
+      result[i] = std::min()
     }
-
-    return count;
-  }
-
-  int findNthDigit(int n) {
-    if (n == 0)
-    {
-      return 0;
-    }
-
-    long num = 9;
-    int factor = 1;
-    while (true)
-    {
-      if (n <= num * factor)
-      {
-        break;
-      }
-      else
-      {
-        n = n - num * factor;
-        num = num * 10;
-        ++factor;
-      }
-    }
-
-    long start_num = num / 9;
-    long target_num = std::ceil(double(n) / factor) + start_num - 1;
-    cout << "n: " << n << ", [" << start_num << ", " << target_num << "]" << endl;
-    n = (target_num - start_num) * factor - n;
-
-
-    string s = std::to_string(num);
-    return s[n-1] - '0';
   }
 
   template<class T>

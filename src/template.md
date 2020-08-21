@@ -5,6 +5,8 @@
 ~~~
 LC 233. Number of Digit One [**]
 LC 400. Nth Digit [**]
+LC 263. Ugly Number [**]
+LC 264. Ugly Number II [**]
 ~~~
 
 #### 二叉树
