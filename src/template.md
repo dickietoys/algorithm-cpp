@@ -85,6 +85,7 @@ LC 42. Trapping Rain Water [**]
 LC 232. Implement Queue using Stacks
 LC 542. 01 Matrix [**]
 LC 31. Next Permutation [**]
+LC 151. Reverse Words in a String [**]
 ~~~
 
 #### 二进制
@@ -310,6 +311,7 @@ LC 3. Longest Substring Without Repeating Characters
 LC 15. 3Sum   [**]
 LC 16. 3Sum Closest [**]
 LC 18. 4Sum [**]
+LC 239. Sliding Window Maximum [**]
 ~~~
 
 #### 二叉搜索树

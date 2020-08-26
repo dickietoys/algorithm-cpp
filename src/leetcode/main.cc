@@ -77,25 +77,37 @@ class Solution {
  public:
   void RunTest()
   {
-    int result;
-    result = nthUglyNumber(10);
-    cout << "result: " << result << endl;
   }
 
-  /*
-    1  [2   3   5]
-
-   */
-
-  int nthUglyNumber(int n) {
-    vector<int> result(n, 0);
-    result[0] = 1;
-    int two_pos = 0;
-    int three_pos = 0;
-    int five_pos = 0;
-    for (int i = 1; i < n; ++i)
+  TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+    if (!root)
     {
-      result[i] = std::min()
+      return nullptr;
+    }
+
+    if (root == p || root == q)
+    {
+      return root;
+    }
+
+    TreeNode *left = lowestCommonAncestor(root->left, p, q);
+    TreeNode *right = lowestCommonAncestor(root->right, p, q);
+
+    if (left && right)
+    {
+      return root;
+    }
+    else if (left)
+    {
+      return left;
+    }
+    else if (right)
+    {
+      return right;
+    }
+    else
+    {
+      return nullptr;
     }
   }
 
