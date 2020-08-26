@@ -7,6 +7,19 @@ LC 233. Number of Digit One [**]
 LC 400. Nth Digit [**]
 LC 263. Ugly Number [**]
 LC 264. Ugly Number II [**]
+LC 8. String to Integer (atoi)
+
+约瑟夫环
+人数为n，报m的退出，
+f(n, m) = (f(n−1, m) + m) % n
+
+int last = 0;
+for (int i = 2; i <= n; ++i)
+{
+  last = (last + m) % i;
+}
+
+return last;
 ~~~
 
 #### 二叉树
