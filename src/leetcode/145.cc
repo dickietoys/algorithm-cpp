@@ -29,99 +29,33 @@ class Solution {
   {
   }
 
-  vector<int> preorderTraversal(TreeNode* root) {
-    vector<int> result;
-    if (!root)
-    {
-      return result;
-    }
-    stack<TreeNode *> s;
-    s.push(root);
-    result.push_back(root->val);
-    TreeNode *last_pop = root;
-    while (!s.empty())
-    {
-      TreeNode *top = s.top();
-      if (top->left && top->left != last_pop && top->right != last_pop)
-      {
-        s.push(top->left);
-        result.push_back(top->left->val);
-      }
-      else if (top->right && top->right != last_pop)
-      {
-        s.push(top->right);
-        result.push_back(top->right->val);
-      }
-      else
-      {
-        last_pop = top;
-        s.pop();
-      }
-    }
-
-    return result;
-  }
-
-  vector<int> inorderTraversal(TreeNode* root) {
-    vector<int> result;
-    if (!root)
-    {
-      return result;
-    }
-    stack<TreeNode *> s;
-    s.push(root);
-    TreeNode *last_pop = root;
-    while (!s.empty())
-    {
-      TreeNode *top = s.top();
-      if (top->left && top->left != last_pop && top->right != last_pop)
-      {
-        s.push(top->left);
-      }
-      else if (top->right && top->right != last_pop)
-      {
-        s.push(top->right);
-        result.push_back(top->val);
-      }
-      else
-      {
-        if (!top->right)
-        {
-          result.push_back(top->val);
-        }
-        last_pop = top;
-        s.pop();
-      }
-    }
-
-    return result;
-  }
-
   vector<int> postorderTraversal(TreeNode* root) {
-    vector<int> result;
     if (!root)
     {
-      return result;
+      return {};
     }
-    stack<TreeNode *> s;
-    s.push(root);
+
+    vector<int> result;
+    stack<TreeNode *> st;
+    st.push(root);
     TreeNode *last_pop = root;
-    while (!s.empty())
+    TreeNode *cur = nullptr;
+    while (!st.empty())
     {
-      TreeNode *top = s.top();
-      if (top->left && top->left != last_pop && top->right != last_pop)
+      cur = st.top();
+      if (cur->left && cur->left != last_pop && cur->right != last_pop)
       {
-        s.push(top->left);
+        st.push(cur->left);
       }
-      else if (top->right && top->right != last_pop)
+      else if (cur->right && cur->right != last_pop)
       {
-        s.push(top->right);
+        st.push(cur->right);
       }
       else
       {
-        result.push_back(top->val);
-        last_pop = top;
-        s.pop();
+        result.push_back(cur->val);
+        last_pop = cur;
+        st.pop();
       }
     }
 

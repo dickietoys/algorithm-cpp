@@ -77,23 +77,40 @@ class Solution {
  public:
   void RunTest()
   {
-
   }
 
-  void Aux(int start_pos, int stop_pos, vector<TreeNode *> &result)
-  {
-    for (int i = start_pos; i <= stop_pos; ++i)
+  /*
+    1 - 9     9
+    10 - 99   90
+    100 - 999 900
+   */
+  int findNthDigit(int n) {
+    if (n == 0)
     {
-      TreeNode *cur = new TreeNode(i);
-
+      return 0;
     }
-  }
 
-  vector<TreeNode*> generateTrees(int n) {
-    vector<TreeNode *> result;
-    Aux(1, n, result);
+    long num = 9;
+    int factor = 1;
+    while (true)
+    {
+      if (n <= num * factor)
+      {
+        break;
+      }
+      else
+      {
+        n = n - num * factor;
+        num = num * 10;
+        ++factor;
+      }
+    }
 
-    return result;
+    int start_num = num / 9;
+    int count = (n - 1) / factor;
+    int stop_num = start_num + count;
+    int remain_count = (n - 1) % factor;
+    return std::to_string(stop_num)[remain_count] - '0';
   }
 
   template<class T>

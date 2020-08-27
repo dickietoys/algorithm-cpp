@@ -49,6 +49,8 @@ LC 297. Serialize and Deserialize Binary Tree [**]
 
 LC 112. PathSum     [**]
 LC 113. PathSum II  [**]
+
+LC 450. Delete Node in a BST
 ~~~
 
 #### 链表
@@ -312,15 +314,6 @@ LC 15. 3Sum   [**]
 LC 16. 3Sum Closest [**]
 LC 18. 4Sum [**]
 LC 239. Sliding Window Maximum [**]
-~~~
-
-#### 二叉搜索树
-
-~~~
-LC 98. Validate Binary Search Tree
-LC 701. Insert into a Binary Search Tree
-LC 450. Delete Node in a BST
-LC 110. Balanced Binary Tree
 ~~~
 
 #### 回溯法

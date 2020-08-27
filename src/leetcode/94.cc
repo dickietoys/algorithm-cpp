@@ -31,49 +31,46 @@ class Solution {
     TreeNode *input;
     vector<int> result;
 
-
     result = inorderTraversal(input);
     Show(result);
   }
 
 
   vector<int> inorderTraversal(TreeNode* root) {
-    vector<int> result;
-    Aux(root, result);
-    return result;
-  }
-
-  vector<int> StackAux(TreeNode* root)
-  {
-    vector<int> result;
-    stack<TreeNode *> s;
-    while (root || !s.empty())
+    if (!root)
     {
-      while (root)
+      return {};
+    }
+
+    vector<int> result;
+    stack<TreeNode *> st;
+    st.push(root);
+    TreeNode *last_pop = root;
+    while (!st.empty())
+    {
+      TreeNode *node = st.top();
+      if (node->left && node->left != last_pop && node->right != last_pop)
       {
-        s.push(root);
-        root = root->left;
+        st.push(node->left);
       }
+      else if (node->right && node->right != last_pop)
+      {
+        result.push_back(node->val);
+        st.push(node->right);
+      }
+      else
+      {
+        if (!node->right)
+        {
+          result.push_back(node->val);
+        }
 
-      root = s.top();
-      s.pop();
-      result.push_back(root->val);
-      root = root->right;
+        last_pop = node;
+        st.pop();
+      }
     }
 
     return result;
-  }
-
-  void Aux(TreeNode* node, vector<int> &result)
-  {
-    if (!node)
-    {
-      return;
-    }
-
-    Aux(node->left, result);
-    result.push_back(node->val);
-    Aux(node->right, result);
   }
 
   template<class T>
