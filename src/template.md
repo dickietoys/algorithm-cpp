@@ -56,6 +56,7 @@ LC 450. Delete Node in a BST
 #### 链表
 
 ~~~
+LC 23. Merge k Sorted Lists [**]
 LC 83. Remove Duplicates from Sorted List
 LC 82. Remove Duplicates from Sorted List II
 LC 206. Reverse Linked List
