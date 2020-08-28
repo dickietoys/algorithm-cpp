@@ -13,43 +13,125 @@
 #include <iterator>
 #include <set>
 #include <cmath>
-#include <bitset>
+#include <queue>
+#include <functional>
 
 using namespace std;
 
+struct ListNode {
+  int val;
+  ListNode *next;
+  ListNode(int x) : val(x), next(NULL) {}
+};
+
+struct TreeNode {
+  int val;
+  TreeNode *left;
+  TreeNode *right;
+  TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+
+class Node {
+ public:
+  int val;
+  vector<Node*> neighbors;
+
+  Node() {
+    val = 0;
+    neighbors = vector<Node*>();
+  }
+
+  Node(int _val) {
+    val = _val;
+    neighbors = vector<Node*>();
+  }
+
+  Node(int _val, vector<Node*> _neighbors) {
+    val = _val;
+    neighbors = _neighbors;
+  }
+};
+
+// class Node {
+// public:
+//     int val;
+//     Node* left;
+//     Node* right;
+
+//     Node() {}
+
+//     Node(int _val) {
+//         val = _val;
+//         left = NULL;
+//         right = NULL;
+//     }
+
+//     Node(int _val, Node* _left, Node* _right) {
+//         val = _val;
+//         left = _left;
+//         right = _right;
+//     }
+// };
+
 class Solution {
  public:
-  struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-  };
-
   void RunTest()
   {
-    int input;
-    int result;
 
-    input = 3;
-    result = numTrees(input);
-    cout << "result: " << result << endl;
-    assert(result == 5);
+  }
+
+  int Aux(int n, vector<int> &dp)
+  {
+    if (n <= 1)
+    {
+      return 1;
+    }
+
+    if (dp[n] != -1)
+    {
+      return dp[n];
+    }
+
+    int count = 0;
+    for (int i = 1; i <= n; ++i)
+    {
+      int all_left = Aux(i - 1, dp);
+      int all_right = Aux(n - i, dp);
+      count += all_left * all_right;
+    }
+
+    dp[n] = count;
+
+    return count;
   }
 
   int numTrees(int n) {
-    // vector<int> bookmark(n+1, -1);
-    // bookmark[0] = 1;
-    // bookmark[1] = 1;
-    // return Aux(n, bookmark);
-    return DpAux(n);
-  }
+    // if (n == 0)
+    // {
+    //   return 0;
+    // }
 
-  int DpAux(int n)
-  {
+    // vector<int> dp(n + 1, - 1);
+
+    // return Aux(n, dp);
+
+
+    if (n == 0)
+    {
+      return 0;
+    }
+
+    /*
+      f(n) = f(0) * f(n-1) + f(1) * f(n-2) + .... f(n-1) * f(0)
+
+      f(2) = f(0) * f(1) + f(1) * f(0)
+
+      f(3) = f(0) * f(2) + f(1) * f(1) + f(2) * f(0)
+    */
     vector<int> dp(n + 1, 0);
     dp[0] = 1;
     dp[1] = 1;
+
     for (int i = 2; i <= n; ++i)
     {
       for (int j = 0; j < i; ++j)
@@ -59,23 +141,6 @@ class Solution {
     }
 
     return dp[n];
-  }
-
-  int Aux(int n, vector<int> &bookmark)
-  {
-    if (bookmark[n] != -1)
-    {
-      return bookmark[n];
-    }
-
-    int sum = 0;
-    for (int i = 1; i <= n; ++i)
-    {
-      sum += Aux(i - 1, bookmark) * Aux(n - i, bookmark);
-    }
-
-    bookmark[n] = sum;
-    return sum;
   }
 
   template<class T>
@@ -106,6 +171,6 @@ int main()
 {
   Solution *solution = new Solution();
   solution->RunTest();
-
+  delete solution;
   return 0;
 }

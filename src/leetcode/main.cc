@@ -73,6 +73,7 @@ class Node {
 //     }
 // };
 
+
 class Solution {
  public:
   void RunTest()
@@ -80,59 +81,67 @@ class Solution {
 
   }
 
-  int Aux(int start_pos, int stop_pos, vector<vector<int>> &dp)
-  {
-    if (start_pos >= stop_pos)
+  ListNode* sortList(ListNode* head) {
+    if (!head || !head->next)
     {
-      return 1;
+      return head;
     }
 
-    if (dp[start_pos][stop_pos] != -1)
+    ListNode *slow = head;
+    ListNode *fast = head;
+
+    while (fast)
     {
-      return dp[start_pos][stop_pos];
-    }
-
-    int count = 0;
-    for (int i = start_pos; i <= stop_pos; ++i)
-    {
-      int all_left = Aux(start_pos, i - 1, dp);
-      int all_right = Aux(i + 1, stop_pos, dp);
-      count += all_left * all_right;
-    }
-
-    dp[start_pos][stop_pos] = count;
-
-    return count;
-  }
-
-  int numTrees(int n) {
-    if (n == 0)
-    {
-      return 0;
-    }
-
-    // vector<vector<int>> dp(n+1, vector<int>(n+1, -1));
-
-    // return Aux(1, n, dp);
-
-    /*
-      f(n, m) = 1. f(n, n) * f(n+2, m)
-                2. f(n, n+1) * f(n+3, m)
-                3. f(n, n+2) * f(n+4, m)
-     */
-
-    vector<vector<int>> dp(n+1, vector<int>(n+1, -1));
-    for (int i = 1; i <= n; ++i)
-    {
-      dp[i][i] = 1;
-    }
-    for (int i = 1; i <= n; ++i)
-    {
-      for (int j = i; j <= n; ++j)
+      fast = fast->next;
+      if (fast && fast->next)
       {
-
+        fast = fast->next;
+        slow = slow->next;
       }
     }
+
+    ListNode *head1 = head;
+    ListNode *head2 = slow->next;
+    slow->next = nullptr;
+
+    ListNode *new_head1 = sortList(head1);
+    ListNode *new_head2 = sortList(head2);
+
+    ListNode dummy(0);
+    ListNode *cur = &dummy;
+    while (new_head1 || new_head2)
+    {
+      if (!new_head1)
+      {
+        cur->next = new_head2;
+        cur = cur->next;
+        new_head2 = new_head2->next;
+        continue;
+      }
+
+      if (!new_head2)
+      {
+        cur->next = new_head1;
+        cur = cur->next;
+        new_head1 = new_head1->next;
+        continue;
+      }
+
+      if (new_head1->val < new_head2->val)
+      {
+        cur->next = new_head1;
+        cur = cur->next;
+        new_head1 = new_head1->next;
+      }
+      else
+      {
+        cur->next = new_head2;
+        cur = cur->next;
+        new_head2 = new_head2->next;
+      }
+    }
+
+    return dummy.next;
   }
 
   template<class T>

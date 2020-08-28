@@ -82,63 +82,56 @@ class Solution {
   }
 
   /*
-    Input: 1->2->3->4->5->NULL, m = 2, n = 4
-    Output: 1->4->3->2->5->NULL
-
-    dummy->1->2->3->4->5
-
-    [2, 4]
-
-    dummy->1->4->3->2->5
+                        9
+                      /    \
+                     3      14
+                    / \     / \
+                   2   4   12 15
+                           / \
+                          10 13
    */
 
-  ListNode* reverseBetween(ListNode* head, int m, int n) {
-    ListNode dummy(0);
-    dummy.next = head;
-
-    ListNode *prev = &dummy;
-    ListNode *cur = head;
-    ListNode *next = nullptr;
-
-    ListNode *left_tail = nullptr;
-    ListNode *middle_tail = nullptr;
-    ListNode *right_head = nullptr;
-
-    int count = 0;
-    while (cur)
+  TreeNode* deleteNode(TreeNode* root, int key) {
+    if (!root)
     {
-      ++count;
-
-      if (count == m)
-      {
-        left_tail = prev;
-        middle_tail = cur;
-      }
-
-      if (count > m && count < n)
-      {
-        next = cur->next;
-        cur->next = prev;
-        prev = cur;
-        cur = next;
-        continue;
-      }
-
-      if (count == n)
-      {
-        right_head = cur->next;
-        cur->next = prev;
-
-        left_tail->next = cur;
-        middle_tail->next = right_head;
-        break;
-      }
-
-      prev = cur;
-      cur = cur->next;
+      return nullptr;
     }
 
-    return dummy.next;
+    if (root->val == key)
+    {
+      if (!root->right && !root->left)
+      {
+        return nullptr;
+      }
+      else if (root->left && !root->right)
+      {
+        return root->left;
+      }
+      else if (root->right && !root->left)
+      {
+        return root->right;
+      }
+      else
+      {
+        TreeNode *cur = root->right;
+        while (cur->left)
+        {
+          cur = cur->left;
+        }
+        root->val = cur->val;
+        root->right = deleteNode(root->right, root->val);
+      }
+    }
+    else if (root->val > key)
+    {
+      root->left = deleteNode(root->left, key);
+    }
+    else
+    {
+      root->right = deleteNode(root->right, key);
+    }
+
+    return root;
   }
 
   template<class T>

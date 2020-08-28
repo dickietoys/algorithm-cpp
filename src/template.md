@@ -50,17 +50,17 @@ LC 297. Serialize and Deserialize Binary Tree [**]
 LC 112. PathSum     [**]
 LC 113. PathSum II  [**]
 
-LC 450. Delete Node in a BST
+LC 450. Delete Node in a BST [**]
 ~~~
 
 #### 链表
 
 ~~~
 LC 23. Merge k Sorted Lists [**]
-LC 83. Remove Duplicates from Sorted List
 LC 82. Remove Duplicates from Sorted List II
+LC 83. Remove Duplicates from Sorted List
 LC 206. Reverse Linked List
-LC 92. Reverse Linked List II
+LC 92. Reverse Linked List II [**]
 LC 21. Merge Two Sorted Lists
 LC 86. Partition List
 LC 148. Sort List
@@ -70,6 +70,7 @@ LC 142. Linked List Cycle II
 LC 234. Palindrome Linked List
 LC 138. Copy List with Random Pointer
 LC 146. LRU Cache [**]
+LC 24. Swap Nodes in Pairs
 ~~~
 
 #### 栈和队列
@@ -257,8 +258,6 @@ LintCode 125. Backpack II
 
 ~~~
 LC 344. Reverse String
-LC 24. Swap Nodes in Pairs
-LC 95. Unique Binary Search Trees II
 LC 509. Fibonacci Number
 ~~~
 
