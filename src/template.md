@@ -78,8 +78,7 @@ LC 24. Swap Nodes in Pairs
 ~~~
 LC 155. Min Stack
 LC 150. Evaluate Reverse Polish Notation
-LC 394. Decode String
-LC 94. Binary Tree Inorder Traversal
+LC 394. Decode String     [****]
 LC 133. Clone Graph       [**]
 LC 200. Number of Islands [**]
 LC 84. Largest Rectangle in Histogram [**]
