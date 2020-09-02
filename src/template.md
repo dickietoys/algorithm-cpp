@@ -152,7 +152,7 @@ LC 33. Search in Rotated Sorted Array
 LC 81. Search in Rotated Sorted Array II
 LC 287. Find the Duplicate Number  [**]
 
-LC 4. Median of two sorted arrays of same size [**]
+LC 4. Median of two sorted arrays of same size [****]
 LC 189. Rotate Array
 LC 215. Kth Largest Element in an Array
 
