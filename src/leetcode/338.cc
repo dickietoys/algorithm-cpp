@@ -59,30 +59,28 @@ class Solution {
   }
 
   /*
-
-    0000   0
-    0001   1
-    0010   2
-    0011   3
-    0100   4
-    -------------
-    0101   5
-    0110   6
-    0111   7
-    -------------
-    1000   8
-   */
-
-  int rangeBitwiseAnd(int m, int n) {
-    int count = 0;
-    while (m < n)
+    0000 0000        0   0
+    -----------------------
+    0000 0001        1   1
+    -----------------------
+    0000 0010        2   1
+    0000 0011        3   2
+    -----------------------
+    0000 0100        4   1
+    0000 0101        5   2
+    0000 0110        6   2
+    0000 0111        7   3
+    -----------------------
+    0000 1000        8   1
+  */
+  vector<int> countBits(int num) {
+    vector<int> result(num + 1, 0);
+    for (int i = 1; i <= num; ++i)
     {
-      ++count;
-      m = m >> 1;
-      n = n >> 1;
+      result[i] = result[i >> 1] + (i & 1);
     }
 
-    return m << count;
+    return result;
   }
 
   template<class T>

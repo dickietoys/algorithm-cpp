@@ -23,6 +23,32 @@ class Solution {
 
   }
 
+  int singleNumberWithSimple(vector<int>& nums)
+  {
+    vector<int> counter(32, 0);
+    for (int i = 0; i < nums.size(); ++i)
+    {
+      int data = nums[i];
+      for (int j = 0; j < 32; ++j)
+      {
+        int flag = 1;
+        flag = flag << j;
+        if (flag & data)
+        {
+          ++counter[j];
+        }
+      }
+    }
+
+    int result = 0;
+    for (int i = 0; i < counter.size(); ++i)
+    {
+      result += (counter[i] % 3) << i;
+    }
+
+    return result;
+  }
+
   int singleNumber(vector<int>& nums) {
     int ones = 0;
     int twos = 0;
