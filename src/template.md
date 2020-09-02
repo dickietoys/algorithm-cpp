@@ -69,7 +69,7 @@ LC 141. Linked List Cycle
 LC 142. Linked List Cycle II
 LC 234. Palindrome Linked List
 LC 138. Copy List with Random Pointer
-LC 146. LRU Cache [**]
+LC 146. LRU Cache [****]
 LC 24. Swap Nodes in Pairs
 ~~~
 
@@ -81,14 +81,14 @@ LC 150. Evaluate Reverse Polish Notation
 LC 394. Decode String     [****]
 LC 133. Clone Graph       [**]
 LC 200. Number of Islands [**]
-LC 84. Largest Rectangle in Histogram [**]
-LC 85. Maximal Rectangle [**]
+LC 84. Largest Rectangle in Histogram [****]
+LC 85. Maximal Rectangle [****]
 LC 42. Trapping Rain Water [****]
 
 LC 232. Implement Queue using Stacks
 LC 542. 01 Matrix [**]
 LC 31. Next Permutation [**]
-LC 151. Reverse Words in a String [**]
+LC 151. Reverse Words in a String [****]
 ~~~
 
 #### 二进制
@@ -115,12 +115,12 @@ diff=(n & (n - 1)) ^ n
 
 ~~~
 LC 136. Single Number
-LC 137. Single Number II
+LC 137. Single Number II   [****]
 LC 260. Single Number III
 LC 191. Number of 1 Bits
-LC 338. Counting Bits
+LC 338. Counting Bits [****]
 LC 190. Reverse Bits
-LC 201. Bitwise AND of Numbers Range
+LC 201. Bitwise AND of Numbers Range [****]
 ~~~
 
 ## 基础算法

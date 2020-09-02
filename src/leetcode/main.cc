@@ -39,33 +39,6 @@ class Solution {
   {
   }
 
-  void nextPermutation(vector<int>& nums) {
-    if (nums.empty())
-    {
-      return;
-    }
-
-    int i = nums.size() - 2;
-    while (i >= 0 && nums[i] >= nums[i+1])
-    {
-      --i;
-    }
-
-    if (i < 0)
-    {
-      int front_pos = 0;
-      int back_pos = nums.size() - 1;
-      while (front_pos < back_pos)
-      {
-        std::swap(nums[front_pos++], nums[back_pos--]);
-      }
-    }
-    else
-    {
-
-    }
-  }
-
   template<class T>
   void Show(vector<T> &result)
   {
