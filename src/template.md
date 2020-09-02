@@ -83,7 +83,7 @@ LC 133. Clone Graph       [**]
 LC 200. Number of Islands [**]
 LC 84. Largest Rectangle in Histogram [**]
 LC 85. Maximal Rectangle [**]
-LC 42. Trapping Rain Water [**]
+LC 42. Trapping Rain Water [****]
 
 LC 232. Implement Queue using Stacks
 LC 542. 01 Matrix [**]

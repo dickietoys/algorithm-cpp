@@ -15,6 +15,8 @@
 #include <cmath>
 #include <queue>
 #include <functional>
+#include <list>
+#include <exception>
 
 using namespace std;
 
@@ -31,117 +33,37 @@ struct TreeNode {
   TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-class Node {
- public:
-  int val;
-  vector<Node*> neighbors;
-
-  Node() {
-    val = 0;
-    neighbors = vector<Node*>();
-  }
-
-  Node(int _val) {
-    val = _val;
-    neighbors = vector<Node*>();
-  }
-
-  Node(int _val, vector<Node*> _neighbors) {
-    val = _val;
-    neighbors = _neighbors;
-  }
-};
-
-// class Node {
-// public:
-//     int val;
-//     Node* left;
-//     Node* right;
-
-//     Node() {}
-
-//     Node(int _val) {
-//         val = _val;
-//         left = NULL;
-//         right = NULL;
-//     }
-
-//     Node(int _val, Node* _left, Node* _right) {
-//         val = _val;
-//         left = _left;
-//         right = _right;
-//     }
-// };
-
-
 class Solution {
  public:
   void RunTest()
   {
-
   }
 
-  ListNode* sortList(ListNode* head) {
-    if (!head || !head->next)
+  void nextPermutation(vector<int>& nums) {
+    if (nums.empty())
     {
-      return head;
+      return;
     }
 
-    ListNode *slow = head;
-    ListNode *fast = head;
-
-    while (fast)
+    int i = nums.size() - 2;
+    while (i >= 0 && nums[i] >= nums[i+1])
     {
-      fast = fast->next;
-      if (fast && fast->next)
-      {
-        fast = fast->next;
-        slow = slow->next;
-      }
+      --i;
     }
 
-    ListNode *head1 = head;
-    ListNode *head2 = slow->next;
-    slow->next = nullptr;
-
-    ListNode *new_head1 = sortList(head1);
-    ListNode *new_head2 = sortList(head2);
-
-    ListNode dummy(0);
-    ListNode *cur = &dummy;
-    while (new_head1 || new_head2)
+    if (i < 0)
     {
-      if (!new_head1)
+      int front_pos = 0;
+      int back_pos = nums.size() - 1;
+      while (front_pos < back_pos)
       {
-        cur->next = new_head2;
-        cur = cur->next;
-        new_head2 = new_head2->next;
-        continue;
-      }
-
-      if (!new_head2)
-      {
-        cur->next = new_head1;
-        cur = cur->next;
-        new_head1 = new_head1->next;
-        continue;
-      }
-
-      if (new_head1->val < new_head2->val)
-      {
-        cur->next = new_head1;
-        cur = cur->next;
-        new_head1 = new_head1->next;
-      }
-      else
-      {
-        cur->next = new_head2;
-        cur = cur->next;
-        new_head2 = new_head2->next;
+        std::swap(nums[front_pos++], nums[back_pos--]);
       }
     }
+    else
+    {
 
-    return dummy.next;
+    }
   }
 
   template<class T>
