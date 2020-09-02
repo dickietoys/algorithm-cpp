@@ -89,6 +89,8 @@ LC 232. Implement Queue using Stacks
 LC 542. 01 Matrix [**]
 LC 31. Next Permutation [**]
 LC 151. Reverse Words in a String [****]
+LC 224. Basic Calculator    [****]
+LC 227.	Basic Calculator II [****]
 ~~~
 
 #### 二进制
@@ -169,6 +171,21 @@ LC 410. Split Array Largest Sum [**]
 
 ~~~
 常用排序算法
+~~~
+
+#### stock 问题:
+~~~
+LC 121. Best Time to Buy and Sell Stock
+LC 122. Best Time to Buy and Sell Stock II
+LC 123. Best Time to Buy and Sell Stock III
+LC 188. Best Time to Buy and Sell Stock IV
+~~~
+
+#### palindrome:
+~~~
+LC 9.   Palindrome Number
+LC 125. Valid Palindrome
+LC 214. Shortest Palindrome
 ~~~
 
 #### 动态规划
