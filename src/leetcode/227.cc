@@ -13,6 +13,10 @@
 #include <iterator>
 #include <set>
 #include <cmath>
+#include <queue>
+#include <functional>
+#include <list>
+#include <exception>
 
 using namespace std;
 
@@ -33,28 +37,17 @@ class Solution {
  public:
   void RunTest()
   {
-    string s = "123";
-    int result = calculate(s);
-    cout << result << endl;
+    int result = calculateWith2Stack("2*3+4");
+    cout << "result: " << result << endl;
   }
 
-  bool is_number(char c)
+
+  int calculateWith2Stack(string s)
   {
-    if (c >= '0' && c <= '9')
-    {
-      return true;
-    }
-    else
-    {
-      return false;
-    }
-  }
-
-  int calculate(string s) {
-    char sign = '+';
-    long number = 0;
-    stack<int> st;
-    s += "+";
+    stack<long> st_num;
+    stack<char> st_op;
+    long num = 0;
+    bool has_num = false;
     for (int i = 0; i < s.size(); ++i)
     {
       if (s[i] == ' ')
@@ -62,48 +55,263 @@ class Solution {
         continue;
       }
 
-      if (is_number(s[i]))
+      if (s[i] >= '0' && s[i] <= '9')
       {
-        number = number * 10 + s[i] - '0';
+        num = num * 10 + s[i] - '0';
+        has_num = true;
       }
-      else if (sign == '+')
+      else
       {
-        st.push(number);
-        number = 0;
-        sign = s[i];
-      }
-      else if (sign == '-')
-      {
-        st.push(-number);
-        number = 0;
-        sign = s[i];
-      }
-      else if (sign == '*')
-      {
-        int value = st.top() * number;
-        st.pop();
-        st.push(value);
-        sign = s[i];
-        number = 0;
-      }
-      else if (sign == '/')
-      {
-        int value = st.top() / number;
-        st.pop();
-        st.push(value);
-        sign = s[i];
-        number = 0;
+        if (has_num)
+        {
+          st_num.push(num);
+          num = 0;
+          has_num = false;
+        }
+
+        if (s[i] == '+' || s[i] == '-')
+        {
+          while (!st_op.empty() && st_op.top() != '(')
+          {
+            int data2 = st_num.top();
+            st_num.pop();
+            int data1 = st_num.top();
+            st_num.pop();
+            if (st_op.top() == '+')
+            {
+              st_num.push(data1 + data2);
+            }
+            else if (st_op.top() == '-')
+            {
+              st_num.push(data1 - data2);
+            }
+            else if (st_op.top() == '*')
+            {
+              st_num.push(data1 * data2);
+            }
+            else if (st_op.top() == '/')
+            {
+              st_num.push(data1 / data2);
+            }
+            st_op.pop();
+          }
+          st_op.push(s[i]);
+        }
+        else if (s[i] == '*' || s[i] == '/')
+        {
+          while (!st_op.empty()
+                 && st_op.top() != '('
+                 && st_op.top() != '+'
+                 && st_op.top() != '-')
+          {
+            int data2 = st_num.top();
+            st_num.pop();
+            int data1 = st_num.top();
+            st_num.pop();
+            if (st_op.top() == '*')
+            {
+              st_num.push(data1 * data2);
+            }
+            else if (st_op.top() == '/')
+            {
+              st_num.push(data1 / data2);
+            }
+            st_op.pop();
+          }
+          st_op.push(s[i]);
+        }
+        else if (s[i] == '(')
+        {
+          st_op.push(s[i]);
+        }
+        else if (s[i] == ')')
+        {
+          while (!st_op.empty() && st_op.top() != '(')
+          {
+            int data2 = st_num.top();
+            st_num.pop();
+            int data1 = st_num.top();
+            st_num.pop();
+
+            if (st_op.top() == '*')
+            {
+              st_num.push(data1 * data2);
+            }
+            else if (st_op.top() == '/')
+            {
+              st_num.push(data1 / data2);
+            }
+            else if (st_op.top() == '+')
+            {
+              st_num.push(data1 + data2);
+            }
+            else if (st_op.top() == '-')
+            {
+              st_num.push(data1 - data2);
+            }
+            st_op.pop();
+          }
+          st_op.pop();
+        }
       }
     }
 
-    int sum = 0;
+    if (has_num)
+    {
+      st_num.push(num);
+    }
+
+    while (!st_op.empty())
+    {
+      int data2 = st_num.top();
+      st_num.pop();
+      int data1 = st_num.top();
+      st_num.pop();
+      if (st_op.top() == '*')
+      {
+        st_num.push(data1 * data2);
+      }
+      else if (st_op.top() == '/')
+      {
+        st_num.push(data1 / data2);
+      }
+      else if (st_op.top() == '+')
+      {
+        st_num.push(data1 + data2);
+      }
+      else if (st_op.top() == '-')
+      {
+        st_num.push(data1 - data2);
+      }
+      st_op.pop();
+    }
+
+    return st_num.top();
+  }
+
+  vector<string> In2Post(string &s)
+  {
+    vector<string> post_eval;
+    stack<char> st;
+    string result;
+    for (int i = 0; i < s.size(); ++i)
+    {
+      if (s[i] == ' ')
+      {
+        continue;
+      }
+
+      if ((s[i] >= '0' && s[i] <= '9') || (s[i] >= 'a' && s[i] <= 'z'))
+      {
+        result += s[i];
+      }
+      else
+      {
+        if (!result.empty())
+        {
+          post_eval.push_back(result);
+          result.clear();
+        }
+
+        if (s[i] == '(')
+        {
+          st.push(s[i]);
+        }
+        else if (s[i] == ')')
+        {
+          while (!st.empty() && st.top() != '(')
+          {
+            post_eval.push_back(string() + st.top());
+            st.pop();
+          }
+          st.pop();
+        }
+        else
+        {
+          if (s[i] == '+' || s[i] == '-')
+          {
+            while (!st.empty() && st.top() != '(')
+            {
+              post_eval.push_back(string() + st.top());
+              st.pop();
+            }
+            st.push(s[i]);
+          }
+          else if (s[i] == '*' || s[i] == '/')
+          {
+            if (!st.empty() && st.top() != '+' && st.top() != '-' && st.top() != '(')
+            {
+              post_eval.push_back(string() + st.top());
+              st.pop();
+            }
+            st.push(s[i]);
+          }
+        }
+      }
+    }
+
+    if (!result.empty())
+    {
+      post_eval.push_back(result);
+    }
     while (!st.empty())
     {
-      sum += st.top();
+      post_eval.push_back(string() + st.top());
       st.pop();
     }
 
-    return sum;
+    return post_eval;
+  }
+
+  bool IsNumber(string &s)
+  {
+    try
+    {
+      std::stoi(s);
+      return true;
+    }
+    catch (exception &e)
+    {
+      return false;
+    }
+  }
+
+  int calculateWithCommon(string s) {
+    vector<string> result = In2Post(s);
+    stack<int> st;
+    int num = 0;
+    for (int i = 0; i < result.size(); ++i)
+    {
+      if (IsNumber(result[i]))
+      {
+        st.push(std::stoi(result[i]));
+      }
+      else
+      {
+        int data2 = st.top();
+        st.pop();
+        int data1 = st.top();
+        st.pop();
+        if (result[i] == "+")
+        {
+          st.push(data1 + data2);
+        }
+        else if (result[i] == "-")
+        {
+          st.push(data1 - data2);
+        }
+        else if (result[i] == "*")
+        {
+          st.push(data1 * data2);
+        }
+        else if (result[i] == "/")
+        {
+          st.push(data1 / data2);
+        }
+      }
+    }
+
+    return st.top();
   }
 
   template<class T>
@@ -134,6 +342,6 @@ int main()
 {
   Solution *solution = new Solution();
   solution->RunTest();
-
+  delete solution;
   return 0;
 }

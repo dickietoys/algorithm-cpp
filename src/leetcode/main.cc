@@ -37,10 +37,63 @@ class Solution {
  public:
   void RunTest()
   {
+    double result = findMedianSortedArrays({1,3}, {2});
+    cout << "{1,3}, {2}; result: " << result << endl;
+    result = findMedianSortedArrays({1,2}, {3,4});
+    cout << "{1,2}, {3,4}; result: " << result << endl;
+    result = findMedianSortedArrays({0,0}, {0,0});
+    cout << "{0,0}, {0,0}; result: " << result << endl;
+    result = findMedianSortedArrays({}, {1});
+    cout << "{}, {1}; result: " << result << endl;
+    result = findMedianSortedArrays({2}, {});
+    cout << "{2}, {}; result: " << result << endl;
+
   }
 
-  double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+  /*
+    [1 2]
+    [3 4]
 
+    [1] [2]
+    [3] [4]
+
+    [1][2] []
+    []     [3 4]
+
+    [1] [2,3]
+
+    [2 3 4] []
+  */
+  double findMedianSortedArrays(vector<int> nums1, vector<int> nums2) {
+    if (nums1.size() > nums2.size())
+    {
+      std::swap(nums1, nums2);
+    }
+
+    int left1_size = 0;
+    int left2_size = 0;
+    int total_size = nums1.size() + nums2.size();
+    int left_pos = 0;
+    int right_pos = nums1.size();
+    while (left_pos <= right_pos)
+    {
+      left1_size = left_pos + (right_pos - left_pos) / 2;
+      left2_size = (total_size + 1) / 2 - left1_size;
+      if (left1_size > 0 && left2_size < nums2.size() && nums1[left1_size - 1] > nums2[left2_size])
+      {
+        right_pos = left1_size - 1;
+      }
+      else if (left2_size > 0 && left1_size < nums1.size() && nums2[left2_size - 1] > nums1[left1_size])
+      {
+        left_pos = left1_size + 1;
+      }
+      else
+      {
+
+      }
+    }
+
+    return 0;
   }
 
   template<class T>
