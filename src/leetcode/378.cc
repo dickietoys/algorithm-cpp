@@ -39,32 +39,44 @@ class Solution {
   {
   }
 
-  int maxProfit(vector<int>& prices) {
-    /*
-      i 是交易次数  j 价格
-      dp[i][j] = 1. dp[i][j-1] 不做买卖，与前一天收益一样
-                 2. prices[j] - (prices[k] - dp[i-1][k])  [0 .. j - 1]
-     */
-    int max_transaction = 2;
-    vector<vector<int>> dp(max_transaction + 1, vector<int>(prices.size(), 0));
-    for (int i = 1; i <= max_transaction; ++i)
+  /*
+    matrix = [
+      [ 1,  5,  9],
+      [10, 11, 13],
+      [12, 13, 15]
+    ],
+
+    [1 5 9 19 11 12 13 13 15]
+    mid = 8,
+    count = 7
+
+    return 13.
+  */
+  int kthSmallest(vector<vector<int>>& matrix, int k) {
+    int left = matrix.front().front();
+    int right = matrix.back().back();
+    while (left < right)
     {
-      int min = std::numeric_limits<int>::max();
-      for (int j = 1; j < prices.size(); ++j)
+      int mid = left + (right - left) / 2;
+      int count = 0;
+      for (int i = 0; i < matrix.size(); ++i)
       {
-        // int max_profit = 0;
-        // for (int k = 0; k < j; ++k)
-        // {
-        //   int tmp = dp[i-1][k] + prices[j] - prices[k];
-        //   max_profit = std::max(max_profit, tmp);
-        // }
-        // dp[i][j] = std::max(max_profit, dp[i][j-1]);
-        min = std::min(min, prices[j-1] - dp[i-1][j-1]);
-        dp[i][j] = std::max(dp[i][j-1], prices[j] - min);
+        count += std::upper_bound(matrix[i].begin(), matrix[i].end(), mid) - matrix[i].begin();
+      }
+
+      // > mid 的有count个
+
+      if (count < k)
+      {
+        left = mid + 1;
+      }
+      else
+      {
+        right = mid;
       }
     }
 
-    return dp.back().back();
+    return left;
   }
 
   template<class T>

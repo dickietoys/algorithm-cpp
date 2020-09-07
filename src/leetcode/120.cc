@@ -73,7 +73,7 @@ class Solution {
     }
 
     int size1 = Aux(triangle, row_pos + 1, col_pos);
-    int size2 = size2 = Aux(triangle, row_pos + 1, col_pos + 1);
+    int size2 = Aux(triangle, row_pos + 1, col_pos + 1);
 
     return std::min(size1, size2) + triangle[row_pos][col_pos];
   }
@@ -84,7 +84,7 @@ class Solution {
     /*
       f(n,m) = min(f(n+1, m), f(n+1, m+1)) + arr[n][m]
 
-      f(n,m)
+      f(n,m) = f(n-1, m), f(n-1, m-1) + arr[n][m]
      */
 
     vector<vector<int>> dp(triangle.size(), vector<int>(triangle[triangle.size() - 1].size(), 0));

@@ -38,69 +38,66 @@ public:
 
   double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2)
   {
-    int size1 = nums1.size();
-    int size2 = nums2.size();
-    if (size1 > size2)
+    if (nums1.size() > nums2.size())
     {
-      std::swap(size1, size2);
       std::swap(nums1, nums2);
     }
 
+    int left1_size = 0;
+    int left2_size = 0;
+    int total_size = nums1.size() + nums2.size();
+    int left_pos = 0;
+    int right_pos = nums1.size();
     int medium1 = 0;
     int medium2 = 0;
-    int minIndex = 0;
-    int maxIndex = size1;
-    int leftSize1 = 0;
-    int leftSize2 = 0;
-    while (minIndex <= maxIndex)
+    while (left_pos <= right_pos)
     {
-      leftSize1 = (minIndex + maxIndex) / 2;
-      leftSize2 = (size1 + size2 + 1) / 2 - leftSize1;
-      if (leftSize1 > 0 && leftSize2 < size2 && nums1[leftSize1 - 1] > nums2[leftSize2])
+      left1_size = left_pos + (right_pos - left_pos) / 2;
+      left2_size = (total_size + 1) / 2 - left1_size;
+      if (left1_size > 0 && left2_size < nums2.size() && nums1[left1_size - 1] > nums2[left2_size])
       {
-        maxIndex = leftSize1 - 1;
+        right_pos = left1_size - 1;
       }
-      else if (leftSize1 < size1 && leftSize2 > 0 && nums2[leftSize2 - 1] > nums1[leftSize1])
+      else if (left2_size > 0 && left1_size < nums1.size() && nums2[left2_size - 1] > nums1[left1_size])
       {
-        minIndex = leftSize1 + 1;
+        left_pos = left1_size + 1;
       }
       else
       {
-        if (leftSize1 == 0)
+        if (left1_size == 0)
         {
-          medium1 = nums2[leftSize2-1];
-          break;
+          medium1 = nums2[left2_size-1];
         }
-        else if (leftSize2 == 0)
+        else if (left2_size == 0)
         {
-          medium1 = nums1[leftSize1-1];
-          break;
+          medium1 = nums1[left1_size-1];
         }
         else
         {
-          medium1 = std::max(nums1[leftSize1 - 1], nums2[leftSize2 - 1]);
-          break;
+          medium1 = std::max(nums1[left1_size - 1], nums2[left2_size - 1]);
         }
+
+        break;
       }
     }
 
-    if ((size1 + size2) % 2 == 1)
+    if (total_size % 2 == 1)
     {
       return medium1;
     }
     else
     {
-      if (leftSize1 == size1)
+      if (left1_size == nums1.size())
       {
-        medium2 = nums2[leftSize2];
+        medium2 = nums2[left2_size];
       }
-      else if (leftSize2 == size2)
+      else if (left2_size == nums2.size())
       {
-        medium2 = nums1[leftSize1];
+        medium2 = nums1[left1_size];
       }
       else
       {
-        medium2 = std::min(nums1[leftSize1], nums2[leftSize2]);
+        medium2 = std::min(nums1[left1_size], nums2[left2_size]);
       }
 
       return (medium1 + medium2) / 2.0;

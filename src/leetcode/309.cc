@@ -43,9 +43,14 @@ class Solution {
     /*
       i 是交易次数  j 价格
       dp[i][j] = 1. dp[i][j-1] 不做买卖，与前一天收益一样
-                 2. prices[j] - (prices[k] - dp[i-1][k])  [0 .. j - 1]
-     */
-    int max_transaction = 2;
+      2. prices[j] - (prices[k] - dp[i-1][k-2])  [0 .. j - 1]
+    */
+
+    if (prices.empty())
+    {
+      return 0;
+    }
+    int max_transaction = prices.size() / 2;
     vector<vector<int>> dp(max_transaction + 1, vector<int>(prices.size(), 0));
     for (int i = 1; i <= max_transaction; ++i)
     {
@@ -59,7 +64,14 @@ class Solution {
         //   max_profit = std::max(max_profit, tmp);
         // }
         // dp[i][j] = std::max(max_profit, dp[i][j-1]);
-        min = std::min(min, prices[j-1] - dp[i-1][j-1]);
+        if ((j-3 < 0))
+        {
+          min = std::min(min, prices[j-1]);
+        }
+        else
+        {
+          min = std::min(min, prices[j-1] - dp[i-1][j-3]);
+        }
         dp[i][j] = std::max(dp[i][j-1], prices[j] - min);
       }
     }

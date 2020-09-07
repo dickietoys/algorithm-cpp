@@ -155,13 +155,13 @@ LC 81. Search in Rotated Sorted Array II
 LC 287. Find the Duplicate Number  [**]
 
 LC 4. Median of two sorted arrays of same size [****]
-LC 189. Rotate Array
+LC 189. Rotate Array [**]
 LC 215. Kth Largest Element in an Array
 
 LC 349. Intersection of Two Arrays
 LC 350. Intersection of Two Arrays II
 
-LC 378. Kth Smallest Element in a Sorted Matrix     [**]
+LC 378. Kth Smallest Element in a Sorted Matrix     [****]
 LC 668. Kth Smallest Number in Multiplication Table [**]
 LC 719. Find K-th Smallest Pair Distance [**]
 LC 410. Split Array Largest Sum [**]
@@ -177,8 +177,9 @@ LC 410. Split Array Largest Sum [**]
 ~~~
 LC 121. Best Time to Buy and Sell Stock
 LC 122. Best Time to Buy and Sell Stock II
-LC 123. Best Time to Buy and Sell Stock III
-LC 188. Best Time to Buy and Sell Stock IV
+LC 123. Best Time to Buy and Sell Stock III [****]
+LC 188. Best Time to Buy and Sell Stock IV  [****]
+LC 309. Best Time to Buy and Sell Stock with Cooldown [****]
 ~~~
 
 #### palindrome:
@@ -229,9 +230,9 @@ Matrix (10%)
 
 ~~~
 LC 120. Triangle
-LC 64. Minimum Path Sum
 LC 62. Unique Paths
 LC 63. Unique Paths II
+LC 64. Minimum Path Sum
 ~~~
 
 Sequence (40%)
@@ -242,9 +243,9 @@ LC 10. Regular Expression Matching  [**]
 LC 44. Wildcard Matching
 LC 5. Longest Palindromic Substring
 LC 70. Climbing Stairs
-LC 55. Jump Game [*** greedy]
-LC 45. Jump Game II [*** greedy]
-LC 132. Palindrome Partitioning II [***]
+LC 55. Jump Game [**** greedy]
+LC 45. Jump Game II [**** greedy]
+LC 132. Palindrome Partitioning II [**]
 LC 300. Longest Increasing Subsequence
 LC 139. Word Break
 LC 140. Word Break II

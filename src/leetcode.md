@@ -7,17 +7,12 @@ LC 152. Maximum Product Subarray
 
 树:
 根据某两个序列得到第三个序列
-根据某两个序列得到二叉树
 
 图:
 判断有环
 拓扑排序
 DFS
 BFS
-
-stack:
-infix to postfix
-postfix to calculate
 
 回朔算法
 permutations:
