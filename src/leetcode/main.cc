@@ -39,35 +39,26 @@ class Solution {
   {
   }
 
-  /*
-    matrix = [
-      [ 1,  5,  9],
-      [10, 11, 13],
-      [12, 13, 15]
-    ],
-
-    [1 5 9 19 11 12 13 13 15]
-    mid = 8,
-    count = 7
-
-    return 13.
-  */
-  int kthSmallest(vector<vector<int>>& matrix, int k) {
-    int left = matrix.front().front();
-    int right = matrix.back().back();
-    while (left <= right)
+  int Aux(string &s, int s_start_pos, vector<vector<int>> &dp)
+  {
+    if (s_start_pos >= s.size() || dp[s_start_pos][s.size() - 1])
     {
-      int mid = left + (right - left) / 2;
-      int count = 0;
-      for (int i = 0; i < matrix.size(); ++i)
-      {
-        count += std::upper_bound(matrix[i].begin(), matrix[i].end(), mid) - matrix[i].begin();
-      }
-
-      // 比k大的的
-
-      if (count )
+      return 0;
     }
+
+    int min = std::numeric_limits<int>::max();
+    for (int i = s_start_pos; i < s.size(); ++i)
+    {
+      if (dp[s_start_pos][i])
+      {
+
+      }
+      Aux(s, )
+    }
+  }
+
+  int minCut(string s) {
+
   }
 
   template<class T>
