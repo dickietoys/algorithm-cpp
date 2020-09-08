@@ -58,6 +58,11 @@ class Solution {
   }
 
   int longestCommonSubsequence(string text1, string text2) {
+    /*
+      dp[i][j] = 1. dp[i-1][j]
+                 2. dp[i][j-1]
+                 3. dp[i-1][j-1] + 1
+    */
     vector<vector<int>> dp(text1.size(), vector<int>(text2.size(), 0));
     if (text1[0] == text2[0])
     {
@@ -98,7 +103,7 @@ class Solution {
         }
         else
         {
-          dp[i][j] = std::max({dp[i-1][j], dp[i][j-1], dp[i-1][j-1]});
+          dp[i][j] = std::max(dp[i-1][j], dp[i][j-1]);
         }
       }
     }

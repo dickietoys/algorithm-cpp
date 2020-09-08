@@ -39,26 +39,64 @@ class Solution {
   {
   }
 
-  int Aux(string &s, int s_start_pos, vector<vector<int>> &dp)
+  /*
+    You are given coins of different denominations and a total amount of money amount. Write a function to compute the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
+
+    Example 1:
+    Input: coins = [1, 2, 5], amount = 11
+    Output: 3
+    Explanation: 11 = 5 + 5 + 1
+
+    Example 2:
+    Input: coins = [2], amount = 3
+    Output: -1
+  */
+  int Aux(vector<int>& coins, int coins_pos, int amount)
   {
-    if (s_start_pos >= s.size() || dp[s_start_pos][s.size() - 1])
+    if (amount == 0)
     {
       return 0;
     }
 
-    int min = std::numeric_limits<int>::max();
-    for (int i = s_start_pos; i < s.size(); ++i)
+    if (coins_pos >= coins.size())
     {
-      if (dp[s_start_pos][i])
+      return -1;
+    }
+
+    int min_size = std::numeric_limits<int>::max();
+    if (amount - coins[coins_pos] >= 0)
+    {
+      min_size = Aux(coins, coins_pos, amount - coins[coins_pos]);
+      if (min_size == -1)
+      {
+        min_size = std::numeric_limits<int>::max();
+      }
+      else
+      {
+        min_size += 1;
+      }
+    }
+
+    int tmp = Aux(coins, coins_pos + 1, amount) == -1;
+  }
+
+  int coinChange(vector<int>& coins, int amount) {
+    /*
+      i: coins size
+      j: amount
+      dp[i][j] = 1. dp[i-1][j]
+                 2. dp[i][j+coins[i]]
+
+     */
+    vector<vector<int>> dp(coins.size(), vector<int>(amount+1, 0));
+
+    for (int i = 0; i < coins.size(); ++i)
+    {
+      for (int j = 0; j <= amount; ++j)
       {
 
       }
-      Aux(s, )
     }
-  }
-
-  int minCut(string s) {
-
   }
 
   template<class T>
