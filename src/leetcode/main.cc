@@ -39,27 +39,33 @@ class Solution {
   {
   }
 
-  int Aux(int m, vector<int> &A, int A_pos)
-  {
-    if (m == 0 || A_pos >= A.size())
+  /*
+    Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).
+
+    Example:
+
+    Input: S = "ADOBECODEBANC", T = "ABC"
+    Output: "BANC"
+    Note:
+
+    If there is no such window in S that covers all characters in T, return the empty string "".
+    If there is such window, you are guaranteed that there will always be only one unique minimum window in S.
+  */
+  string minWindow(string s, string t) {
+    string result;
+    unordered_map<int, int> hashmap;
+    for (char c : t)
     {
-      return 0;
+      ++hashmap[c];
     }
 
-    int max_size = std::numeric_limits<int>::min();
-    if (m >= A[A_pos])
+    int count = 0;
+    int left = 0;
+    int right = 0;
+    while (right < s.size())
     {
-      max_size = std::max(max_size, Aux(m - A[A_pos], A, A_pos + 1) + A[A_pos]);
+
     }
-
-    max_size = std::max(max_size, Aux(m, A, A_pos + 1));
-
-    return max_size;
-  }
-
-  int backPack(int m, vector<int> &A) {
-    vector<vector<int>> dp(m + 1, vector<int>(A.size(), 0));
-    return Aux(m, A, 0);
   }
 
   template<class T>

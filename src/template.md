@@ -322,15 +322,15 @@ void slidingWindow(string s, string t) {
 ~~~
 
 ~~~
+LC 3. Longest Substring Without Repeating Characters
+LC 15. 3Sum   [****]
+LC 16. 3Sum Closest [****]
+LC 18. 4Sum [**]
 LC 76. Minimum Window Substring
+LC 239. Sliding Window Maximum [**]
 LC 567. Permutation in String
 LC 438. Find All Anagrams in a String
-LC 3. Longest Substring Without Repeating Characters
 
-LC 15. 3Sum   [**]
-LC 16. 3Sum Closest [**]
-LC 18. 4Sum [**]
-LC 239. Sliding Window Maximum [**]
 ~~~
 
 #### 回溯法

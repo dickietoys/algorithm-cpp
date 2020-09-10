@@ -32,6 +32,70 @@ class Solution {
     cout << "KnapsackProblem01Dp: " << result << endl;
   }
 
+    //lintcode 92
+  int backPack(int m, vector<int> &A) {
+    vector<vector<bool>> dp(A.size(), vector<bool>(m+1, false));
+    for (int i = 0; i < A.size(); ++i)
+    {
+      dp[i][0] = true;
+    }
+
+    if (A[0] <= m)
+    {
+      dp[0][A[0]] = true;
+    }
+
+    for (int i = 1; i < A.size(); ++i)
+    {
+      for (int j = 1; j <= m; ++j)
+      {
+        dp[i][j] = dp[i-1][j];
+        if (j - A[i] >= 0 && dp[i-1][j-A[i]])
+        {
+          dp[i][j] = true;
+        }
+      }
+    }
+
+    for (int i = m; i >= 0; --i)
+    {
+      if (dp.back()[i])
+      {
+        return i;
+      }
+    }
+
+    return 0;
+  }
+
+  //lintcode 125
+  int backPackII(int m, vector<int> &A, vector<int> &V) {
+    vector<vector<int>> dp(A.size(), vector<int>(m+1, -1));
+    for (int i = 0; i < A.size(); ++i)
+    {
+      dp[i][0] = 0;
+    }
+
+    if (A[0] <= m)
+    {
+      dp[0][A[0]] = V[0];
+    }
+
+    for (int i = 1; i < A.size(); ++i)
+    {
+      for (int j = 1; j <= m; ++j)
+      {
+        dp[i][j] = dp[i-1][j];
+        if ((j - A[i]) >= 0 && dp[i-1][j - A[i]] >= 0)
+        {
+          dp[i][j] = std::max(dp[i][j], dp[i-1][j - A[i]] + V[i]);
+        }
+      }
+    }
+
+    return *std::max_element(dp.back().begin(), dp.back().end());
+  }
+
   int KnapsackProblem01RecurAux(vector<pair<int, int>> goods, int pos, int weight)
   {
     if (pos >= goods.size())
