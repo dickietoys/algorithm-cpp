@@ -40,32 +40,37 @@ class Solution {
   }
 
   /*
-    Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).
+    Given an array nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position. Return the max sliding window.
+
+    Follow up:
+    Could you solve it in linear time?
 
     Example:
 
-    Input: S = "ADOBECODEBANC", T = "ABC"
-    Output: "BANC"
-    Note:
+    Input: nums = [1,3,-1,-3,5,3,6,7], and k = 3
+    Output: [3,3,5,5,6,7]
+    Explanation:
 
-    If there is no such window in S that covers all characters in T, return the empty string "".
-    If there is such window, you are guaranteed that there will always be only one unique minimum window in S.
+    Window position                Max
+    ---------------               -----
+    [1  3  -1] -3  5  3  6  7       3   [1, 3, -1]
+    1 [3  -1  -3] 5  3  6  7       3    [3, -1, -3]
+    1  3 [-1  -3  5] 3  6  7       5
+    1  3  -1 [-3  5  3] 6  7       5
+    1  3  -1  -3 [5  3  6] 7       6
+    1  3  -1  -3  5 [3  6  7]      7
   */
-  string minWindow(string s, string t) {
-    string result;
-    unordered_map<int, int> hashmap;
-    for (char c : t)
-    {
-      ++hashmap[c];
-    }
+  vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+    // vector<int> result;
+    // deque<int> queue;
+    // int i = 0;
+    // for (int i = 0; i < k; ++i)
+    // {
+    //   if (queue.empty())
+    //   {
 
-    int count = 0;
-    int left = 0;
-    int right = 0;
-    while (right < s.size())
-    {
-
-    }
+    //   }
+    // }
   }
 
   template<class T>
