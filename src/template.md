@@ -251,6 +251,7 @@ LC 139. Word Break
 LC 140. Word Break II
 LC 53. Maximum Subarray
 LC 279. Perfect Squares
+LC 152. Maximum Product Subarray
 ~~~
 
 Two Sequences DP（40%）
@@ -298,9 +299,8 @@ void slidingWindow(string s, string t) {
         // 进行窗口内数据的一系列更新
         ...
 
-        /*** debug 输出的位置 ***/
+        // debug 输出的位置
         printf("window: [%d, %d)\n", left, right);
-        /********************/
 
         // 判断左侧窗口是否要收缩
         while (window needs shrink) {
@@ -352,8 +352,8 @@ func backtrack(选择列表,路径):
 ~~~
 
 ~~~
-LC 78. Subsets
-LC 90. Subsets II
+LC 78. Subsets [****]
+LC 90. Subsets II [****]
 LC 46. Permutations
 LC 47. Permutations II
 LC 39. Combination Sum
@@ -361,12 +361,30 @@ LC 40. Combination Sum II
 LC 216. Combination Sum III
 LC 131. Palindrome Partitioning
 
-LC 36. Valid Sudoku
-LC 37. Sodoku Solver
+LC 36. Valid Sudoku [****]
+LC 37. Sodoku Solver [****]
 
-LC 51. N-Queens
+LC 51. N-Queens [****]
 Lc 52. N-Queens II
 
 LC 17. Letter Combinations of a Phone Number
 LC 93. Restore IP Addresses
+
+LC 79. Word Search
+LC 212. Word Search II [**** trie tree]
+LC 301. Remove Invalid Parentheses [**** BD BFS]
+~~~
+
+
+### 图算法
+
+~~~
+判断有环
+拓扑排序
+DFS
+BFS
+
+LC 207. Course Schedule [**** detect cycle]
+LC 210. Course Schedule II [**** topological sort]
+LC 547. Friend Circles [图的深度和广度遍历]
 ~~~

@@ -10,7 +10,7 @@
 using namespace std;
 
 class Solution {
-public:
+ public:
   void RunTest()
   {
     string s;
@@ -24,43 +24,46 @@ public:
     }
   }
 
-  vector<string> letterCombinations(string digits)
-  {
-    vector<string> buffer;
-    if (digits == "")
-    {
-      return buffer;
-    }
-    map<int, vector<string>> dict = {
-      {2, {"a","b","c"}}, {3, {"d","e","f"}},
-      {4, {"g","h","i"}}, {5, {"j","k","l"}}, {6, {"m","n","o"}},
-      {7, {"p","q","r","s"}}, {8, {"t","u","v"}}, {9, {"w","x","y","z"}}};
-    int length = digits.size();
-
-    Aux(digits, 0, dict, buffer, "");
-    return buffer;
-  }
-
   void Aux(string &digits,
-           int digitPos,
-           map<int, vector<string>> &dict,
-           vector<string> &buffer,
-           string s)
+           int pos,
+           vector<string> &result,
+           string &item,
+           map<int, vector<string>> &dict)
   {
-    if (digitPos >= digits.size())
+    if (pos >= digits.size())
     {
-      buffer.push_back(s);
+      result.push_back(item);
       return;
     }
 
-    int num = digits[digitPos] - '0';
-    vector<string> words = dict[num];
-    for (size_t i = 0; i < words.size(); ++i)
+    for (int i = 0; i < dict[digits[pos] - '0'].size(); ++i)
     {
-      string tmp = s;
-      tmp.append(words[i]);
-      Aux(digits, digitPos+1, dict, buffer, tmp);
+      item += dict[digits[pos] - '0'][i];
+      Aux(digits, pos + 1, result, item, dict);
+      item.pop_back();
     }
+  }
+
+  vector<string> letterCombinations(string digits) {
+    if (digits == "")
+    {
+      return {};
+    }
+    map<int, vector<string>> dict = {
+      {2, {"a","b","c"}},
+      {3, {"d","e","f"}},
+      {4, {"g","h","i"}},
+      {5, {"j","k","l"}},
+      {6, {"m","n","o"}},
+      {7, {"p","q","r","s"}},
+      {8, {"t","u","v"}},
+      {9, {"w","x","y","z"}}
+    };
+    vector<string> result;
+    string item = "";
+    Aux(digits, 0, result, item, dict);
+
+    return result;
   }
 
 };

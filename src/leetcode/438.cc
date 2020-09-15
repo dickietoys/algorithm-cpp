@@ -33,15 +33,55 @@ struct TreeNode {
   TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-
 class Solution {
  public:
   void RunTest()
   {
+    vector<int> result = findAnagrams("cbaebabacd", "abc");
+    Show(result);
   }
 
-  int movingCount(int m, int n, int k) {
+  vector<int> findAnagrams(string s, string p) {
+    vector<int> result;
+    int left = 0;
+    int right = 0;
+    unordered_map<int, int> hashmap;
+    for (char c : p)
+    {
+      ++hashmap[c];
+    }
 
+    int count = 0;
+    while (right < s.size())
+    {
+      --hashmap[s[right]];
+      if (hashmap[s[right]] >= 0)
+      {
+        ++count;
+      }
+
+      if (right - left + 1 != p.size())
+      {
+        ++right;
+        continue;
+      }
+
+      if (count == p.size())
+      {
+        result.push_back(left);
+      }
+
+      ++hashmap[s[left]];
+      if (hashmap[s[left]] > 0)
+      {
+        --count;
+      }
+
+      ++left;
+      ++right;
+    }
+
+    return result;
   }
 
   template<class T>
