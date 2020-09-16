@@ -90,11 +90,12 @@ class Solution {
     result.push_back(tmp);
   }
 
-  bool Aux(vector<vector<string>> &board, int n, int row_pos, vector<vector<string>> &result)
+  void Aux(vector<vector<string>> &board, int n, int row_pos, vector<vector<string>> &result)
   {
     if (row_pos >= n)
     {
-      return true;
+      CopyBoard2Result(board, result);
+      return;
     }
 
     for (int i = 0; i < n; ++i)
@@ -102,19 +103,10 @@ class Solution {
       if (IsValid(board, n, row_pos, i))
       {
         board[row_pos][i] = "Q";
-        if (Aux(board, n, row_pos + 1, result))
-        {
-          CopyBoard2Result(board, result);
-          board[row_pos][i] = ".";
-        }
-        else
-        {
-          board[row_pos][i] = ".";
-        }
+        Aux(board, n, row_pos + 1, result);
+        board[row_pos][i] = ".";
       }
     }
-
-    return false;
   }
 
   template<class T>

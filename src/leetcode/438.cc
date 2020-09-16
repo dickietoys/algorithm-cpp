@@ -33,59 +33,53 @@ struct TreeNode {
   TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-
 class Solution {
  public:
   void RunTest()
   {
+    vector<int> result = findAnagrams("cbaebabacd", "abc");
+    Show(result);
   }
 
-  /*
-    输入一棵二叉树和一个整数，打印出二叉树中节点值的和为输入整数的所有路径。从树的根节点开始往下一直到叶节点所经过的节点形成一条路径。
-
-
-
-    示例:
-    给定如下二叉树，以及目标和 sum = 22，
-
-              5
-             / \
-            4   8
-           /   / \
-          11  13  4
-         /  \    / \
-        7    2  5   1
-
-    返回:
-
-    [
-        [5,4,11,2],
-        [5,8,4,5]
-    ]
-  */
-
-  void Aux(TreeNode* root, int sum, vector<int> &item, vector<vector<int>> &result)
-  {
-    if (!root)
+  vector<int> findAnagrams(string s, string p) {
+    vector<int> result;
+    int left = 0;
+    int right = 0;
+    unordered_map<int, int> hashmap;
+    for (char c : p)
     {
-      if (sum == 0)
-      {
-        result.push_back(item);
-      }
-
-      return;
+      ++hashmap[c];
     }
 
-    item.push_back(root->val);
-    Aux(root->left, sum - root->val, item, result);
-    Aux(root->right, sum - root->val, item, result);
-    item.pop_back();
-  }
+    int count = 0;
+    while (right < s.size())
+    {
+      --hashmap[s[right]];
+      if (hashmap[s[right]] >= 0)
+      {
+        ++count;
+      }
 
-  vector<vector<int>> pathSum(TreeNode* root, int sum) {
-    vector<int> item;
-    vector<vector<int>> result;
-    Aux(root, sum, item, result);
+      if (right - left + 1 != p.size())
+      {
+        ++right;
+        continue;
+      }
+
+      if (count == p.size())
+      {
+        result.push_back(left);
+      }
+
+      ++hashmap[s[left]];
+      if (hashmap[s[left]] > 0)
+      {
+        --count;
+      }
+
+      ++left;
+      ++right;
+    }
 
     return result;
   }

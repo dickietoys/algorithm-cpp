@@ -17,7 +17,7 @@
 using namespace std;
 
 class WordDictionary {
-public:
+ public:
   struct TrieNode {
     vector<TrieNode *> children;
     bool is_end;
@@ -109,29 +109,29 @@ public:
 
 
 class Solution {
-public:
+ public:
   vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
-      WordDictionary word_dict;
-      for (auto word : words)
-      {
-        word_dict.addWord(word);
-      }
-
-      unordered_set<string> unique_result;
-      int row_size = board.size();
-      int col_size = board[0].size();
-      vector<vector<bool>> visited(row_size, vector<bool>(col_size, false));
-      for (int i = 0; i < row_size; ++i)
-      {
-        for (int j = 0; j < col_size; ++j)
-        {
-          Search(board, word_dict, i, j, visited, "", unique_result);
-        }
-      }
-
-      vector<string> result(unique_result.begin(), unique_result.end());
-      return result;
+    WordDictionary word_dict;
+    for (auto word : words)
+    {
+      word_dict.addWord(word);
     }
+
+    unordered_set<string> unique_result;
+    int row_size = board.size();
+    int col_size = board[0].size();
+    vector<vector<bool>> visited(row_size, vector<bool>(col_size, false));
+    for (int i = 0; i < row_size; ++i)
+    {
+      for (int j = 0; j < col_size; ++j)
+      {
+        Search(board, word_dict, i, j, visited, "", unique_result);
+      }
+    }
+
+    vector<string> result(unique_result.begin(), unique_result.end());
+    return result;
+  }
 
   void Search(vector<vector<char>>& board,
               WordDictionary &word_dict,
