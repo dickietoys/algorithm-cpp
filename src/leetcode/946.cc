@@ -55,38 +55,26 @@ class Solution {
     int pop_stop = popped.size() - 1;
 
     stack<int> st;
-    while (pop_start <= pop_stop)
+    while (true)
     {
-      if (st.empty())
+      while (!st.empty() && st.top() == popped[pop_start])
       {
-        if (push_start <= push_stop)
-        {
-          st.push(pushed[push_start++]);
-        }
-        else
-        {
-          return false;
-        }
+        st.pop();
+        ++pop_start;
+        continue;
       }
-      else
+
+      if (pop_start > pop_stop)
       {
-        if (st.top() == popped[pop_start])
-        {
-          st.pop();
-          ++pop_start;
-        }
-        else
-        {
-          if (push_start <= push_stop)
-          {
-            st.push(pushed[push_start++]);
-          }
-          else
-          {
-            return false;
-          }
-        }
+        return true;
       }
+
+      if (push_start > push_stop)
+      {
+        return false;
+      }
+
+      st.push(pushed[push_start++]);
     }
 
     return true;

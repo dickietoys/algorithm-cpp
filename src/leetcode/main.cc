@@ -40,33 +40,53 @@ class Solution {
   }
 
   /*
-    输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。假设压入栈的所有数字均不相等。例如，序列 {1,2,3,4,5} 是某栈的压栈序列，序列 {4,5,3,2,1} 是该压栈序列对应的一个弹出序列，但 {4,3,5,1,2} 就不可能是该压栈序列的弹出序列。
+    输入一棵二叉树和一个整数，打印出二叉树中节点值的和为输入整数的所有路径。从树的根节点开始往下一直到叶节点所经过的节点形成一条路径。
 
 
 
-    示例 1：
+    示例:
+    给定如下二叉树，以及目标和 sum = 22，
 
-    输入：pushed = [1,2,3,4,5], popped = [4,5,3,2,1]
-    输出：true
-    解释：我们可以按以下顺序执行：
-    push(1), push(2), push(3), push(4), pop() -> 4,
-    push(5), pop() -> 5, pop() -> 3, pop() -> 2, pop() -> 1
-    示例 2：
+              5
+             / \
+            4   8
+           /   / \
+          11  13  4
+         /  \    / \
+        7    2  5   1
 
-    输入：pushed = [1,2,3,4,5], popped = [4,3,5,1,2]
-    输出：false
-    解释：1 不能在 2 之前弹出。
+    返回:
+
+    [
+        [5,4,11,2],
+        [5,8,4,5]
+    ]
   */
 
-  bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
-    stack<int> st;
-    int pushed_pos = 0;
-    int poped_pos = 0;
-
-    while (poped_pos < popped.size())
+  void Aux(TreeNode* root, int sum, vector<int> &item, vector<vector<int>> &result)
+  {
+    if (!root)
     {
+      if (sum == 0)
+      {
+        result.push_back(item);
+      }
 
+      return;
     }
+
+    item.push_back(root->val);
+    Aux(root->left, sum - root->val, item, result);
+    Aux(root->right, sum - root->val, item, result);
+    item.pop_back();
+  }
+
+  vector<vector<int>> pathSum(TreeNode* root, int sum) {
+    vector<int> item;
+    vector<vector<int>> result;
+    Aux(root, sum, item, result);
+
+    return result;
   }
 
   template<class T>
