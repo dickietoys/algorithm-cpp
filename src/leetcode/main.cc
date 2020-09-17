@@ -40,9 +40,17 @@ class Solution {
   }
 
   /*
+    12
+
+    1121
   */
+  int countDigitOne(int n) {
+    int flag = 10;
 
 
+    int right = n % flag;
+    int left = n / flag;
+  }
 
   template<class T>
   void Show(vector<T> &result)
