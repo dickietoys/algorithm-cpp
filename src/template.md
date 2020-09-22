@@ -34,9 +34,9 @@ LC 98. Validate Binary Search Tree    [**]
 LC 701. Insert into a Binary Search Tree
 
 
-LC 94. Binary Tree Inorder Traversal
-LC 144. Binary Tree Preorder Traversal
-LC 145. Binary Tree Postorder Traversal
+LC 94. Binary Tree Inorder Traversal       [****]
+LC 144. Binary Tree Preorder Traversal     [****]
+LC 145. Binary Tree Postorder Traversal    [****]
 
 LC 95. Unique Binary Search Trees II [**]
 LC 96. Unique Binary Search Trees    [**]
