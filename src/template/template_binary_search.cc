@@ -151,7 +151,7 @@ int FindLastEqual(vector<int> arr, int target)
   return -1;
 };
 
-// 第一个不小于指定值的元素
+// 第一个不小于指定值的元素 >= target
 int FindLowerBound(vector<int> arr, int target)
 {
   if (arr.empty())
@@ -183,7 +183,7 @@ int FindLowerBound(vector<int> arr, int target)
   return -1;
 };
 
-// 最后一个小于等于给定值的元素
+// 最后一个小于等于给定值的元素   <=target
 int FindLastLessEq(vector<int> arr, int target)
 {
   if (arr.empty())
