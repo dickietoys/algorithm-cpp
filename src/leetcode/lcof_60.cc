@@ -84,8 +84,38 @@ class Solution {
 
     // return result;
 
-    vector<int> buffer(5 * n + 1, 0);
+    int total_possible = std::pow(6, n);
+    int max_value = 6 * n;
+    vector<vector<int>> dp(n+1, vector<int>(max_value + 1, 0));
 
+    for (int i = 1; i <= 6; ++i)
+    {
+      dp[1][i] = 1;
+    }
+
+    for (int i = 2; i <= n; ++i)
+    {
+      for (int j = i; j <= max_value; ++j)
+      {
+        int sum = 0;
+        for (int k = 1; k <= 6; ++k)
+        {
+          if (j - k > 0)
+          {
+            sum += dp[i-1][j-k];
+          }
+        }
+        dp[i][j] = sum;
+      }
+    }
+
+    vector<double> result;
+    for (int i = n; i <= max_value; ++i)
+    {
+      result.push_back((double)dp[n][i] / total_possible);
+    }
+
+    return result;
   }
 
 
