@@ -83,6 +83,9 @@ class Solution {
     // }
 
     // return result;
+
+    vector<int> buffer(5 * n + 1, 0);
+
   }
 
 

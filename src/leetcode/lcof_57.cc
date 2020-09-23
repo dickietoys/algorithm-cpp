@@ -37,54 +37,62 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<double> result = twoSum(1);
-    Show(result);
   }
 
   /*
-    把n个骰子扔在地上，所有骰子朝上一面的点数之和为s。输入n，打印出s的所有可能的值出现的概率。
+    输入一个正整数 target ，输出所有和为 target 的连续正整数序列（至少含有两个数）。
 
-    你需要用一个浮点数数组返回答案，其中第 i 个元素代表这 n 个骰子所能掷出的点数集合中第 i 小的那个的概率。
+    序列内的数字由小到大排列，不同序列按照首个数字从小到大排列。
 
-    示例 1:
-    输入: 1
-    输出: [0.16667,0.16667,0.16667,0.16667,0.16667,0.16667]
+    示例 1：
+    输入：target = 9
+    输出：[[2,3,4],[4,5]]
 
-    示例 2:
-    输入: 2
-    输出: [0.02778,0.05556,0.08333,0.11111,0.13889,0.16667,0.13889,0.11111,0.08333,0.05556,0.02778]
+    示例 2：
+    输入：target = 15
+    输出：[[1,2,3,4,5],[4,5,6],[7,8]]
   */
+  vector<vector<int>> findContinuousSequence(int target) {
+    vector<vector<int>> result;
+    int max_value = (target + 1) / 2;
 
-  void Aux(int ori_n, int n, int sum, vector<int> &buffer)
-  {
-    if (n == 0)
+    int small = 1;
+    int big = 2;
+    int cur_value = small + big;
+    while (small <= max_value)
     {
-      ++buffer[sum - ori_n];
-      return;
+      if (cur_value == target)
+      {
+        vector<int> item;
+        for (int i = small; i <= big; ++i)
+        {
+          item.push_back(i);
+        }
+        result.push_back(item);
+      }
+
+      while (cur_value > target)
+      {
+        cur_value = cur_value - small;
+        ++small;
+
+        if (cur_value == target)
+        {
+          vector<int> item;
+          for (int i = small; i <= big; ++i)
+          {
+            item.push_back(i);
+          }
+          result.push_back(item);
+        }
+      }
+
+      ++big;
+      cur_value += big;
     }
 
-    for (int i = 1; i <= 6; ++i)
-    {
-      Aux(ori_n, n-1, sum + i, buffer);
-    }
+    return result;
   }
-
-  vector<double> twoSum(int n) {
-    /*
-      6 * n - n + 1
-    */
-    // vector<int> buffer(5 * n + 1, 0);
-    // Aux(n, n, 0, buffer);
-
-    // vector<double> result;
-    // for (int i = 0; i < buffer.size(); ++i)
-    // {
-    //   result.push_back(buffer[i] / std::pow(6.0, n));
-    // }
-
-    // return result;
-  }
-
 
   template<class T>
   void Show(vector<T> &result)
