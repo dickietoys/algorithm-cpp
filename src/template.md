@@ -1,27 +1,5 @@
 ## 数据结构
 
-#### Math
-
-~~~
-LC 233. Number of Digit One [**]
-LC 400. Nth Digit [**]
-LC 263. Ugly Number [**]
-LC 264. Ugly Number II [**]
-LC 8. String to Integer (atoi)
-
-约瑟夫环
-人数为n，报m的退出，
-f(n, m) = (f(n−1, m) + m) % n
-
-int last = 0;
-for (int i = 2; i <= n; ++i)
-{
-  last = (last + m) % i;
-}
-
-return last;
-~~~
-
 #### 二叉树
 
 ~~~
@@ -113,6 +91,18 @@ a=n & (n - 1)
 
 获取最后一个1:
 diff=(n & (n - 1)) ^ n
+
+约瑟夫环
+人数为n，报m的退出，
+f(n, m) = (f(n−1, m) + m) % n
+
+int last = 0;
+for (int i = 2; i <= n; ++i)
+{
+  last = (last + m) % i;
+}
+
+return last;
 ~~~
 
 ~~~
@@ -123,6 +113,11 @@ LC 191. Number of 1 Bits
 LC 338. Counting Bits [****]
 LC 190. Reverse Bits
 LC 201. Bitwise AND of Numbers Range [****]
+LC 233. Number of Digit One [**]
+LC 400. Nth Digit [**]
+LC 263. Ugly Number [**]
+LC 264. Ugly Number II [**]
+LC 8. String to Integer (atoi)
 ~~~
 
 ## 基础算法
@@ -402,5 +397,7 @@ LC 547. Friend Circles [图的深度和广度遍历]
 剑指 Offer 58 - I. 翻转单词顺序 [****]
 剑指 Offer 59 - I. 滑动窗口的最大值 [****]             (LC 239)
 剑指 Offer 60. n个骰子的点数 [****]
-
+剑指 Offer 62. 圆圈中最后剩下的数字 [****]
+剑指 Offer 65. 不用加减乘除做加法 [****]
+剑指 Offer 66. 构建乘积数组 [****]
 ~~~

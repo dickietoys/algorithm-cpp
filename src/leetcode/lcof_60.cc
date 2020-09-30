@@ -37,8 +37,6 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<double> result = twoSum(1);
-    Show(result);
   }
 
   /*
@@ -84,7 +82,7 @@ class Solution {
 
     // return result;
 
-    int total_possible = std::pow(6, n);
+    double total_possible = std::pow(6.0, n);
     int max_value = 6 * n;
     vector<vector<int>> dp(n+1, vector<int>(max_value + 1, 0));
 
@@ -112,7 +110,7 @@ class Solution {
     vector<double> result;
     for (int i = n; i <= max_value; ++i)
     {
-      result.push_back((double)dp[n][i] / total_possible);
+      result.push_back(dp[n][i] / total_possible);
     }
 
     return result;

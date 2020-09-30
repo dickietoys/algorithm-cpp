@@ -37,54 +37,71 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<double> result = twoSum(1);
-    Show(result);
   }
 
-  /*
-    把n个骰子扔在地上，所有骰子朝上一面的点数之和为s。输入n，打印出s的所有可能的值出现的概率。
-
-    你需要用一个浮点数数组返回答案，其中第 i 个元素代表这 n 个骰子所能掷出的点数集合中第 i 小的那个的概率。
-
-    示例 1:
-    输入: 1
-    输出: [0.16667,0.16667,0.16667,0.16667,0.16667,0.16667]
-
-    示例 2:
-    输入: 2
-    输出: [0.02778,0.05556,0.08333,0.11111,0.13889,0.16667,0.13889,0.11111,0.08333,0.05556,0.02778]
-  */
-
-  void Aux(int ori_n, int n, int sum, vector<int> &buffer)
+  bool Aux(int node,
+           vector<vector<bool>> &graph,
+           unordered_set<int> &visited,
+           unordered_set<int> &detected,
+           stack<int> &st)
   {
-    if (n == 0)
+    if (visited.count(node) != 0)
     {
-      ++buffer[sum - ori_n];
-      return;
+      return false;
     }
 
-    for (int i = 1; i <= 6; ++i)
+    visited.insert(node);
+    detected.insert(node);
+
+    for (int i : graph[node])
     {
-      Aux(ori_n, n-1, sum + i, buffer);
+      if (detected.count(i) != 0)
+      {
+        return true;
+      }
+
+      if (Aux(i, graph, visited, detected, st))
+      {
+        return true;
+      }
     }
+
+    detected.erase(node);
+    st.push(node);
+
+    return false;
   }
 
-  vector<double> twoSum(int n) {
-    /*
-      6 * n - n + 1
-    */
-    // vector<int> buffer(5 * n + 1, 0);
-    // Aux(n, n, 0, buffer);
+  vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+    vector<vector<bool>> graph(numCourses, vector<bool>());
+    for (int i = 0; i < prerequisites.size(); ++i)
+    {
+      graph[prerequisites[i][1]].push_back(prerequisites[i][0]);
+    }
+    unordered_set<int> visited;
+    unordered_set<int> detected;
+    stack<int> st;
 
-    // vector<double> result;
-    // for (int i = 0; i < buffer.size(); ++i)
-    // {
-    //   result.push_back(buffer[i] / std::pow(6.0, n));
-    // }
+    for (int i = 0; i < numCourses; ++i)
+    {
+      if (visited.count(i) == 0)
+      {
+        if (Aux(i, graph, visited, detected, st))
+        {
+          return {};
+        }
+      }
+    }
 
-    // return result;
+    vector<int> result;
+    while (!st.empty())
+    {
+      result.push_back(st.top());
+      st.pop();
+    }
+
+    return result;
   }
-
 
   template<class T>
   void Show(vector<T> &result)
