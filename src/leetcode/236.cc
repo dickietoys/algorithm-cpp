@@ -35,46 +35,36 @@ class Solution {
   {
   }
 
-  bool Aux(TreeNode *node, vector<TreeNode*> &path, int target_value)
-  {
-    if (!node)
-    {
-      return false;
-    }
-
-    path.push_back(node);
-    if (node->val == target_value)
-    {
-      return true;
-    }
-
-    if (Aux(node->left, path, target_value) || Aux(node->right, path, target_value))
-    {
-      return true;
-    }
-
-    path.pop_back();
-    return false;
-  }
-
   TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-    vector<TreeNode*> path1;
-    vector<TreeNode*> path2;
-    if (!Aux(root, path1, p->val) || !Aux(root, path2, q->val))
+    if (!root)
     {
       return nullptr;
     }
 
-    int i = 0;
-    for (; i < path1.size() && i < path2.size(); ++i)
+    if (root == p || root == q)
     {
-      if (path1[i] != path2[i])
-      {
-        break;
-      }
+      return root;
     }
 
-    return path1[i-1];
+    TreeNode *left = lowestCommonAncestor(root->left, p, q);
+    TreeNode *right = lowestCommonAncestor(root->right, p, q);
+
+    if (left && right)
+    {
+      return root;
+    }
+    else if (left)
+    {
+      return left;
+    }
+    else if (right)
+    {
+      return right;
+    }
+    else
+    {
+      return nullptr;
+    }
   }
 
   template<class T>

@@ -51,47 +51,32 @@ public:
     cout << endl;
   }
 
-  int binarySearch(vector<int>& nums, int left, int right, int target)
-  {
-    int leftPos = left;
-    int rightPos = right;
-    int middlePos = left;
-    while (leftPos <= rightPos)
+  int searchInsert(vector<int>& nums, int target) {
+    if (nums.empty())
     {
-      middlePos = (leftPos + rightPos) / 2;
-      if (nums[middlePos] == target)
+      return 1;
+    }
+
+    int left = 0;
+    int right = nums.size() - 1;
+    while (left <= right)
+    {
+      int mid = left + (right - left) / 2;
+      if (nums[mid] == target)
       {
-        return middlePos;
+        return mid;
       }
-      else if (nums[middlePos] > target)
+      else if (nums[mid] > target)
       {
-        rightPos = middlePos - 1;
+        right = mid - 1;
       }
       else
       {
-        leftPos = middlePos + 1;
+        left = mid + 1;
       }
     }
 
-    return middlePos;
-  }
-
-  int searchInsert(vector<int>& nums, int target) {
-    int pos = binarySearch(nums, 0, nums.size() - 1, target);
-    cout << "pos: " << pos << endl;
-    if (target == nums[pos])
-    {
-      return pos;
-    }
-
-    if (nums[pos] > target)
-    {
-      return pos;
-    }
-    else
-    {
-      return ++pos;
-    }
+    return left > right ? left : right;
   }
 };
 

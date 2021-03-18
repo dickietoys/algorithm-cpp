@@ -143,6 +143,28 @@ vector<int> MergeSort(vector<int> arr)
   return arr;
 }
 
+int QuickSortRecursivePivotV2(vector<int> &arr, int left, int right)
+{
+  int pivot = right;
+  int i = left;
+  int j = right - 1;
+  while (i <= j)
+  {
+    if (arr[i] <= arr[pivot])
+    {
+      ++i;
+    }
+    else
+    {
+      std::swap(arr[i], arr[j]);
+      --j;
+    }
+  }
+
+  std::swap(arr[pivot], arr[i]);
+  return i;
+}
+
 int QuickSortRecursivePivot(vector<int> &arr, int left, int right)
 {
   int pivot_value = arr[right];
@@ -226,7 +248,7 @@ vector<int> CountingSort(vector<int> arr)
 }
 
 
-void CountingSortAux(vector<int> &arr, int exp)
+void RadixSortAux(vector<int> &arr, int exp)
 {
   if (arr.empty())
   {
@@ -266,7 +288,7 @@ vector<int> RadixSort(vector<int> arr)
   int max = *std::max_element(arr.begin(), arr.end());
   for (int i = 1; max / i > 0; i *= 10)
   {
-    CountingSortAux(arr, i);
+    RadixSortAux(arr, i);
   }
   return arr;
 }

@@ -37,71 +37,22 @@ class Solution {
  public:
   void RunTest()
   {
+    vector<int> arr = {3,2,1,4,5};
+    sortIntegers(arr);
+    Show(arr);
   }
 
-  bool Aux(int node,
-           vector<vector<bool>> &graph,
-           unordered_set<int> &visited,
-           unordered_set<int> &detected,
-           stack<int> &st)
-  {
-    if (visited.count(node) != 0)
+  void sortIntegers(vector<int> &A) {
+    // write your code here
+    if (A.empty())
     {
-      return false;
+      return;
     }
 
-    visited.insert(node);
-    detected.insert(node);
-
-    for (int i : graph[node])
-    {
-      if (detected.count(i) != 0)
-      {
-        return true;
-      }
-
-      if (Aux(i, graph, visited, detected, st))
-      {
-        return true;
-      }
-    }
-
-    detected.erase(node);
-    st.push(node);
-
-    return false;
   }
 
-  vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
-    vector<vector<bool>> graph(numCourses, vector<bool>());
-    for (int i = 0; i < prerequisites.size(); ++i)
-    {
-      graph[prerequisites[i][1]].push_back(prerequisites[i][0]);
-    }
-    unordered_set<int> visited;
-    unordered_set<int> detected;
-    stack<int> st;
 
-    for (int i = 0; i < numCourses; ++i)
-    {
-      if (visited.count(i) == 0)
-      {
-        if (Aux(i, graph, visited, detected, st))
-        {
-          return {};
-        }
-      }
-    }
 
-    vector<int> result;
-    while (!st.empty())
-    {
-      result.push_back(st.top());
-      st.pop();
-    }
-
-    return result;
-  }
 
   template<class T>
   void Show(vector<T> &result)

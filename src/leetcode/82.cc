@@ -51,34 +51,28 @@ class Solution {
   }
 
   ListNode* deleteDuplicates(ListNode* head) {
-    if (!head || !head->next)
-    {
-      return head;
-    }
-
     ListNode dummy(0);
-    ListNode *prev = &dummy;
+    dummy.next = head;
     ListNode *cur = head;
+    ListNode *prev = &dummy;
+
     while (cur)
     {
-      bool isSame = false;
-      while (cur->next && cur->val == cur->next->val)
+      if (cur->next && cur->val == cur->next->val)
       {
-        isSame = true;
         cur = cur->next;
+        continue;
       }
 
-      if (isSame)
+      if (prev->next == cur)
       {
-        cur = cur->next;
-        prev->next = cur;
+        prev = cur;
       }
       else
       {
-        prev->next = cur;
-        prev = prev->next;
-        cur = cur->next;
+        prev->next = cur->next;
       }
+      cur = cur->next;
     }
 
     return dummy.next;
