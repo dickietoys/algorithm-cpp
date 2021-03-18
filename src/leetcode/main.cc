@@ -37,22 +37,11 @@ class Solution {
  public:
   void RunTest()
   {
-    vector<int> arr = {3,2,1,4,5};
-    sortIntegers(arr);
-    Show(arr);
   }
 
-  void sortIntegers(vector<int> &A) {
-    // write your code here
-    if (A.empty())
-    {
-      return;
-    }
+  int lengthOfLongestSubstring(string s) {
 
   }
-
-
-
 
   template<class T>
   void Show(vector<T> &result)
