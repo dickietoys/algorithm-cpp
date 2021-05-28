@@ -1,6 +1,6 @@
 ## personal practice for algorithm with c++
 
-leetcode
-lintcode
-geeksforgeeks
-LCOF
+leetcode  
+lintcode  
+geeksforgeeks  
+LCOF  
